@@ -1,0 +1,99 @@
+﻿<Page x:Class="MenuWithSubMenu.Pages.NewUser"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MenuWithSubMenu.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="NewUser">
+
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <TextBox Height="23" TextWrapping="Wrap" Text="CIN" Name="cinText"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <TextBox Height="23" TextWrapping="Wrap" Text="Nom" Name="nomText"/>
+            </Grid>
+            <Grid Grid.Row="2">
+                <TextBox Height="23" TextWrapping="Wrap" Text="Prenom" Name="prenomText" />
+            </Grid>
+            <Grid Grid.Row="3">
+                <TextBox  Height="23" TextWrapping="Wrap" Text="Adresse" Name="adresseText" />
+            </Grid>
+            <Grid Grid.Row="4">
+                <TextBox  Height="23" TextWrapping="Wrap" Text="Email" Name="emailText" />
+            </Grid>
+            <Grid Grid.Row="5">
+                <TextBox  Height="23" TextWrapping="Wrap" Text="Telephone" x:Name="telText" />
+            </Grid>
+            <Grid Grid.Row="6">
+                <DatePicker Height="23" Name="dateText"/>
+            </Grid>
+            <Grid Grid.Row="7" >
+                <TextBox  Height="23" TextWrapping="Wrap" Text="Raison de visite" x:Name="visiteText" />
+            </Grid>
+            <Grid Grid.Row="8">
+                <Button Content="Add client"  VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <TextBox Height="23" TextWrapping="Wrap" Text="Ophtalmologue" Name="ophtalmologueText"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <DatePicker Height="23" Name="dateCreationOrdonnance"/>
+            </Grid>
+            <Grid Grid.Row="2">
+                <DatePicker Height="23" Name="dateExpirationOrdonnance"/>
+            </Grid>
+            <Grid Grid.Row="3">
+                <ComboBox Height="23">
+                    <ComboBoxItem>Types de verres</ComboBoxItem>
+                </ComboBox>
+            </Grid>
+            <Grid Grid.Row="4">
+                <TextBox Height="23" TextWrapping="Wrap" Text="Vision de loin" Name="visionLoins"/>
+            </Grid>
+            <Grid Grid.Row="5">
+                <TextBox Height="23" TextWrapping="Wrap" Text="Vision de près" Name="visionPres"/>
+            </Grid>
+            <Grid Grid.Row="6">
+                <TextBox Height="23" TextWrapping="Wrap" Text="Notes" Name="notesOphtalmologue"/>
+            </Grid>
+            <Grid Grid.Row="7">
+                <TextBox Height="23" TextWrapping="Wrap" Text="Ajouter photo" Name="photoScanne"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

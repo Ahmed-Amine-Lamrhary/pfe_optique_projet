@@ -1,0 +1,705 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="optique_pfeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="article">
+    <Key>
+      <PropertyRef Name="idArticle" />
+    </Key>
+    <Property Name="idArticle" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="idCategorie" Type="int" Nullable="false" />
+    <Property Name="QteDisponible" Type="int" Nullable="false" />
+    <Property Name="PrixUnitaire" Type="real" Nullable="false" />
+    <Property Name="Garantie" Type="nvarchar" MaxLength="9" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="cadre">
+    <Key>
+      <PropertyRef Name="idCadre" />
+    </Key>
+    <Property Name="idCadre" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idArticle" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="DiametreVerre" Type="real" Nullable="false" />
+    <Property Name="Pont" Type="real" />
+    <Property Name="LongeurBrache" Type="real" />
+    <Property Name="Largeur" Type="real" />
+    <Property Name="HauteurVerre" Type="real" />
+    <Property Name="Couleur" Type="nvarchar" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="categorie">
+    <Key>
+      <PropertyRef Name="idCategorie" />
+    </Key>
+    <Property Name="idCategorie" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nom" Type="nvarchar" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="client">
+    <Key>
+      <PropertyRef Name="cin" />
+    </Key>
+    <Property Name="cin" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="prenom" Type="nvarchar" MaxLength="45" Nullable="false" />
+    <Property Name="nom" Type="nvarchar" MaxLength="45" Nullable="false" />
+    <Property Name="adresse" Type="nvarchar" MaxLength="45" />
+    <Property Name="email" Type="nvarchar" MaxLength="45" />
+    <Property Name="telephone" Type="nvarchar" MaxLength="45" />
+    <Property Name="dateNaissance" Type="date" Nullable="false" />
+    <Property Name="medicaments" Type="nvarchar" MaxLength="255" />
+    <Property Name="maladies" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="cmdclient">
+    <Key>
+      <PropertyRef Name="idCmdClient" />
+    </Key>
+    <Property Name="idCmdClient" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="DateCmd" Type="date" Nullable="false" />
+    <Property Name="cin" Type="nvarchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="cmdfournisseur">
+    <Key>
+      <PropertyRef Name="idCmdFournisseur" />
+    </Key>
+    <Property Name="idCmdFournisseur" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="idFournisseur" Type="int" Nullable="false" />
+    <Property Name="DateEntree" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="examen">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="visionLoins" Type="int" Nullable="false" />
+    <Property Name="visionPres" Type="int" Nullable="false" />
+    <Property Name="modifOrdonnance" Type="nvarchar" MaxLength="5" Nullable="false" />
+    <Property Name="remarques" Type="nvarchar(max)" />
+    <Property Name="visite_visiteId" Type="int" Nullable="false" />
+    <Property Name="vision_loins_id" Type="int" Nullable="false" />
+    <Property Name="vision_pres_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="fournisseur">
+    <Key>
+      <PropertyRef Name="idFournisseur" />
+    </Key>
+    <Property Name="idFournisseur" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nom" Type="nvarchar" MaxLength="45" Nullable="false" />
+    <Property Name="Adresse" Type="nvarchar" MaxLength="255" />
+    <Property Name="Email" Type="nvarchar" MaxLength="45" Nullable="false" />
+    <Property Name="Tel" Type="nvarchar" MaxLength="45" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="lentille">
+    <Key>
+      <PropertyRef Name="idLentille" />
+    </Key>
+    <Property Name="idLentille" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idArticle" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="idTypeLentille" Type="int" Nullable="false" />
+    <Property Name="idOeil" Type="int" />
+    <Property Name="Couleur" Type="nvarchar" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="lentillemultifocale">
+    <Key>
+      <PropertyRef Name="idLentilleMultifocale" />
+    </Key>
+    <Property Name="idLentilleMultifocale" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ADD" Type="real" />
+    <Property Name="DOM" Type="real" />
+    <Property Name="idTypeLentille" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="lentillespherique">
+    <Key>
+      <PropertyRef Name="idLentilleSpherique" />
+    </Key>
+    <Property Name="idLentilleSpherique" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idTypeLentille" Type="int" Nullable="false" />
+    <Property Name="RC" Type="real" />
+    <Property Name="DIA" Type="real" />
+  </EntityType>
+  <EntityType Name="lentilletoriques">
+    <Key>
+      <PropertyRef Name="idLentilleToriques" />
+    </Key>
+    <Property Name="idLentilleToriques" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idTypeLentille" Type="int" Nullable="false" />
+    <Property Name="CYL" Type="real" />
+    <Property Name="AXE" Type="real" />
+  </EntityType>
+  <EntityType Name="lignecommande">
+    <Key>
+      <PropertyRef Name="idLigne" />
+    </Key>
+    <Property Name="idLigne" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="idArticle" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="idCmdFournisseur" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Date_Commande" Type="date" Nullable="false" />
+    <Property Name="Adresse_Commande" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="Qte_Commande" Type="int" Nullable="false" />
+    <Property Name="Prix_Total" Type="real" Nullable="false" />
+    <Property Name="EtatCmd" Type="nvarchar" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="ligneentree">
+    <Key>
+      <PropertyRef Name="idLigne" />
+    </Key>
+    <Property Name="idLigne" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="idArticle" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="idCmdClient" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Date_Commande" Type="date" Nullable="false" />
+    <Property Name="Adresse_Commande" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="Qte_Commande" Type="int" Nullable="false" />
+    <Property Name="Prix_Total" Type="real" Nullable="false" />
+    <Property Name="EtatCmd" Type="nvarchar" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="oeil">
+    <Key>
+      <PropertyRef Name="idOeil" />
+    </Key>
+    <Property Name="idOeil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SPH_G" Type="real" Nullable="false" />
+    <Property Name="CYL_G" Type="real" Nullable="false" />
+    <Property Name="AXE_G" Type="real" Nullable="false" />
+    <Property Name="ADD_G" Type="real" Nullable="false" />
+    <Property Name="SPH_D" Type="real" Nullable="false" />
+    <Property Name="CYL_D" Type="real" Nullable="false" />
+    <Property Name="AXE_D" Type="real" Nullable="false" />
+    <Property Name="ADD_D" Type="real" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ophtalmologue">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nom" Type="nvarchar" MaxLength="45" Nullable="false" />
+    <Property Name="prenom" Type="nvarchar" MaxLength="45" Nullable="false" />
+    <Property Name="adresse" Type="nvarchar" MaxLength="45" Nullable="false" />
+    <Property Name="telephone" Type="nvarchar" MaxLength="45" Nullable="false" />
+    <Property Name="inpe" Type="nvarchar" MaxLength="9" Nullable="false" />
+    <Property Name="email" Type="nvarchar" MaxLength="45" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ordonnance">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="dateCreation" Type="date" Nullable="false" />
+    <Property Name="dateExpiration" Type="date" Nullable="false" />
+    <Property Name="typeVerres" Type="nvarchar" MaxLength="45" Nullable="false" />
+    <Property Name="notes" Type="nvarchar(max)" />
+    <Property Name="photo" Type="nvarchar" MaxLength="45" Nullable="false" />
+    <Property Name="ophtalmologue_ophtalmologueId" Type="int" Nullable="false" />
+    <Property Name="client_cin" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="vision_pres_id" Type="int" Nullable="false" />
+    <Property Name="vision_loins_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="traitement">
+    <Key>
+      <PropertyRef Name="idTraitement" />
+    </Key>
+    <Property Name="idTraitement" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nom" Type="nvarchar" MaxLength="45" />
+    <Property Name="Niveau" Type="nvarchar" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="typelentille">
+    <Key>
+      <PropertyRef Name="idTypeLentille" />
+    </Key>
+    <Property Name="idTypeLentille" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NomType" Type="nvarchar" MaxLength="45" Nullable="false" />
+  </EntityType>
+  <EntityType Name="typeverre">
+    <Key>
+      <PropertyRef Name="idTypeVerre" />
+    </Key>
+    <Property Name="idTypeVerre" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NomType" Type="nvarchar" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="verre">
+    <Key>
+      <PropertyRef Name="idVerre" />
+    </Key>
+    <Property Name="idVerre" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idArticle" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="idTraitement" Type="int" Nullable="false" />
+    <Property Name="idTypeVerre" Type="int" Nullable="false" />
+    <Property Name="idOeil" Type="int" Nullable="false" />
+    <Property Name="Modele" Type="nvarchar" MaxLength="45" />
+    <Property Name="Teinte" Type="nvarchar" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="vision_loins">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="od_sphere" Type="int" Nullable="false" />
+    <Property Name="od_cylindre" Type="int" Nullable="false" />
+    <Property Name="od_axe" Type="int" Nullable="false" />
+    <Property Name="od_add" Type="int" Nullable="false" />
+    <Property Name="og_sphère" Type="int" Nullable="false" />
+    <Property Name="og_cylindre" Type="int" Nullable="false" />
+    <Property Name="og_axe" Type="int" Nullable="false" />
+    <Property Name="og_add" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vision_pres">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="od_sphere" Type="int" Nullable="false" />
+    <Property Name="od_cylindre" Type="int" Nullable="false" />
+    <Property Name="od_axe" Type="int" Nullable="false" />
+    <Property Name="od_add" Type="int" Nullable="false" />
+    <Property Name="og_sphère" Type="int" Nullable="false" />
+    <Property Name="og_cylindre" Type="int" Nullable="false" />
+    <Property Name="og_axe" Type="int" Nullable="false" />
+    <Property Name="og_add" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="visite">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="date" Type="date" Nullable="false" />
+    <Property Name="raison" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="client_cin" Type="nvarchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <Association Name="article$fk_Article_Categorie1">
+    <End Role="categorie" Type="Self.categorie" Multiplicity="1" />
+    <End Role="article" Type="Self.article" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="categorie">
+        <PropertyRef Name="idCategorie" />
+      </Principal>
+      <Dependent Role="article">
+        <PropertyRef Name="idCategorie" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="cadre$fk_Cadre_Article1">
+    <End Role="article" Type="Self.article" Multiplicity="1" />
+    <End Role="cadre" Type="Self.cadre" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="article">
+        <PropertyRef Name="idArticle" />
+      </Principal>
+      <Dependent Role="cadre">
+        <PropertyRef Name="idArticle" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="cmdfournisseur$fk_CmdFournisseur_Fournisseur">
+    <End Role="fournisseur" Type="Self.fournisseur" Multiplicity="1" />
+    <End Role="cmdfournisseur" Type="Self.cmdfournisseur" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="fournisseur">
+        <PropertyRef Name="idFournisseur" />
+      </Principal>
+      <Dependent Role="cmdfournisseur">
+        <PropertyRef Name="idFournisseur" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="examen$fk_examen_vision_loins1">
+    <End Role="vision_loins" Type="Self.vision_loins" Multiplicity="1" />
+    <End Role="examen" Type="Self.examen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="vision_loins">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="examen">
+        <PropertyRef Name="vision_loins_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="examen$fk_examen_vision_pres1">
+    <End Role="vision_pres" Type="Self.vision_pres" Multiplicity="1" />
+    <End Role="examen" Type="Self.examen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="vision_pres">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="examen">
+        <PropertyRef Name="vision_pres_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="examen$fk_examen_visite1">
+    <End Role="visite" Type="Self.visite" Multiplicity="1" />
+    <End Role="examen" Type="Self.examen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="visite">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="examen">
+        <PropertyRef Name="visite_visiteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_cmdclient_client">
+    <End Role="client" Type="Self.client" Multiplicity="1" />
+    <End Role="cmdclient" Type="Self.cmdclient" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="client">
+        <PropertyRef Name="cin" />
+      </Principal>
+      <Dependent Role="cmdclient">
+        <PropertyRef Name="cin" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ligneentree_cmdclient">
+    <End Role="cmdclient" Type="Self.cmdclient" Multiplicity="1" />
+    <End Role="ligneentree" Type="Self.ligneentree" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cmdclient">
+        <PropertyRef Name="idCmdClient" />
+      </Principal>
+      <Dependent Role="ligneentree">
+        <PropertyRef Name="idCmdClient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="lentille$fk_Lentille_Article1">
+    <End Role="article" Type="Self.article" Multiplicity="1" />
+    <End Role="lentille" Type="Self.lentille" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="article">
+        <PropertyRef Name="idArticle" />
+      </Principal>
+      <Dependent Role="lentille">
+        <PropertyRef Name="idArticle" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="lentille$fk_Lentille_Oeil1">
+    <End Role="oeil" Type="Self.oeil" Multiplicity="0..1" />
+    <End Role="lentille" Type="Self.lentille" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="oeil">
+        <PropertyRef Name="idOeil" />
+      </Principal>
+      <Dependent Role="lentille">
+        <PropertyRef Name="idOeil" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="lentille$fk_Lentille_TypeLentille1">
+    <End Role="typelentille" Type="Self.typelentille" Multiplicity="1" />
+    <End Role="lentille" Type="Self.lentille" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="typelentille">
+        <PropertyRef Name="idTypeLentille" />
+      </Principal>
+      <Dependent Role="lentille">
+        <PropertyRef Name="idTypeLentille" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="lentillemultifocale$fk_LentilleMultifocale_TypeLentille1">
+    <End Role="typelentille" Type="Self.typelentille" Multiplicity="1" />
+    <End Role="lentillemultifocale" Type="Self.lentillemultifocale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="typelentille">
+        <PropertyRef Name="idTypeLentille" />
+      </Principal>
+      <Dependent Role="lentillemultifocale">
+        <PropertyRef Name="idTypeLentille" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="lentillespherique$fk_LentilleSpherique_TypeLentille1">
+    <End Role="typelentille" Type="Self.typelentille" Multiplicity="1" />
+    <End Role="lentillespherique" Type="Self.lentillespherique" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="typelentille">
+        <PropertyRef Name="idTypeLentille" />
+      </Principal>
+      <Dependent Role="lentillespherique">
+        <PropertyRef Name="idTypeLentille" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="lentilletoriques$fk_LentilleToriques_TypeLentille1">
+    <End Role="typelentille" Type="Self.typelentille" Multiplicity="1" />
+    <End Role="lentilletoriques" Type="Self.lentilletoriques" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="typelentille">
+        <PropertyRef Name="idTypeLentille" />
+      </Principal>
+      <Dependent Role="lentilletoriques">
+        <PropertyRef Name="idTypeLentille" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="lignecommande$fk_LigneCommande_Article1">
+    <End Role="article" Type="Self.article" Multiplicity="1" />
+    <End Role="lignecommande" Type="Self.lignecommande" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="article">
+        <PropertyRef Name="idArticle" />
+      </Principal>
+      <Dependent Role="lignecommande">
+        <PropertyRef Name="idArticle" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="lignecommande$fk_LigneCommande_CmdFournisseur1">
+    <End Role="cmdfournisseur" Type="Self.cmdfournisseur" Multiplicity="1" />
+    <End Role="lignecommande" Type="Self.lignecommande" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cmdfournisseur">
+        <PropertyRef Name="idCmdFournisseur" />
+      </Principal>
+      <Dependent Role="lignecommande">
+        <PropertyRef Name="idCmdFournisseur" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ligneentree$fk_LigneEntree_Article1">
+    <End Role="article" Type="Self.article" Multiplicity="1" />
+    <End Role="ligneentree" Type="Self.ligneentree" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="article">
+        <PropertyRef Name="idArticle" />
+      </Principal>
+      <Dependent Role="ligneentree">
+        <PropertyRef Name="idArticle" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ordonnance$fk_ordonnance_client1">
+    <End Role="client" Type="Self.client" Multiplicity="1" />
+    <End Role="ordonnance" Type="Self.ordonnance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="client">
+        <PropertyRef Name="cin" />
+      </Principal>
+      <Dependent Role="ordonnance">
+        <PropertyRef Name="client_cin" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ordonnance$fk_ordonnance_ophtalmologue1">
+    <End Role="ophtalmologue" Type="Self.ophtalmologue" Multiplicity="1" />
+    <End Role="ordonnance" Type="Self.ordonnance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ophtalmologue">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ordonnance">
+        <PropertyRef Name="ophtalmologue_ophtalmologueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ordonnance$fk_ordonnance_vision_loins1">
+    <End Role="vision_loins" Type="Self.vision_loins" Multiplicity="1" />
+    <End Role="ordonnance" Type="Self.ordonnance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="vision_loins">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ordonnance">
+        <PropertyRef Name="vision_loins_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ordonnance$fk_ordonnance_vision_pres1">
+    <End Role="vision_pres" Type="Self.vision_pres" Multiplicity="1" />
+    <End Role="ordonnance" Type="Self.ordonnance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="vision_pres">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ordonnance">
+        <PropertyRef Name="vision_pres_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="verre$fk_Verre_Article1">
+    <End Role="article" Type="Self.article" Multiplicity="1" />
+    <End Role="verre" Type="Self.verre" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="article">
+        <PropertyRef Name="idArticle" />
+      </Principal>
+      <Dependent Role="verre">
+        <PropertyRef Name="idArticle" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="verre$fk_Verre_Oeil1">
+    <End Role="oeil" Type="Self.oeil" Multiplicity="1" />
+    <End Role="verre" Type="Self.verre" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="oeil">
+        <PropertyRef Name="idOeil" />
+      </Principal>
+      <Dependent Role="verre">
+        <PropertyRef Name="idOeil" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="verre$fk_Verre_Traitement1">
+    <End Role="traitement" Type="Self.traitement" Multiplicity="1" />
+    <End Role="verre" Type="Self.verre" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="traitement">
+        <PropertyRef Name="idTraitement" />
+      </Principal>
+      <Dependent Role="verre">
+        <PropertyRef Name="idTraitement" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="verre$fk_Verre_TypeVerre1">
+    <End Role="typeverre" Type="Self.typeverre" Multiplicity="1" />
+    <End Role="verre" Type="Self.verre" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="typeverre">
+        <PropertyRef Name="idTypeVerre" />
+      </Principal>
+      <Dependent Role="verre">
+        <PropertyRef Name="idTypeVerre" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="visite$fk_visite_client">
+    <End Role="client" Type="Self.client" Multiplicity="1" />
+    <End Role="visite" Type="Self.visite" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="client">
+        <PropertyRef Name="cin" />
+      </Principal>
+      <Dependent Role="visite">
+        <PropertyRef Name="client_cin" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="optique_pfeModelStoreContainer">
+    <EntitySet Name="article" EntityType="Self.article" Schema="optique_pfe" store:Type="Tables" />
+    <EntitySet Name="cadre" EntityType="Self.cadre" Schema="optique_pfe" store:Type="Tables" />
+    <EntitySet Name="categorie" EntityType="Self.categorie" Schema="optique_pfe" store:Type="Tables" />
+    <EntitySet Name="client" EntityType="Self.client" Schema="optique_pfe" store:Type="Tables" />
+    <EntitySet Name="cmdclient" EntityType="Self.cmdclient" Schema="optique_pfe" store:Type="Tables" />
+    <EntitySet Name="cmdfournisseur" EntityType="Self.cmdfournisseur" Schema="optique_pfe" store:Type="Tables" />
+    <EntitySet Name="examen" EntityType="Self.examen" Schema="optique_pfe" store:Type="Tables" />
+    <EntitySet Name="fournisseur" EntityType="Self.fournisseur" Schema="optique_pfe" store:Type="Tables" />
+    <EntitySet Name="lentille" EntityType="Self.lentille" Schema="optique_pfe" store:Type="Tables" />
+    <EntitySet Name="lentillemultifocale" EntityType="Self.lentillemultifocale" Schema="optique_pfe" store:Type="Tables" />
+    <EntitySet Name="lentillespherique" EntityType="Self.lentillespherique" Schema="optique_pfe" store:Type="Tables" />
+    <EntitySet Name="lentilletoriques" EntityType="Self.lentilletoriques" Schema="optique_pfe" store:Type="Tables" />
+    <EntitySet Name="lignecommande" EntityType="Self.lignecommande" Schema="optique_pfe" store:Type="Tables" />
+    <EntitySet Name="ligneentree" EntityType="Self.ligneentree" Schema="optique_pfe" store:Type="Tables" />
+    <EntitySet Name="oeil" EntityType="Self.oeil" Schema="optique_pfe" store:Type="Tables" />
+    <EntitySet Name="ophtalmologue" EntityType="Self.ophtalmologue" Schema="optique_pfe" store:Type="Tables" />
+    <EntitySet Name="ordonnance" EntityType="Self.ordonnance" Schema="optique_pfe" store:Type="Tables" />
+    <EntitySet Name="traitement" EntityType="Self.traitement" Schema="optique_pfe" store:Type="Tables" />
+    <EntitySet Name="typelentille" EntityType="Self.typelentille" Schema="optique_pfe" store:Type="Tables" />
+    <EntitySet Name="typeverre" EntityType="Self.typeverre" Schema="optique_pfe" store:Type="Tables" />
+    <EntitySet Name="verre" EntityType="Self.verre" Schema="optique_pfe" store:Type="Tables" />
+    <EntitySet Name="vision_loins" EntityType="Self.vision_loins" Schema="optique_pfe" store:Type="Tables" />
+    <EntitySet Name="vision_pres" EntityType="Self.vision_pres" Schema="optique_pfe" store:Type="Tables" />
+    <EntitySet Name="visite" EntityType="Self.visite" Schema="optique_pfe" store:Type="Tables" />
+    <AssociationSet Name="article$fk_Article_Categorie1" Association="Self.article$fk_Article_Categorie1">
+      <End Role="categorie" EntitySet="categorie" />
+      <End Role="article" EntitySet="article" />
+    </AssociationSet>
+    <AssociationSet Name="cadre$fk_Cadre_Article1" Association="Self.cadre$fk_Cadre_Article1">
+      <End Role="article" EntitySet="article" />
+      <End Role="cadre" EntitySet="cadre" />
+    </AssociationSet>
+    <AssociationSet Name="cmdfournisseur$fk_CmdFournisseur_Fournisseur" Association="Self.cmdfournisseur$fk_CmdFournisseur_Fournisseur">
+      <End Role="fournisseur" EntitySet="fournisseur" />
+      <End Role="cmdfournisseur" EntitySet="cmdfournisseur" />
+    </AssociationSet>
+    <AssociationSet Name="examen$fk_examen_vision_loins1" Association="Self.examen$fk_examen_vision_loins1">
+      <End Role="vision_loins" EntitySet="vision_loins" />
+      <End Role="examen" EntitySet="examen" />
+    </AssociationSet>
+    <AssociationSet Name="examen$fk_examen_vision_pres1" Association="Self.examen$fk_examen_vision_pres1">
+      <End Role="vision_pres" EntitySet="vision_pres" />
+      <End Role="examen" EntitySet="examen" />
+    </AssociationSet>
+    <AssociationSet Name="examen$fk_examen_visite1" Association="Self.examen$fk_examen_visite1">
+      <End Role="visite" EntitySet="visite" />
+      <End Role="examen" EntitySet="examen" />
+    </AssociationSet>
+    <AssociationSet Name="FK_cmdclient_client" Association="Self.FK_cmdclient_client">
+      <End Role="client" EntitySet="client" />
+      <End Role="cmdclient" EntitySet="cmdclient" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ligneentree_cmdclient" Association="Self.FK_ligneentree_cmdclient">
+      <End Role="cmdclient" EntitySet="cmdclient" />
+      <End Role="ligneentree" EntitySet="ligneentree" />
+    </AssociationSet>
+    <AssociationSet Name="lentille$fk_Lentille_Article1" Association="Self.lentille$fk_Lentille_Article1">
+      <End Role="article" EntitySet="article" />
+      <End Role="lentille" EntitySet="lentille" />
+    </AssociationSet>
+    <AssociationSet Name="lentille$fk_Lentille_Oeil1" Association="Self.lentille$fk_Lentille_Oeil1">
+      <End Role="oeil" EntitySet="oeil" />
+      <End Role="lentille" EntitySet="lentille" />
+    </AssociationSet>
+    <AssociationSet Name="lentille$fk_Lentille_TypeLentille1" Association="Self.lentille$fk_Lentille_TypeLentille1">
+      <End Role="typelentille" EntitySet="typelentille" />
+      <End Role="lentille" EntitySet="lentille" />
+    </AssociationSet>
+    <AssociationSet Name="lentillemultifocale$fk_LentilleMultifocale_TypeLentille1" Association="Self.lentillemultifocale$fk_LentilleMultifocale_TypeLentille1">
+      <End Role="typelentille" EntitySet="typelentille" />
+      <End Role="lentillemultifocale" EntitySet="lentillemultifocale" />
+    </AssociationSet>
+    <AssociationSet Name="lentillespherique$fk_LentilleSpherique_TypeLentille1" Association="Self.lentillespherique$fk_LentilleSpherique_TypeLentille1">
+      <End Role="typelentille" EntitySet="typelentille" />
+      <End Role="lentillespherique" EntitySet="lentillespherique" />
+    </AssociationSet>
+    <AssociationSet Name="lentilletoriques$fk_LentilleToriques_TypeLentille1" Association="Self.lentilletoriques$fk_LentilleToriques_TypeLentille1">
+      <End Role="typelentille" EntitySet="typelentille" />
+      <End Role="lentilletoriques" EntitySet="lentilletoriques" />
+    </AssociationSet>
+    <AssociationSet Name="lignecommande$fk_LigneCommande_Article1" Association="Self.lignecommande$fk_LigneCommande_Article1">
+      <End Role="article" EntitySet="article" />
+      <End Role="lignecommande" EntitySet="lignecommande" />
+    </AssociationSet>
+    <AssociationSet Name="lignecommande$fk_LigneCommande_CmdFournisseur1" Association="Self.lignecommande$fk_LigneCommande_CmdFournisseur1">
+      <End Role="cmdfournisseur" EntitySet="cmdfournisseur" />
+      <End Role="lignecommande" EntitySet="lignecommande" />
+    </AssociationSet>
+    <AssociationSet Name="ligneentree$fk_LigneEntree_Article1" Association="Self.ligneentree$fk_LigneEntree_Article1">
+      <End Role="article" EntitySet="article" />
+      <End Role="ligneentree" EntitySet="ligneentree" />
+    </AssociationSet>
+    <AssociationSet Name="ordonnance$fk_ordonnance_client1" Association="Self.ordonnance$fk_ordonnance_client1">
+      <End Role="client" EntitySet="client" />
+      <End Role="ordonnance" EntitySet="ordonnance" />
+    </AssociationSet>
+    <AssociationSet Name="ordonnance$fk_ordonnance_ophtalmologue1" Association="Self.ordonnance$fk_ordonnance_ophtalmologue1">
+      <End Role="ophtalmologue" EntitySet="ophtalmologue" />
+      <End Role="ordonnance" EntitySet="ordonnance" />
+    </AssociationSet>
+    <AssociationSet Name="ordonnance$fk_ordonnance_vision_loins1" Association="Self.ordonnance$fk_ordonnance_vision_loins1">
+      <End Role="vision_loins" EntitySet="vision_loins" />
+      <End Role="ordonnance" EntitySet="ordonnance" />
+    </AssociationSet>
+    <AssociationSet Name="ordonnance$fk_ordonnance_vision_pres1" Association="Self.ordonnance$fk_ordonnance_vision_pres1">
+      <End Role="vision_pres" EntitySet="vision_pres" />
+      <End Role="ordonnance" EntitySet="ordonnance" />
+    </AssociationSet>
+    <AssociationSet Name="verre$fk_Verre_Article1" Association="Self.verre$fk_Verre_Article1">
+      <End Role="article" EntitySet="article" />
+      <End Role="verre" EntitySet="verre" />
+    </AssociationSet>
+    <AssociationSet Name="verre$fk_Verre_Oeil1" Association="Self.verre$fk_Verre_Oeil1">
+      <End Role="oeil" EntitySet="oeil" />
+      <End Role="verre" EntitySet="verre" />
+    </AssociationSet>
+    <AssociationSet Name="verre$fk_Verre_Traitement1" Association="Self.verre$fk_Verre_Traitement1">
+      <End Role="traitement" EntitySet="traitement" />
+      <End Role="verre" EntitySet="verre" />
+    </AssociationSet>
+    <AssociationSet Name="verre$fk_Verre_TypeVerre1" Association="Self.verre$fk_Verre_TypeVerre1">
+      <End Role="typeverre" EntitySet="typeverre" />
+      <End Role="verre" EntitySet="verre" />
+    </AssociationSet>
+    <AssociationSet Name="visite$fk_visite_client" Association="Self.visite$fk_visite_client">
+      <End Role="client" EntitySet="client" />
+      <End Role="visite" EntitySet="visite" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

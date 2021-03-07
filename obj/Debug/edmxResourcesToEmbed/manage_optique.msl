@@ -1,0 +1,289 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="optique_pfeModelStoreContainer" CdmEntityContainer="dbEntities">
+    <EntitySetMapping Name="articles">
+      <EntityTypeMapping TypeName="optique_pfeModel.article">
+        <MappingFragment StoreEntitySet="article">
+          <ScalarProperty Name="idArticle" ColumnName="idArticle" />
+          <ScalarProperty Name="idCategorie" ColumnName="idCategorie" />
+          <ScalarProperty Name="QteDisponible" ColumnName="QteDisponible" />
+          <ScalarProperty Name="PrixUnitaire" ColumnName="PrixUnitaire" />
+          <ScalarProperty Name="Garantie" ColumnName="Garantie" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="cadres">
+      <EntityTypeMapping TypeName="optique_pfeModel.cadre">
+        <MappingFragment StoreEntitySet="cadre">
+          <ScalarProperty Name="idCadre" ColumnName="idCadre" />
+          <ScalarProperty Name="idArticle" ColumnName="idArticle" />
+          <ScalarProperty Name="DiametreVerre" ColumnName="DiametreVerre" />
+          <ScalarProperty Name="Pont" ColumnName="Pont" />
+          <ScalarProperty Name="LongeurBrache" ColumnName="LongeurBrache" />
+          <ScalarProperty Name="Largeur" ColumnName="Largeur" />
+          <ScalarProperty Name="HauteurVerre" ColumnName="HauteurVerre" />
+          <ScalarProperty Name="Couleur" ColumnName="Couleur" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="categories">
+      <EntityTypeMapping TypeName="optique_pfeModel.categorie">
+        <MappingFragment StoreEntitySet="categorie">
+          <ScalarProperty Name="idCategorie" ColumnName="idCategorie" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="clients">
+      <EntityTypeMapping TypeName="optique_pfeModel.client">
+        <MappingFragment StoreEntitySet="client">
+          <ScalarProperty Name="cin" ColumnName="cin" />
+          <ScalarProperty Name="prenom" ColumnName="prenom" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="adresse" ColumnName="adresse" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="telephone" ColumnName="telephone" />
+          <ScalarProperty Name="dateNaissance" ColumnName="dateNaissance" />
+          <ScalarProperty Name="medicaments" ColumnName="medicaments" />
+          <ScalarProperty Name="maladies" ColumnName="maladies" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="cmdclients">
+      <EntityTypeMapping TypeName="optique_pfeModel.cmdclient">
+        <MappingFragment StoreEntitySet="cmdclient">
+          <ScalarProperty Name="idCmdClient" ColumnName="idCmdClient" />
+          <ScalarProperty Name="DateCmd" ColumnName="DateCmd" />
+          <ScalarProperty Name="cin" ColumnName="cin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="cmdfournisseurs">
+      <EntityTypeMapping TypeName="optique_pfeModel.cmdfournisseur">
+        <MappingFragment StoreEntitySet="cmdfournisseur">
+          <ScalarProperty Name="idCmdFournisseur" ColumnName="idCmdFournisseur" />
+          <ScalarProperty Name="idFournisseur" ColumnName="idFournisseur" />
+          <ScalarProperty Name="DateEntree" ColumnName="DateEntree" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="examen">
+      <EntityTypeMapping TypeName="optique_pfeModel.examan">
+        <MappingFragment StoreEntitySet="examen">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="visionLoins" ColumnName="visionLoins" />
+          <ScalarProperty Name="visionPres" ColumnName="visionPres" />
+          <ScalarProperty Name="modifOrdonnance" ColumnName="modifOrdonnance" />
+          <ScalarProperty Name="remarques" ColumnName="remarques" />
+          <ScalarProperty Name="visite_visiteId" ColumnName="visite_visiteId" />
+          <ScalarProperty Name="vision_loins_id" ColumnName="vision_loins_id" />
+          <ScalarProperty Name="vision_pres_id" ColumnName="vision_pres_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="fournisseurs">
+      <EntityTypeMapping TypeName="optique_pfeModel.fournisseur">
+        <MappingFragment StoreEntitySet="fournisseur">
+          <ScalarProperty Name="idFournisseur" ColumnName="idFournisseur" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Tel" ColumnName="Tel" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="lentilles">
+      <EntityTypeMapping TypeName="optique_pfeModel.lentille">
+        <MappingFragment StoreEntitySet="lentille">
+          <ScalarProperty Name="idLentille" ColumnName="idLentille" />
+          <ScalarProperty Name="idArticle" ColumnName="idArticle" />
+          <ScalarProperty Name="idTypeLentille" ColumnName="idTypeLentille" />
+          <ScalarProperty Name="idOeil" ColumnName="idOeil" />
+          <ScalarProperty Name="Couleur" ColumnName="Couleur" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="lentillemultifocales">
+      <EntityTypeMapping TypeName="optique_pfeModel.lentillemultifocale">
+        <MappingFragment StoreEntitySet="lentillemultifocale">
+          <ScalarProperty Name="idLentilleMultifocale" ColumnName="idLentilleMultifocale" />
+          <ScalarProperty Name="ADD" ColumnName="ADD" />
+          <ScalarProperty Name="DOM" ColumnName="DOM" />
+          <ScalarProperty Name="idTypeLentille" ColumnName="idTypeLentille" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="lentillespheriques">
+      <EntityTypeMapping TypeName="optique_pfeModel.lentillespherique">
+        <MappingFragment StoreEntitySet="lentillespherique">
+          <ScalarProperty Name="idLentilleSpherique" ColumnName="idLentilleSpherique" />
+          <ScalarProperty Name="idTypeLentille" ColumnName="idTypeLentille" />
+          <ScalarProperty Name="RC" ColumnName="RC" />
+          <ScalarProperty Name="DIA" ColumnName="DIA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="lentilletoriques">
+      <EntityTypeMapping TypeName="optique_pfeModel.lentilletorique">
+        <MappingFragment StoreEntitySet="lentilletoriques">
+          <ScalarProperty Name="idLentilleToriques" ColumnName="idLentilleToriques" />
+          <ScalarProperty Name="idTypeLentille" ColumnName="idTypeLentille" />
+          <ScalarProperty Name="CYL" ColumnName="CYL" />
+          <ScalarProperty Name="AXE" ColumnName="AXE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="lignecommandes">
+      <EntityTypeMapping TypeName="optique_pfeModel.lignecommande">
+        <MappingFragment StoreEntitySet="lignecommande">
+          <ScalarProperty Name="idLigne" ColumnName="idLigne" />
+          <ScalarProperty Name="idArticle" ColumnName="idArticle" />
+          <ScalarProperty Name="idCmdFournisseur" ColumnName="idCmdFournisseur" />
+          <ScalarProperty Name="Date_Commande" ColumnName="Date_Commande" />
+          <ScalarProperty Name="Adresse_Commande" ColumnName="Adresse_Commande" />
+          <ScalarProperty Name="Qte_Commande" ColumnName="Qte_Commande" />
+          <ScalarProperty Name="Prix_Total" ColumnName="Prix_Total" />
+          <ScalarProperty Name="EtatCmd" ColumnName="EtatCmd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ligneentrees">
+      <EntityTypeMapping TypeName="optique_pfeModel.ligneentree">
+        <MappingFragment StoreEntitySet="ligneentree">
+          <ScalarProperty Name="idLigne" ColumnName="idLigne" />
+          <ScalarProperty Name="idArticle" ColumnName="idArticle" />
+          <ScalarProperty Name="idCmdClient" ColumnName="idCmdClient" />
+          <ScalarProperty Name="Date_Commande" ColumnName="Date_Commande" />
+          <ScalarProperty Name="Adresse_Commande" ColumnName="Adresse_Commande" />
+          <ScalarProperty Name="Qte_Commande" ColumnName="Qte_Commande" />
+          <ScalarProperty Name="Prix_Total" ColumnName="Prix_Total" />
+          <ScalarProperty Name="EtatCmd" ColumnName="EtatCmd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="oeils">
+      <EntityTypeMapping TypeName="optique_pfeModel.oeil">
+        <MappingFragment StoreEntitySet="oeil">
+          <ScalarProperty Name="idOeil" ColumnName="idOeil" />
+          <ScalarProperty Name="SPH_G" ColumnName="SPH_G" />
+          <ScalarProperty Name="CYL_G" ColumnName="CYL_G" />
+          <ScalarProperty Name="AXE_G" ColumnName="AXE_G" />
+          <ScalarProperty Name="ADD_G" ColumnName="ADD_G" />
+          <ScalarProperty Name="SPH_D" ColumnName="SPH_D" />
+          <ScalarProperty Name="CYL_D" ColumnName="CYL_D" />
+          <ScalarProperty Name="AXE_D" ColumnName="AXE_D" />
+          <ScalarProperty Name="ADD_D" ColumnName="ADD_D" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ophtalmologues">
+      <EntityTypeMapping TypeName="optique_pfeModel.ophtalmologue">
+        <MappingFragment StoreEntitySet="ophtalmologue">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="prenom" ColumnName="prenom" />
+          <ScalarProperty Name="adresse" ColumnName="adresse" />
+          <ScalarProperty Name="telephone" ColumnName="telephone" />
+          <ScalarProperty Name="inpe" ColumnName="inpe" />
+          <ScalarProperty Name="email" ColumnName="email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ordonnances">
+      <EntityTypeMapping TypeName="optique_pfeModel.ordonnance">
+        <MappingFragment StoreEntitySet="ordonnance">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="dateCreation" ColumnName="dateCreation" />
+          <ScalarProperty Name="dateExpiration" ColumnName="dateExpiration" />
+          <ScalarProperty Name="typeVerres" ColumnName="typeVerres" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="photo" ColumnName="photo" />
+          <ScalarProperty Name="ophtalmologue_ophtalmologueId" ColumnName="ophtalmologue_ophtalmologueId" />
+          <ScalarProperty Name="client_cin" ColumnName="client_cin" />
+          <ScalarProperty Name="vision_pres_id" ColumnName="vision_pres_id" />
+          <ScalarProperty Name="vision_loins_id" ColumnName="vision_loins_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="traitements">
+      <EntityTypeMapping TypeName="optique_pfeModel.traitement">
+        <MappingFragment StoreEntitySet="traitement">
+          <ScalarProperty Name="idTraitement" ColumnName="idTraitement" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="Niveau" ColumnName="Niveau" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="typelentilles">
+      <EntityTypeMapping TypeName="optique_pfeModel.typelentille">
+        <MappingFragment StoreEntitySet="typelentille">
+          <ScalarProperty Name="idTypeLentille" ColumnName="idTypeLentille" />
+          <ScalarProperty Name="NomType" ColumnName="NomType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="typeverres">
+      <EntityTypeMapping TypeName="optique_pfeModel.typeverre">
+        <MappingFragment StoreEntitySet="typeverre">
+          <ScalarProperty Name="idTypeVerre" ColumnName="idTypeVerre" />
+          <ScalarProperty Name="NomType" ColumnName="NomType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="verres">
+      <EntityTypeMapping TypeName="optique_pfeModel.verre">
+        <MappingFragment StoreEntitySet="verre">
+          <ScalarProperty Name="idVerre" ColumnName="idVerre" />
+          <ScalarProperty Name="idArticle" ColumnName="idArticle" />
+          <ScalarProperty Name="idTraitement" ColumnName="idTraitement" />
+          <ScalarProperty Name="idTypeVerre" ColumnName="idTypeVerre" />
+          <ScalarProperty Name="idOeil" ColumnName="idOeil" />
+          <ScalarProperty Name="Modele" ColumnName="Modele" />
+          <ScalarProperty Name="Teinte" ColumnName="Teinte" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vision_loins">
+      <EntityTypeMapping TypeName="optique_pfeModel.vision_loins">
+        <MappingFragment StoreEntitySet="vision_loins">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="od_sphere" ColumnName="od_sphere" />
+          <ScalarProperty Name="od_cylindre" ColumnName="od_cylindre" />
+          <ScalarProperty Name="od_axe" ColumnName="od_axe" />
+          <ScalarProperty Name="od_add" ColumnName="od_add" />
+          <ScalarProperty Name="og_sphère" ColumnName="og_sphère" />
+          <ScalarProperty Name="og_cylindre" ColumnName="og_cylindre" />
+          <ScalarProperty Name="og_axe" ColumnName="og_axe" />
+          <ScalarProperty Name="og_add" ColumnName="og_add" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vision_pres">
+      <EntityTypeMapping TypeName="optique_pfeModel.vision_pres">
+        <MappingFragment StoreEntitySet="vision_pres">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="od_sphere" ColumnName="od_sphere" />
+          <ScalarProperty Name="od_cylindre" ColumnName="od_cylindre" />
+          <ScalarProperty Name="od_axe" ColumnName="od_axe" />
+          <ScalarProperty Name="od_add" ColumnName="od_add" />
+          <ScalarProperty Name="og_sphère" ColumnName="og_sphère" />
+          <ScalarProperty Name="og_cylindre" ColumnName="og_cylindre" />
+          <ScalarProperty Name="og_axe" ColumnName="og_axe" />
+          <ScalarProperty Name="og_add" ColumnName="og_add" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="visites">
+      <EntityTypeMapping TypeName="optique_pfeModel.visite">
+        <MappingFragment StoreEntitySet="visite">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="raison" ColumnName="raison" />
+          <ScalarProperty Name="client_cin" ColumnName="client_cin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
