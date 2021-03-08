@@ -128,3 +128,4 @@ C:\Users\BIG CHOIX\Desktop\NavigationMenuWithSubMenu-master\obj\Debug\manage_opt
 C:\Users\BIG CHOIX\Desktop\NavigationMenuWithSubMenu-master\obj\Debug\manage_optique.csproj.CopyComplete
 C:\Users\BIG CHOIX\Desktop\NavigationMenuWithSubMenu-master\obj\Debug\MenuWithSubMenu.exe
 C:\Users\BIG CHOIX\Desktop\NavigationMenuWithSubMenu-master\obj\Debug\MenuWithSubMenu.pdb
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\bin\Debug\fr\EntityFramework.resources.dll

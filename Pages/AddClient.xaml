@@ -15,86 +15,68 @@
         </Grid.ColumnDefinitions>
         
         <Grid Grid.Column="0" Margin="10px">
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
+            <StackPanel>
+                <TextBox  Margin="5" Height="23" TextWrapping="Wrap" Text="CIN" Name="cinText"/>
+                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Nom" Name="nomText"/>
+                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Prenom" Name="prenomText" />
+                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Adresse" Name="adresseText" />
+                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Email" Name="emailText" />
+                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Telephone" Name="telText" />
+                <DatePicker Margin="5" Height="23" Name="dateText"/>
+                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Raison de visite" Name="raisonvisiteText" />
+                <Button Margin="5" Content="Add client"  VerticalAlignment="Center" Padding="10px" HorizontalAlignment="Right" Width="75" Click="Button_Click"/>
 
-            <Grid Grid.Row="0">
-                <TextBox Height="23" TextWrapping="Wrap" Text="CIN" Name="cinText"/>
-            </Grid>
-            <Grid Grid.Row="1">
-                <TextBox Height="23" TextWrapping="Wrap" Text="Nom" Name="nomText"/>
-            </Grid>
-            <Grid Grid.Row="2">
-                <TextBox Height="23" TextWrapping="Wrap" Text="Prenom" Name="prenomText" />
-            </Grid>
-            <Grid Grid.Row="3">
-                <TextBox  Height="23" TextWrapping="Wrap" Text="Adresse" Name="adresseText" />
-            </Grid>
-            <Grid Grid.Row="4">
-                <TextBox  Height="23" TextWrapping="Wrap" Text="Email" Name="emailText" />
-            </Grid>
-            <Grid Grid.Row="5">
-                <TextBox  Height="23" TextWrapping="Wrap" Text="Telephone" x:Name="telText" />
-            </Grid>
-            <Grid Grid.Row="6">
-                <DatePicker Height="23" Name="dateText"/>
-            </Grid>
-            <Grid Grid.Row="7" >
-                <TextBox  Height="23" TextWrapping="Wrap" Text="Raison de visite" x:Name="visiteText" />
-            </Grid>
-            <Grid Grid.Row="8">
-                <Button Content="Add client"  VerticalAlignment="Center" Padding="10px" HorizontalAlignment="Right" Width="75" Click="Button_Click"/>
-            </Grid>
+            </StackPanel>
         </Grid>
 
         <Grid Grid.Column="1" Margin="10px">
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
+            <StackPanel>
+                <ComboBox Margin="5" Height="23" Text="Ophtalmologue" Name="ophtalmologueText"/>
+                <DatePicker Margin="5" Height="23" Name="dateCreationOrdonnance"/>
+                <DatePicker Margin="5" Height="23" Name="dateExpirationOrdonnance"/>
+                <ComboBox Name="typeVerres" Margin="5" Height="23"/>
+                <!-- Vision Loins -->
+                <TextBlock Margin="5" Height="23" TextWrapping="Wrap" Text="Vision de loin :" Name="visionLoins"/>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="OD :"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_sph_loin"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_cyl_loin"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_axe_loin"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_add_loin"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="OG :"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_sph_loin"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_cyl_loin"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_axe_loin"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_add_loin"/>
+                    </StackPanel>
+                </StackPanel>
+                <!-- Vision Prés -->
+                <TextBlock Margin="5" Height="23" TextWrapping="Wrap" Text="Vision de près :" Name="visionPres"/>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="OD :"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_sph_pres"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_cyl_pres"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_axe_pres"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_add_pres"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="OG :"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_sph_pres"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_cyl_pres"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_axe_pres"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_add_pres"/>
+                    </StackPanel>
+                </StackPanel>
+                
+                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Notes" Name="notesOphtalmologue"/>
+                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Ajouter photo" Name="photoScanne"/>
 
-            <Grid Grid.Row="0">
-                <TextBox Height="23" TextWrapping="Wrap" Text="Ophtalmologue" Name="ophtalmologueText"/>
-            </Grid>
-            <Grid Grid.Row="1">
-                <DatePicker Height="23" Name="dateCreationOrdonnance"/>
-            </Grid>
-            <Grid Grid.Row="2">
-                <DatePicker Height="23" Name="dateExpirationOrdonnance"/>
-            </Grid>
-            <Grid Grid.Row="3">
-                <ComboBox Height="23">
-                    <ComboBoxItem>Types de verres</ComboBoxItem>
-                </ComboBox>
-            </Grid>
-            <Grid Grid.Row="4">
-                <TextBox Height="23" TextWrapping="Wrap" Text="Vision de loin" Name="visionLoins"/>
-            </Grid>
-            <Grid Grid.Row="5">
-                <TextBox Height="23" TextWrapping="Wrap" Text="Vision de près" Name="visionPres"/>
-            </Grid>
-            <Grid Grid.Row="6">
-                <TextBox Height="23" TextWrapping="Wrap" Text="Notes" Name="notesOphtalmologue"/>
-            </Grid>
-            <Grid Grid.Row="7">
-                <TextBox Height="23" TextWrapping="Wrap" Text="Ajouter photo" Name="photoScanne"/>
-            </Grid>
+            </StackPanel>
         </Grid>
+        
     </Grid>
 </Page>

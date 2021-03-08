@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("manage_optique.context.tt")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("manage_optique.tt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("model/dbentities.context.tt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("model/dbentities.tt")]
 
 
