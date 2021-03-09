@@ -41,6 +41,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="HandyControl, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\HandyControl.3.0.0\lib\net45\HandyControl.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -157,6 +160,9 @@
     </Compile>
     <Compile Include="ViewModel\CommandViewModel.cs" />
     <Compile Include="ViewModel\SideMenuViewModel.cs" />
+    <Compile Include="Windows\ClientProfile.xaml.cs">
+      <DependentUpon>ClientProfile.xaml</DependentUpon>
+    </Compile>
     <Page Include="Assets\IconDictionary.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -215,6 +221,10 @@
     <Page Include="Pages\Settings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ClientProfile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -281,8 +291,8 @@
   <ItemGroup>
     <Content Include="Model\dbEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>dbEntities.Context.cs</LastGenOutput>
       <DependentUpon>dbEntities.edmx</DependentUpon>
+      <LastGenOutput>dbEntities.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Model\dbEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

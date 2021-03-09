@@ -181,13 +181,13 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="dateCreation" Type="date" Nullable="false" />
     <Property Name="dateExpiration" Type="date" Nullable="false" />
-    <Property Name="typeVerres" Type="nvarchar" MaxLength="45" Nullable="false" />
     <Property Name="notes" Type="nvarchar(max)" />
     <Property Name="photo" Type="nvarchar" MaxLength="45" Nullable="false" />
     <Property Name="ophtalmologue_ophtalmologueId" Type="int" Nullable="false" />
     <Property Name="client_cin" Type="nvarchar" MaxLength="10" Nullable="false" />
     <Property Name="vision_pres_id" Type="int" Nullable="false" />
     <Property Name="vision_loins_id" Type="int" Nullable="false" />
+    <Property Name="idTypeVerre" Type="int" />
   </EntityType>
   <EntityType Name="traitement">
     <Key>
@@ -344,6 +344,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ordonnance_typeverre">
+    <End Role="typeverre" Type="Self.typeverre" Multiplicity="0..1" />
+    <End Role="ordonnance" Type="Self.ordonnance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="typeverre">
+        <PropertyRef Name="idTypeVerre" />
+      </Principal>
+      <Dependent Role="ordonnance">
+        <PropertyRef Name="idTypeVerre" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="lentille$fk_Lentille_Article1">
     <End Role="article" Type="Self.article" Multiplicity="1" />
     <End Role="lentille" Type="Self.lentille" Multiplicity="*" />
@@ -461,18 +473,6 @@
       </Principal>
       <Dependent Role="ligneentree">
         <PropertyRef Name="idCmdClient" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="ordonnance$fk_ordonnance_client1">
-    <End Role="client" Type="Self.client" Multiplicity="1" />
-    <End Role="ordonnance" Type="Self.ordonnance" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="client">
-        <PropertyRef Name="cin" />
-      </Principal>
-      <Dependent Role="ordonnance">
-        <PropertyRef Name="client_cin" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -625,6 +625,10 @@
       <End Role="client" EntitySet="client" />
       <End Role="cmdclient" EntitySet="cmdclient" />
     </AssociationSet>
+    <AssociationSet Name="FK_ordonnance_typeverre" Association="Self.FK_ordonnance_typeverre">
+      <End Role="typeverre" EntitySet="typeverre" />
+      <End Role="ordonnance" EntitySet="ordonnance" />
+    </AssociationSet>
     <AssociationSet Name="lentille$fk_Lentille_Article1" Association="Self.lentille$fk_Lentille_Article1">
       <End Role="article" EntitySet="article" />
       <End Role="lentille" EntitySet="lentille" />
@@ -664,10 +668,6 @@
     <AssociationSet Name="ligneentree$fk_LigneEntree_CmdClient1" Association="Self.ligneentree$fk_LigneEntree_CmdClient1">
       <End Role="cmdclient" EntitySet="cmdclient" />
       <End Role="ligneentree" EntitySet="ligneentree" />
-    </AssociationSet>
-    <AssociationSet Name="ordonnance$fk_ordonnance_client1" Association="Self.ordonnance$fk_ordonnance_client1">
-      <End Role="client" EntitySet="client" />
-      <End Role="ordonnance" EntitySet="ordonnance" />
     </AssociationSet>
     <AssociationSet Name="ordonnance$fk_ordonnance_ophtalmologue1" Association="Self.ordonnance$fk_ordonnance_ophtalmologue1">
       <End Role="ophtalmologue" EntitySet="ophtalmologue" />

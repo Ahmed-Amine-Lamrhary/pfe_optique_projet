@@ -23,7 +23,7 @@ namespace MenuWithSubMenu
                 return new List<MenuItemsData>
                 {
                     // Client
-                    new MenuItemsData(){ PathData= (PathGeometry)dict["icon_dashboard"], MenuText="AddClient", SubMenuList=null},
+                    new MenuItemsData(){ PathData= (PathGeometry)dict["icon_dashboard"], MenuText="EspaceClient", SubMenuList=null},
                     
                     // Visite
                     new MenuItemsData(){ PathData= (PathGeometry)dict["icon_settings"], MenuText="Visites", SubMenuList=null},

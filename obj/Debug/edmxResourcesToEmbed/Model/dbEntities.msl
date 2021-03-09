@@ -197,13 +197,13 @@
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="dateCreation" ColumnName="dateCreation" />
           <ScalarProperty Name="dateExpiration" ColumnName="dateExpiration" />
-          <ScalarProperty Name="typeVerres" ColumnName="typeVerres" />
           <ScalarProperty Name="notes" ColumnName="notes" />
           <ScalarProperty Name="photo" ColumnName="photo" />
           <ScalarProperty Name="ophtalmologue_ophtalmologueId" ColumnName="ophtalmologue_ophtalmologueId" />
           <ScalarProperty Name="client_cin" ColumnName="client_cin" />
           <ScalarProperty Name="vision_pres_id" ColumnName="vision_pres_id" />
           <ScalarProperty Name="vision_loins_id" ColumnName="vision_loins_id" />
+          <ScalarProperty Name="idTypeVerre" ColumnName="idTypeVerre" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

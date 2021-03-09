@@ -24,7 +24,7 @@
                 <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Telephone" Name="telText" />
                 <DatePicker Margin="5" Height="23" Name="dateText"/>
                 <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Raison de visite" Name="raisonvisiteText" />
-                <Button Margin="5" Content="Add client"  VerticalAlignment="Center" Padding="10px" HorizontalAlignment="Right" Width="75" Click="Button_Click"/>
+                <Button Margin="5" Content="Add client"  VerticalAlignment="Center" HorizontalAlignment="Right" Width="75" Click="Button_Click"/>
 
             </StackPanel>
         </Grid>

@@ -1,4 +1,5 @@
-﻿using MenuWithSubMenu.Model;
+﻿using HandyControl.Controls;
+using MenuWithSubMenu.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -29,17 +30,25 @@ namespace MenuWithSubMenu.Pages
         {
             InitializeComponent();
             db = new dbEntities();
-            //var data = from ophtalmologue in db.ophtalmologues select ophtalmologue;
-            //ophtalmologueText.DataContext = data.ToList();
-            //ophtalmologueText.DisplayMemberPath = "nom";
-            //typeVerres.DataContext = db.typeverres.ToList();
+
+            // get ophtalmologues
+            List<ophtalmologue> ophtalmologues = db.ophtalmologues.Distinct().ToList();
+            ophtalmologueText.ItemsSource = ophtalmologues;
+            ophtalmologueText.DisplayMemberPath = "nom";
+            ophtalmologueText.SelectedValuePath = "id";
+
+            // get types de verre
+            List<typeverre> typesverre = db.typeverres.Distinct().ToList();
+            typeVerres.ItemsSource = typesverre;
+            typeVerres.DisplayMemberPath = "NomType";
+            typeVerres.SelectedValuePath = "idTypeVerre";
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (!validateForm())
             {
-                MessageBox.Show("Veuillez remplir tout les champs");
+                HandyControl.Controls.MessageBox.Show("Veuillez remplir tout les champs");
                 return;
             }
             
@@ -100,10 +109,10 @@ namespace MenuWithSubMenu.Pages
                 {
                     dateCreation = (DateTime)dateCreationOrdonnance.SelectedDate.Value.Date,
                     dateExpiration = (DateTime)dateExpirationOrdonnance.SelectedDate.Value.Date,
-                    typeVerres = 1+"",
+                    idTypeVerre = (int)typeVerres.SelectedValue,
                     notes = notesOphtalmologue.Text,
                     photo = "/C:/Images",
-                    ophtalmologue_ophtalmologueId = 1,
+                    ophtalmologue_ophtalmologueId = (int)ophtalmologueText.SelectedValue,
                     client_cin = cinText.Text,
                     vision_loins_id = vision_Loins.id,
                     vision_pres_id = vision_Pres.id
@@ -114,7 +123,7 @@ namespace MenuWithSubMenu.Pages
             catch (Exception exc)
             {
                 Console.Write(exc.Message);
-                MessageBox.Show(exc.Message);
+                HandyControl.Controls.MessageBox.Show(exc.Message);
                 transaction.Rollback();
 
             }
