@@ -60,8 +60,15 @@ namespace MenuWithSubMenu.Pages
             visite visiteRow = visitesDataGrid.SelectedItem as visite;
             string clientCin = visiteRow.client_cin;
 
-            Windows.ClientProfile clientProfile = new Windows.ClientProfile(clientCin);
-            clientProfile.Show();
+            
+            foreach (System.Windows.Window window in Application.Current.Windows)
+            {
+                if (window.GetType() == typeof(MainWindow))
+                {
+                    ClientProfile clientProfile = new ClientProfile(clientCin);
+                    (window as MainWindow).MainWindowFrame.Navigate(clientProfile);
+                }
+            }
         }
     }
 }

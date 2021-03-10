@@ -23,6 +23,7 @@ namespace MenuWithSubMenu.Pages
     /// </summary>
     public partial class AllUsers : Page
     {
+        dbEntities db;
         public AllUsers()
         {
             InitializeComponent();
@@ -30,7 +31,7 @@ namespace MenuWithSubMenu.Pages
             // show loading
 
            
-            dbEntities db = new dbEntities();
+            db = new dbEntities();
             try
             {
                 clientsDataGrid.ItemsSource = db.clients.ToList();
@@ -70,21 +71,41 @@ namespace MenuWithSubMenu.Pages
             client clientRow = clientsDataGrid.SelectedItem as client;  
             string clientCin = clientRow.cin;  
 
-            Windows.ClientProfile clientProfile = new Windows.ClientProfile(clientCin);
-            clientProfile.Show();
-        }
-
-        private void updateClient(object sender, RoutedEventArgs e)
-        {
-            string Menu = "Ophtalmologues";
+            
 
             foreach (System.Windows.Window window in Application.Current.Windows)
             {
                 if (window.GetType() == typeof(MainWindow))
                 {
-                    (window as MainWindow).MainWindowFrame.Navigate(new Uri(string.Format("{0}{1}{2}", "Pages/", Menu, ".xaml"), UriKind.RelativeOrAbsolute));
+                    ClientProfile clientProfile = new ClientProfile(clientCin);
+                    (window as MainWindow).MainWindowFrame.Navigate(clientProfile);
                 }
             }
+        }
+
+        private void updateClient(object sender, RoutedEventArgs e)
+        {
+
+            client clientRow = clientsDataGrid.SelectedItem as client;
+            string clientCin = clientRow.cin;
+
+            foreach (System.Windows.Window window in Application.Current.Windows)
+            {
+                if (window.GetType() == typeof(MainWindow))
+                {
+                    UpdateClient update = new UpdateClient(db.clients.Where(client => client.cin == clientCin).SingleOrDefault());
+                    (window as MainWindow).MainWindowFrame.Navigate(update);
+                }
+            }
+        }
+        private void deleteClient(object sender, RoutedEventArgs e)
+        {
+
+            client clientRow = clientsDataGrid.SelectedItem as client;
+            db.clients.Remove(clientRow);
+            db.SaveChanges();
+
+            
         }
     }
 }

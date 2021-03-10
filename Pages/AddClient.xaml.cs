@@ -26,6 +26,7 @@ namespace MenuWithSubMenu.Pages
     {
         dbEntities db;
         DbContextTransaction transaction;
+        
         public NewUser()
         {
             InitializeComponent();

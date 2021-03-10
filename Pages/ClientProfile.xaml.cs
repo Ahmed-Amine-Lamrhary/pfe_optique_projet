@@ -10,14 +10,15 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MenuWithSubMenu.Windows
+namespace MenuWithSubMenu.Pages
 {
     /// <summary>
-    /// Interaction logic for ClientProfile.xaml
+    /// Logique d'interaction pour ClientProfile.xaml
     /// </summary>
-    public partial class ClientProfile : Window
+    public partial class ClientProfile : Page
     {
         private Model.dbEntities db;
         private Model.client pageClient;
@@ -28,7 +29,7 @@ namespace MenuWithSubMenu.Windows
             InitializeComponent();
             this.clientCin = clientCin;
             db = new Model.dbEntities();
-            
+
             getClientInformation();
         }
 

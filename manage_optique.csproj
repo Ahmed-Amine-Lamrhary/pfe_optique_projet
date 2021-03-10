@@ -154,15 +154,18 @@
     <Compile Include="Model\visite.cs">
       <DependentUpon>dbEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ClientProfile.xaml.cs">
+      <DependentUpon>ClientProfile.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\InventoryEntities.cs" />
     <Compile Include="Pages\Sent.xaml.cs">
       <DependentUpon>Sent.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\UpdateClient.xaml.cs">
+      <DependentUpon>UpdateClient.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\CommandViewModel.cs" />
     <Compile Include="ViewModel\SideMenuViewModel.cs" />
-    <Compile Include="Windows\ClientProfile.xaml.cs">
-      <DependentUpon>ClientProfile.xaml</DependentUpon>
-    </Compile>
     <Page Include="Assets\IconDictionary.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -186,11 +189,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\ClientProfile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\EspaceClient.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Sent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\UpdateClient.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -221,10 +232,6 @@
     <Page Include="Pages\Settings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Windows\ClientProfile.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

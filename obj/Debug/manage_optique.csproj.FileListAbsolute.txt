@@ -185,3 +185,17 @@ G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\MenuWithSubMenu.exe
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\MenuWithSubMenu.pdb
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Windows\ClientProfile.g.cs
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Windows\ClientProfile.baml
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\bin\Debug\HandyControl.dll
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\bin\Debug\HandyControl.xml
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\bin\Debug\fr\EntityFramework.SqlServer.resources.dll
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\bin\Debug\en\HandyControl.resources.dll
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\bin\Debug\fa\HandyControl.resources.dll
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\bin\Debug\fr\HandyControl.resources.dll
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\bin\Debug\ko-KR\HandyControl.resources.dll
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\bin\Debug\ru\HandyControl.resources.dll
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\bin\Debug\tr\HandyControl.resources.dll
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\App.baml
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Pages\UpdateClient.g.cs
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Pages\UpdateClient.baml
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Pages\ClientProfile.g.cs
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Pages\ClientProfile.baml
