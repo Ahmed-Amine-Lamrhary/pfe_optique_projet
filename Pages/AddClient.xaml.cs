@@ -45,16 +45,19 @@ namespace MenuWithSubMenu.Pages
             typeVerres.SelectedValuePath = "idTypeVerre";
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void addClient(object sender, RoutedEventArgs e)
         {
             if (!validateForm())
             {
                 HandyControl.Controls.MessageBox.Show("Veuillez remplir tout les champs");
                 return;
             }
-            
+
             try
             {
+                string medicaments = getMedicamentsString();
+                string maladies = getMaladiesString();
+
                 transaction = db.Database.BeginTransaction();
                 db.clients.Add(new client()
                 {
@@ -64,7 +67,9 @@ namespace MenuWithSubMenu.Pages
                     adresse = adresseText.Text,
                     email = emailText.Text,
                     telephone = telText.Text,
-                    dateNaissance = (DateTime)dateText.SelectedDate.Value.Date
+                    dateNaissance = (DateTime)dateText.SelectedDate.Value.Date,
+                    medicaments = medicaments,
+                    maladies = maladies
                 });
                 db.SaveChanges();
 
@@ -130,6 +135,121 @@ namespace MenuWithSubMenu.Pages
             }
 
         }
+
+        // add medicaments
+        private void enterAddMed(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                ajouterMedicament();
+        }
+
+        private void addMedButton(object sender, RoutedEventArgs e)
+        {
+            ajouterMedicament();
+        }
+
+        private void ajouterMedicament()
+        {
+            if (!String.IsNullOrEmpty(newMedicament.Text) && !String.IsNullOrWhiteSpace(newMedicament.Text))
+            {
+                StackPanel stackPanel = new StackPanel() { Orientation = System.Windows.Controls.Orientation.Horizontal };
+                System.Windows.Controls.TextBox textBox = new System.Windows.Controls.TextBox() { Text = newMedicament.Text, Width = 200 };
+                System.Windows.Controls.Button deleteButton = new System.Windows.Controls.Button() { Content = "Supprimer" };
+                deleteButton.Click += supprimerMedic;
+
+                stackPanel.Children.Add(textBox);
+                stackPanel.Children.Add(deleteButton);
+
+                medicamentsBox.Children.Add(stackPanel);
+                newMedicament.Text = "";
+            }
+        }
+
+        private void supprimerMedic(object sender, RoutedEventArgs e)
+        {
+            medicamentsBox.Children.Remove((UIElement)(sender as FrameworkElement).Parent);
+        }
+
+        private string getMedicamentsString()
+        {
+            // check if medicaments enabled
+            if (!(bool)medicamentsCheckbox.IsChecked)
+                return null;
+
+            // check if medicaments filled
+            List<string> medicamentsList = new List<string>();
+
+            foreach (StackPanel s in medicamentsBox.Children)
+            {
+                System.Windows.Controls.TextBox t = s.Children.OfType<System.Windows.Controls.TextBox>().FirstOrDefault();
+                if (!String.IsNullOrEmpty(t.Text) && !String.IsNullOrWhiteSpace(t.Text))
+                    medicamentsList.Add(t.Text);
+            }
+
+            if (medicamentsList.Count == 0)
+                return null;
+
+            // return medicaments string
+            return String.Join("@", medicamentsList);
+        }
+
+        // add maladies
+        private void enterAddMaladie(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                ajouterMaladie();
+        }
+
+        private void addMaladieButton(object sender, RoutedEventArgs e)
+        {
+            ajouterMaladie();
+        }
+
+        private void ajouterMaladie()
+        {
+            if (!String.IsNullOrEmpty(newMaladie.Text) && !String.IsNullOrWhiteSpace(newMaladie.Text))
+            {
+                StackPanel stackPanel = new StackPanel() { Orientation = System.Windows.Controls.Orientation.Horizontal };
+                System.Windows.Controls.TextBox textBox = new System.Windows.Controls.TextBox() { Text = newMaladie.Text, Width = 200 };
+                System.Windows.Controls.Button deleteButton = new System.Windows.Controls.Button() { Content = "Supprimer" };
+                deleteButton.Click += supprimerMaladie;
+
+                stackPanel.Children.Add(textBox);
+                stackPanel.Children.Add(deleteButton);
+
+                maladiesBox.Children.Add(stackPanel);
+                newMaladie.Text = "";
+            }
+        }
+
+        private void supprimerMaladie(object sender, RoutedEventArgs e)
+        {
+            maladiesBox.Children.Remove((UIElement)(sender as FrameworkElement).Parent);
+        }
+
+        private string getMaladiesString()
+        {
+            // check if maladies enabled
+            if (!(bool)maladiesCheckbox.IsChecked)
+                return null;
+
+            // check if maladies filled
+            List<string> maladiesList = new List<string>();
+
+            foreach (StackPanel s in maladiesBox.Children)
+            {
+                System.Windows.Controls.TextBox t = s.Children.OfType<System.Windows.Controls.TextBox>().FirstOrDefault();
+                if (!String.IsNullOrEmpty(t.Text) && !String.IsNullOrWhiteSpace(t.Text))
+                    maladiesList.Add(t.Text);
+            }
+
+            if (maladiesList.Count == 0)
+                return null;
+
+            // return maladies string
+            return String.Join("@", maladiesList);
+        }
+
 
         //validation
         private Boolean validateForm()

@@ -24,8 +24,42 @@
                 <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Telephone" Name="telText" />
                 <DatePicker Margin="5" Height="23" Name="dateText"/>
                 <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Raison de visite" Name="raisonvisiteText" />
-                <Button Margin="5" Content="Add client"  VerticalAlignment="Center" HorizontalAlignment="Right" Width="75" Click="Button_Click"/>
 
+                <!-- Add medicaments -->
+                <StackPanel Margin="10">
+                    <StackPanel Margin="0 0 0 10" Orientation="Horizontal" VerticalAlignment="Center">
+                        <ToggleButton IsChecked="True" Name="medicamentsCheckbox" Style="{StaticResource ToggleButtonSwitch}"/>
+                        <TextBlock Text="Medicaments" Margin="5" />
+                    </StackPanel>
+
+                    <StackPanel Visibility="{Binding IsChecked,ElementName=medicamentsCheckbox,Converter={StaticResource Boolean2VisibilityConverter}}">
+                        <StackPanel Name="medicamentsBox"></StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Margin="0 0 10 0" Width="200" Name="newMedicament" KeyDown="enterAddMed" />
+                            <Button Content="Ajouter" Click="addMedButton" />
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Add maladies -->
+                <StackPanel Margin="10">
+                    <StackPanel Margin="0 0 0 10" Orientation="Horizontal" VerticalAlignment="Center">
+                        <ToggleButton IsChecked="True" Name="maladiesCheckbox" Style="{StaticResource ToggleButtonSwitch}"/>
+                        <TextBlock Text="Maladies" Margin="5" />
+                    </StackPanel>
+
+                    <StackPanel Visibility="{Binding IsChecked,ElementName=maladiesCheckbox,Converter={StaticResource Boolean2VisibilityConverter}}">
+                        <StackPanel Name="maladiesBox"></StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Margin="0 0 10 0" Width="200" Name="newMaladie" KeyDown="enterAddMaladie" />
+                            <Button Content="Ajouter" Click="addMaladieButton" />
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+
+                <Button Margin="5" Content="Add client"  VerticalAlignment="Center" HorizontalAlignment="Right" Width="75" Click="addClient"/>
             </StackPanel>
         </Grid>
 
