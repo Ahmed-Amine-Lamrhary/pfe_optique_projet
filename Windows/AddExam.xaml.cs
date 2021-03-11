@@ -36,6 +36,7 @@ namespace MenuWithSubMenu.Windows
         }
         private void addExam(object sender, EventArgs e)
         {
+
             vision_pres vision_Pres = new vision_pres()
             {
                 od_add = int.Parse(od_add_pres.Text),

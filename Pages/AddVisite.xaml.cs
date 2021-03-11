@@ -36,7 +36,6 @@ namespace MenuWithSubMenu.Pages
         }
         private void saveVisite(object sender, RoutedEventArgs e)
         {
-            
             foreach(examan ex in listExamen)
             {
                 db.examen.Add(ex);
