@@ -201,3 +201,7 @@ G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Pages\ClientProfile.g.cs
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Pages\UpdateClient.g.cs
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Pages\ClientProfile.baml
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Pages\UpdateClient.baml
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Pages\AddVisite.g.cs
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Pages\AddVisite.baml
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Windows\AddExam.g.cs
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Windows\AddExam.baml

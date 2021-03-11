@@ -20,14 +20,14 @@ using System.Windows.Shapes;
 namespace MenuWithSubMenu.Pages
 {
     /// <summary>
-    /// Interaction logic for NewUser.xaml
+    /// Interaction logic for AddClient.xaml
     /// </summary>
-    public partial class NewUser : Page
+    public partial class AddClient : Page
     {
         dbEntities db;
         DbContextTransaction transaction;
         
-        public NewUser()
+        public AddClient()
         {
             InitializeComponent();
             db = new dbEntities();

@@ -1,0 +1,53 @@
+﻿<Window x:Class="MenuWithSubMenu.Windows.AddExam"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MenuWithSubMenu.Windows"
+        mc:Ignorable="d"
+        Title="AddExam" Height="397.34" Width="247.872">
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <!-- Vision Loins -->
+            <TextBlock Margin="5" Height="23" TextWrapping="Wrap" Text="Vision de loin :" Name="visionLoins"/>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="OD :"/>
+                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_sph_loin"/>
+                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_cyl_loin"/>
+                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_axe_loin"/>
+                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_add_loin"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="OG :"/>
+                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_sph_loin"/>
+                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_cyl_loin"/>
+                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_axe_loin"/>
+                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_add_loin"/>
+                </StackPanel>
+            </StackPanel>
+            <!-- Vision Prés -->
+            <TextBlock Margin="5" Height="23" TextWrapping="Wrap" Text="Vision de près :" Name="visionPres"/>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="OD :"/>
+                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_sph_pres"/>
+                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_cyl_pres"/>
+                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_axe_pres"/>
+                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_add_pres"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="OG :"/>
+                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_sph_pres"/>
+                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_cyl_pres"/>
+                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_axe_pres"/>
+                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_add_pres"/>
+                </StackPanel>
+            </StackPanel>
+
+            <CheckBox Margin="5" Name="editOrdonnance" Content="Edit on ordonnance"></CheckBox>
+            <TextBox Margin="5" Text="Remarques" Name="remarquesText"></TextBox>
+            <Button Content="Enregistrer Examen" Click="addExam"></Button>
+        </StackPanel>
+    </Grid>
+</Window>

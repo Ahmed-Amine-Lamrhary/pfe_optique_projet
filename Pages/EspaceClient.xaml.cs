@@ -1,5 +1,6 @@
 ﻿using HandyControl.Controls;
 using MenuWithSubMenu.Model;
+using MenuWithSubMenu.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -41,7 +42,7 @@ namespace MenuWithSubMenu.Pages
 
             try
             {
-                clientsDataGrid.ItemsSource = await db.clients.Select(c => new { c.cin, c.nom, c.prenom, c.adresse, c.email, c.dateNaissance }).ToListAsync();
+                clientsDataGrid.ItemsSource = await db.clients.ToListAsync();
             }
             catch (Exception exp)
             {
@@ -80,18 +81,12 @@ namespace MenuWithSubMenu.Pages
         private void voirClient(object sender, RoutedEventArgs e)
         {
             client clientRow = clientsDataGrid.SelectedItem as client;  
-            string clientCin = clientRow.cin;  
+            string clientCin = clientRow.cin;
 
-            
+            ClientProfile clientProfile = new ClientProfile(clientCin);
 
-            foreach (System.Windows.Window window in Application.Current.Windows)
-            {
-                if (window.GetType() == typeof(MainWindow))
-                {
-                    ClientProfile clientProfile = new ClientProfile(clientCin);
-                    (window as MainWindow).MainWindowFrame.Navigate(clientProfile);
-                }
-            }
+
+            MyContext.navigateTo(clientProfile);
         }
 
         private void updateClient(object sender, RoutedEventArgs e)
@@ -99,15 +94,8 @@ namespace MenuWithSubMenu.Pages
 
             client clientRow = clientsDataGrid.SelectedItem as client;
             string clientCin = clientRow.cin;
-
-            foreach (System.Windows.Window window in Application.Current.Windows)
-            {
-                if (window.GetType() == typeof(MainWindow))
-                {
-                    UpdateClient update = new UpdateClient(db.clients.Where(client => client.cin == clientCin).SingleOrDefault());
-                    (window as MainWindow).MainWindowFrame.Navigate(update);
-                }
-            }
+            UpdateClient update = new UpdateClient(db.clients.Where(client => client.cin == clientCin).SingleOrDefault());
+            MyContext.navigateTo(update);
         }
         private void deleteClient(object sender, RoutedEventArgs e)
         {
@@ -117,6 +105,11 @@ namespace MenuWithSubMenu.Pages
             db.SaveChanges();
 
             
+        }
+        private void addClient(object sender, RoutedEventArgs e)
+        {
+            AddClient add_Client = new AddClient();
+            MyContext.navigateTo(add_Client);
         }
     }
 }

@@ -52,12 +52,39 @@
                         </StackPanel>
                     </Grid>
                 </Grid>
+                <!-- Meds and Maladies -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Info -->
+                    <Grid Grid.Column="0" Margin="5">
+                        <StackPanel Name="panelMeds">
+                            <TextBlock  Text="Medicaments :"/>
+                            <ListBox Name="meds" Margin="10" Style="{DynamicResource ListBoxCustom}">
+                               
+                            </ListBox>
+                        </StackPanel>
+                    </Grid>
+                    <!-- Visites -->
+                    <Grid Grid.Column="1" Margin="5">
+                        <StackPanel Name="panelMaladies">
+                            <TextBlock Text="Maladies :"/>
+                            <ListBox Name="maladies" Margin="10"  Style="{DynamicResource ListBoxCustom}">
+
+                            </ListBox>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
 
                 <!-- Ordonnances -->
-                <StackPanel>
+                <StackPanel Margin="5">
                     <TextBlock Text="Ordonnances" />
                     <DataGrid Name="odonnanceData" />
                 </StackPanel>
+                
             </StackPanel>
 
         </Grid>

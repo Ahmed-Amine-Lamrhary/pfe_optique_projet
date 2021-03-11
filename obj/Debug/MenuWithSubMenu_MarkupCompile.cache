@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\
 MenuWithSubMenu
 none
 false
 DEBUG;TRACE
-G:\Studies\S4\PFE\pfe_optique_projet\App.xaml
-14604361510
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\App.xaml
+161174593603
 2-1126995326
-47-1545483473
-19-522672591
-Assets\IconDictionary.xaml;CustomControl\MenuWithSubMenuControl.xaml;MainWindow.xaml;Pages\ClientProfile.xaml;Pages\EspaceClient.xaml;Pages\Sent.xaml;Pages\UpdateClient.xaml;Pages\Visites.xaml;Pages\Ophtalmologues.xaml;Pages\Fournisseurs.xaml;Pages\AddClient.xaml;Pages\EspaceStock.xaml;Pages\Profile.xaml;Pages\Settings.xaml;
+50-1668612617
+19249276899
+Assets\IconDictionary.xaml;CustomControl\MenuWithSubMenuControl.xaml;MainWindow.xaml;Pages\AddVisite.xaml;Pages\ClientProfile.xaml;Pages\EspaceClient.xaml;Pages\Sent.xaml;Pages\UpdateClient.xaml;Pages\Visites.xaml;Pages\Ophtalmologues.xaml;Pages\Fournisseurs.xaml;Pages\AddClient.xaml;Pages\EspaceStock.xaml;Pages\Profile.xaml;Pages\Settings.xaml;Windows\AddExam.xaml;
 
 False
 

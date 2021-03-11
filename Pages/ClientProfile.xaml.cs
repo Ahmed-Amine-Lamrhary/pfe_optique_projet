@@ -45,7 +45,24 @@ namespace MenuWithSubMenu.Pages
             emailBox.Text = pageClient.email;
             telephoneBox.Text = pageClient.telephone;
             dateNaissanceBox.Text = pageClient.dateNaissance.ToString();
-
+            if(pageClient.medicaments != null)
+            {
+                List<string> medsList = pageClient.medicaments.Split('@').ToList();
+                meds.ItemsSource = medsList;
+            }
+            else
+            {
+                panelMeds.Visibility = Visibility.Collapsed;
+            }
+            if(pageClient.maladies != null)
+            {
+                List<string> maladiesList = pageClient.maladies.Split('@').ToList();
+                maladies.ItemsSource = maladiesList;
+            }
+            else
+            {
+                panelMaladies.Visibility = Visibility.Collapsed; 
+            }
             // get visites
             visiteData.ItemsSource = db.visites.Where(visite => visite.client_cin == clientCin).ToList();
 

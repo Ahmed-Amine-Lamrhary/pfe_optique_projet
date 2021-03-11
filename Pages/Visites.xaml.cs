@@ -1,4 +1,5 @@
 ﻿using MenuWithSubMenu.Model;
+using MenuWithSubMenu.Utils;
 using System;
 using System.Linq;
 using System.Windows;
@@ -59,16 +60,13 @@ namespace MenuWithSubMenu.Pages
         {
             visite visiteRow = visitesDataGrid.SelectedItem as visite;
             string clientCin = visiteRow.client_cin;
-
-            
-            foreach (System.Windows.Window window in Application.Current.Windows)
-            {
-                if (window.GetType() == typeof(MainWindow))
-                {
-                    ClientProfile clientProfile = new ClientProfile(clientCin);
-                    (window as MainWindow).MainWindowFrame.Navigate(clientProfile);
-                }
-            }
+            ClientProfile clientProfile = new ClientProfile(clientCin);
+            MyContext.navigateTo(clientProfile);
+        }
+        private void addVisite(object sender, RoutedEventArgs e)
+        {
+            AddVisite addVisite = new AddVisite();
+            MyContext.navigateTo(addVisite);
         }
     }
 }
