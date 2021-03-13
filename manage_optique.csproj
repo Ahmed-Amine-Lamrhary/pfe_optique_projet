@@ -68,91 +68,100 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\article.cs">
-      <DependentUpon>dbEntities.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\cadre.cs">
-      <DependentUpon>dbEntities.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\categorie.cs">
-      <DependentUpon>dbEntities.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\client.cs">
-      <DependentUpon>dbEntities.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\cmdclient.cs">
-      <DependentUpon>dbEntities.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\cmdfournisseur.cs">
-      <DependentUpon>dbEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\dbEntities.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dbEntities.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\dbEntities.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dbEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\dbEntities.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dbEntities.edmx</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\examan.cs">
-      <DependentUpon>dbEntities.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\fournisseur.cs">
-      <DependentUpon>dbEntities.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\lentille.cs">
-      <DependentUpon>dbEntities.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\lentillemultifocale.cs">
-      <DependentUpon>dbEntities.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\lentillespherique.cs">
-      <DependentUpon>dbEntities.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\lentilletorique.cs">
-      <DependentUpon>dbEntities.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\lignecommande.cs">
-      <DependentUpon>dbEntities.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\ligneentree.cs">
-      <DependentUpon>dbEntities.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="Model\oeil.cs">
-      <DependentUpon>dbEntities.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\ophtalmologue.cs">
-      <DependentUpon>dbEntities.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\ordonnance.cs">
-      <DependentUpon>dbEntities.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\traitement.cs">
-      <DependentUpon>dbEntities.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\typelentille.cs">
-      <DependentUpon>dbEntities.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\typeverre.cs">
-      <DependentUpon>dbEntities.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\verre.cs">
-      <DependentUpon>dbEntities.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\vision_loins.cs">
-      <DependentUpon>dbEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\vision_pres.cs">
-      <DependentUpon>dbEntities.tt</DependentUpon>
+    <Compile Include="Model\vision.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\visite.cs">
-      <DependentUpon>dbEntities.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AboutOrdonnance.xaml.cs">
+      <DependentUpon>AboutOrdonnance.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AboutVisite.xaml.cs">
+      <DependentUpon>AboutVisite.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Acceuil.xaml.cs">
+      <DependentUpon>Acceuil.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AddOphta.xaml.cs">
+      <DependentUpon>AddOphta.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\AddVisite.xaml.cs">
       <DependentUpon>AddVisite.xaml</DependentUpon>
@@ -161,11 +170,17 @@
       <DependentUpon>ClientProfile.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\InventoryEntities.cs" />
+    <Compile Include="Pages\OphtaProfile.xaml.cs">
+      <DependentUpon>OphtaProfile.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Sent.xaml.cs">
       <DependentUpon>Sent.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\UpdateClient.xaml.cs">
       <DependentUpon>UpdateClient.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\UpdateOphta.xaml.cs">
+      <DependentUpon>UpdateOphta.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\MyContext.cs" />
     <Compile Include="ViewModel\CommandViewModel.cs" />
@@ -196,6 +211,22 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\AboutOrdonnance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AboutVisite.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Acceuil.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AddOphta.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\AddVisite.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -208,11 +239,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Pages\OphtaProfile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Sent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\UpdateClient.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\UpdateOphta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -291,12 +330,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="Model\dbEntities.edmx">
+    <EntityDeploy Include="Model\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>dbEntities.Designer.cs</LastGenOutput>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Model\dbEntities.edmx.diagram">
-      <DependentUpon>dbEntities.edmx</DependentUpon>
+    <None Include="Model\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -311,15 +350,15 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Model\dbEntities.Context.tt">
+    <Content Include="Model\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>dbEntities.edmx</DependentUpon>
-      <LastGenOutput>dbEntities.Context.cs</LastGenOutput>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Model\dbEntities.tt">
+    <Content Include="Model\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>dbEntities.edmx</DependentUpon>
-      <LastGenOutput>dbEntities.cs</LastGenOutput>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

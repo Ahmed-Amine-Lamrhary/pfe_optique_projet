@@ -14,17 +14,27 @@ namespace MenuWithSubMenu.Model
     
     public partial class examan
     {
+        public int od_sphere_loins { get; set; }
+        public int od_cylindre_loins { get; set; }
+        public int od_axe_loins { get; set; }
+        public int od_add_loins { get; set; }
+        public int og_sphère_loins { get; set; }
+        public int og_cylindre_loins { get; set; }
+        public int og_axe_loins { get; set; }
+        public int og_add_loins { get; set; }
         public int id { get; set; }
-        public int visionLoins { get; set; }
-        public int visionPres { get; set; }
-        public string modifOrdonnance { get; set; }
+        public int visite_id { get; set; }
+        public System.DateTime date_derniere_modif { get; set; }
         public string remarques { get; set; }
-        public int visite_visiteId { get; set; }
-        public int vision_loins_id { get; set; }
-        public int vision_pres_id { get; set; }
+        public int og_add_pres { get; set; }
+        public int od_sphere_pres { get; set; }
+        public int od_cylindre_pres { get; set; }
+        public int od_axe_pres { get; set; }
+        public int od_add_pres { get; set; }
+        public int og_sphère_pres { get; set; }
+        public int og_cylindre_pres { get; set; }
+        public int og_axe_pres { get; set; }
     
-        public virtual vision_loins vision_loins { get; set; }
-        public virtual vision_pres vision_pres { get; set; }
         public virtual visite visite { get; set; }
     }
 }

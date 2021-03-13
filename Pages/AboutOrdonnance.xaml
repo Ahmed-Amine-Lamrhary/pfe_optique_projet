@@ -1,0 +1,74 @@
+﻿<Page x:Class="MenuWithSubMenu.Pages.AboutOrdonnance"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MenuWithSubMenu.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AboutOrdonnance"
+      xmlns:hc="https://handyorg.github.io/handycontrol"
+      Background="White"
+      >
+
+    <Grid Margin="25">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <hc:Gravatar Content="Gravatar" Width="300" Height="300" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <StackPanel>
+                <TextBox Text="Etat" Name="etatBox" IsEnabled="False" />
+
+                <TextBox Text="Date de création" Name="dateCreationBox" IsEnabled="False" />
+                <TextBox Text="Date d'expiration" Name="dateExpirationBox" IsEnabled="False" />
+                <TextBox Text="Type de verres" Name="typeVerresBox" IsEnabled="False" />
+
+                <!-- Vision Loins -->
+                <TextBlock Margin="5" Height="23" TextWrapping="Wrap" Text="Vision de loin :" Name="visionLoins"/>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="OD :"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_sph_loin" IsEnabled="False"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_cyl_loin" IsEnabled="False"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_axe_loin" IsEnabled="False"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_add_loin" IsEnabled="False"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="OG :"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_sph_loin" IsEnabled="False"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_cyl_loin" IsEnabled="False"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_axe_loin" IsEnabled="False"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_add_loin" IsEnabled="False"/>
+                    </StackPanel>
+                </StackPanel>
+                <!-- Vision Prés -->
+                <TextBlock Margin="5" Height="23" TextWrapping="Wrap" Text="Vision de près :" Name="visionPres"/>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="OD :"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_sph_pres" IsEnabled="False"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_cyl_pres" IsEnabled="False"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_axe_pres" IsEnabled="False"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_add_pres" IsEnabled="False"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="OG :"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_sph_pres" IsEnabled="False"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_cyl_pres" IsEnabled="False"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_axe_pres" IsEnabled="False"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_add_pres" IsEnabled="False"/>
+                    </StackPanel>
+                </StackPanel>
+                
+                <Button Content="Voir Ophtalmologue" Click="voirOphta" />
+                <Button Content="Voir Client" Click="voirClient" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

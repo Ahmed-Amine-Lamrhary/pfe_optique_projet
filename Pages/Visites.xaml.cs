@@ -56,17 +56,20 @@ namespace MenuWithSubMenu.Pages
             }
         }
 
+        private void voirVisite(object sender, RoutedEventArgs e)
+        {
+            visite visiteRow = visitesDataGrid.SelectedItem as visite;
+            int visiteId = visiteRow.id;
+            AboutVisite aboutVisite = new AboutVisite(visiteId);
+            MyContext.navigateTo(aboutVisite);
+        }
+
         private void voirClient(object sender, RoutedEventArgs e)
         {
             visite visiteRow = visitesDataGrid.SelectedItem as visite;
             string clientCin = visiteRow.client_cin;
             ClientProfile clientProfile = new ClientProfile(clientCin);
             MyContext.navigateTo(clientProfile);
-        }
-        private void addVisite(object sender, RoutedEventArgs e)
-        {
-            AddVisite addVisite = new AddVisite();
-            MyContext.navigateTo(addVisite);
         }
     }
 }

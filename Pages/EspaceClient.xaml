@@ -42,7 +42,7 @@
 
                                     <MenuItem.ContextMenu>
                                         <ContextMenu>
-                                            <MenuItem Header="Ajouter visite"/>
+                                            <MenuItem Header="Ajouter visite" Click="ajouterVisite"/>
                                             <MenuItem Header="Voir client" Click="voirClient" />
                                             <MenuItem Header="Modifier client" Click="updateClient"/>
                                             <MenuItem Header="Supprimer client" Click="deleteClient"/>

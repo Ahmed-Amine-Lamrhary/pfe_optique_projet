@@ -46,8 +46,7 @@ namespace MenuWithSubMenu.Model
         public virtual DbSet<typelentille> typelentilles { get; set; }
         public virtual DbSet<typeverre> typeverres { get; set; }
         public virtual DbSet<verre> verres { get; set; }
-        public virtual DbSet<vision_loins> vision_loins { get; set; }
-        public virtual DbSet<vision_pres> vision_pres { get; set; }
+        public virtual DbSet<vision> visions { get; set; }
         public virtual DbSet<visite> visites { get; set; }
     }
 }

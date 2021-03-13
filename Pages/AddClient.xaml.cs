@@ -73,7 +73,21 @@ namespace MenuWithSubMenu.Pages
                 });
                 db.SaveChanges();
 
-                vision_pres vision_Pres = new vision_pres()
+                ordonnance newOrdonnance = new ordonnance()
+                {
+                    dateCreation = (DateTime)dateCreationOrdonnance.SelectedDate.Value.Date,
+                    dateExpiration = (DateTime)dateExpirationOrdonnance.SelectedDate.Value.Date,
+                    idTypeVerre = (int)typeVerres.SelectedValue,
+                    notes = notesOphtalmologue.Text,
+                    photo = "/C:/Images",
+                    ophtalmologue_ophtalmologueId = (int)ophtalmologueText.SelectedValue,
+                    client_cin = cinText.Text
+                };
+
+                db.ordonnances.Add(newOrdonnance);
+                db.SaveChanges();
+
+                vision vision_Pres = new vision()
                 {
                     od_add = int.Parse(od_add_pres.Text),
                     od_cylindre = int.Parse(od_cyl_pres.Text),
@@ -82,13 +96,15 @@ namespace MenuWithSubMenu.Pages
                     og_add = int.Parse(og_add_pres.Text),
                     og_cylindre = int.Parse(og_cyl_pres.Text),
                     og_axe = int.Parse(og_axe_pres.Text),
-                    og_sphère = int.Parse(og_sph_pres.Text)
+                    og_sphère = int.Parse(og_sph_pres.Text),
+                    vision_type = "pres",
+                    ordonnance_id = newOrdonnance.id
                 };
 
-                db.vision_pres.Add(vision_Pres);
+                db.visions.Add(vision_Pres);
                 db.SaveChanges();
 
-                vision_loins vision_Loins = new vision_loins()
+                vision vision_Loins = new vision()
                 {
                     od_add = int.Parse(od_add_loin.Text),
                     od_cylindre = int.Parse(od_cyl_loin.Text),
@@ -97,33 +113,23 @@ namespace MenuWithSubMenu.Pages
                     og_add = int.Parse(og_add_loin.Text),
                     og_cylindre = int.Parse(og_cyl_loin.Text),
                     og_axe = int.Parse(og_axe_loin.Text),
-                    og_sphère = int.Parse(og_sph_loin.Text)
+                    og_sphère = int.Parse(og_sph_loin.Text),
+                    vision_type = "loins",
+                    ordonnance_id = newOrdonnance.id
                 };
 
-                db.vision_loins.Add(vision_Loins);
+                db.visions.Add(vision_Loins);
                 db.SaveChanges();
 
                 db.visites.Add(new visite()
                 {
                     client_cin = cinText.Text,
                     date = DateTime.Now,
-                    raison = raisonvisiteText.Text
+                    raison = raisonvisiteText.Text,
                 });
                 db.SaveChanges();
 
-                db.ordonnances.Add(new ordonnance()
-                {
-                    dateCreation = (DateTime)dateCreationOrdonnance.SelectedDate.Value.Date,
-                    dateExpiration = (DateTime)dateExpirationOrdonnance.SelectedDate.Value.Date,
-                    idTypeVerre = (int)typeVerres.SelectedValue,
-                    notes = notesOphtalmologue.Text,
-                    photo = "/C:/Images",
-                    ophtalmologue_ophtalmologueId = (int)ophtalmologueText.SelectedValue,
-                    client_cin = cinText.Text,
-                    vision_loins_id = vision_Loins.id,
-                    vision_pres_id = vision_Pres.id
-                });
-                db.SaveChanges();
+
                 transaction.Commit();
             }
             catch (Exception exc)

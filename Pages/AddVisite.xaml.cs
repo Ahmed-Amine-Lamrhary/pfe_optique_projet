@@ -2,6 +2,7 @@
 using MenuWithSubMenu.Windows;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,12 +23,16 @@ namespace MenuWithSubMenu.Pages
     {
         dbEntities db;
         private List<examan> listExamen;
-        public AddVisite()
+        DbContextTransaction transaction;
+        private string clientCin;
+
+        public AddVisite(string clientCin)
         {
             InitializeComponent();
             db = new dbEntities();
             listExamen = new List<examan>();
             examList.ItemsSource = listExamen;
+            this.clientCin = clientCin;
         }
         private void addExam(object sender, RoutedEventArgs e)
         {
@@ -36,9 +41,33 @@ namespace MenuWithSubMenu.Pages
         }
         private void saveVisite(object sender, RoutedEventArgs e)
         {
-            foreach(examan ex in listExamen)
+            try
             {
-                db.examen.Add(ex);
+                transaction = db.Database.BeginTransaction();
+                visite newVisite = new visite()
+                {
+                    date = DateTime.Now,
+                    raison = rasonVissite.Text,
+                    client_cin = clientCin
+                };
+                db.visites.Add(newVisite);
+                db.SaveChanges();
+
+                foreach (examan ex in listExamen)
+                {
+                    ex.visite_id = newVisite.id;
+
+                    db.examen.Add(ex);
+                    db.SaveChanges();
+                }
+
+                transaction.Commit();
+            }
+            catch (Exception exc)
+            {
+                Console.Write(exc.Message);
+                HandyControl.Controls.MessageBox.Show(exc.Message);
+                transaction.Rollback();
             }
         }
         public void addExamToList(examan exam)

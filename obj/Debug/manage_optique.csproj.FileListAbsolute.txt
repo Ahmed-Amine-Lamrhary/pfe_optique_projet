@@ -205,3 +205,19 @@ C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Pages\AddVisite.g.cs
 C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Pages\AddVisite.baml
 C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Windows\AddExam.g.cs
 C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Windows\AddExam.baml
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Pages\AddVisite.g.cs
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Windows\AddExam.g.cs
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Pages\AddVisite.baml
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Windows\AddExam.baml
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Pages\AboutVisite.g.cs
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Pages\AboutVisite.baml
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Pages\AddOphta.g.cs
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Pages\OphtaProfile.g.cs
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Pages\UpdateOphta.g.cs
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Pages\AddOphta.baml
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Pages\OphtaProfile.baml
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Pages\UpdateOphta.baml
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Pages\AboutOrdonnance.g.cs
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Pages\AboutOrdonnance.baml
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Pages\Acceuil.g.cs
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Pages\Acceuil.baml

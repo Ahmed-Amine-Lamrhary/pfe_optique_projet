@@ -14,6 +14,12 @@ namespace MenuWithSubMenu.Model
     
     public partial class ordonnance
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ordonnance()
+        {
+            this.visions = new HashSet<vision>();
+        }
+    
         public int id { get; set; }
         public System.DateTime dateCreation { get; set; }
         public System.DateTime dateExpiration { get; set; }
@@ -21,13 +27,11 @@ namespace MenuWithSubMenu.Model
         public string photo { get; set; }
         public int ophtalmologue_ophtalmologueId { get; set; }
         public string client_cin { get; set; }
-        public int vision_pres_id { get; set; }
-        public int vision_loins_id { get; set; }
         public Nullable<int> idTypeVerre { get; set; }
     
         public virtual ophtalmologue ophtalmologue { get; set; }
         public virtual typeverre typeverre { get; set; }
-        public virtual vision_loins vision_loins { get; set; }
-        public virtual vision_pres vision_pres { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<vision> visions { get; set; }
     }
 }

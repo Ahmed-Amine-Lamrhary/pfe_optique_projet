@@ -14,7 +14,6 @@ namespace MenuWithSubMenu
         //to call resource dictionary in our code behind
         ResourceDictionary dict = Application.LoadComponent(new Uri("/MenuWithSubMenu;component/Assets/IconDictionary.xaml", UriKind.RelativeOrAbsolute)) as ResourceDictionary;
 
-
         //Our Source List for Menu Items
         public List<MenuItemsData> MenuList
         {
@@ -22,6 +21,9 @@ namespace MenuWithSubMenu
             {
                 return new List<MenuItemsData>
                 {
+                    // Acceuil
+                    new MenuItemsData(){ PathData= (PathGeometry)dict["icon_dashboard"], MenuText="Acceuil", SubMenuList=null},
+                    
                     // Client
                     new MenuItemsData(){ PathData= (PathGeometry)dict["icon_dashboard"], MenuText="EspaceClient", SubMenuList=null},
                     
@@ -57,17 +59,18 @@ namespace MenuWithSubMenu
         public string MenuText { get; set; }
         public List<SubMenuItemsData> SubMenuList { get; set; }
 
-        //To Add click event to our Buttons we will use ICommand here to switch pages when specific button is clicked
         public MenuItemsData()
         {
             Command = new CommandViewModel(Execute);
+
+            // active page by default
+            navigateToPage("Acceuil");
         }
 
         public ICommand Command { get; }
 
         private void Execute()
         {
-            //our logic comes here
             string MT = MenuText.Replace(" ", string.Empty);
             if (!string.IsNullOrEmpty(MT))
                 navigateToPage(MT);
@@ -75,8 +78,6 @@ namespace MenuWithSubMenu
 
         private void navigateToPage(string Menu)
         {
-            //We will search for our Main Window in open windows and then will access the frame inside it to set the navigation to desired page..
-            //lets see how... ;)
             foreach (Window window in Application.Current.Windows)
             {
                 if (window.GetType() == typeof(MainWindow))

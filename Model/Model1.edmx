@@ -70,14 +70,26 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
+          <Property Name="od_sphere_loins" Type="int" Nullable="false" />
+          <Property Name="od_cylindre_loins" Type="int" Nullable="false" />
+          <Property Name="od_axe_loins" Type="int" Nullable="false" />
+          <Property Name="od_add_loins" Type="int" Nullable="false" />
+          <Property Name="og_sphère_loins" Type="int" Nullable="false" />
+          <Property Name="og_cylindre_loins" Type="int" Nullable="false" />
+          <Property Name="og_axe_loins" Type="int" Nullable="false" />
+          <Property Name="og_add_loins" Type="int" Nullable="false" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="visionLoins" Type="int" Nullable="false" />
-          <Property Name="visionPres" Type="int" Nullable="false" />
-          <Property Name="modifOrdonnance" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="visite_id" Type="int" Nullable="false" />
+          <Property Name="date_derniere_modif" Type="date" Nullable="false" />
           <Property Name="remarques" Type="nvarchar(max)" />
-          <Property Name="visite_visiteId" Type="int" Nullable="false" />
-          <Property Name="vision_loins_id" Type="int" Nullable="false" />
-          <Property Name="vision_pres_id" Type="int" Nullable="false" />
+          <Property Name="og_add_pres" Type="int" Nullable="false" />
+          <Property Name="od_sphere_pres" Type="int" Nullable="false" />
+          <Property Name="od_cylindre_pres" Type="int" Nullable="false" />
+          <Property Name="od_axe_pres" Type="int" Nullable="false" />
+          <Property Name="od_add_pres" Type="int" Nullable="false" />
+          <Property Name="og_sphère_pres" Type="int" Nullable="false" />
+          <Property Name="og_cylindre_pres" Type="int" Nullable="false" />
+          <Property Name="og_axe_pres" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="fournisseur">
           <Key>
@@ -190,8 +202,6 @@
           <Property Name="photo" Type="nvarchar" MaxLength="45" Nullable="false" />
           <Property Name="ophtalmologue_ophtalmologueId" Type="int" Nullable="false" />
           <Property Name="client_cin" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="vision_pres_id" Type="int" Nullable="false" />
-          <Property Name="vision_loins_id" Type="int" Nullable="false" />
           <Property Name="idTypeVerre" Type="int" />
         </EntityType>
         <EntityType Name="traitement">
@@ -228,7 +238,7 @@
           <Property Name="Modele" Type="nvarchar" MaxLength="45" />
           <Property Name="Teinte" Type="nvarchar" MaxLength="45" />
         </EntityType>
-        <EntityType Name="vision_loins">
+        <EntityType Name="vision">
           <Key>
             <PropertyRef Name="id" />
           </Key>
@@ -241,20 +251,8 @@
           <Property Name="og_cylindre" Type="int" Nullable="false" />
           <Property Name="og_axe" Type="int" Nullable="false" />
           <Property Name="og_add" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="vision_pres">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="od_sphere" Type="int" Nullable="false" />
-          <Property Name="od_cylindre" Type="int" Nullable="false" />
-          <Property Name="od_axe" Type="int" Nullable="false" />
-          <Property Name="od_add" Type="int" Nullable="false" />
-          <Property Name="og_sphère" Type="int" Nullable="false" />
-          <Property Name="og_cylindre" Type="int" Nullable="false" />
-          <Property Name="og_axe" Type="int" Nullable="false" />
-          <Property Name="og_add" Type="int" Nullable="false" />
+          <Property Name="vision_type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ordonnance_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="visite">
           <Key>
@@ -301,42 +299,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="examen$fk_examen_vision_loins1">
-          <End Role="vision_loins" Type="Self.vision_loins" Multiplicity="1" />
-          <End Role="examen" Type="Self.examen" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="vision_loins">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="examen">
-              <PropertyRef Name="vision_loins_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="examen$fk_examen_vision_pres1">
-          <End Role="vision_pres" Type="Self.vision_pres" Multiplicity="1" />
-          <End Role="examen" Type="Self.examen" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="vision_pres">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="examen">
-              <PropertyRef Name="vision_pres_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="examen$fk_examen_visite1">
-          <End Role="visite" Type="Self.visite" Multiplicity="1" />
-          <End Role="examen" Type="Self.examen" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="visite">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="examen">
-              <PropertyRef Name="visite_visiteId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_cmdclient_client">
           <End Role="client" Type="Self.client" Multiplicity="1" />
           <End Role="cmdclient" Type="Self.cmdclient" Multiplicity="*" />
@@ -349,6 +311,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_examen_visite">
+          <End Role="visite" Type="Self.visite" Multiplicity="1" />
+          <End Role="examen" Type="Self.examen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="visite">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="examen">
+              <PropertyRef Name="visite_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ordonnance_typeverre">
           <End Role="typeverre" Type="Self.typeverre" Multiplicity="0..1" />
           <End Role="ordonnance" Type="Self.ordonnance" Multiplicity="*" />
@@ -358,6 +332,18 @@
             </Principal>
             <Dependent Role="ordonnance">
               <PropertyRef Name="idTypeVerre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_vision_ordonnance">
+          <End Role="ordonnance" Type="Self.ordonnance" Multiplicity="1" />
+          <End Role="vision" Type="Self.vision" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ordonnance">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="vision">
+              <PropertyRef Name="ordonnance_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -493,30 +479,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="ordonnance$fk_ordonnance_vision_loins1">
-          <End Role="vision_loins" Type="Self.vision_loins" Multiplicity="1" />
-          <End Role="ordonnance" Type="Self.ordonnance" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="vision_loins">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="ordonnance">
-              <PropertyRef Name="vision_loins_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="ordonnance$fk_ordonnance_vision_pres1">
-          <End Role="vision_pres" Type="Self.vision_pres" Multiplicity="1" />
-          <End Role="ordonnance" Type="Self.ordonnance" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="vision_pres">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="ordonnance">
-              <PropertyRef Name="vision_pres_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="verre$fk_Verre_Article1">
           <End Role="article" Type="Self.article" Multiplicity="1" />
           <End Role="verre" Type="Self.verre" Multiplicity="*" />
@@ -599,8 +561,7 @@
           <EntitySet Name="typelentille" EntityType="Self.typelentille" Schema="optique_pfe" store:Type="Tables" />
           <EntitySet Name="typeverre" EntityType="Self.typeverre" Schema="optique_pfe" store:Type="Tables" />
           <EntitySet Name="verre" EntityType="Self.verre" Schema="optique_pfe" store:Type="Tables" />
-          <EntitySet Name="vision_loins" EntityType="Self.vision_loins" Schema="optique_pfe" store:Type="Tables" />
-          <EntitySet Name="vision_pres" EntityType="Self.vision_pres" Schema="optique_pfe" store:Type="Tables" />
+          <EntitySet Name="vision" EntityType="Self.vision" Schema="optique_pfe" store:Type="Tables" />
           <EntitySet Name="visite" EntityType="Self.visite" Schema="optique_pfe" store:Type="Tables" />
           <AssociationSet Name="article$fk_Article_Categorie1" Association="Self.article$fk_Article_Categorie1">
             <End Role="categorie" EntitySet="categorie" />
@@ -614,25 +575,21 @@
             <End Role="fournisseur" EntitySet="fournisseur" />
             <End Role="cmdfournisseur" EntitySet="cmdfournisseur" />
           </AssociationSet>
-          <AssociationSet Name="examen$fk_examen_vision_loins1" Association="Self.examen$fk_examen_vision_loins1">
-            <End Role="vision_loins" EntitySet="vision_loins" />
-            <End Role="examen" EntitySet="examen" />
-          </AssociationSet>
-          <AssociationSet Name="examen$fk_examen_vision_pres1" Association="Self.examen$fk_examen_vision_pres1">
-            <End Role="vision_pres" EntitySet="vision_pres" />
-            <End Role="examen" EntitySet="examen" />
-          </AssociationSet>
-          <AssociationSet Name="examen$fk_examen_visite1" Association="Self.examen$fk_examen_visite1">
-            <End Role="visite" EntitySet="visite" />
-            <End Role="examen" EntitySet="examen" />
-          </AssociationSet>
           <AssociationSet Name="FK_cmdclient_client" Association="Self.FK_cmdclient_client">
             <End Role="client" EntitySet="client" />
             <End Role="cmdclient" EntitySet="cmdclient" />
           </AssociationSet>
+          <AssociationSet Name="FK_examen_visite" Association="Self.FK_examen_visite">
+            <End Role="visite" EntitySet="visite" />
+            <End Role="examen" EntitySet="examen" />
+          </AssociationSet>
           <AssociationSet Name="FK_ordonnance_typeverre" Association="Self.FK_ordonnance_typeverre">
             <End Role="typeverre" EntitySet="typeverre" />
             <End Role="ordonnance" EntitySet="ordonnance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_vision_ordonnance" Association="Self.FK_vision_ordonnance">
+            <End Role="ordonnance" EntitySet="ordonnance" />
+            <End Role="vision" EntitySet="vision" />
           </AssociationSet>
           <AssociationSet Name="lentille$fk_Lentille_Article1" Association="Self.lentille$fk_Lentille_Article1">
             <End Role="article" EntitySet="article" />
@@ -676,14 +633,6 @@
           </AssociationSet>
           <AssociationSet Name="ordonnance$fk_ordonnance_ophtalmologue1" Association="Self.ordonnance$fk_ordonnance_ophtalmologue1">
             <End Role="ophtalmologue" EntitySet="ophtalmologue" />
-            <End Role="ordonnance" EntitySet="ordonnance" />
-          </AssociationSet>
-          <AssociationSet Name="ordonnance$fk_ordonnance_vision_loins1" Association="Self.ordonnance$fk_ordonnance_vision_loins1">
-            <End Role="vision_loins" EntitySet="vision_loins" />
-            <End Role="ordonnance" EntitySet="ordonnance" />
-          </AssociationSet>
-          <AssociationSet Name="ordonnance$fk_ordonnance_vision_pres1" Association="Self.ordonnance$fk_ordonnance_vision_pres1">
-            <End Role="vision_pres" EntitySet="vision_pres" />
             <End Role="ordonnance" EntitySet="ordonnance" />
           </AssociationSet>
           <AssociationSet Name="verre$fk_Verre_Article1" Association="Self.verre$fk_Verre_Article1">
@@ -791,17 +740,27 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
+          <Property Name="od_sphere_loins" Type="Int32" Nullable="false" />
+          <Property Name="od_cylindre_loins" Type="Int32" Nullable="false" />
+          <Property Name="od_axe_loins" Type="Int32" Nullable="false" />
+          <Property Name="od_add_loins" Type="Int32" Nullable="false" />
+          <Property Name="og_sphère_loins" Type="Int32" Nullable="false" />
+          <Property Name="og_cylindre_loins" Type="Int32" Nullable="false" />
+          <Property Name="og_axe_loins" Type="Int32" Nullable="false" />
+          <Property Name="og_add_loins" Type="Int32" Nullable="false" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="visionLoins" Type="Int32" Nullable="false" />
-          <Property Name="visionPres" Type="Int32" Nullable="false" />
-          <Property Name="modifOrdonnance" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="visite_id" Type="Int32" Nullable="false" />
+          <Property Name="date_derniere_modif" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="remarques" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="visite_visiteId" Type="Int32" Nullable="false" />
-          <Property Name="vision_loins_id" Type="Int32" Nullable="false" />
-          <Property Name="vision_pres_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="vision_loins" Relationship="Self.examen_fk_examen_vision_loins1" FromRole="examen" ToRole="vision_loins" />
-          <NavigationProperty Name="vision_pres" Relationship="Self.examen_fk_examen_vision_pres1" FromRole="examen" ToRole="vision_pres" />
-          <NavigationProperty Name="visite" Relationship="Self.examen_fk_examen_visite1" FromRole="examen" ToRole="visite" />
+          <Property Name="og_add_pres" Type="Int32" Nullable="false" />
+          <Property Name="od_sphere_pres" Type="Int32" Nullable="false" />
+          <Property Name="od_cylindre_pres" Type="Int32" Nullable="false" />
+          <Property Name="od_axe_pres" Type="Int32" Nullable="false" />
+          <Property Name="od_add_pres" Type="Int32" Nullable="false" />
+          <Property Name="og_sphère_pres" Type="Int32" Nullable="false" />
+          <Property Name="og_cylindre_pres" Type="Int32" Nullable="false" />
+          <Property Name="og_axe_pres" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="visite" Relationship="Self.FK_examen_visite" FromRole="examen" ToRole="visite" />
         </EntityType>
         <EntityType Name="fournisseur">
           <Key>
@@ -928,13 +887,10 @@
           <Property Name="photo" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ophtalmologue_ophtalmologueId" Type="Int32" Nullable="false" />
           <Property Name="client_cin" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="vision_pres_id" Type="Int32" Nullable="false" />
-          <Property Name="vision_loins_id" Type="Int32" Nullable="false" />
           <Property Name="idTypeVerre" Type="Int32" />
           <NavigationProperty Name="ophtalmologue" Relationship="Self.ordonnance_fk_ordonnance_ophtalmologue1" FromRole="ordonnance" ToRole="ophtalmologue" />
           <NavigationProperty Name="typeverre" Relationship="Self.FK_ordonnance_typeverre" FromRole="ordonnance" ToRole="typeverre" />
-          <NavigationProperty Name="vision_loins" Relationship="Self.ordonnance_fk_ordonnance_vision_loins1" FromRole="ordonnance" ToRole="vision_loins" />
-          <NavigationProperty Name="vision_pres" Relationship="Self.ordonnance_fk_ordonnance_vision_pres1" FromRole="ordonnance" ToRole="vision_pres" />
+          <NavigationProperty Name="visions" Relationship="Self.FK_vision_ordonnance" FromRole="ordonnance" ToRole="vision" />
         </EntityType>
         <EntityType Name="traitement">
           <Key>
@@ -981,7 +937,7 @@
           <NavigationProperty Name="traitement" Relationship="Self.verre_fk_Verre_Traitement1" FromRole="verre" ToRole="traitement" />
           <NavigationProperty Name="typeverre" Relationship="Self.verre_fk_Verre_TypeVerre1" FromRole="verre" ToRole="typeverre" />
         </EntityType>
-        <EntityType Name="vision_loins">
+        <EntityType Name="vision">
           <Key>
             <PropertyRef Name="id" />
           </Key>
@@ -994,24 +950,9 @@
           <Property Name="og_cylindre" Type="Int32" Nullable="false" />
           <Property Name="og_axe" Type="Int32" Nullable="false" />
           <Property Name="og_add" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="examen" Relationship="Self.examen_fk_examen_vision_loins1" FromRole="vision_loins" ToRole="examen" />
-          <NavigationProperty Name="ordonnances" Relationship="Self.ordonnance_fk_ordonnance_vision_loins1" FromRole="vision_loins" ToRole="ordonnance" />
-        </EntityType>
-        <EntityType Name="vision_pres">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="od_sphere" Type="Int32" Nullable="false" />
-          <Property Name="od_cylindre" Type="Int32" Nullable="false" />
-          <Property Name="od_axe" Type="Int32" Nullable="false" />
-          <Property Name="od_add" Type="Int32" Nullable="false" />
-          <Property Name="og_sphère" Type="Int32" Nullable="false" />
-          <Property Name="og_cylindre" Type="Int32" Nullable="false" />
-          <Property Name="og_axe" Type="Int32" Nullable="false" />
-          <Property Name="og_add" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="examen" Relationship="Self.examen_fk_examen_vision_pres1" FromRole="vision_pres" ToRole="examen" />
-          <NavigationProperty Name="ordonnances" Relationship="Self.ordonnance_fk_ordonnance_vision_pres1" FromRole="vision_pres" ToRole="ordonnance" />
+          <Property Name="vision_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ordonnance_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ordonnance" Relationship="Self.FK_vision_ordonnance" FromRole="vision" ToRole="ordonnance" />
         </EntityType>
         <EntityType Name="visite">
           <Key>
@@ -1022,7 +963,7 @@
           <Property Name="raison" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="client_cin" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="client" Relationship="Self.visite_fk_visite_client" FromRole="visite" ToRole="client" />
-          <NavigationProperty Name="examen" Relationship="Self.examen_fk_examen_visite1" FromRole="visite" ToRole="examen" />
+          <NavigationProperty Name="examen" Relationship="Self.FK_examen_visite" FromRole="visite" ToRole="examen" />
         </EntityType>
         <Association Name="article_fk_Article_Categorie1">
           <End Role="categorie" Type="Self.categorie" Multiplicity="1" />
@@ -1156,31 +1097,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="examen_fk_examen_vision_loins1">
-          <End Role="vision_loins" Type="Self.vision_loins" Multiplicity="1" />
-          <End Role="examen" Type="Self.examan" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="vision_loins">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="examen">
-              <PropertyRef Name="vision_loins_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="examen_fk_examen_vision_pres1">
-          <End Role="vision_pres" Type="Self.vision_pres" Multiplicity="1" />
-          <End Role="examen" Type="Self.examan" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="vision_pres">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="examen">
-              <PropertyRef Name="vision_pres_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="examen_fk_examen_visite1">
+        <Association Name="FK_examen_visite">
           <End Role="visite" Type="Self.visite" Multiplicity="1" />
           <End Role="examen" Type="Self.examan" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1188,7 +1105,7 @@
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="examen">
-              <PropertyRef Name="visite_visiteId" />
+              <PropertyRef Name="visite_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1288,27 +1205,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="ordonnance_fk_ordonnance_vision_loins1">
-          <End Role="vision_loins" Type="Self.vision_loins" Multiplicity="1" />
-          <End Role="ordonnance" Type="Self.ordonnance" Multiplicity="*" />
+        <Association Name="FK_vision_ordonnance">
+          <End Role="ordonnance" Type="Self.ordonnance" Multiplicity="1" />
+          <End Role="vision" Type="Self.vision" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="vision_loins">
+            <Principal Role="ordonnance">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="ordonnance">
-              <PropertyRef Name="vision_loins_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="ordonnance_fk_ordonnance_vision_pres1">
-          <End Role="vision_pres" Type="Self.vision_pres" Multiplicity="1" />
-          <End Role="ordonnance" Type="Self.ordonnance" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="vision_pres">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="ordonnance">
-              <PropertyRef Name="vision_pres_id" />
+            <Dependent Role="vision">
+              <PropertyRef Name="ordonnance_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1358,8 +1263,7 @@
           <EntitySet Name="typelentilles" EntityType="Self.typelentille" />
           <EntitySet Name="typeverres" EntityType="Self.typeverre" />
           <EntitySet Name="verres" EntityType="Self.verre" />
-          <EntitySet Name="vision_loins" EntityType="Self.vision_loins" />
-          <EntitySet Name="vision_pres" EntityType="Self.vision_pres" />
+          <EntitySet Name="visions" EntityType="Self.vision" />
           <EntitySet Name="visites" EntityType="Self.visite" />
           <AssociationSet Name="article_fk_Article_Categorie1" Association="Self.article_fk_Article_Categorie1">
             <End Role="categorie" EntitySet="categories" />
@@ -1405,15 +1309,7 @@
             <End Role="cmdfournisseur" EntitySet="cmdfournisseurs" />
             <End Role="lignecommande" EntitySet="lignecommandes" />
           </AssociationSet>
-          <AssociationSet Name="examen_fk_examen_vision_loins1" Association="Self.examen_fk_examen_vision_loins1">
-            <End Role="vision_loins" EntitySet="vision_loins" />
-            <End Role="examen" EntitySet="examen" />
-          </AssociationSet>
-          <AssociationSet Name="examen_fk_examen_vision_pres1" Association="Self.examen_fk_examen_vision_pres1">
-            <End Role="vision_pres" EntitySet="vision_pres" />
-            <End Role="examen" EntitySet="examen" />
-          </AssociationSet>
-          <AssociationSet Name="examen_fk_examen_visite1" Association="Self.examen_fk_examen_visite1">
+          <AssociationSet Name="FK_examen_visite" Association="Self.FK_examen_visite">
             <End Role="visite" EntitySet="visites" />
             <End Role="examen" EntitySet="examen" />
           </AssociationSet>
@@ -1449,13 +1345,9 @@
             <End Role="typeverre" EntitySet="typeverres" />
             <End Role="ordonnance" EntitySet="ordonnances" />
           </AssociationSet>
-          <AssociationSet Name="ordonnance_fk_ordonnance_vision_loins1" Association="Self.ordonnance_fk_ordonnance_vision_loins1">
-            <End Role="vision_loins" EntitySet="vision_loins" />
+          <AssociationSet Name="FK_vision_ordonnance" Association="Self.FK_vision_ordonnance">
             <End Role="ordonnance" EntitySet="ordonnances" />
-          </AssociationSet>
-          <AssociationSet Name="ordonnance_fk_ordonnance_vision_pres1" Association="Self.ordonnance_fk_ordonnance_vision_pres1">
-            <End Role="vision_pres" EntitySet="vision_pres" />
-            <End Role="ordonnance" EntitySet="ordonnances" />
+            <End Role="vision" EntitySet="visions" />
           </AssociationSet>
           <AssociationSet Name="verre_fk_Verre_Traitement1" Association="Self.verre_fk_Verre_Traitement1">
             <End Role="traitement" EntitySet="traitements" />
@@ -1542,14 +1434,26 @@
           <EntitySetMapping Name="examen">
             <EntityTypeMapping TypeName="optique_pfeModel.examan">
               <MappingFragment StoreEntitySet="examen">
+                <ScalarProperty Name="od_sphere_loins" ColumnName="od_sphere_loins" />
+                <ScalarProperty Name="od_cylindre_loins" ColumnName="od_cylindre_loins" />
+                <ScalarProperty Name="od_axe_loins" ColumnName="od_axe_loins" />
+                <ScalarProperty Name="od_add_loins" ColumnName="od_add_loins" />
+                <ScalarProperty Name="og_sphère_loins" ColumnName="og_sphère_loins" />
+                <ScalarProperty Name="og_cylindre_loins" ColumnName="og_cylindre_loins" />
+                <ScalarProperty Name="og_axe_loins" ColumnName="og_axe_loins" />
+                <ScalarProperty Name="og_add_loins" ColumnName="og_add_loins" />
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="visionLoins" ColumnName="visionLoins" />
-                <ScalarProperty Name="visionPres" ColumnName="visionPres" />
-                <ScalarProperty Name="modifOrdonnance" ColumnName="modifOrdonnance" />
+                <ScalarProperty Name="visite_id" ColumnName="visite_id" />
+                <ScalarProperty Name="date_derniere_modif" ColumnName="date_derniere_modif" />
                 <ScalarProperty Name="remarques" ColumnName="remarques" />
-                <ScalarProperty Name="visite_visiteId" ColumnName="visite_visiteId" />
-                <ScalarProperty Name="vision_loins_id" ColumnName="vision_loins_id" />
-                <ScalarProperty Name="vision_pres_id" ColumnName="vision_pres_id" />
+                <ScalarProperty Name="og_add_pres" ColumnName="og_add_pres" />
+                <ScalarProperty Name="od_sphere_pres" ColumnName="od_sphere_pres" />
+                <ScalarProperty Name="od_cylindre_pres" ColumnName="od_cylindre_pres" />
+                <ScalarProperty Name="od_axe_pres" ColumnName="od_axe_pres" />
+                <ScalarProperty Name="od_add_pres" ColumnName="od_add_pres" />
+                <ScalarProperty Name="og_sphère_pres" ColumnName="og_sphère_pres" />
+                <ScalarProperty Name="og_cylindre_pres" ColumnName="og_cylindre_pres" />
+                <ScalarProperty Name="og_axe_pres" ColumnName="og_axe_pres" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1672,8 +1576,6 @@
                 <ScalarProperty Name="photo" ColumnName="photo" />
                 <ScalarProperty Name="ophtalmologue_ophtalmologueId" ColumnName="ophtalmologue_ophtalmologueId" />
                 <ScalarProperty Name="client_cin" ColumnName="client_cin" />
-                <ScalarProperty Name="vision_pres_id" ColumnName="vision_pres_id" />
-                <ScalarProperty Name="vision_loins_id" ColumnName="vision_loins_id" />
                 <ScalarProperty Name="idTypeVerre" ColumnName="idTypeVerre" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1716,9 +1618,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="vision_loins">
-            <EntityTypeMapping TypeName="optique_pfeModel.vision_loins">
-              <MappingFragment StoreEntitySet="vision_loins">
+          <EntitySetMapping Name="visions">
+            <EntityTypeMapping TypeName="optique_pfeModel.vision">
+              <MappingFragment StoreEntitySet="vision">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="od_sphere" ColumnName="od_sphere" />
                 <ScalarProperty Name="od_cylindre" ColumnName="od_cylindre" />
@@ -1728,21 +1630,8 @@
                 <ScalarProperty Name="og_cylindre" ColumnName="og_cylindre" />
                 <ScalarProperty Name="og_axe" ColumnName="og_axe" />
                 <ScalarProperty Name="og_add" ColumnName="og_add" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vision_pres">
-            <EntityTypeMapping TypeName="optique_pfeModel.vision_pres">
-              <MappingFragment StoreEntitySet="vision_pres">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="od_sphere" ColumnName="od_sphere" />
-                <ScalarProperty Name="od_cylindre" ColumnName="od_cylindre" />
-                <ScalarProperty Name="od_axe" ColumnName="od_axe" />
-                <ScalarProperty Name="od_add" ColumnName="od_add" />
-                <ScalarProperty Name="og_sphère" ColumnName="og_sphère" />
-                <ScalarProperty Name="og_cylindre" ColumnName="og_cylindre" />
-                <ScalarProperty Name="og_axe" ColumnName="og_axe" />
-                <ScalarProperty Name="og_add" ColumnName="og_add" />
+                <ScalarProperty Name="vision_type" ColumnName="vision_type" />
+                <ScalarProperty Name="ordonnance_id" ColumnName="ordonnance_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

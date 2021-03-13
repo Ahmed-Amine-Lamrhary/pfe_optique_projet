@@ -111,5 +111,15 @@ namespace MenuWithSubMenu.Pages
             AddClient add_Client = new AddClient();
             MyContext.navigateTo(add_Client);
         }
+
+        private void ajouterVisite(object sender, RoutedEventArgs e)
+        {
+
+            client clientRow = clientsDataGrid.SelectedItem as client;
+            string clientCin = clientRow.cin;
+
+            AddVisite addVisite = new AddVisite(clientCin);
+            MyContext.navigateTo(addVisite);
+        }
     }
 }
