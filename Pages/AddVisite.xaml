@@ -10,11 +10,63 @@
       Background="White">
 
     <Grid>
-        <StackPanel Margin="10">
-            <TextBox Margin="10" Name="rasonVissite"/>
-            <DataGrid Name="examList" Margin="10"></DataGrid>
-            <Button Margin="10" Click="addExam" Name="ajouterExam" Content="Ajouter Examen"/>
-            <Button Margin="10" Click="saveVisite" Name="addVisite" Content="Créer Visite"/>
+        <StackPanel>
+            <Button Margin="10" Click="ReturnBtn_Click" Name="returnBtn" Background="WhiteSmoke" Content="&lt; Return"  HorizontalAlignment="Left"/>
+            <StackPanel Margin="10">
+                <TextBox Margin="10" Name="rasonVissite"/>
+                <TextBlock Text="Ordonnance"/>
+                
+                <StackPanel>
+                    <ComboBox Margin="5" Height="23" Text="Ophtalmologue" Name="ophtalmologueText"/>
+                    <DatePicker Margin="5" Height="23" Name="dateCreationOrdonnance"/>
+                    <DatePicker Margin="5" Height="23" Name="dateExpirationOrdonnance"/>
+                    <ComboBox Name="typeVerres" Margin="5" Height="23"/>
+                    <!--Vision-->
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="5" Height="23" TextWrapping="Wrap" Text="Vision de loin :" Name="visionLoins"/>
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="OD :"/>
+                                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_sph_loin"/>
+                                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_cyl_loin"/>
+                                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_axe_loin"/>
+                                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_add_loin"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="OG :"/>
+                                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_sph_loin"/>
+                                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_cyl_loin"/>
+                                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_axe_loin"/>
+                                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_add_loin"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <!-- Vision Prés -->
+                        <TextBlock Margin="5" Height="23" TextWrapping="Wrap" Text="Vision de près :" Name="visionPres"/>
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="OD :"/>
+                                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_sph_pres"/>
+                                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_cyl_pres"/>
+                                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_axe_pres"/>
+                                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_add_pres"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="OG :"/>
+                                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_sph_pres"/>
+                                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_cyl_pres"/>
+                                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_axe_pres"/>
+                                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_add_pres"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Notes" Name="notesOphtalmologue"/>
+                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Ajouter photo" Name="photoScanne"/>
+                </StackPanel>
+                <DataGrid Name="examList" Margin="10"></DataGrid>
+                <Button Margin="10" Click="addExam" Name="ajouterExam" Content="Ajouter Examen"/>
+                <Button Margin="10" Click="saveVisite" Name="addVisite" Content="Créer Visite"/>
+            </StackPanel>
         </StackPanel>
+        
     </Grid>
 </Page>

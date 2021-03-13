@@ -1,5 +1,6 @@
 ﻿using HandyControl.Controls;
 using MenuWithSubMenu.Model;
+using MenuWithSubMenu.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -276,5 +277,9 @@ namespace MenuWithSubMenu.Pages
             return false;
         }
 
+        private void ReturnBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MyContext.navigateTo(new EspaceClient());
+        }
     }
 }

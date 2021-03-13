@@ -7,110 +7,117 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AddClient">
-
+    
     <Grid Background="White">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        
-        <Grid Grid.Column="0" Margin="10px">
-            <StackPanel>
-                <TextBox  Margin="5" Height="23" TextWrapping="Wrap" Text="CIN" Name="cinText"/>
-                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Nom" Name="nomText"/>
-                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Prenom" Name="prenomText" />
-                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Adresse" Name="adresseText" />
-                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Email" Name="emailText" />
-                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Telephone" Name="telText" />
-                <DatePicker Margin="5" Height="23" Name="dateText"/>
-                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Raison de visite" Name="raisonvisiteText" />
 
-                <!-- Add medicaments -->
-                <StackPanel Margin="10">
-                    <StackPanel Margin="0 0 0 10" Orientation="Horizontal" VerticalAlignment="Center">
-                        <ToggleButton IsChecked="True" Name="medicamentsCheckbox" Style="{StaticResource ToggleButtonSwitch}"/>
-                        <TextBlock Text="Medicaments" Margin="5" />
-                    </StackPanel>
+        <StackPanel>
+            <Button Margin="10" Click="ReturnBtn_Click" Name="returnBtn" Background="WhiteSmoke" Content="&lt; Return"  HorizontalAlignment="Left"/>
+            <Grid>
 
-                    <StackPanel Visibility="{Binding IsChecked,ElementName=medicamentsCheckbox,Converter={StaticResource Boolean2VisibilityConverter}}">
-                        <StackPanel Name="medicamentsBox"></StackPanel>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
 
-                        <StackPanel Orientation="Horizontal">
-                            <TextBox Margin="0 0 10 0" Width="200" Name="newMedicament" KeyDown="enterAddMed" />
-                            <Button Content="Ajouter" Click="addMedButton" />
+                <Grid Grid.Column="0" Margin="10px">
+                    <StackPanel>
+                        <TextBox  Margin="5" Height="23" TextWrapping="Wrap" Text="CIN" Name="cinText"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Nom" Name="nomText"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Prenom" Name="prenomText" />
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Adresse" Name="adresseText" />
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Email" Name="emailText" />
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Telephone" Name="telText" />
+                        <DatePicker Margin="5" Height="23" Name="dateText"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Raison de visite" Name="raisonvisiteText" />
+
+                        <!-- Add medicaments -->
+                        <StackPanel Margin="10">
+                            <StackPanel Margin="0 0 0 10" Orientation="Horizontal" VerticalAlignment="Center">
+                                <ToggleButton IsChecked="True" Name="medicamentsCheckbox" Style="{StaticResource ToggleButtonSwitch}"/>
+                                <TextBlock Text="Medicaments" Margin="5" />
+                            </StackPanel>
+
+                            <StackPanel Visibility="{Binding IsChecked,ElementName=medicamentsCheckbox,Converter={StaticResource Boolean2VisibilityConverter}}">
+                                <StackPanel Name="medicamentsBox"></StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox Margin="0 0 10 0" Width="200" Name="newMedicament" KeyDown="enterAddMed" />
+                                    <Button Content="Ajouter" Click="addMedButton" />
+                                </StackPanel>
+                            </StackPanel>
                         </StackPanel>
-                    </StackPanel>
-                </StackPanel>
 
-                <!-- Add maladies -->
-                <StackPanel Margin="10">
-                    <StackPanel Margin="0 0 0 10" Orientation="Horizontal" VerticalAlignment="Center">
-                        <ToggleButton IsChecked="True" Name="maladiesCheckbox" Style="{StaticResource ToggleButtonSwitch}"/>
-                        <TextBlock Text="Maladies" Margin="5" />
-                    </StackPanel>
+                        <!-- Add maladies -->
+                        <StackPanel Margin="10">
+                            <StackPanel Margin="0 0 0 10" Orientation="Horizontal" VerticalAlignment="Center">
+                                <ToggleButton IsChecked="True" Name="maladiesCheckbox" Style="{StaticResource ToggleButtonSwitch}"/>
+                                <TextBlock Text="Maladies" Margin="5" />
+                            </StackPanel>
 
-                    <StackPanel Visibility="{Binding IsChecked,ElementName=maladiesCheckbox,Converter={StaticResource Boolean2VisibilityConverter}}">
-                        <StackPanel Name="maladiesBox"></StackPanel>
+                            <StackPanel Visibility="{Binding IsChecked,ElementName=maladiesCheckbox,Converter={StaticResource Boolean2VisibilityConverter}}">
+                                <StackPanel Name="maladiesBox"></StackPanel>
 
-                        <StackPanel Orientation="Horizontal">
-                            <TextBox Margin="0 0 10 0" Width="200" Name="newMaladie" KeyDown="enterAddMaladie" />
-                            <Button Content="Ajouter" Click="addMaladieButton" />
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox Margin="0 0 10 0" Width="200" Name="newMaladie" KeyDown="enterAddMaladie" />
+                                    <Button Content="Ajouter" Click="addMaladieButton" />
+                                </StackPanel>
+                            </StackPanel>
                         </StackPanel>
-                    </StackPanel>
-                </StackPanel>
 
-                <Button Margin="5" Content="Add client"  VerticalAlignment="Center" HorizontalAlignment="Right" Width="75" Click="addClient"/>
-            </StackPanel>
-        </Grid>
+                        <Button Margin="5" Content="Add client"  VerticalAlignment="Center" HorizontalAlignment="Right" Width="75" Click="addClient"/>
+                    </StackPanel>
+                </Grid>
 
-        <Grid Grid.Column="1" Margin="10px">
-            <StackPanel>
-                <ComboBox Margin="5" Height="23" Text="Ophtalmologue" Name="ophtalmologueText"/>
-                <DatePicker Margin="5" Height="23" Name="dateCreationOrdonnance"/>
-                <DatePicker Margin="5" Height="23" Name="dateExpirationOrdonnance"/>
-                <ComboBox Name="typeVerres" Margin="5" Height="23"/>
-                <!-- Vision Loins -->
-                <TextBlock Margin="5" Height="23" TextWrapping="Wrap" Text="Vision de loin :" Name="visionLoins"/>
-                <StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="OD :"/>
-                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_sph_loin"/>
-                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_cyl_loin"/>
-                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_axe_loin"/>
-                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_add_loin"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="OG :"/>
-                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_sph_loin"/>
-                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_cyl_loin"/>
-                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_axe_loin"/>
-                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_add_loin"/>
-                    </StackPanel>
-                </StackPanel>
-                <!-- Vision Prés -->
-                <TextBlock Margin="5" Height="23" TextWrapping="Wrap" Text="Vision de près :" Name="visionPres"/>
-                <StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="OD :"/>
-                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_sph_pres"/>
-                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_cyl_pres"/>
-                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_axe_pres"/>
-                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_add_pres"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="OG :"/>
-                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_sph_pres"/>
-                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_cyl_pres"/>
-                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_axe_pres"/>
-                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_add_pres"/>
-                    </StackPanel>
-                </StackPanel>
-                
-                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Notes" Name="notesOphtalmologue"/>
-                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Ajouter photo" Name="photoScanne"/>
+                <Grid Grid.Column="1" Margin="10px">
+                    <StackPanel>
+                        <ComboBox Margin="5" Height="23" Text="Ophtalmologue" Name="ophtalmologueText"/>
+                        <DatePicker Margin="5" Height="23" Name="dateCreationOrdonnance"/>
+                        <DatePicker Margin="5" Height="23" Name="dateExpirationOrdonnance"/>
+                        <ComboBox Name="typeVerres" Margin="5" Height="23"/>
+                        <!-- Vision Loins -->
+                        <TextBlock Margin="5" Height="23" TextWrapping="Wrap" Text="Vision de loin :" Name="visionLoins"/>
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="OD :"/>
+                                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_sph_loin"/>
+                                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_cyl_loin"/>
+                                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_axe_loin"/>
+                                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_add_loin"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="OG :"/>
+                                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_sph_loin"/>
+                                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_cyl_loin"/>
+                                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_axe_loin"/>
+                                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_add_loin"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <!-- Vision Prés -->
+                        <TextBlock Margin="5" Height="23" TextWrapping="Wrap" Text="Vision de près :" Name="visionPres"/>
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="OD :"/>
+                                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_sph_pres"/>
+                                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_cyl_pres"/>
+                                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_axe_pres"/>
+                                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_add_pres"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="OG :"/>
+                                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_sph_pres"/>
+                                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_cyl_pres"/>
+                                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_axe_pres"/>
+                                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_add_pres"/>
+                            </StackPanel>
+                        </StackPanel>
 
-            </StackPanel>
-        </Grid>
-        
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Notes" Name="notesOphtalmologue"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Ajouter photo" Name="photoScanne"/>
+
+                    </StackPanel>
+                </Grid>
+
+            </Grid>
+        </StackPanel>
     </Grid>
 </Page>

@@ -105,5 +105,9 @@ namespace MenuWithSubMenu.Pages
                 addButton.ContextMenu.IsOpen = true;
             }
         }
+        private void ReturnBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MyContext.navigateTo(new EspaceClient());
+        }
     }
 }

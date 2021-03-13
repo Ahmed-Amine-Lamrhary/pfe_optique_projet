@@ -8,11 +8,11 @@ using System.Windows.Controls;
 namespace MenuWithSubMenu.Pages
 {
     /// <summary>
-    /// Interaction logic for Dashboard.xaml
+    /// Interaction logic for Visite.xaml
     /// </summary>
-    public partial class Dashboard : Page
+    public partial class Visite : Page
     {
-        public Dashboard()
+        public Visite()
         {
             InitializeComponent();
 

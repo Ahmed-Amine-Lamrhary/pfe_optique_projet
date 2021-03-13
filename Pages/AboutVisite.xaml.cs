@@ -1,4 +1,5 @@
 ﻿using MenuWithSubMenu.Model;
+using MenuWithSubMenu.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,10 @@ namespace MenuWithSubMenu.Pages
 
             List<examan> listExamens  = db.examen.Where(examan => examan.visite_id == visiteId).ToList();
             examList.ItemsSource = listExamens;
+        }
+        private void ReturnBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MyContext.navigateTo(new Visite());
         }
     }
 }

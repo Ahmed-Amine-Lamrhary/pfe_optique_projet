@@ -21,28 +21,37 @@ using System.Windows.Shapes;
 namespace MenuWithSubMenu.Pages
 {
     /// <summary>
-    /// Interaction logic for AllUsers.xaml
+    /// Interaction logic for EspaceClient.xaml
     /// </summary>
-    public partial class AllUsers : Page
+    public partial class EspaceClient : Page
     {
         dbEntities db;
-        public AllUsers()
+        List<client> listClient;
+        int count;
+
+        public EspaceClient()
         {
+
             InitializeComponent();
            
             db = new dbEntities();
-
-            getClients();
+            searchBar.Text = "";
+            getClients(0);
         }
 
-        private async void getClients()
+        private async void getClients(int skip)
         {
             loadingBox.Visibility = Visibility.Visible;
             clientsDataGrid.Visibility = Visibility.Hidden;
 
             try
             {
-                clientsDataGrid.ItemsSource = await db.clients.ToListAsync();
+                listClient = searchBar.Text != "" ? await db.clients.Where(c => c.nom.Contains(searchBar.Text) || c.prenom.Contains(searchBar.Text) || c.cin.Contains(searchBar.Text) || c.email.Contains(searchBar.Text)).ToListAsync() : await db.clients.ToListAsync();
+
+                count = (int)Math.Ceiling((decimal)listClient.Count / 10);
+                pagination.MaxPageCount = count;
+                clientsDataGrid.ItemsSource = listClient.Skip(skip).Take(10);
+                
             }
             catch (Exception exp)
             {
@@ -100,10 +109,29 @@ namespace MenuWithSubMenu.Pages
         private void deleteClient(object sender, RoutedEventArgs e)
         {
 
-            client clientRow = clientsDataGrid.SelectedItem as client;
-            db.clients.Remove(clientRow);
-            db.SaveChanges();
+            /*try
+            {
+                DbContextTransaction transaction = db.Database.BeginTransaction();
+                client clientRow = clientsDataGrid.SelectedItem as client;
 
+                db.ordonnances.RemoveRange(db.ordonnances.Where(r => r.client_cin == clientRow.cin));
+                db.SaveChanges();
+
+                db.visites.RemoveRange(db.visites.Where(r => r.client_cin == clientRow.cin));
+                db.SaveChanges();
+
+                db.clients.Remove(clientRow);
+                db.SaveChanges();
+
+                transaction.Commit();
+
+                System.Windows.MessageBox.Show("Success");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }*/
+     
             
         }
         private void addClient(object sender, RoutedEventArgs e)
@@ -120,6 +148,22 @@ namespace MenuWithSubMenu.Pages
 
             AddVisite addVisite = new AddVisite(clientCin);
             MyContext.navigateTo(addVisite);
+        }
+        private void page_PageUpdated(object sender, HandyControl.Data.FunctionEventArgs<int> e)
+        {
+
+            getClients((e.Info-1) * 10);
+        }
+
+        private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            getClients(0);
+            
+        }
+
+        private void CancelFocus_Click(object sender, RoutedEventArgs e)
+        {
+            searchBar.Text = "";
         }
     }
 }
