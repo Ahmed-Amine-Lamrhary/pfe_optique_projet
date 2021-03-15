@@ -25,12 +25,15 @@ namespace MenuWithSubMenu.Pages
         private int visiteId;
         private dbEntities db;
         private visite visite;
+        private Page prevPage;
 
-        public AboutVisite(int visiteId)
+        public AboutVisite(int visiteId, Page prevP)
         {
             InitializeComponent();
             db = new dbEntities();
-            
+
+            prevPage = prevP;
+
             this.visiteId = visiteId;
             visite = db.visites.Where(visite => visite.id == visiteId).SingleOrDefault();
             raisonVisite.Text = visite.raison;
@@ -40,7 +43,7 @@ namespace MenuWithSubMenu.Pages
         }
         private void ReturnBtn_Click(object sender, RoutedEventArgs e)
         {
-            MyContext.navigateTo(new Visite());
+            MyContext.navigateTo(prevPage);
         }
     }
 }

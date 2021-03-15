@@ -15,7 +15,7 @@ namespace MenuWithSubMenu.Model
     public partial class cadre
     {
         public int idCadre { get; set; }
-        public string idArticle { get; set; }
+        public int idArticle { get; set; }
         public float DiametreVerre { get; set; }
         public Nullable<float> Pont { get; set; }
         public Nullable<float> LongeurBrache { get; set; }

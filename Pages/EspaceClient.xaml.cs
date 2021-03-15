@@ -92,7 +92,7 @@ namespace MenuWithSubMenu.Pages
             client clientRow = clientsDataGrid.SelectedItem as client;  
             string clientCin = clientRow.cin;
 
-            ClientProfile clientProfile = new ClientProfile(clientCin);
+            ClientProfile clientProfile = new ClientProfile(clientCin, this);
 
 
             MyContext.navigateTo(clientProfile);
@@ -103,7 +103,7 @@ namespace MenuWithSubMenu.Pages
 
             client clientRow = clientsDataGrid.SelectedItem as client;
             string clientCin = clientRow.cin;
-            UpdateClient update = new UpdateClient(db.clients.Where(client => client.cin == clientCin).SingleOrDefault());
+            UpdateClient update = new UpdateClient(db.clients.Where(client => client.cin == clientCin).SingleOrDefault(), this);
             MyContext.navigateTo(update);
         }
         private void deleteClient(object sender, RoutedEventArgs e)
@@ -136,7 +136,7 @@ namespace MenuWithSubMenu.Pages
         }
         private void addClient(object sender, RoutedEventArgs e)
         {
-            AddClient add_Client = new AddClient();
+            AddClient add_Client = new AddClient(this);
             MyContext.navigateTo(add_Client);
         }
 

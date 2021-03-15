@@ -24,12 +24,13 @@ namespace MenuWithSubMenu.Model
             this.verres = new HashSet<verre>();
         }
     
-        public string idArticle { get; set; }
+        public int idArticle { get; set; }
         public int idCategorie { get; set; }
         public int QteDisponible { get; set; }
         public float PrixUnitaire { get; set; }
         public string Garantie { get; set; }
         public string Description { get; set; }
+        public string Designation { get; set; }
     
         public virtual categorie categorie { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

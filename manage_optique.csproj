@@ -160,11 +160,17 @@
     <Compile Include="Pages\Acceuil.xaml.cs">
       <DependentUpon>Acceuil.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\AddArticle.xaml.cs">
+      <DependentUpon>AddArticle.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\AddOphta.xaml.cs">
       <DependentUpon>AddOphta.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\AddVisite.xaml.cs">
       <DependentUpon>AddVisite.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ArticleAbout.xaml.cs">
+      <DependentUpon>ArticleAbout.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\ClientProfile.xaml.cs">
       <DependentUpon>ClientProfile.xaml</DependentUpon>
@@ -175,6 +181,9 @@
     </Compile>
     <Compile Include="Pages\Sent.xaml.cs">
       <DependentUpon>Sent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\UpdateArticle.xaml.cs">
+      <DependentUpon>UpdateArticle.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\UpdateClient.xaml.cs">
       <DependentUpon>UpdateClient.xaml</DependentUpon>
@@ -223,11 +232,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\AddArticle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\AddOphta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\AddVisite.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ArticleAbout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -244,6 +261,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Sent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\UpdateArticle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -275,10 +296,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\Profile.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Pages\Settings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -306,9 +323,6 @@
     </Compile>
     <Compile Include="Pages\EspaceStock.xaml.cs">
       <DependentUpon>EspaceStock.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Profile.xaml.cs">
-      <DependentUpon>Profile.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
@@ -349,6 +363,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Model\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

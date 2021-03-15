@@ -24,12 +24,15 @@ namespace MenuWithSubMenu.Pages
     {
         string cin;
         dbEntities db;
-        public UpdateClient(client c)
+        private Page prevPage;
+
+        public UpdateClient(client c, Page prevP)
         {
             InitializeComponent();
             db = new dbEntities();
+            prevPage = prevP;
             cinText.Text = c.cin;
-            this.cin = c.cin;
+            cin = c.cin;
             nomText.Text = c.nom;
             prenomText.Text = c.prenom;
             adresseText.Text = c.adresse;
@@ -95,7 +98,7 @@ namespace MenuWithSubMenu.Pages
         }
         private void ReturnBtn_Click(object sender, RoutedEventArgs e)
         {
-            MyContext.navigateTo(new EspaceClient());
+            MyContext.navigateTo(prevPage);
         }
     }
 }

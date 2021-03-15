@@ -27,11 +27,14 @@ namespace MenuWithSubMenu.Pages
     {
         dbEntities db;
         DbContextTransaction transaction;
-        
-        public AddClient()
+        private Page prevPage;
+
+        public AddClient(Page prevP)
         {
             InitializeComponent();
             db = new dbEntities();
+
+            prevPage = prevP;
 
             // get ophtalmologues
             List<ophtalmologue> ophtalmologues = db.ophtalmologues.Distinct().ToList();
@@ -279,7 +282,7 @@ namespace MenuWithSubMenu.Pages
 
         private void ReturnBtn_Click(object sender, RoutedEventArgs e)
         {
-            MyContext.navigateTo(new EspaceClient());
+            MyContext.navigateTo(prevPage);
         }
     }
 }

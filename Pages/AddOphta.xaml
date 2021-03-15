@@ -12,6 +12,8 @@
 
     <Grid Margin="10px">
         <StackPanel>
+            <Button Margin="0 0 0 10" Click="ReturnBtn_Click" Name="returnBtn" Background="WhiteSmoke" Content="&lt; Return"  HorizontalAlignment="Left"/>
+
             <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Nom" Name="nomText"/>
             <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Prenom" Name="prenomText" />
             <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Adresse" Name="adresseText" />

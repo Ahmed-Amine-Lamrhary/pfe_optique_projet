@@ -1,4 +1,5 @@
 ﻿using MenuWithSubMenu.Model;
+using MenuWithSubMenu.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,9 +24,13 @@ namespace MenuWithSubMenu.Pages
     {
         private dbEntities db;
         private ophtalmologue ophtalmologue;
-        public UpdateOphta(ophtalmologue ophtalmologue)
+        private Page pagePrev;
+
+        public UpdateOphta(ophtalmologue ophtalmologue, Page pageP)
         {
             InitializeComponent();
+
+            pagePrev = pageP;
 
             db = new dbEntities();
             this.ophtalmologue = ophtalmologue;
@@ -87,6 +92,11 @@ namespace MenuWithSubMenu.Pages
                 )
                 return true;
             return false;
+        }
+
+        private void ReturnBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MyContext.navigateTo(pagePrev);
         }
 
 

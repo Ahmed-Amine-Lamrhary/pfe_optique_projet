@@ -21,12 +21,15 @@ namespace MenuWithSubMenu.Pages
     {
         private dbEntities db;
         private ordonnance ordonnance;
+        private Page prevPage;
 
-        public AboutOrdonnance(int ordonnanceId)
+        public AboutOrdonnance(int ordonnanceId, Page prevP)
         {
             InitializeComponent();
 
             db = new dbEntities();
+
+            prevPage = prevP;
 
             ordonnance = db.ordonnances.Where(ordonnance => ordonnance.id == ordonnanceId).SingleOrDefault();
 
@@ -70,7 +73,7 @@ namespace MenuWithSubMenu.Pages
         {
             int ophtaId = ordonnance.ophtalmologue_ophtalmologueId;
 
-            OphtaProfile ophtaProfile = new OphtaProfile(ophtaId);
+            OphtaProfile ophtaProfile = new OphtaProfile(ophtaId, this);
 
             MyContext.navigateTo(ophtaProfile);
         }
@@ -79,7 +82,7 @@ namespace MenuWithSubMenu.Pages
         {
             string clientCin = ordonnance.client_cin;
 
-            ClientProfile clientProfile = new ClientProfile(clientCin);
+            ClientProfile clientProfile = new ClientProfile(clientCin, this);
 
             MyContext.navigateTo(clientProfile);
         }

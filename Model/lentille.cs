@@ -15,7 +15,7 @@ namespace MenuWithSubMenu.Model
     public partial class lentille
     {
         public int idLentille { get; set; }
-        public string idArticle { get; set; }
+        public int idArticle { get; set; }
         public int idTypeLentille { get; set; }
         public Nullable<int> idOeil { get; set; }
         public string Couleur { get; set; }

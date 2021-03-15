@@ -29,8 +29,8 @@ namespace MenuWithSubMenu.Model
         public string client_cin { get; set; }
         public Nullable<int> idTypeVerre { get; set; }
     
+        public virtual client client { get; set; }
         public virtual ophtalmologue ophtalmologue { get; set; }
-        public virtual typeverre typeverre { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<vision> visions { get; set; }
     }

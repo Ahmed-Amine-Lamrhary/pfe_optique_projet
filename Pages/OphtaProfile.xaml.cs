@@ -25,11 +25,14 @@ namespace MenuWithSubMenu.Pages
         private dbEntities db;
         private ophtalmologue pageOphta;
         private int ophtaId;
-        public OphtaProfile(int ophtaId)
+        private Page prevPage;
+
+        public OphtaProfile(int ophtaId, Page prevP)
         {
             InitializeComponent();
 
             this.ophtaId = ophtaId;
+            prevPage = prevP;
 
             db = new dbEntities();
 
@@ -58,8 +61,7 @@ namespace MenuWithSubMenu.Pages
             ordonnance ordonnanceRow = odonnanceData.SelectedItem as ordonnance;
             int ordonnanceId = ordonnanceRow.id;
 
-            AboutOrdonnance aboutOrdonnance = new AboutOrdonnance(ordonnanceId);
-
+            AboutOrdonnance aboutOrdonnance = new AboutOrdonnance(ordonnanceId, this);
 
             MyContext.navigateTo(aboutOrdonnance);
         }
@@ -84,6 +86,11 @@ namespace MenuWithSubMenu.Pages
             {
                 addButton.ContextMenu.IsOpen = true;
             }
+        }
+
+        private void ReturnBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MyContext.navigateTo(prevPage);
         }
     }
 }

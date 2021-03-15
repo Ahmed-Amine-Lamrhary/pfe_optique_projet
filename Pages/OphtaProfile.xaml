@@ -13,6 +13,8 @@
 
     <Grid Margin="25">
         <StackPanel>
+            <Button Margin="0 0 0 10" Click="ReturnBtn_Click" Name="returnBtn" Background="WhiteSmoke" Content="&lt; Return"  HorizontalAlignment="Left"/>
+
             <!-- Info -->
             <StackPanel>
                 <TextBlock Text="Informations Personnelles" />

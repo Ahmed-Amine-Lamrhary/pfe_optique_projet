@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MenuWithSubMenu.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,13 +17,17 @@ using System.Windows.Shapes;
 namespace MenuWithSubMenu.Pages
 {
     /// <summary>
-    /// Interaction logic for Profile.xaml
+    /// Interaction logic for UpdateArticle.xaml
     /// </summary>
-    public partial class Profile : Page
+    public partial class UpdateArticle : Page
     {
-        public Profile()
+        dbEntities db;
+        private Page prevPage;
+        public UpdateArticle(article article, Page prevP)
         {
             InitializeComponent();
+            db = new dbEntities();
+            prevPage = prevP;
         }
     }
 }

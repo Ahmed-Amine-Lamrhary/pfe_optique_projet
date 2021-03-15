@@ -25,12 +25,14 @@ namespace MenuWithSubMenu.Pages
         private dbEntities db;
         private client pageClient;
         private string clientCin;
+        private Page prevPage;
 
-        public ClientProfile(string clientCin)
+        public ClientProfile(string clientCin, Page prevP)
         {
             InitializeComponent();
             this.clientCin = clientCin;
             db = new dbEntities();
+            prevPage = prevP;
 
             getClientInformation();
         }
@@ -77,7 +79,7 @@ namespace MenuWithSubMenu.Pages
             ordonnance ordonnanceRow = odonnanceData.SelectedItem as ordonnance;
             int ordonnanceId = ordonnanceRow.id;
 
-            AboutOrdonnance aboutOrdonnance = new AboutOrdonnance(ordonnanceId);
+            AboutOrdonnance aboutOrdonnance = new AboutOrdonnance(ordonnanceId, this);
 
 
             MyContext.navigateTo(aboutOrdonnance);
@@ -107,7 +109,7 @@ namespace MenuWithSubMenu.Pages
         }
         private void ReturnBtn_Click(object sender, RoutedEventArgs e)
         {
-            MyContext.navigateTo(new EspaceClient());
+            MyContext.navigateTo(prevPage);
         }
     }
 }

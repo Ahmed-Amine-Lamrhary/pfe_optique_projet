@@ -15,7 +15,7 @@ namespace MenuWithSubMenu.Model
     public partial class verre
     {
         public int idVerre { get; set; }
-        public string idArticle { get; set; }
+        public int idArticle { get; set; }
         public int idTraitement { get; set; }
         public int idTypeVerre { get; set; }
         public int idOeil { get; set; }

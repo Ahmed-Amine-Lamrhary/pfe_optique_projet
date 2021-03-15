@@ -1,4 +1,5 @@
 ﻿using MenuWithSubMenu.Model;
+using MenuWithSubMenu.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,6 +70,11 @@ namespace MenuWithSubMenu.Pages
                 )
                 return true;
             return false;
+        }
+
+        private void ReturnBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MyContext.navigateTo(new Ophtalmologues());
         }
     }
 }

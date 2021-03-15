@@ -9,19 +9,20 @@
           <Key>
             <PropertyRef Name="idArticle" />
           </Key>
-          <Property Name="idArticle" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="idArticle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idCategorie" Type="int" Nullable="false" />
           <Property Name="QteDisponible" Type="int" Nullable="false" />
           <Property Name="PrixUnitaire" Type="real" Nullable="false" />
           <Property Name="Garantie" Type="nvarchar" MaxLength="9" />
           <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="Designation" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="cadre">
           <Key>
             <PropertyRef Name="idCadre" />
           </Key>
           <Property Name="idCadre" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="idArticle" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="idArticle" Type="int" Nullable="false" />
           <Property Name="DiametreVerre" Type="real" Nullable="false" />
           <Property Name="Pont" Type="real" />
           <Property Name="LongeurBrache" Type="real" />
@@ -107,7 +108,7 @@
             <PropertyRef Name="idLentille" />
           </Key>
           <Property Name="idLentille" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="idArticle" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="idArticle" Type="int" Nullable="false" />
           <Property Name="idTypeLentille" Type="int" Nullable="false" />
           <Property Name="idOeil" Type="int" />
           <Property Name="Couleur" Type="nvarchar" MaxLength="45" />
@@ -144,7 +145,7 @@
             <PropertyRef Name="idLigne" />
           </Key>
           <Property Name="idLigne" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="idArticle" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="idArticle" Type="int" Nullable="false" />
           <Property Name="idCmdFournisseur" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Date_Commande" Type="date" Nullable="false" />
           <Property Name="Adresse_Commande" Type="nvarchar" MaxLength="200" Nullable="false" />
@@ -157,7 +158,7 @@
             <PropertyRef Name="idLigne" />
           </Key>
           <Property Name="idLigne" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="idArticle" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="idArticle" Type="int" Nullable="false" />
           <Property Name="idCmdClient" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Date_Commande" Type="date" Nullable="false" />
           <Property Name="Adresse_Commande" Type="nvarchar" MaxLength="200" Nullable="false" />
@@ -231,7 +232,7 @@
             <PropertyRef Name="idVerre" />
           </Key>
           <Property Name="idVerre" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="idArticle" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="idArticle" Type="int" Nullable="false" />
           <Property Name="idTraitement" Type="int" Nullable="false" />
           <Property Name="idTypeVerre" Type="int" Nullable="false" />
           <Property Name="idOeil" Type="int" Nullable="false" />
@@ -300,7 +301,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_cmdclient_client">
-          <End Role="client" Type="Self.client" Multiplicity="1" />
+          <End Role="client" Type="Self.client" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="cmdclient" Type="Self.cmdclient" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="client">
@@ -324,14 +327,16 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ordonnance_typeverre">
-          <End Role="typeverre" Type="Self.typeverre" Multiplicity="0..1" />
+          <End Role="client" Type="Self.client" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ordonnance" Type="Self.ordonnance" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="typeverre">
-              <PropertyRef Name="idTypeVerre" />
+            <Principal Role="client">
+              <PropertyRef Name="cin" />
             </Principal>
             <Dependent Role="ordonnance">
-              <PropertyRef Name="idTypeVerre" />
+              <PropertyRef Name="client_cin" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -468,7 +473,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="ordonnance$fk_ordonnance_ophtalmologue1">
-          <End Role="ophtalmologue" Type="Self.ophtalmologue" Multiplicity="1" />
+          <End Role="ophtalmologue" Type="Self.ophtalmologue" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ordonnance" Type="Self.ordonnance" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ophtalmologue">
@@ -528,7 +535,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="visite$fk_visite_client">
-          <End Role="client" Type="Self.client" Multiplicity="1" />
+          <End Role="client" Type="Self.client" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="visite" Type="Self.visite" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="client">
@@ -584,7 +593,7 @@
             <End Role="examen" EntitySet="examen" />
           </AssociationSet>
           <AssociationSet Name="FK_ordonnance_typeverre" Association="Self.FK_ordonnance_typeverre">
-            <End Role="typeverre" EntitySet="typeverre" />
+            <End Role="client" EntitySet="client" />
             <End Role="ordonnance" EntitySet="ordonnance" />
           </AssociationSet>
           <AssociationSet Name="FK_vision_ordonnance" Association="Self.FK_vision_ordonnance">
@@ -665,12 +674,13 @@
           <Key>
             <PropertyRef Name="idArticle" />
           </Key>
-          <Property Name="idArticle" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="idArticle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idCategorie" Type="Int32" Nullable="false" />
           <Property Name="QteDisponible" Type="Int32" Nullable="false" />
           <Property Name="PrixUnitaire" Type="Single" Nullable="false" />
           <Property Name="Garantie" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="categorie" Relationship="Self.article_fk_Article_Categorie1" FromRole="article" ToRole="categorie" />
           <NavigationProperty Name="cadres" Relationship="Self.cadre_fk_Cadre_Article1" FromRole="article" ToRole="cadre" />
           <NavigationProperty Name="lentilles" Relationship="Self.lentille_fk_Lentille_Article1" FromRole="article" ToRole="lentille" />
@@ -683,7 +693,7 @@
             <PropertyRef Name="idCadre" />
           </Key>
           <Property Name="idCadre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idArticle" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="idArticle" Type="Int32" Nullable="false" />
           <Property Name="DiametreVerre" Type="Single" Nullable="false" />
           <Property Name="Pont" Type="Single" />
           <Property Name="LongeurBrache" Type="Single" />
@@ -714,6 +724,7 @@
           <Property Name="medicaments" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="maladies" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="cmdclients" Relationship="Self.FK_cmdclient_client" FromRole="client" ToRole="cmdclient" />
+          <NavigationProperty Name="ordonnances" Relationship="Self.FK_ordonnance_typeverre" FromRole="client" ToRole="ordonnance" />
           <NavigationProperty Name="visites" Relationship="Self.visite_fk_visite_client" FromRole="client" ToRole="visite" />
         </EntityType>
         <EntityType Name="cmdclient">
@@ -779,7 +790,7 @@
             <PropertyRef Name="idLentille" />
           </Key>
           <Property Name="idLentille" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idArticle" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="idArticle" Type="Int32" Nullable="false" />
           <Property Name="idTypeLentille" Type="Int32" Nullable="false" />
           <Property Name="idOeil" Type="Int32" />
           <Property Name="Couleur" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
@@ -822,7 +833,7 @@
             <PropertyRef Name="idLigne" />
           </Key>
           <Property Name="idLigne" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="idArticle" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="idArticle" Type="Int32" Nullable="false" />
           <Property Name="idCmdFournisseur" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Date_Commande" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Adresse_Commande" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
@@ -837,7 +848,7 @@
             <PropertyRef Name="idLigne" />
           </Key>
           <Property Name="idLigne" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="idArticle" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="idArticle" Type="Int32" Nullable="false" />
           <Property Name="idCmdClient" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Date_Commande" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Adresse_Commande" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
@@ -888,8 +899,8 @@
           <Property Name="ophtalmologue_ophtalmologueId" Type="Int32" Nullable="false" />
           <Property Name="client_cin" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="idTypeVerre" Type="Int32" />
+          <NavigationProperty Name="client" Relationship="Self.FK_ordonnance_typeverre" FromRole="ordonnance" ToRole="client" />
           <NavigationProperty Name="ophtalmologue" Relationship="Self.ordonnance_fk_ordonnance_ophtalmologue1" FromRole="ordonnance" ToRole="ophtalmologue" />
-          <NavigationProperty Name="typeverre" Relationship="Self.FK_ordonnance_typeverre" FromRole="ordonnance" ToRole="typeverre" />
           <NavigationProperty Name="visions" Relationship="Self.FK_vision_ordonnance" FromRole="ordonnance" ToRole="vision" />
         </EntityType>
         <EntityType Name="traitement">
@@ -918,7 +929,6 @@
           </Key>
           <Property Name="idTypeVerre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NomType" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ordonnances" Relationship="Self.FK_ordonnance_typeverre" FromRole="typeverre" ToRole="ordonnance" />
           <NavigationProperty Name="verres" Relationship="Self.verre_fk_Verre_TypeVerre1" FromRole="typeverre" ToRole="verre" />
         </EntityType>
         <EntityType Name="verre">
@@ -926,7 +936,7 @@
             <PropertyRef Name="idVerre" />
           </Key>
           <Property Name="idVerre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idArticle" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="idArticle" Type="Int32" Nullable="false" />
           <Property Name="idTraitement" Type="Int32" Nullable="false" />
           <Property Name="idTypeVerre" Type="Int32" Nullable="false" />
           <Property Name="idOeil" Type="Int32" Nullable="false" />
@@ -1038,7 +1048,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_cmdclient_client">
-          <End Role="client" Type="Self.client" Multiplicity="1" />
+          <End Role="client" Type="Self.client" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="cmdclient" Type="Self.cmdclient" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="client">
@@ -1049,8 +1061,24 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ordonnance_typeverre">
+          <End Role="client" Type="Self.client" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ordonnance" Type="Self.ordonnance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="cin" />
+            </Principal>
+            <Dependent Role="ordonnance">
+              <PropertyRef Name="client_cin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="visite_fk_visite_client">
-          <End Role="client" Type="Self.client" Multiplicity="1" />
+          <End Role="client" Type="Self.client" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="visite" Type="Self.visite" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="client">
@@ -1182,7 +1210,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="ordonnance_fk_ordonnance_ophtalmologue1">
-          <End Role="ophtalmologue" Type="Self.ophtalmologue" Multiplicity="1" />
+          <End Role="ophtalmologue" Type="Self.ophtalmologue" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ordonnance" Type="Self.ordonnance" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ophtalmologue">
@@ -1190,18 +1220,6 @@
             </Principal>
             <Dependent Role="ordonnance">
               <PropertyRef Name="ophtalmologue_ophtalmologueId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ordonnance_typeverre">
-          <End Role="typeverre" Type="Self.typeverre" Multiplicity="0..1" />
-          <End Role="ordonnance" Type="Self.ordonnance" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="typeverre">
-              <PropertyRef Name="idTypeVerre" />
-            </Principal>
-            <Dependent Role="ordonnance">
-              <PropertyRef Name="idTypeVerre" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1293,6 +1311,10 @@
             <End Role="client" EntitySet="clients" />
             <End Role="cmdclient" EntitySet="cmdclients" />
           </AssociationSet>
+          <AssociationSet Name="FK_ordonnance_typeverre" Association="Self.FK_ordonnance_typeverre">
+            <End Role="client" EntitySet="clients" />
+            <End Role="ordonnance" EntitySet="ordonnances" />
+          </AssociationSet>
           <AssociationSet Name="visite_fk_visite_client" Association="Self.visite_fk_visite_client">
             <End Role="client" EntitySet="clients" />
             <End Role="visite" EntitySet="visites" />
@@ -1341,10 +1363,6 @@
             <End Role="ophtalmologue" EntitySet="ophtalmologues" />
             <End Role="ordonnance" EntitySet="ordonnances" />
           </AssociationSet>
-          <AssociationSet Name="FK_ordonnance_typeverre" Association="Self.FK_ordonnance_typeverre">
-            <End Role="typeverre" EntitySet="typeverres" />
-            <End Role="ordonnance" EntitySet="ordonnances" />
-          </AssociationSet>
           <AssociationSet Name="FK_vision_ordonnance" Association="Self.FK_vision_ordonnance">
             <End Role="ordonnance" EntitySet="ordonnances" />
             <End Role="vision" EntitySet="visions" />
@@ -1373,6 +1391,7 @@
                 <ScalarProperty Name="PrixUnitaire" ColumnName="PrixUnitaire" />
                 <ScalarProperty Name="Garantie" ColumnName="Garantie" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

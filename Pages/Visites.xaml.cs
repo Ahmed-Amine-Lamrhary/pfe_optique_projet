@@ -60,7 +60,7 @@ namespace MenuWithSubMenu.Pages
         {
             visite visiteRow = visitesDataGrid.SelectedItem as visite;
             int visiteId = visiteRow.id;
-            AboutVisite aboutVisite = new AboutVisite(visiteId);
+            AboutVisite aboutVisite = new AboutVisite(visiteId, this);
             MyContext.navigateTo(aboutVisite);
         }
 
@@ -68,7 +68,7 @@ namespace MenuWithSubMenu.Pages
         {
             visite visiteRow = visitesDataGrid.SelectedItem as visite;
             string clientCin = visiteRow.client_cin;
-            ClientProfile clientProfile = new ClientProfile(clientCin);
+            ClientProfile clientProfile = new ClientProfile(clientCin, this);
             MyContext.navigateTo(clientProfile);
         }
     }

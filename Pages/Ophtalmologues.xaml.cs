@@ -21,10 +21,10 @@ namespace MenuWithSubMenu.Pages
     /// <summary>
     /// Interaction logic for Inbox.xaml
     /// </summary>
-    public partial class Inbox : Page
+    public partial class Ophtalmologues : Page
     {
         dbEntities db;
-        public Inbox()
+        public Ophtalmologues()
         {
             InitializeComponent();
 
@@ -81,7 +81,7 @@ namespace MenuWithSubMenu.Pages
             ophtalmologue ophtaRow = ophtalmologuesDataGrid.SelectedItem as ophtalmologue;
             int ophtaId = ophtaRow.id;
 
-            OphtaProfile ophtaProfile = new OphtaProfile(ophtaId);
+            OphtaProfile ophtaProfile = new OphtaProfile(ophtaId, this);
 
             MyContext.navigateTo(ophtaProfile);
         }
@@ -91,7 +91,7 @@ namespace MenuWithSubMenu.Pages
 
             ophtalmologue ophtaRow = ophtalmologuesDataGrid.SelectedItem as ophtalmologue;
             int ophtaId = ophtaRow.id;
-            UpdateOphta update = new UpdateOphta(db.ophtalmologues.Where(ophtalmologue => ophtalmologue.id == ophtaId).SingleOrDefault());
+            UpdateOphta update = new UpdateOphta(db.ophtalmologues.Where(ophtalmologue => ophtalmologue.id == ophtaId).SingleOrDefault(), this);
             MyContext.navigateTo(update);
         }
         private void deleteOphtalmologue(object sender, RoutedEventArgs e)
