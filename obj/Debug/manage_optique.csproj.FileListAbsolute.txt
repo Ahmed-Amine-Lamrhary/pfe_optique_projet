@@ -58,8 +58,6 @@ C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Pages\Visites.g.cs
 C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Pages\Ophtalmologues.g.cs
 C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Pages\Fournisseurs.g.cs
 C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Pages\AddClient.g.cs
-C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Pages\EspaceStock.g.cs
-C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Pages\Profile.g.cs
 C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Pages\Settings.g.cs
 C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\App.g.cs
 C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\MenuWithSubMenu_Content.g.cs
@@ -74,8 +72,6 @@ C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Pages\Visites.baml
 C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Pages\Ophtalmologues.baml
 C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Pages\Fournisseurs.baml
 C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Pages\AddClient.baml
-C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Pages\EspaceStock.baml
-C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Pages\Profile.baml
 C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Pages\Settings.baml
 C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\MenuWithSubMenu.g.resources
 C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\MenuWithSubMenu.Properties.Resources.resources
@@ -237,3 +233,17 @@ G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Pages\UpdateArticle.g.cs
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Pages\AddArticle.baml
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Pages\ArticleAbout.baml
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Pages\UpdateArticle.baml
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\PagesStock\AddCmd.g.cs
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\PagesStock\ArticlesDispo.g.cs
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\PagesStock\CmdsFournisseur.g.cs
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Pages\AddArticle.g.cs
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Windows\AddLigneCmd.g.cs
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\PagesStock\AddCmd.baml
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\PagesStock\ArticlesDispo.baml
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\PagesStock\CmdsFournisseur.baml
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Pages\AddArticle.baml
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Windows\AddLigneCmd.baml
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\PagesStock\Fournisseurs.g.cs
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\PagesStock\Fournisseurs.baml
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\PagesStock\AddLigneCmdFournisseur.g.cs
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\PagesStock\AddLigneCmdFournisseur.baml

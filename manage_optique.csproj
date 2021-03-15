@@ -151,6 +151,21 @@
     <Compile Include="Model\visite.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="PagesStock\AddCmd.xaml.cs">
+      <DependentUpon>AddCmd.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PagesStock\AddLigneCmdFournisseur.xaml.cs">
+      <DependentUpon>AddLigneCmdFournisseur.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PagesStock\ArticlesDispo.xaml.cs">
+      <DependentUpon>ArticlesDispo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PagesStock\CmdsFournisseur.xaml.cs">
+      <DependentUpon>CmdsFournisseur.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PagesStock\Fournisseurs.xaml.cs">
+      <DependentUpon>Fournisseurs.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\AboutOrdonnance.xaml.cs">
       <DependentUpon>AboutOrdonnance.xaml</DependentUpon>
     </Compile>
@@ -169,9 +184,6 @@
     <Compile Include="Pages\AddVisite.xaml.cs">
       <DependentUpon>AddVisite.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\ArticleAbout.xaml.cs">
-      <DependentUpon>ArticleAbout.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\ClientProfile.xaml.cs">
       <DependentUpon>ClientProfile.xaml</DependentUpon>
     </Compile>
@@ -181,9 +193,6 @@
     </Compile>
     <Compile Include="Pages\Sent.xaml.cs">
       <DependentUpon>Sent.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\UpdateArticle.xaml.cs">
-      <DependentUpon>UpdateArticle.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\UpdateClient.xaml.cs">
       <DependentUpon>UpdateClient.xaml</DependentUpon>
@@ -196,6 +205,9 @@
     <Compile Include="ViewModel\SideMenuViewModel.cs" />
     <Compile Include="Windows\AddExam.xaml.cs">
       <DependentUpon>AddExam.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\AddLigneCmd.xaml.cs">
+      <DependentUpon>AddLigneCmd.xaml</DependentUpon>
     </Compile>
     <Page Include="Assets\IconDictionary.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -220,6 +232,26 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="PagesStock\AddCmd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PagesStock\AddLigneCmdFournisseur.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PagesStock\ArticlesDispo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PagesStock\CmdsFournisseur.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PagesStock\Fournisseurs.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\AboutOrdonnance.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -244,10 +276,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\ArticleAbout.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages\ClientProfile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -261,10 +289,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Sent.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\UpdateArticle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -292,15 +316,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\EspaceStock.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Pages\Settings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\AddExam.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AddLigneCmd.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -320,9 +344,6 @@
     </Compile>
     <Compile Include="Pages\AddClient.xaml.cs">
       <DependentUpon>AddClient.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\EspaceStock.xaml.cs">
-      <DependentUpon>EspaceStock.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
@@ -363,7 +384,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="Model\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

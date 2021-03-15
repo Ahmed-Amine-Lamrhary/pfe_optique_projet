@@ -1,5 +1,4 @@
 ﻿using MenuWithSubMenu.Model;
-using MenuWithSubMenu.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -16,18 +15,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MenuWithSubMenu.Pages
+namespace MenuWithSubMenu.PagesStock
 {
     /// <summary>
-    /// Interaction logic for Outbox.xaml
+    /// Logique d'interaction pour ArticlesDispo.xaml
     /// </summary>
-    public partial class EspaceStock : Page
+    public partial class ArticlesDispo : Page
     {
         dbEntities db;
         List<article> listArticle;
         int count;
 
-        public EspaceStock()
+        public ArticlesDispo()
         {
 
             InitializeComponent();
@@ -90,10 +89,10 @@ namespace MenuWithSubMenu.Pages
             article articleRow = articlesDataGrid.SelectedItem as article;
             int articleId = articleRow.idArticle;
 
-            ArticleAbout articleAbout = new ArticleAbout(articleId, this);
+            //ArticleAbout articleAbout = new ArticleAbout(articleId, this);
 
 
-            MyContext.navigateTo(articleAbout);
+            //MyContext.navigateTo(articleAbout);
         }
 
         private void updateArticle(object sender, RoutedEventArgs e)
@@ -101,8 +100,8 @@ namespace MenuWithSubMenu.Pages
 
             article articleRow = articlesDataGrid.SelectedItem as article;
             int articleId = articleRow.idArticle;
-            UpdateArticle update = new UpdateArticle(db.articles.Where(article => article.idArticle == articleId).SingleOrDefault(), this);
-            MyContext.navigateTo(update);
+            //UpdateArticle update = new UpdateArticle(db.articles.Where(article => article.idArticle == articleId).SingleOrDefault(), this);
+            //MyContext.navigateTo(update);
         }
         private void deleteArticle(object sender, RoutedEventArgs e)
         {
@@ -134,8 +133,8 @@ namespace MenuWithSubMenu.Pages
         }
         private void addArticle(object sender, RoutedEventArgs e)
         {
-            AddArticle add_article = new AddArticle(this);
-            MyContext.navigateTo(add_article);
+            //AddArticle add_article = new AddArticle(this);
+            //MyContext.navigateTo(add_article);
         }
 
         private void page_PageUpdated(object sender, HandyControl.Data.FunctionEventArgs<int> e)

@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\
 MenuWithSubMenu
 none
 false
 DEBUG;TRACE
-G:\Studies\S4\PFE\pfe_optique_projet\App.xaml
-241938074031
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\App.xaml
+271214454019
 2-1556844510
-581025211520
-19-522672591
-Assets\IconDictionary.xaml;CustomControl\MenuWithSubMenuControl.xaml;MainWindow.xaml;Pages\AboutOrdonnance.xaml;Pages\AboutVisite.xaml;Pages\Acceuil.xaml;Pages\AddArticle.xaml;Pages\AddOphta.xaml;Pages\AddVisite.xaml;Pages\ArticleAbout.xaml;Pages\ClientProfile.xaml;Pages\EspaceClient.xaml;Pages\OphtaProfile.xaml;Pages\Sent.xaml;Pages\UpdateArticle.xaml;Pages\UpdateClient.xaml;Pages\UpdateOphta.xaml;Pages\Visites.xaml;Pages\Ophtalmologues.xaml;Pages\Fournisseurs.xaml;Pages\AddClient.xaml;Pages\EspaceStock.xaml;Pages\Settings.xaml;Windows\AddExam.xaml;
+64124202677
+19249276899
+Assets\IconDictionary.xaml;CustomControl\MenuWithSubMenuControl.xaml;MainWindow.xaml;PagesStock\AddCmd.xaml;PagesStock\AddLigneCmdFournisseur.xaml;PagesStock\ArticlesDispo.xaml;PagesStock\CmdsFournisseur.xaml;PagesStock\Fournisseurs.xaml;Pages\AboutOrdonnance.xaml;Pages\AboutVisite.xaml;Pages\Acceuil.xaml;Pages\AddArticle.xaml;Pages\AddOphta.xaml;Pages\AddVisite.xaml;Pages\ClientProfile.xaml;Pages\EspaceClient.xaml;Pages\OphtaProfile.xaml;Pages\Sent.xaml;Pages\UpdateClient.xaml;Pages\UpdateOphta.xaml;Pages\Visites.xaml;Pages\Ophtalmologues.xaml;Pages\Fournisseurs.xaml;Pages\AddClient.xaml;Pages\Settings.xaml;Windows\AddExam.xaml;Windows\AddLigneCmd.xaml;
 
 True
 

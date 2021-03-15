@@ -1,5 +1,4 @@
-﻿using MenuWithSubMenu.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,23 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MenuWithSubMenu.Pages
+namespace MenuWithSubMenu.Windows
 {
     /// <summary>
-    /// Interaction logic for UpdateArticle.xaml
+    /// Logique d'interaction pour AddLigneCmd.xaml
     /// </summary>
-    public partial class UpdateArticle : Page
+    public partial class AddLigneCmd : Window
     {
-        dbEntities db;
-        private Page prevPage;
-        public UpdateArticle(article article, Page prevP)
+        public AddLigneCmd()
         {
             InitializeComponent();
-            db = new dbEntities();
-            prevPage = prevP;
         }
     }
 }

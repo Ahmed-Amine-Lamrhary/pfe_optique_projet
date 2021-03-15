@@ -22,22 +22,22 @@ namespace MenuWithSubMenu
                 return new List<MenuItemsData>
                 {
                     // Acceuil
-                    new MenuItemsData(){ PathData= (PathGeometry)dict["icon_dashboard"], MenuText="Acceuil", SubMenuList=null},
+                    new MenuItemsData(){ PathData= (PathGeometry)dict["icon_dashboard"], MenuText="Acceuil",file_name="Acceuil",dir="Pages", SubMenuList=null},
                     
                     // Client
-                    new MenuItemsData(){ PathData= (PathGeometry)dict["icon_dashboard"], MenuText="EspaceClient", SubMenuList=null},
+                    new MenuItemsData(){ PathData= (PathGeometry)dict["icon_dashboard"], MenuText="EspaceClient",file_name="EspaceClient",dir="Pages", SubMenuList=null},
                     
                     // Visite
-                    new MenuItemsData(){ PathData= (PathGeometry)dict["icon_settings"], MenuText="Visites", SubMenuList=null},
+                    new MenuItemsData(){ PathData= (PathGeometry)dict["icon_settings"], MenuText="Visites",file_name="Visites",dir="Pages", SubMenuList=null},
 
                     // Ophtalmologue
-                    new MenuItemsData(){ PathData= (PathGeometry)dict["icon_settings"], MenuText="Ophtalmologues", SubMenuList=null},
+                    new MenuItemsData(){ PathData= (PathGeometry)dict["icon_settings"], MenuText="Ophtalmologues",file_name="Ophtalmologues",dir="Pages", SubMenuList=null},
 
                     // Stock
-                    new MenuItemsData(){ PathData= (PathGeometry)dict["icon_settings"], MenuText="EspaceStock", SubMenuList=null},
+                    new MenuItemsData(){ PathData= (PathGeometry)dict["icon_settings"], MenuText="Commandes Fournisseur",file_name="CmdsFournisseur",dir="PagesStock", SubMenuList=null},
 
                     // Fournisseurs
-                    new MenuItemsData(){ PathData= (PathGeometry)dict["icon_settings"], MenuText="Fournisseurs", SubMenuList=null}
+                    new MenuItemsData(){ PathData= (PathGeometry)dict["icon_settings"], MenuText="Fournisseurs",file_name="Fournisseurs",dir="Pages", SubMenuList=null}
 
                                      
                     /*
@@ -57,6 +57,8 @@ namespace MenuWithSubMenu
         //Icon Data
         public PathGeometry PathData { get; set; }
         public string MenuText { get; set; }
+        public string dir { get; set; }
+        public string file_name { get; set; }
         public List<SubMenuItemsData> SubMenuList { get; set; }
 
         public MenuItemsData()
@@ -64,25 +66,25 @@ namespace MenuWithSubMenu
             Command = new CommandViewModel(Execute);
 
             // active page by default
-            navigateToPage("Acceuil");
+            navigateToPage("Acceuil","Pages");
         }
 
         public ICommand Command { get; }
 
         private void Execute()
         {
-            string MT = MenuText.Replace(" ", string.Empty);
-            if (!string.IsNullOrEmpty(MT))
-                navigateToPage(MT);
+            if (!string.IsNullOrEmpty(file_name))
+                navigateToPage(file_name, dir);
         }
-
-        private void navigateToPage(string Menu)
+                    
+ 
+        private void navigateToPage(string Menu,string dir)
         {
             foreach (Window window in Application.Current.Windows)
             {
                 if (window.GetType() == typeof(MainWindow))
                 {
-                    (window as MainWindow).MainWindowFrame.Navigate(new Uri(string.Format("{0}{1}{2}", "Pages/", Menu, ".xaml"), UriKind.RelativeOrAbsolute));
+                    (window as MainWindow).MainWindowFrame.Navigate(new Uri(string.Format("{0}{1}{2}", dir+"/", Menu, ".xaml"), UriKind.RelativeOrAbsolute));
                 }
             }
         }
