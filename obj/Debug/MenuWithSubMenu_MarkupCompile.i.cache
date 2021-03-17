@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\
 MenuWithSubMenu
 none
 false
 DEBUG;TRACE
-C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\App.xaml
+G:\Studies\S4\PFE\pfe_optique_projet\App.xaml
 271214454019
 2-1556844510
-64124202677
-19249276899
+61-153410700
+73-162848401
 Assets\IconDictionary.xaml;CustomControl\MenuWithSubMenuControl.xaml;MainWindow.xaml;PagesStock\AddCmd.xaml;PagesStock\AddLigneCmdFournisseur.xaml;PagesStock\ArticlesDispo.xaml;PagesStock\CmdsFournisseur.xaml;PagesStock\Fournisseurs.xaml;Pages\AboutOrdonnance.xaml;Pages\AboutVisite.xaml;Pages\Acceuil.xaml;Pages\AddArticle.xaml;Pages\AddOphta.xaml;Pages\AddVisite.xaml;Pages\ClientProfile.xaml;Pages\EspaceClient.xaml;Pages\OphtaProfile.xaml;Pages\Sent.xaml;Pages\UpdateClient.xaml;Pages\UpdateOphta.xaml;Pages\Visites.xaml;Pages\Ophtalmologues.xaml;Pages\Fournisseurs.xaml;Pages\AddClient.xaml;Pages\Settings.xaml;Windows\AddExam.xaml;Windows\AddLigneCmd.xaml;
 
 True

@@ -6,9 +6,26 @@
       xmlns:local="clr-namespace:MenuWithSubMenu.PagesStock"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="AddCmd">
-
+      Title="AddCmd"
+      Background="White"
+      >
     <Grid>
-        
+        <StackPanel>
+            <ComboBox Name="selectFournisseur" Text="Fournisseur" />
+
+            <TextBlock Text="Ajouter les lignes de commandes:" FontSize="20" />
+
+            <ListBox Name="lignesCmdBox" MouseDoubleClick="editLigne">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="View" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <Button Content="Ajouter" Click="ajouterLigne" />
+
+            <Button Margin="50" Content="Enregistrer la commande" Click="saveCmd" />
+        </StackPanel>
     </Grid>
 </Page>

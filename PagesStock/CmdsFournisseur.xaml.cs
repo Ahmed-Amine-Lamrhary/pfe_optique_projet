@@ -133,7 +133,7 @@ namespace MenuWithSubMenu.PagesStock
         }
         private void addCmd(object sender, RoutedEventArgs e)
         {
-            AddLigneCmdFournisseur add_cmd = new AddLigneCmdFournisseur();
+            AddCmd add_cmd = new AddCmd();
             MyContext.navigateTo(add_cmd);
         }
 

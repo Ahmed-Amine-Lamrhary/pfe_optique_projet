@@ -10,13 +10,13 @@ namespace MenuWithSubMenu.Utils
 {
     class MyContext
     {
-        public static void navigateTo(Page page)
+        public static void navigateTo(Page page, object data = null)
         {
             foreach (System.Windows.Window window in Application.Current.Windows)
             {
                 if (window.GetType() == typeof(MainWindow))
                 {
-                    (window as MainWindow).MainWindowFrame.Navigate(page);
+                    (window as MainWindow).MainWindowFrame.Navigate(page, data);
                 }
             }
         }
