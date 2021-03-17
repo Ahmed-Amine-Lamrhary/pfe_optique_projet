@@ -255,3 +255,5 @@ G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\PagesStock\Fournisseurs.baml
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Windows\AddLigneCmd.baml
 G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\Caliburn.Micro.dll
 G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\Caliburn.Micro.xml
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\bin\Debug\Caliburn.Micro.dll
+C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\bin\Debug\Caliburn.Micro.xml

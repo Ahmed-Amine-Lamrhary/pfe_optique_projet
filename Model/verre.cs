@@ -14,6 +14,12 @@ namespace MenuWithSubMenu.Model
     
     public partial class verre
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public verre()
+        {
+            this.ligne_verre_traitement = new HashSet<ligne_verre_traitement>();
+        }
+    
         public int idVerre { get; set; }
         public int idArticle { get; set; }
         public int idTraitement { get; set; }
@@ -23,8 +29,9 @@ namespace MenuWithSubMenu.Model
         public string Teinte { get; set; }
     
         public virtual article article { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ligne_verre_traitement> ligne_verre_traitement { get; set; }
         public virtual oeil oeil { get; set; }
-        public virtual traitement traitement { get; set; }
         public virtual typeverre typeverre { get; set; }
     }
 }

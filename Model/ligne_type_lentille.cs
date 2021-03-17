@@ -12,18 +12,27 @@ namespace MenuWithSubMenu.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class typeLentille
+    public partial class ligne_type_lentille
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public typeLentille()
+        public ligne_type_lentille()
         {
             this.lentilles = new HashSet<lentille>();
+            this.lentillemultifocales = new HashSet<lentillemultifocale>();
+            this.lentillespheriques = new HashSet<lentillespherique>();
+            this.lentilletoriques = new HashSet<lentilletorique>();
         }
     
         public int idTypeLentille { get; set; }
-        public string Nom { get; set; }
+        public string NomType { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<lentille> lentilles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<lentillemultifocale> lentillemultifocales { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<lentillespherique> lentillespheriques { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<lentilletorique> lentilletoriques { get; set; }
     }
 }

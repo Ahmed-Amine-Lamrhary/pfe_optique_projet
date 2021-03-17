@@ -72,9 +72,9 @@ namespace MenuWithSubMenu.PagesStock
             typeVerresText.DisplayMemberPath = "NomType";
             typeVerresText.SelectedValuePath = "idTypeVerre";
 
-            List<typelentille> typeLentille = db.typelentilles.Distinct().ToList();
+            List<typeLentille> typeLentille = db.typeLentilles.Distinct().ToList();
             typeLentilleText.ItemsSource = typeLentille;
-            typeLentilleText.DisplayMemberPath = "NomType";
+            typeLentilleText.DisplayMemberPath = "Nom";
             typeLentilleText.SelectedValuePath = "idTypeLentille";
 
             traitements = db.traitements.Distinct().ToList();
@@ -83,8 +83,8 @@ namespace MenuWithSubMenu.PagesStock
             newTraitementNom.SelectedValuePath = "idTraitement";
 
             lentilleNewTrat.ItemsSource = traitements;
-            newTraitementNom.DisplayMemberPath = "Nom";
-            newTraitementNom.SelectedValuePath = "idTraitement";
+            lentilleNewTrat.DisplayMemberPath = "Nom";
+            lentilleNewTrat.SelectedValuePath = "idTraitement";
         }
         
         public void addTraitLentilleButton(object sender, RoutedEventArgs e)
@@ -160,6 +160,29 @@ namespace MenuWithSubMenu.PagesStock
             }
             MyContext.navigateTo(prevPage);
         }
+        public List<traitement> get_traitements()
+        {
+            return traitements;
+        }
 
+        private void TypeLentilleText_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int selectedIemValue = (int)typeLentilleText.SelectedValue;
+            switch (selectedIemValue)
+            {
+                case 1:
+                    panelMultiFocale.Visibility = Visibility.Collapsed;
+                    panelSpherique.Visibility = Visibility.Collapsed;
+                    break;
+                case 2:
+                    panelMultiFocale.Visibility = Visibility.Visible;
+                    panelSpherique.Visibility = Visibility.Collapsed;
+                    break;
+                case 3:
+                    panelMultiFocale.Visibility = Visibility.Collapsed;
+                    panelSpherique.Visibility = Visibility.Visible;
+                    break;
+            }
+        }
     }
 }

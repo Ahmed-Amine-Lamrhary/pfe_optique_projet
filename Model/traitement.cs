@@ -17,7 +17,8 @@ namespace MenuWithSubMenu.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public traitement()
         {
-            this.verres = new HashSet<verre>();
+            this.ligne_verre_traitement = new HashSet<ligne_verre_traitement>();
+            this.ligne_lentille_traitement = new HashSet<ligne_lentille_traitement>();
         }
     
         public int idTraitement { get; set; }
@@ -25,6 +26,8 @@ namespace MenuWithSubMenu.Model
         public string Niveau { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<verre> verres { get; set; }
+        public virtual ICollection<ligne_verre_traitement> ligne_verre_traitement { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ligne_lentille_traitement> ligne_lentille_traitement { get; set; }
     }
 }

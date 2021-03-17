@@ -12,13 +12,13 @@ namespace MenuWithSubMenu.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class lentillemultifocale
+    public partial class ligne_verre_traitement
     {
-        public int idLentilleMultifocale { get; set; }
-        public Nullable<float> ADD { get; set; }
-        public Nullable<float> DOM { get; set; }
-        public int idTypeLentille { get; set; }
+        public int id_verre { get; set; }
+        public int id_traitement { get; set; }
+        public int id { get; set; }
     
-        public virtual ligne_type_lentille ligne_type_lentille { get; set; }
+        public virtual traitement traitement { get; set; }
+        public virtual verre verre { get; set; }
     }
 }

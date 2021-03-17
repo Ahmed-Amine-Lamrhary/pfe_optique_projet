@@ -19,6 +19,6 @@ namespace MenuWithSubMenu.Model
         public Nullable<float> CYL { get; set; }
         public Nullable<float> AXE { get; set; }
     
-        public virtual typelentille typelentille { get; set; }
+        public virtual ligne_type_lentille ligne_type_lentille { get; set; }
     }
 }

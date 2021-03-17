@@ -67,10 +67,24 @@
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap"  Text="Modele" Name="modelText"/>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap"  Text="Teint" Name="teintText"/>
                     </StackPanel>
                     <!-- Lentille -->
                     <StackPanel Visibility="Collapsed" Name="lentillePanel">
-                        <ComboBox Margin="5" Height="23" Text="Type de Lentille" Name="typeLentilleText" />
+                        <ComboBox SelectionChanged="TypeLentilleText_SelectionChanged"  Margin="5" Height="23" Text="Type de Lentille" Name="typeLentilleText" />
+                        <!-- Lentille Torique-->
+                        <!-- Don't need more parameters -->
+                        <!--Lentille MultiFocale-->
+                        <StackPanel Visibility="Collapsed" Name="panelMultiFocale" Orientation="Horizontal">
+                            <TextBox Margin="5" Height="23" Width="150" Text="DOM" Name="domText" />
+                        </StackPanel>
+                        <!--Lentille Spherique-->
+                        <StackPanel Visibility="Collapsed" Name="panelSpherique" Orientation="Horizontal">
+                            <TextBox Margin="5" Height="23" Width="75" Text="RC" Name="rcText"/>
+                            <TextBox Margin="5" Height="23" Width="75" Text="DIA" Name="diaText" />
+                        </StackPanel>
+                        <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Couleur" Name="couleurLentille"/>
                         <!-- Add Traitement -->
                         <StackPanel Margin="10">
                             <StackPanel Margin="0 0 0 10" Orientation="Horizontal" VerticalAlignment="Center">
