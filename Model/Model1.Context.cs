@@ -37,6 +37,7 @@ namespace MenuWithSubMenu.Model
         public virtual DbSet<lentillemultifocale> lentillemultifocales { get; set; }
         public virtual DbSet<lentillespherique> lentillespheriques { get; set; }
         public virtual DbSet<lentilletorique> lentilletoriques { get; set; }
+        public virtual DbSet<ligne_lentille_traitement> ligne_lentille_traitement { get; set; }
         public virtual DbSet<ligne_type_lentille> ligne_type_lentille { get; set; }
         public virtual DbSet<ligne_verre_traitement> ligne_verre_traitement { get; set; }
         public virtual DbSet<lignecommande> lignecommandes { get; set; }
@@ -50,6 +51,5 @@ namespace MenuWithSubMenu.Model
         public virtual DbSet<verre> verres { get; set; }
         public virtual DbSet<vision> visions { get; set; }
         public virtual DbSet<visite> visites { get; set; }
-        public virtual DbSet<ligne_lentille_traitement> ligne_lentille_traitement { get; set; }
     }
 }

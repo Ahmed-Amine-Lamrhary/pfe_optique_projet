@@ -24,7 +24,6 @@ namespace MenuWithSubMenu.Model
         }
     
         public int idTypeLentille { get; set; }
-        public string NomType { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<lentille> lentilles { get; set; }

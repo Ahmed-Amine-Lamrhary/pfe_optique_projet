@@ -23,14 +23,17 @@ namespace MenuWithSubMenu.PagesStock
         private Page prevPage;
         private AddCmd addCmdPage;
         private List<traitement> traitements;
+        private List<traitement> traitementsSelectiones;
+        private int coutTrait,maxTrait;
 
         public AddLigneCmdFournisseur(Page prevP, AddCmd addCmdP)
         {
             InitializeComponent();
-
+            db = new dbEntities();
+            coutTrait = 0;
+            maxTrait = db.traitements.Count();
             prevPage = prevP;
             addCmdPage = addCmdP;
-            db = new dbEntities();
             fillComboBox();
         }
 
@@ -89,15 +92,21 @@ namespace MenuWithSubMenu.PagesStock
         
         public void addTraitLentilleButton(object sender, RoutedEventArgs e)
         {
-            StackPanel stackPanel = new StackPanel() { Orientation = System.Windows.Controls.Orientation.Horizontal };
+            coutTrait++;
+            MessageBox.Show(""+coutTrait+"");
+            if (coutTrait >= maxTrait +1)
+                return;
 
+            StackPanel stackPanel = new StackPanel() { Orientation = System.Windows.Controls.Orientation.Horizontal };
+            
             ComboBox newCombobox = new ComboBox() { Width = 100 };
             newCombobox.ItemsSource = traitements;
             newCombobox.DisplayMemberPath = "Nom";
             newCombobox.SelectedValuePath = "idTraitement";
-            newCombobox.SelectedIndex = newTraitementNom.SelectedIndex;
+            newCombobox.SelectedIndex = lentilleNewTrat.SelectedIndex;
+
             TextBox newTextBox = new TextBox() { Width = 100, Text = lentilleNewTratNiveau.Text };
-            Button supprimerBtn = new Button() { Content = "supprimer" };
+            Button supprimerBtn = new Button() { Content = "Supprimer" };
             supprimerBtn.Click += supprimerTraitementLentille;
 
             stackPanel.Children.Add(newCombobox);
@@ -109,6 +118,9 @@ namespace MenuWithSubMenu.PagesStock
 
         public void addTraitVerreButton(object sender, RoutedEventArgs e)
         {
+            coutTrait++;
+            if (coutTrait >= maxTrait - 1)
+                return;
             StackPanel stackPanel = new StackPanel() { Orientation = System.Windows.Controls.Orientation.Horizontal };
 
             ComboBox newCombobox = new ComboBox() { Width = 100 };
@@ -117,7 +129,7 @@ namespace MenuWithSubMenu.PagesStock
             newCombobox.SelectedValuePath = "idTraitement";
             newCombobox.SelectedIndex = newTraitementNom.SelectedIndex;
             TextBox newTextBox = new TextBox() { Width = 100, Text = newTraitementNiveau.Text };
-            Button supprimerBtn = new Button() { Content = "supprimer" };
+            Button supprimerBtn = new Button() { Content = "Supprimer" };
             supprimerBtn.Click += supprimerTraitementVerre;
 
             stackPanel.Children.Add(newCombobox);
@@ -149,9 +161,13 @@ namespace MenuWithSubMenu.PagesStock
             MyContext.navigateTo(prevPage);
         }
 
+        //getId Of selected traitement :
+
+
         // save ligne
         public void saveLigne(object sender, RoutedEventArgs e)
         {
+
             if (!addCmdPage.lignesCmd.Contains(this))
                 addCmdPage.addNewLigneToList(this);
             else
@@ -164,6 +180,22 @@ namespace MenuWithSubMenu.PagesStock
         {
             return traitements;
         }
+        /*public List<traitement> Get_traitements_selectionee()
+        {
+            foreach (StackPanel stack in traitementsLentilleBox.Children.OfType<StackPanel>())
+            {
+                
+                foreach(ComboBox c in stack.Children.OfType<ComboBox>)
+                {
+                    traitementsSelectiones.Add(new traitement()
+                    {
+                        idTraitement = (int)c.SelectedValue,
+                    });
+                }
+
+            }
+            return traitementsSelectiones;
+        }*/
 
         private void TypeLentilleText_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

@@ -4,6 +4,7 @@ using MenuWithSubMenu.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -89,7 +90,6 @@ namespace MenuWithSubMenu.PagesStock
                 };
                 db.cmdfournisseurs.Add(commande);
                 db.SaveChanges();
-                MessageBox.Show(lignesCmd.Count + "");
                 foreach (AddLigneCmdFournisseur ligne in lignesCmd)
                 {
                     article article = new article()
@@ -138,6 +138,7 @@ namespace MenuWithSubMenu.PagesStock
                                 {
                                     id_verre = new_verre.idVerre,
                                     id_traitement = t.idTraitement,
+
                                 };
                                 db.ligne_verre_traitement.Add(new_ligne_traitement);
                                 db.SaveChanges();
@@ -161,7 +162,7 @@ namespace MenuWithSubMenu.PagesStock
                             db.SaveChanges();
 
                             //TypeLentille :
-                            ligne_type_lentille newlignetypelentille = new ligne_type_lentille(){};
+                            ligne_type_lentille newlignetypelentille = new ligne_type_lentille() {};
                             db.ligne_type_lentille.Add(newlignetypelentille);
                             db.SaveChanges();
                             switch ((int)ligne.typeLentilleText.SelectedValue)
@@ -177,7 +178,7 @@ namespace MenuWithSubMenu.PagesStock
                                 case 2:
                                     lentillemultifocale newLentilleMulti = new lentillemultifocale()
                                     {
-                                        DOM = int.Parse(ligne.domText.Text),
+                                        DOM = float.Parse(ligne.domText.Text),
                                         idTypeLentille = newlignetypelentille.idTypeLentille
                                     };
                                     db.lentillemultifocales.Add(newLentilleMulti);
@@ -186,14 +187,11 @@ namespace MenuWithSubMenu.PagesStock
                                 case 3:
                                     lentillespherique newLentilleSph = new lentillespherique()
                                     {
-                                        DIA = int.Parse(ligne.diaText.Text),
-                                        RC = int.Parse(ligne.rcText.Text),
+                                        DIA = float.Parse(ligne.diaText.Text),
+                                        RC = float.Parse(ligne.rcText.Text),
                                         idTypeLentille = newlignetypelentille.idTypeLentille
                                     };
                                     db.lentillespheriques.Add(newLentilleSph);
-                                    break;
-                                default:
-                                    MessageBox.Show("il n'y a aucun type selectionné");
                                     break;
                             }
                             db.SaveChanges();
@@ -210,13 +208,22 @@ namespace MenuWithSubMenu.PagesStock
                             db.SaveChanges();
                             foreach (traitement t in ligne.get_traitements())
                             {
-                                ligne_lentille_traitement new_ligne_traitement = new ligne_lentille_traitement()
+                                try
                                 {
-                                    id_lentille = new_lentille.idLentille,
-                                    id_traitement = t.idTraitement,
-                                };
-                                db.ligne_lentille_traitement.Add(new_ligne_traitement);
-                                db.SaveChanges();
+                                    ligne_lentille_traitement new_ligne_traitement = new ligne_lentille_traitement()
+                                    {
+                                        id_lentille = new_lentille.idLentille,
+                                        id_traitement = t.idTraitement
+                                    };
+
+                                    db.ligne_lentille_traitement.Add(new_ligne_traitement);
+                                    db.SaveChanges();
+                                }
+                                catch(Exception ex)
+                                {
+                                    MessageBox.Show(ex.ToString());
+                                }
+                                
                             }
                             break;
                          //Cadre
@@ -257,10 +264,20 @@ namespace MenuWithSubMenu.PagesStock
                 }
                 transaction.Commit();
 
-            } catch (Exception ex)
+            } catch (DbEntityValidationException ex)
             {
-                Console.Write(ex.Message);
-                HandyControl.Controls.MessageBox.Show(ex.Message);
+                /*Console.Write(ex.Message);
+                HandyControl.Controls.MessageBox.Show(ex.Message);*/
+                foreach (var eve in ex.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
                 transaction.Rollback();
             }
         }

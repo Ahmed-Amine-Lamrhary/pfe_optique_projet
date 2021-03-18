@@ -14,8 +14,8 @@ namespace MenuWithSubMenu.Model
     
     public partial class ligne_lentille_traitement
     {
-        public Nullable<int> id_lentille { get; set; }
-        public Nullable<int> id_traitement { get; set; }
+        public int id_lentille { get; set; }
+        public int id_traitement { get; set; }
         public int id { get; set; }
     
         public virtual lentille lentille { get; set; }

@@ -92,10 +92,10 @@
                                 <TextBlock Text="Traitement" Margin="5" />
                             </StackPanel>
 
-                            <StackPanel Visibility="{Binding IsChecked,ElementName=medicamentsCheckbox,Converter={StaticResource Boolean2VisibilityConverter}}">
+                            <StackPanel Visibility="{Binding IsChecked,ElementName=traitementCheckbox,Converter={StaticResource Boolean2VisibilityConverter}}">
                                 <StackPanel Name="traitementsLentilleBox"></StackPanel>
 
-                                <StackPanel Orientation="Horizontal">
+                                <StackPanel Name="Combo"  Orientation="Horizontal">
                                     <ComboBox Margin="0 0 10 0" Width="100" Name="lentilleNewTrat"/>
                                     <TextBox Margin="0 0 10 0" Width="100" Name="lentilleNewTratNiveau" />
                                     <Button Content="Ajouter" Click="addTraitLentilleButton" />
