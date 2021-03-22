@@ -11,7 +11,7 @@
       >
 
     <Grid Background="White" Margin="10">
-        <StackPanel>
+        <StackPanel Margin="0,0,0,-91">
             <Button Margin="10" Click="ReturnBtn_Click" Name="returnBtn" Background="WhiteSmoke" Content="&lt; Return"  HorizontalAlignment="Left"/>
 
             <ComboBox Margin="5" Name="categorie" SelectionChanged="selectItem"/>
@@ -21,13 +21,15 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0">
+                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Reference" Name="referenceText"/>
                     <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Quantité de commande" Name="qteText"/>
                     <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Prix unitaire" Name="prixText" />
                     <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Garantie" Name="garantieText" />
                     <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Marque" Name="marqueText" />
                     <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Description" Name="descText" />
+                    <TextBox Margin="5" Height="23" TextWrapping="Wrap"  Text="Modele" Name="modelText"/>
                 </StackPanel>
-                <Grid Grid.Column="1">
+                <StackPanel Grid.Column="1">
                     <!-- Verre Optique -->
                     <StackPanel Visibility="Collapsed" Name="verrePanel">
                         <ComboBox Margin="5" Height="23" Text="Type de verres" Name="typeVerresText" />
@@ -49,25 +51,65 @@
                             </StackPanel>
                         </StackPanel>
                         <!--Parameters-->
-                        <Grid Margin="10px">
+                        <StackPanel Margin="10px">
+                            <!-- Vision Loins -->
+                            <TextBlock Margin="5" Height="23" TextWrapping="Wrap" Text="Vision de loin :" Name="visionLoins_verre"/>
+                            <StackPanel >
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="OD :"/>
+                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_sph_loin_verre"/>
+                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_cyl_loin_verre"/>
+                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_axe_loin_verre"/>
+                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_add_loin_verre"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="OG :"/>
+                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_sph_loin_verre"/>
+                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_cyl_loin_verre"/>
+                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_axe_loin_verre"/>
+                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_add_loin_verre"/>
+                                </StackPanel>
+                                <!--Ecart-->
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Margin="5" Height="23" TextWrapping="Wrap" Text="Ecart :" />
+                                    <TextBox Margin="5" Height="23" Width="200" Text="1" Name="ecartLoinText_verre"/>
+                                </StackPanel>
+                                <!--Hauteur-->
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Margin="5" Height="23" TextWrapping="Wrap" Text="Hauteur :"/>
+                                    <TextBox Margin="5" Height="23" Width="200" Text="1" Name="hauteurLoinText_verre"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <Separator/>
+                            <!-- Vision Prés -->
+                            <TextBlock Margin="5" Height="23" TextWrapping="Wrap" Text="Vision de près :" Name="visionPres_verre"/>
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="OD :"/>
-                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_sph_verre"/>
-                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_cyl_verre"/>
-                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_axe_verre"/>
-                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_add_verre"/>
+                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_sph_pres_verre"/>
+                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_cyl_pres_verre"/>
+                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_axe_pres_verre"/>
+                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_add_pres_verre"/>
                                 </StackPanel>
-                                <StackPanel  Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="OG :"/>
-                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_sph_verre"/>
-                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_cyl_verre"/>
-                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_axe_verre"/>
-                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_add_verre"/>
+                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_sph_pres_verre"/>
+                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_cyl_pres_verre"/>
+                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_axe_pres_verre"/>
+                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_add_pres_verre"/>
+                                </StackPanel>
+                                <!--Ecart-->
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Margin="5" Height="23" TextWrapping="Wrap" Text="Ecart :" />
+                                    <TextBox Margin="5" Height="23" Width="200" Text="1" Name="ecartPresText_verre"/>
+                                </StackPanel>
+                                <!--Hauteur-->
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Margin="5" Height="23" TextWrapping="Wrap" Text="Hauteur :"/>
+                                    <TextBox Margin="5" Height="23" Width="200" Text="1" Name="hauteurPresText_verre"/>
                                 </StackPanel>
                             </StackPanel>
-                        </Grid>
-                        <TextBox Margin="5" Height="23" TextWrapping="Wrap"  Text="Modele" Name="modelText"/>
+                        </StackPanel>
                         <TextBox Margin="5" Height="23" TextWrapping="Wrap"  Text="Teint" Name="teintText"/>
                     </StackPanel>
                     <!-- Lentille -->
@@ -103,24 +145,65 @@
                             </StackPanel>
                         </StackPanel>
                         <!--Parameters-->
-                        <Grid Margin="10px">
-                            <StackPanel>
-                                <StackPanel  Orientation="Horizontal">
+                        <StackPanel Margin="10px">
+                            <!-- Vision Loins -->
+                            <TextBlock Margin="5" Height="23" TextWrapping="Wrap" Text="Vision de loin :" Name="visionLoins_lentille"/>
+                            <StackPanel >
+                                <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="OD :"/>
-                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_sph_lentille"/>
-                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_cyl_lentille"/>
-                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_axe_lentille"/>
-                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_add_lentille"/>
+                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_sph_loin_lentille"/>
+                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_cyl_loin_lentille"/>
+                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_axe_loin_lentille"/>
+                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_add_loin_lentille"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="OG :"/>
-                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_sph_lentille"/>
-                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_cyl_lentille"/>
-                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_axe_lentille"/>
-                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_add_lentille"/>
+                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_sph_loin_lentille"/>
+                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_cyl_loin_lentille"/>
+                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_axe_loin_lentille"/>
+                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_add_loin_lentille"/>
+                                </StackPanel>
+                                <!--Ecart-->
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Margin="5" Height="23" TextWrapping="Wrap" Text="Ecart :" />
+                                    <TextBox Margin="5" Height="23" Width="200" Text="1" Name="ecartLoinText_lentille"/>
+                                </StackPanel>
+                                <!--Hauteur-->
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Margin="5" Height="23" TextWrapping="Wrap" Text="Hauteur :"/>
+                                    <TextBox Margin="5" Height="23" Width="200" Text="1" Name="hauteurLoinText_lentille"/>
                                 </StackPanel>
                             </StackPanel>
-                        </Grid>
+                            <Separator/>
+                            <!-- Vision Prés -->
+                            <TextBlock Margin="5" Height="23" TextWrapping="Wrap" Text="Vision de près :" Name="visionPres_lentille"/>
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="OD :"/>
+                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_sph_pres_lentille"/>
+                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_cyl_pres_lentille"/>
+                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_axe_pres_lentille"/>
+                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_add_pres_lentille"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="OG :"/>
+                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_sph_pres_lentille"/>
+                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_cyl_pres_lentille"/>
+                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_axe_pres_lentille"/>
+                                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_add_pres_lentille"/>
+                                </StackPanel>
+                                <!--Ecart-->
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Margin="5" Height="23" TextWrapping="Wrap" Text="Ecart :" />
+                                    <TextBox Margin="5" Height="23" Width="200" Text="1" Name="ecartPresText_lentille"/>
+                                </StackPanel>
+                                <!--Hauteur-->
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Margin="5" Height="23" TextWrapping="Wrap" Text="Hauteur :"/>
+                                    <TextBox Margin="5" Height="23" Width="200" Text="1" Name="hauteurPresText_lentille"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
                     </StackPanel>
                     <!-- Cadre -->
                     <StackPanel Visibility="Collapsed" Name="cadrePanel">
@@ -133,7 +216,7 @@
                         <TextBox Text="Largeur Verre" Name="largeur_verre_text" />
                         <TextBox Text="Couleur" Name="couleurText" />
                     </StackPanel>
-                </Grid>
+                </StackPanel>
 
             </Grid>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">

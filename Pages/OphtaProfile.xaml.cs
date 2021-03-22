@@ -53,7 +53,7 @@ namespace MenuWithSubMenu.Pages
             inpeBox.Text = pageOphta.inpe;
 
             // get ordonnances
-            odonnanceData.ItemsSource = db.ordonnances.Where(ordonnance => ordonnance.ophtalmologue_ophtalmologueId == this.ophtaId).ToList();
+            odonnanceData.ItemsSource = db.ordonnances.Where(ordonnance => ordonnance.ophtalmologueId == this.ophtaId).ToList();
         }
 
         private void voirOrdonnance(object sender, RoutedEventArgs e)

@@ -39,14 +39,14 @@ namespace MenuWithSubMenu.Pages
             getClients(0);
         }
 
-        private async void getClients(int skip)
+        private void getClients(int skip)
         {
             loadingBox.Visibility = Visibility.Visible;
             clientsDataGrid.Visibility = Visibility.Hidden;
 
             try
             {
-                listClient = searchBar.Text != "" ? await db.clients.Where(c => c.nom.Contains(searchBar.Text) || c.prenom.Contains(searchBar.Text) || c.cin.Contains(searchBar.Text) || c.email.Contains(searchBar.Text)).ToListAsync() : await db.clients.ToListAsync();
+                listClient = searchBar.Text != "" ? db.clients.Where(c => c.nom.Contains(searchBar.Text) || c.prenom.Contains(searchBar.Text) || c.cin.Contains(searchBar.Text) || c.email.Contains(searchBar.Text)).ToList() :  db.clients.ToList();
 
                 count = (int)Math.Ceiling((decimal)listClient.Count / 10);
                 pagination.MaxPageCount = count;

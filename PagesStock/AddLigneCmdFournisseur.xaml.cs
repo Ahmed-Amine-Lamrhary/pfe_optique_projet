@@ -23,7 +23,6 @@ namespace MenuWithSubMenu.PagesStock
         private Page prevPage;
         private AddCmd addCmdPage;
         private List<traitement> traitements;
-        private List<traitement> traitementsSelectiones;
         private int coutTrait,maxTrait;
 
         public AddLigneCmdFournisseur(Page prevP, AddCmd addCmdP)
@@ -75,10 +74,10 @@ namespace MenuWithSubMenu.PagesStock
             typeVerresText.DisplayMemberPath = "NomType";
             typeVerresText.SelectedValuePath = "idTypeVerre";
 
-            List<typeLentille> typeLentille = db.typeLentilles.Distinct().ToList();
+            List<type_lentille> typeLentille = db.type_lentille.Distinct().ToList();
             typeLentilleText.ItemsSource = typeLentille;
-            typeLentilleText.DisplayMemberPath = "Nom";
-            typeLentilleText.SelectedValuePath = "idTypeLentille";
+            typeLentilleText.DisplayMemberPath = "nom";
+            typeLentilleText.SelectedValuePath = "idtype_lentille";
 
             traitements = db.traitements.Distinct().ToList();
             newTraitementNom.ItemsSource = traitements;

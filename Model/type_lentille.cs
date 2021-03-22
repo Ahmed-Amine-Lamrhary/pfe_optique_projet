@@ -12,28 +12,18 @@ namespace MenuWithSubMenu.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class oeil
+    public partial class type_lentille
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public oeil()
+        public type_lentille()
         {
             this.lentilles = new HashSet<lentille>();
-            this.verres = new HashSet<verre>();
         }
     
-        public int idOeil { get; set; }
-        public float SPH_G { get; set; }
-        public float CYL_G { get; set; }
-        public float AXE_G { get; set; }
-        public float ADD_G { get; set; }
-        public float SPH_D { get; set; }
-        public float CYL_D { get; set; }
-        public float AXE_D { get; set; }
-        public float ADD_D { get; set; }
+        public int idtype_lentille { get; set; }
+        public string nom { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<lentille> lentilles { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<verre> verres { get; set; }
     }
 }

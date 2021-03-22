@@ -31,25 +31,24 @@ namespace MenuWithSubMenu.Model
         public virtual DbSet<client> clients { get; set; }
         public virtual DbSet<cmdclient> cmdclients { get; set; }
         public virtual DbSet<cmdfournisseur> cmdfournisseurs { get; set; }
-        public virtual DbSet<examan> examen { get; set; }
         public virtual DbSet<fournisseur> fournisseurs { get; set; }
         public virtual DbSet<lentille> lentilles { get; set; }
         public virtual DbSet<lentillemultifocale> lentillemultifocales { get; set; }
         public virtual DbSet<lentillespherique> lentillespheriques { get; set; }
         public virtual DbSet<lentilletorique> lentilletoriques { get; set; }
-        public virtual DbSet<ligne_lentille_traitement> ligne_lentille_traitement { get; set; }
+        public virtual DbSet<ligne_traitement_lentille> ligne_traitement_lentille { get; set; }
+        public virtual DbSet<ligne_traitement_verre> ligne_traitement_verre { get; set; }
         public virtual DbSet<ligne_type_lentille> ligne_type_lentille { get; set; }
-        public virtual DbSet<ligne_verre_traitement> ligne_verre_traitement { get; set; }
         public virtual DbSet<lignecommande> lignecommandes { get; set; }
         public virtual DbSet<ligneentree> ligneentrees { get; set; }
-        public virtual DbSet<oeil> oeils { get; set; }
         public virtual DbSet<ophtalmologue> ophtalmologues { get; set; }
         public virtual DbSet<ordonnance> ordonnances { get; set; }
         public virtual DbSet<traitement> traitements { get; set; }
-        public virtual DbSet<typeLentille> typeLentilles { get; set; }
+        public virtual DbSet<type_lentille> type_lentille { get; set; }
         public virtual DbSet<typeverre> typeverres { get; set; }
         public virtual DbSet<verre> verres { get; set; }
         public virtual DbSet<vision> visions { get; set; }
+        public virtual DbSet<vision_detaille> vision_detaille { get; set; }
         public virtual DbSet<visite> visites { get; set; }
     }
 }

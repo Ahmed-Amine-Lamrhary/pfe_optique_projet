@@ -9,20 +9,19 @@
           <Key>
             <PropertyRef Name="idArticle" />
           </Key>
-          <Property Name="idArticle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idArticle" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="idCategorie" Type="int" Nullable="false" />
           <Property Name="QteDisponible" Type="int" Nullable="false" />
           <Property Name="PrixUnitaire" Type="real" Nullable="false" />
           <Property Name="Garantie" Type="nvarchar" MaxLength="9" />
           <Property Name="Description" Type="nvarchar" MaxLength="255" />
-          <Property Name="Designation" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="cadre">
           <Key>
             <PropertyRef Name="idCadre" />
           </Key>
           <Property Name="idCadre" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="idArticle" Type="int" Nullable="false" />
+          <Property Name="idArticle" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="DiametreVerre" Type="real" Nullable="false" />
           <Property Name="Pont" Type="real" />
           <Property Name="LongeurBrache" Type="real" />
@@ -55,9 +54,9 @@
           <Key>
             <PropertyRef Name="idCmdClient" />
           </Key>
-          <Property Name="idCmdClient" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idCmdClient" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="DateCmd" Type="date" Nullable="false" />
-          <Property Name="cin" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="client_cin" Type="nvarchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="cmdfournisseur">
           <Key>
@@ -66,31 +65,6 @@
           <Property Name="idCmdFournisseur" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idFournisseur" Type="int" Nullable="false" />
           <Property Name="DateEntree" Type="date" Nullable="false" />
-        </EntityType>
-        <EntityType Name="examen">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="od_sphere_loins" Type="int" Nullable="false" />
-          <Property Name="od_cylindre_loins" Type="int" Nullable="false" />
-          <Property Name="od_axe_loins" Type="int" Nullable="false" />
-          <Property Name="od_add_loins" Type="int" Nullable="false" />
-          <Property Name="og_sphère_loins" Type="int" Nullable="false" />
-          <Property Name="og_cylindre_loins" Type="int" Nullable="false" />
-          <Property Name="og_axe_loins" Type="int" Nullable="false" />
-          <Property Name="og_add_loins" Type="int" Nullable="false" />
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="visite_id" Type="int" Nullable="false" />
-          <Property Name="date_derniere_modif" Type="date" Nullable="false" />
-          <Property Name="remarques" Type="nvarchar(max)" />
-          <Property Name="og_add_pres" Type="int" Nullable="false" />
-          <Property Name="od_sphere_pres" Type="int" Nullable="false" />
-          <Property Name="od_cylindre_pres" Type="int" Nullable="false" />
-          <Property Name="od_axe_pres" Type="int" Nullable="false" />
-          <Property Name="od_add_pres" Type="int" Nullable="false" />
-          <Property Name="og_sphère_pres" Type="int" Nullable="false" />
-          <Property Name="og_cylindre_pres" Type="int" Nullable="false" />
-          <Property Name="og_axe_pres" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="fournisseur">
           <Key>
@@ -108,17 +82,17 @@
             <PropertyRef Name="idLentille" />
           </Key>
           <Property Name="idLentille" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="idArticle" Type="int" Nullable="false" />
+          <Property Name="idArticle" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="idLigneType" Type="int" Nullable="false" />
-          <Property Name="idOeil" Type="int" />
           <Property Name="Couleur" Type="nvarchar" MaxLength="45" />
-          <Property Name="idTypeLentille" Type="int" Nullable="false" />
+          <Property Name="idtype_lentille" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="lentillemultifocale">
           <Key>
             <PropertyRef Name="idLentilleMultifocale" />
           </Key>
           <Property Name="idLentilleMultifocale" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ADD" Type="real" />
           <Property Name="DOM" Type="real" />
           <Property Name="idTypeLentille" Type="int" Nullable="false" />
         </EntityType>
@@ -137,14 +111,25 @@
           </Key>
           <Property Name="idLentilleToriques" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idTypeLentille" Type="int" Nullable="false" />
+          <Property Name="CYL" Type="real" />
+          <Property Name="AXE" Type="real" />
         </EntityType>
-        <EntityType Name="ligne_lentille_traitement">
+        <EntityType Name="ligne_traitement_lentille">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="idligne_traitement_lentille" />
           </Key>
-          <Property Name="id_lentille" Type="int" Nullable="false" />
-          <Property Name="id_traitement" Type="int" Nullable="false" />
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idligne_traitement_lentille" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="traitement_idTraitement" Type="int" Nullable="false" />
+          <Property Name="lentille_idLentille" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ligne_traitement_verre">
+          <Key>
+            <PropertyRef Name="idligne_traitement_verre" />
+          </Key>
+          <Property Name="idligne_traitement_verre" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="verre_idVerre" Type="int" Nullable="false" />
+          <Property Name="traitement_idTraitement" Type="int" Nullable="false" />
+          <Property Name="niveau" Type="int" />
         </EntityType>
         <EntityType Name="ligne_type_lentille">
           <Key>
@@ -152,20 +137,12 @@
           </Key>
           <Property Name="idTypeLentille" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
-        <EntityType Name="ligne_verre_traitement">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id_verre" Type="int" Nullable="false" />
-          <Property Name="id_traitement" Type="int" Nullable="false" />
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-        </EntityType>
         <EntityType Name="lignecommande">
           <Key>
             <PropertyRef Name="idLigne" />
           </Key>
           <Property Name="idLigne" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="idArticle" Type="int" Nullable="false" />
+          <Property Name="idArticle" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="idCmdFournisseur" Type="int" Nullable="false" />
           <Property Name="Date_Commande" Type="date" Nullable="false" />
           <Property Name="Adresse_Commande" Type="nvarchar" MaxLength="200" Nullable="false" />
@@ -178,27 +155,13 @@
             <PropertyRef Name="idLigne" />
           </Key>
           <Property Name="idLigne" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="idArticle" Type="int" Nullable="false" />
-          <Property Name="idCmdClient" Type="int" Nullable="false" />
+          <Property Name="idArticle" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="idCmdClient" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Date_Commande" Type="date" Nullable="false" />
           <Property Name="Adresse_Commande" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="Qte_Commande" Type="int" Nullable="false" />
           <Property Name="Prix_Total" Type="real" Nullable="false" />
           <Property Name="EtatCmd" Type="nvarchar" MaxLength="45" />
-        </EntityType>
-        <EntityType Name="oeil">
-          <Key>
-            <PropertyRef Name="idOeil" />
-          </Key>
-          <Property Name="idOeil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SPH_G" Type="real" Nullable="false" />
-          <Property Name="CYL_G" Type="real" Nullable="false" />
-          <Property Name="AXE_G" Type="real" Nullable="false" />
-          <Property Name="ADD_G" Type="real" Nullable="false" />
-          <Property Name="SPH_D" Type="real" Nullable="false" />
-          <Property Name="CYL_D" Type="real" Nullable="false" />
-          <Property Name="AXE_D" Type="real" Nullable="false" />
-          <Property Name="ADD_D" Type="real" Nullable="false" />
         </EntityType>
         <EntityType Name="ophtalmologue">
           <Key>
@@ -221,9 +184,7 @@
           <Property Name="dateExpiration" Type="date" Nullable="false" />
           <Property Name="notes" Type="nvarchar(max)" />
           <Property Name="photo" Type="nvarchar" MaxLength="45" Nullable="false" />
-          <Property Name="ophtalmologue_ophtalmologueId" Type="int" Nullable="false" />
-          <Property Name="client_cin" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="idTypeVerre" Type="int" />
+          <Property Name="ophtalmologueId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="traitement">
           <Key>
@@ -231,14 +192,13 @@
           </Key>
           <Property Name="idTraitement" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nom" Type="nvarchar" MaxLength="45" />
-          <Property Name="Niveau" Type="nvarchar" MaxLength="45" />
         </EntityType>
-        <EntityType Name="typeLentille">
+        <EntityType Name="type_lentille">
           <Key>
-            <PropertyRef Name="idTypeLentille" />
+            <PropertyRef Name="idtype_lentille" />
           </Key>
-          <Property Name="idTypeLentille" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nom" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="idtype_lentille" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="typeverre">
           <Key>
@@ -252,28 +212,36 @@
             <PropertyRef Name="idVerre" />
           </Key>
           <Property Name="idVerre" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="idArticle" Type="int" Nullable="false" />
-          <Property Name="idTraitement" Type="int" Nullable="false" />
+          <Property Name="idArticle" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="idTypeVerre" Type="int" Nullable="false" />
-          <Property Name="idOeil" Type="int" Nullable="false" />
-          <Property Name="Modele" Type="nvarchar" MaxLength="45" />
           <Property Name="Teinte" Type="nvarchar" MaxLength="45" />
         </EntityType>
         <EntityType Name="vision">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="idOeil" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="od_sphere" Type="int" Nullable="false" />
-          <Property Name="od_cylindre" Type="int" Nullable="false" />
-          <Property Name="od_axe" Type="int" Nullable="false" />
-          <Property Name="od_add" Type="int" Nullable="false" />
-          <Property Name="og_sphère" Type="int" Nullable="false" />
-          <Property Name="og_cylindre" Type="int" Nullable="false" />
-          <Property Name="og_axe" Type="int" Nullable="false" />
-          <Property Name="og_add" Type="int" Nullable="false" />
-          <Property Name="vision_type" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="ordonnance_id" Type="int" Nullable="false" />
+          <Property Name="idOeil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cyl" Type="real" />
+          <Property Name="sph" Type="real" />
+          <Property Name="axe" Type="real" />
+          <Property Name="add" Type="real" />
+          <Property Name="ecart" Type="real" />
+          <Property Name="hauteur" Type="real" />
+          <Property Name="date_modification" Type="date" Nullable="false" />
+          <Property Name="lentille_idLentille" Type="int" />
+          <Property Name="verre_idVerre" Type="int" />
+          <Property Name="gauche" Type="bit" Nullable="false" />
+          <Property Name="loin" Type="bit" Nullable="false" />
+          <Property Name="visite_id" Type="int" />
+        </EntityType>
+        <EntityType Name="vision_detaille">
+          <Key>
+            <PropertyRef Name="idvision_detaille" />
+          </Key>
+          <Property Name="idvision_detaille" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="remarques" Type="nvarchar" MaxLength="255" />
+          <Property Name="vision_id" Type="int" Nullable="false" />
+          <Property Name="visite_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="visite">
           <Key>
@@ -283,6 +251,7 @@
           <Property Name="date" Type="date" Nullable="false" />
           <Property Name="raison" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="client_cin" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="ordonnance_id" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="article$fk_Article_Categorie1">
           <End Role="categorie" Type="Self.categorie" Multiplicity="1" />
@@ -297,9 +266,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="cadre$fk_Cadre_Article1">
-          <End Role="article" Type="Self.article" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="article" Type="Self.article" Multiplicity="1" />
           <End Role="cadre" Type="Self.cadre" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="article">
@@ -307,6 +274,18 @@
             </Principal>
             <Dependent Role="cadre">
               <PropertyRef Name="idArticle" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="cmdclient$fk_cmdclient_client1">
+          <End Role="client" Type="Self.client" Multiplicity="1" />
+          <End Role="cmdclient" Type="Self.cmdclient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="cin" />
+            </Principal>
+            <Dependent Role="cmdclient">
+              <PropertyRef Name="client_cin" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -322,141 +301,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_cmdclient_client">
-          <End Role="client" Type="Self.client" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="cmdclient" Type="Self.cmdclient" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="client">
-              <PropertyRef Name="cin" />
-            </Principal>
-            <Dependent Role="cmdclient">
-              <PropertyRef Name="cin" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_examen_visite">
-          <End Role="visite" Type="Self.visite" Multiplicity="1" />
-          <End Role="examen" Type="Self.examen" Multiplicity="*" />
+        <Association Name="FK_vision_visite">
+          <End Role="visite" Type="Self.visite" Multiplicity="0..1" />
+          <End Role="vision" Type="Self.vision" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="visite">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="examen">
-              <PropertyRef Name="visite_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_lentille_typeLentille">
-          <End Role="typeLentille" Type="Self.typeLentille" Multiplicity="1" />
-          <End Role="lentille" Type="Self.lentille" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="typeLentille">
-              <PropertyRef Name="idTypeLentille" />
-            </Principal>
-            <Dependent Role="lentille">
-              <PropertyRef Name="idTypeLentille" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_lentille_typeverre">
-          <End Role="typeverre" Type="Self.typeverre" Multiplicity="1" />
-          <End Role="lentille" Type="Self.lentille" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="typeverre">
-              <PropertyRef Name="idTypeVerre" />
-            </Principal>
-            <Dependent Role="lentille">
-              <PropertyRef Name="idTypeLentille" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ligne_lentille_traitement_lentille">
-          <End Role="lentille" Type="Self.lentille" Multiplicity="1" />
-          <End Role="ligne_lentille_traitement" Type="Self.ligne_lentille_traitement" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="lentille">
-              <PropertyRef Name="idLentille" />
-            </Principal>
-            <Dependent Role="ligne_lentille_traitement">
-              <PropertyRef Name="id_lentille" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ligne_lentille_traitement_traitement">
-          <End Role="traitement" Type="Self.traitement" Multiplicity="1" />
-          <End Role="ligne_lentille_traitement" Type="Self.ligne_lentille_traitement" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="traitement">
-              <PropertyRef Name="idTraitement" />
-            </Principal>
-            <Dependent Role="ligne_lentille_traitement">
-              <PropertyRef Name="id_traitement" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ligne_traitement_traitement1">
-          <End Role="traitement" Type="Self.traitement" Multiplicity="1" />
-          <End Role="ligne_verre_traitement" Type="Self.ligne_verre_traitement" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="traitement">
-              <PropertyRef Name="idTraitement" />
-            </Principal>
-            <Dependent Role="ligne_verre_traitement">
-              <PropertyRef Name="id_traitement" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ligne_traitement_verre">
-          <End Role="verre" Type="Self.verre" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ligne_verre_traitement" Type="Self.ligne_verre_traitement" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="verre">
-              <PropertyRef Name="idVerre" />
-            </Principal>
-            <Dependent Role="ligne_verre_traitement">
-              <PropertyRef Name="id_verre" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ordonnance_client">
-          <End Role="client" Type="Self.client" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ordonnance" Type="Self.ordonnance" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="client">
-              <PropertyRef Name="cin" />
-            </Principal>
-            <Dependent Role="ordonnance">
-              <PropertyRef Name="client_cin" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ordonnance_typeverre">
-          <End Role="typeverre" Type="Self.typeverre" Multiplicity="0..1" />
-          <End Role="ordonnance" Type="Self.ordonnance" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="typeverre">
-              <PropertyRef Name="idTypeVerre" />
-            </Principal>
-            <Dependent Role="ordonnance">
-              <PropertyRef Name="idTypeVerre" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_vision_ordonnance">
-          <End Role="ordonnance" Type="Self.ordonnance" Multiplicity="1" />
-          <End Role="vision" Type="Self.vision" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ordonnance">
-              <PropertyRef Name="id" />
-            </Principal>
             <Dependent Role="vision">
-              <PropertyRef Name="ordonnance_id" />
+              <PropertyRef Name="visite_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -472,15 +325,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="lentille$fk_Lentille_Oeil1">
-          <End Role="oeil" Type="Self.oeil" Multiplicity="0..1" />
+        <Association Name="lentille$fk_lentille_type_lentille1">
+          <End Role="type_lentille" Type="Self.type_lentille" Multiplicity="1" />
           <End Role="lentille" Type="Self.lentille" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="oeil">
-              <PropertyRef Name="idOeil" />
+            <Principal Role="type_lentille">
+              <PropertyRef Name="idtype_lentille" />
             </Principal>
             <Dependent Role="lentille">
-              <PropertyRef Name="idOeil" />
+              <PropertyRef Name="idtype_lentille" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -532,10 +385,56 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="ligne_traitement_lentille$fk_ligne_traitement_lentille_lentille1">
+          <End Role="lentille" Type="Self.lentille" Multiplicity="1" />
+          <End Role="ligne_traitement_lentille" Type="Self.ligne_traitement_lentille" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lentille">
+              <PropertyRef Name="idLentille" />
+            </Principal>
+            <Dependent Role="ligne_traitement_lentille">
+              <PropertyRef Name="lentille_idLentille" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ligne_traitement_lentille$fk_ligne_traitement_lentille_traitement1">
+          <End Role="traitement" Type="Self.traitement" Multiplicity="1" />
+          <End Role="ligne_traitement_lentille" Type="Self.ligne_traitement_lentille" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="traitement">
+              <PropertyRef Name="idTraitement" />
+            </Principal>
+            <Dependent Role="ligne_traitement_lentille">
+              <PropertyRef Name="traitement_idTraitement" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ligne_traitement_verre$fk_ligne_traitement_verre_traitement1">
+          <End Role="traitement" Type="Self.traitement" Multiplicity="1" />
+          <End Role="ligne_traitement_verre" Type="Self.ligne_traitement_verre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="traitement">
+              <PropertyRef Name="idTraitement" />
+            </Principal>
+            <Dependent Role="ligne_traitement_verre">
+              <PropertyRef Name="traitement_idTraitement" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ligne_traitement_verre$fk_ligne_traitement_verre_verre1">
+          <End Role="verre" Type="Self.verre" Multiplicity="1" />
+          <End Role="ligne_traitement_verre" Type="Self.ligne_traitement_verre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="verre">
+              <PropertyRef Name="idVerre" />
+            </Principal>
+            <Dependent Role="ligne_traitement_verre">
+              <PropertyRef Name="verre_idVerre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="lignecommande$fk_LigneCommande_Article1">
-          <End Role="article" Type="Self.article" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="article" Type="Self.article" Multiplicity="1" />
           <End Role="lignecommande" Type="Self.lignecommande" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="article">
@@ -559,9 +458,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="ligneentree$fk_LigneEntree_Article1">
-          <End Role="article" Type="Self.article" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="article" Type="Self.article" Multiplicity="1" />
           <End Role="ligneentree" Type="Self.ligneentree" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="article">
@@ -592,14 +489,12 @@
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="ordonnance">
-              <PropertyRef Name="ophtalmologue_ophtalmologueId" />
+              <PropertyRef Name="ophtalmologueId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="verre$fk_Verre_Article1">
-          <End Role="article" Type="Self.article" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="article" Type="Self.article" Multiplicity="1" />
           <End Role="verre" Type="Self.verre" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="article">
@@ -607,20 +502,6 @@
             </Principal>
             <Dependent Role="verre">
               <PropertyRef Name="idArticle" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="verre$fk_Verre_Oeil1">
-          <End Role="oeil" Type="Self.oeil" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="verre" Type="Self.verre" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="oeil">
-              <PropertyRef Name="idOeil" />
-            </Principal>
-            <Dependent Role="verre">
-              <PropertyRef Name="idOeil" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -636,10 +517,56 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="vision$fk_vision_lentille1">
+          <End Role="lentille" Type="Self.lentille" Multiplicity="0..1" />
+          <End Role="vision" Type="Self.vision" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lentille">
+              <PropertyRef Name="idLentille" />
+            </Principal>
+            <Dependent Role="vision">
+              <PropertyRef Name="lentille_idLentille" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="vision$fk_vision_verre1">
+          <End Role="verre" Type="Self.verre" Multiplicity="0..1" />
+          <End Role="vision" Type="Self.vision" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="verre">
+              <PropertyRef Name="idVerre" />
+            </Principal>
+            <Dependent Role="vision">
+              <PropertyRef Name="verre_idVerre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="vision_detaille$fk_vision_detaille_vision">
+          <End Role="vision" Type="Self.vision" Multiplicity="1" />
+          <End Role="vision_detaille" Type="Self.vision_detaille" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vision">
+              <PropertyRef Name="idOeil" />
+            </Principal>
+            <Dependent Role="vision_detaille">
+              <PropertyRef Name="vision_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="vision_detaille$fk_vision_detaille_visite1">
+          <End Role="visite" Type="Self.visite" Multiplicity="1" />
+          <End Role="vision_detaille" Type="Self.vision_detaille" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="visite">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="vision_detaille">
+              <PropertyRef Name="visite_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="visite$fk_visite_client">
-          <End Role="client" Type="Self.client" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="client" Type="Self.client" Multiplicity="1" />
           <End Role="visite" Type="Self.visite" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="client">
@@ -650,6 +577,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="visite$fk_visite_ordonnance1">
+          <End Role="ordonnance" Type="Self.ordonnance" Multiplicity="1" />
+          <End Role="visite" Type="Self.visite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ordonnance">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="visite">
+              <PropertyRef Name="ordonnance_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="optique_pfeModelStoreContainer">
           <EntitySet Name="article" EntityType="Self.article" Schema="optique_pfe" store:Type="Tables" />
           <EntitySet Name="cadre" EntityType="Self.cadre" Schema="optique_pfe" store:Type="Tables" />
@@ -657,25 +596,24 @@
           <EntitySet Name="client" EntityType="Self.client" Schema="optique_pfe" store:Type="Tables" />
           <EntitySet Name="cmdclient" EntityType="Self.cmdclient" Schema="optique_pfe" store:Type="Tables" />
           <EntitySet Name="cmdfournisseur" EntityType="Self.cmdfournisseur" Schema="optique_pfe" store:Type="Tables" />
-          <EntitySet Name="examen" EntityType="Self.examen" Schema="optique_pfe" store:Type="Tables" />
           <EntitySet Name="fournisseur" EntityType="Self.fournisseur" Schema="optique_pfe" store:Type="Tables" />
           <EntitySet Name="lentille" EntityType="Self.lentille" Schema="optique_pfe" store:Type="Tables" />
           <EntitySet Name="lentillemultifocale" EntityType="Self.lentillemultifocale" Schema="optique_pfe" store:Type="Tables" />
           <EntitySet Name="lentillespherique" EntityType="Self.lentillespherique" Schema="optique_pfe" store:Type="Tables" />
           <EntitySet Name="lentilletoriques" EntityType="Self.lentilletoriques" Schema="optique_pfe" store:Type="Tables" />
-          <EntitySet Name="ligne_lentille_traitement" EntityType="Self.ligne_lentille_traitement" Schema="optique_pfe" store:Type="Tables" />
+          <EntitySet Name="ligne_traitement_lentille" EntityType="Self.ligne_traitement_lentille" Schema="optique_pfe" store:Type="Tables" />
+          <EntitySet Name="ligne_traitement_verre" EntityType="Self.ligne_traitement_verre" Schema="optique_pfe" store:Type="Tables" />
           <EntitySet Name="ligne_type_lentille" EntityType="Self.ligne_type_lentille" Schema="optique_pfe" store:Type="Tables" />
-          <EntitySet Name="ligne_verre_traitement" EntityType="Self.ligne_verre_traitement" Schema="optique_pfe" store:Type="Tables" />
           <EntitySet Name="lignecommande" EntityType="Self.lignecommande" Schema="optique_pfe" store:Type="Tables" />
           <EntitySet Name="ligneentree" EntityType="Self.ligneentree" Schema="optique_pfe" store:Type="Tables" />
-          <EntitySet Name="oeil" EntityType="Self.oeil" Schema="optique_pfe" store:Type="Tables" />
           <EntitySet Name="ophtalmologue" EntityType="Self.ophtalmologue" Schema="optique_pfe" store:Type="Tables" />
           <EntitySet Name="ordonnance" EntityType="Self.ordonnance" Schema="optique_pfe" store:Type="Tables" />
           <EntitySet Name="traitement" EntityType="Self.traitement" Schema="optique_pfe" store:Type="Tables" />
-          <EntitySet Name="typeLentille" EntityType="Self.typeLentille" Schema="optique_pfe" store:Type="Tables" />
+          <EntitySet Name="type_lentille" EntityType="Self.type_lentille" Schema="optique_pfe" store:Type="Tables" />
           <EntitySet Name="typeverre" EntityType="Self.typeverre" Schema="optique_pfe" store:Type="Tables" />
           <EntitySet Name="verre" EntityType="Self.verre" Schema="optique_pfe" store:Type="Tables" />
           <EntitySet Name="vision" EntityType="Self.vision" Schema="optique_pfe" store:Type="Tables" />
+          <EntitySet Name="vision_detaille" EntityType="Self.vision_detaille" Schema="optique_pfe" store:Type="Tables" />
           <EntitySet Name="visite" EntityType="Self.visite" Schema="optique_pfe" store:Type="Tables" />
           <AssociationSet Name="article$fk_Article_Categorie1" Association="Self.article$fk_Article_Categorie1">
             <End Role="categorie" EntitySet="categorie" />
@@ -685,60 +623,24 @@
             <End Role="article" EntitySet="article" />
             <End Role="cadre" EntitySet="cadre" />
           </AssociationSet>
+          <AssociationSet Name="cmdclient$fk_cmdclient_client1" Association="Self.cmdclient$fk_cmdclient_client1">
+            <End Role="client" EntitySet="client" />
+            <End Role="cmdclient" EntitySet="cmdclient" />
+          </AssociationSet>
           <AssociationSet Name="cmdfournisseur$fk_CmdFournisseur_Fournisseur" Association="Self.cmdfournisseur$fk_CmdFournisseur_Fournisseur">
             <End Role="fournisseur" EntitySet="fournisseur" />
             <End Role="cmdfournisseur" EntitySet="cmdfournisseur" />
           </AssociationSet>
-          <AssociationSet Name="FK_cmdclient_client" Association="Self.FK_cmdclient_client">
-            <End Role="client" EntitySet="client" />
-            <End Role="cmdclient" EntitySet="cmdclient" />
-          </AssociationSet>
-          <AssociationSet Name="FK_examen_visite" Association="Self.FK_examen_visite">
+          <AssociationSet Name="FK_vision_visite" Association="Self.FK_vision_visite">
             <End Role="visite" EntitySet="visite" />
-            <End Role="examen" EntitySet="examen" />
-          </AssociationSet>
-          <AssociationSet Name="FK_lentille_typeLentille" Association="Self.FK_lentille_typeLentille">
-            <End Role="typeLentille" EntitySet="typeLentille" />
-            <End Role="lentille" EntitySet="lentille" />
-          </AssociationSet>
-          <AssociationSet Name="FK_lentille_typeverre" Association="Self.FK_lentille_typeverre">
-            <End Role="typeverre" EntitySet="typeverre" />
-            <End Role="lentille" EntitySet="lentille" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ligne_lentille_traitement_lentille" Association="Self.FK_ligne_lentille_traitement_lentille">
-            <End Role="lentille" EntitySet="lentille" />
-            <End Role="ligne_lentille_traitement" EntitySet="ligne_lentille_traitement" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ligne_lentille_traitement_traitement" Association="Self.FK_ligne_lentille_traitement_traitement">
-            <End Role="traitement" EntitySet="traitement" />
-            <End Role="ligne_lentille_traitement" EntitySet="ligne_lentille_traitement" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ligne_traitement_traitement1" Association="Self.FK_ligne_traitement_traitement1">
-            <End Role="traitement" EntitySet="traitement" />
-            <End Role="ligne_verre_traitement" EntitySet="ligne_verre_traitement" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ligne_traitement_verre" Association="Self.FK_ligne_traitement_verre">
-            <End Role="verre" EntitySet="verre" />
-            <End Role="ligne_verre_traitement" EntitySet="ligne_verre_traitement" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ordonnance_client" Association="Self.FK_ordonnance_client">
-            <End Role="client" EntitySet="client" />
-            <End Role="ordonnance" EntitySet="ordonnance" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ordonnance_typeverre" Association="Self.FK_ordonnance_typeverre">
-            <End Role="typeverre" EntitySet="typeverre" />
-            <End Role="ordonnance" EntitySet="ordonnance" />
-          </AssociationSet>
-          <AssociationSet Name="FK_vision_ordonnance" Association="Self.FK_vision_ordonnance">
-            <End Role="ordonnance" EntitySet="ordonnance" />
             <End Role="vision" EntitySet="vision" />
           </AssociationSet>
           <AssociationSet Name="lentille$fk_Lentille_Article1" Association="Self.lentille$fk_Lentille_Article1">
             <End Role="article" EntitySet="article" />
             <End Role="lentille" EntitySet="lentille" />
           </AssociationSet>
-          <AssociationSet Name="lentille$fk_Lentille_Oeil1" Association="Self.lentille$fk_Lentille_Oeil1">
-            <End Role="oeil" EntitySet="oeil" />
+          <AssociationSet Name="lentille$fk_lentille_type_lentille1" Association="Self.lentille$fk_lentille_type_lentille1">
+            <End Role="type_lentille" EntitySet="type_lentille" />
             <End Role="lentille" EntitySet="lentille" />
           </AssociationSet>
           <AssociationSet Name="lentille$fk_Lentille_TypeLentille1" Association="Self.lentille$fk_Lentille_TypeLentille1">
@@ -756,6 +658,22 @@
           <AssociationSet Name="lentilletoriques$fk_LentilleToriques_TypeLentille1" Association="Self.lentilletoriques$fk_LentilleToriques_TypeLentille1">
             <End Role="ligne_type_lentille" EntitySet="ligne_type_lentille" />
             <End Role="lentilletoriques" EntitySet="lentilletoriques" />
+          </AssociationSet>
+          <AssociationSet Name="ligne_traitement_lentille$fk_ligne_traitement_lentille_lentille1" Association="Self.ligne_traitement_lentille$fk_ligne_traitement_lentille_lentille1">
+            <End Role="lentille" EntitySet="lentille" />
+            <End Role="ligne_traitement_lentille" EntitySet="ligne_traitement_lentille" />
+          </AssociationSet>
+          <AssociationSet Name="ligne_traitement_lentille$fk_ligne_traitement_lentille_traitement1" Association="Self.ligne_traitement_lentille$fk_ligne_traitement_lentille_traitement1">
+            <End Role="traitement" EntitySet="traitement" />
+            <End Role="ligne_traitement_lentille" EntitySet="ligne_traitement_lentille" />
+          </AssociationSet>
+          <AssociationSet Name="ligne_traitement_verre$fk_ligne_traitement_verre_traitement1" Association="Self.ligne_traitement_verre$fk_ligne_traitement_verre_traitement1">
+            <End Role="traitement" EntitySet="traitement" />
+            <End Role="ligne_traitement_verre" EntitySet="ligne_traitement_verre" />
+          </AssociationSet>
+          <AssociationSet Name="ligne_traitement_verre$fk_ligne_traitement_verre_verre1" Association="Self.ligne_traitement_verre$fk_ligne_traitement_verre_verre1">
+            <End Role="verre" EntitySet="verre" />
+            <End Role="ligne_traitement_verre" EntitySet="ligne_traitement_verre" />
           </AssociationSet>
           <AssociationSet Name="lignecommande$fk_LigneCommande_Article1" Association="Self.lignecommande$fk_LigneCommande_Article1">
             <End Role="article" EntitySet="article" />
@@ -781,16 +699,32 @@
             <End Role="article" EntitySet="article" />
             <End Role="verre" EntitySet="verre" />
           </AssociationSet>
-          <AssociationSet Name="verre$fk_Verre_Oeil1" Association="Self.verre$fk_Verre_Oeil1">
-            <End Role="oeil" EntitySet="oeil" />
-            <End Role="verre" EntitySet="verre" />
-          </AssociationSet>
           <AssociationSet Name="verre$fk_Verre_TypeVerre1" Association="Self.verre$fk_Verre_TypeVerre1">
             <End Role="typeverre" EntitySet="typeverre" />
             <End Role="verre" EntitySet="verre" />
           </AssociationSet>
+          <AssociationSet Name="vision$fk_vision_lentille1" Association="Self.vision$fk_vision_lentille1">
+            <End Role="lentille" EntitySet="lentille" />
+            <End Role="vision" EntitySet="vision" />
+          </AssociationSet>
+          <AssociationSet Name="vision$fk_vision_verre1" Association="Self.vision$fk_vision_verre1">
+            <End Role="verre" EntitySet="verre" />
+            <End Role="vision" EntitySet="vision" />
+          </AssociationSet>
+          <AssociationSet Name="vision_detaille$fk_vision_detaille_vision" Association="Self.vision_detaille$fk_vision_detaille_vision">
+            <End Role="vision" EntitySet="vision" />
+            <End Role="vision_detaille" EntitySet="vision_detaille" />
+          </AssociationSet>
+          <AssociationSet Name="vision_detaille$fk_vision_detaille_visite1" Association="Self.vision_detaille$fk_vision_detaille_visite1">
+            <End Role="visite" EntitySet="visite" />
+            <End Role="vision_detaille" EntitySet="vision_detaille" />
+          </AssociationSet>
           <AssociationSet Name="visite$fk_visite_client" Association="Self.visite$fk_visite_client">
             <End Role="client" EntitySet="client" />
+            <End Role="visite" EntitySet="visite" />
+          </AssociationSet>
+          <AssociationSet Name="visite$fk_visite_ordonnance1" Association="Self.visite$fk_visite_ordonnance1">
+            <End Role="ordonnance" EntitySet="ordonnance" />
             <End Role="visite" EntitySet="visite" />
           </AssociationSet>
         </EntityContainer>
@@ -803,13 +737,12 @@
           <Key>
             <PropertyRef Name="idArticle" />
           </Key>
-          <Property Name="idArticle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idArticle" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="idCategorie" Type="Int32" Nullable="false" />
           <Property Name="QteDisponible" Type="Int32" Nullable="false" />
           <Property Name="PrixUnitaire" Type="Single" Nullable="false" />
           <Property Name="Garantie" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="categorie" Relationship="Self.article_fk_Article_Categorie1" FromRole="article" ToRole="categorie" />
           <NavigationProperty Name="cadres" Relationship="Self.cadre_fk_Cadre_Article1" FromRole="article" ToRole="cadre" />
           <NavigationProperty Name="lentilles" Relationship="Self.lentille_fk_Lentille_Article1" FromRole="article" ToRole="lentille" />
@@ -822,7 +755,7 @@
             <PropertyRef Name="idCadre" />
           </Key>
           <Property Name="idCadre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idArticle" Type="Int32" Nullable="false" />
+          <Property Name="idArticle" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DiametreVerre" Type="Single" Nullable="false" />
           <Property Name="Pont" Type="Single" />
           <Property Name="LongeurBrache" Type="Single" />
@@ -852,18 +785,17 @@
           <Property Name="dateNaissance" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="medicaments" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="maladies" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="cmdclients" Relationship="Self.FK_cmdclient_client" FromRole="client" ToRole="cmdclient" />
-          <NavigationProperty Name="ordonnances" Relationship="Self.FK_ordonnance_client" FromRole="client" ToRole="ordonnance" />
+          <NavigationProperty Name="cmdclients" Relationship="Self.cmdclient_fk_cmdclient_client1" FromRole="client" ToRole="cmdclient" />
           <NavigationProperty Name="visites" Relationship="Self.visite_fk_visite_client" FromRole="client" ToRole="visite" />
         </EntityType>
         <EntityType Name="cmdclient">
           <Key>
             <PropertyRef Name="idCmdClient" />
           </Key>
-          <Property Name="idCmdClient" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idCmdClient" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DateCmd" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="cin" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="client" Relationship="Self.FK_cmdclient_client" FromRole="cmdclient" ToRole="client" />
+          <Property Name="client_cin" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="client" Relationship="Self.cmdclient_fk_cmdclient_client1" FromRole="cmdclient" ToRole="client" />
           <NavigationProperty Name="ligneentrees" Relationship="Self.ligneentree_fk_LigneEntree_CmdClient1" FromRole="cmdclient" ToRole="ligneentree" />
         </EntityType>
         <EntityType Name="cmdfournisseur">
@@ -875,32 +807,6 @@
           <Property Name="DateEntree" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="fournisseur" Relationship="Self.cmdfournisseur_fk_CmdFournisseur_Fournisseur" FromRole="cmdfournisseur" ToRole="fournisseur" />
           <NavigationProperty Name="lignecommandes" Relationship="Self.lignecommande_fk_LigneCommande_CmdFournisseur1" FromRole="cmdfournisseur" ToRole="lignecommande" />
-        </EntityType>
-        <EntityType Name="examan">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="od_sphere_loins" Type="Int32" Nullable="false" />
-          <Property Name="od_cylindre_loins" Type="Int32" Nullable="false" />
-          <Property Name="od_axe_loins" Type="Int32" Nullable="false" />
-          <Property Name="od_add_loins" Type="Int32" Nullable="false" />
-          <Property Name="og_sphère_loins" Type="Int32" Nullable="false" />
-          <Property Name="og_cylindre_loins" Type="Int32" Nullable="false" />
-          <Property Name="og_axe_loins" Type="Int32" Nullable="false" />
-          <Property Name="og_add_loins" Type="Int32" Nullable="false" />
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="visite_id" Type="Int32" Nullable="false" />
-          <Property Name="date_derniere_modif" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="remarques" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="og_add_pres" Type="Int32" Nullable="false" />
-          <Property Name="od_sphere_pres" Type="Int32" Nullable="false" />
-          <Property Name="od_cylindre_pres" Type="Int32" Nullable="false" />
-          <Property Name="od_axe_pres" Type="Int32" Nullable="false" />
-          <Property Name="od_add_pres" Type="Int32" Nullable="false" />
-          <Property Name="og_sphère_pres" Type="Int32" Nullable="false" />
-          <Property Name="og_cylindre_pres" Type="Int32" Nullable="false" />
-          <Property Name="og_axe_pres" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="visite" Relationship="Self.FK_examen_visite" FromRole="examen" ToRole="visite" />
         </EntityType>
         <EntityType Name="fournisseur">
           <Key>
@@ -919,23 +825,22 @@
             <PropertyRef Name="idLentille" />
           </Key>
           <Property Name="idLentille" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idArticle" Type="Int32" Nullable="false" />
+          <Property Name="idArticle" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="idLigneType" Type="Int32" Nullable="false" />
-          <Property Name="idOeil" Type="Int32" />
           <Property Name="Couleur" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="idTypeLentille" Type="Int32" Nullable="false" />
+          <Property Name="idtype_lentille" Type="Int32" Nullable="false" />
           <NavigationProperty Name="article" Relationship="Self.lentille_fk_Lentille_Article1" FromRole="lentille" ToRole="article" />
-          <NavigationProperty Name="typeLentille" Relationship="Self.FK_lentille_typeLentille" FromRole="lentille" ToRole="typeLentille" />
-          <NavigationProperty Name="typeverre" Relationship="Self.FK_lentille_typeverre" FromRole="lentille" ToRole="typeverre" />
-          <NavigationProperty Name="ligne_lentille_traitement" Relationship="Self.FK_ligne_lentille_traitement_lentille" FromRole="lentille" ToRole="ligne_lentille_traitement" />
-          <NavigationProperty Name="oeil" Relationship="Self.lentille_fk_Lentille_Oeil1" FromRole="lentille" ToRole="oeil" />
+          <NavigationProperty Name="type_lentille" Relationship="Self.lentille_fk_lentille_type_lentille1" FromRole="lentille" ToRole="type_lentille" />
           <NavigationProperty Name="ligne_type_lentille" Relationship="Self.lentille_fk_Lentille_TypeLentille1" FromRole="lentille" ToRole="ligne_type_lentille" />
+          <NavigationProperty Name="ligne_traitement_lentille" Relationship="Self.ligne_traitement_lentille_fk_ligne_traitement_lentille_lentille1" FromRole="lentille" ToRole="ligne_traitement_lentille" />
+          <NavigationProperty Name="visions" Relationship="Self.vision_fk_vision_lentille1" FromRole="lentille" ToRole="vision" />
         </EntityType>
         <EntityType Name="lentillemultifocale">
           <Key>
             <PropertyRef Name="idLentilleMultifocale" />
           </Key>
           <Property Name="idLentilleMultifocale" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ADD" Type="Single" />
           <Property Name="DOM" Type="Single" />
           <Property Name="idTypeLentille" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ligne_type_lentille" Relationship="Self.lentillemultifocale_fk_LentilleMultifocale_TypeLentille1" FromRole="lentillemultifocale" ToRole="ligne_type_lentille" />
@@ -956,17 +861,30 @@
           </Key>
           <Property Name="idLentilleToriques" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idTypeLentille" Type="Int32" Nullable="false" />
+          <Property Name="CYL" Type="Single" />
+          <Property Name="AXE" Type="Single" />
           <NavigationProperty Name="ligne_type_lentille" Relationship="Self.lentilletoriques_fk_LentilleToriques_TypeLentille1" FromRole="lentilletoriques" ToRole="ligne_type_lentille" />
         </EntityType>
-        <EntityType Name="ligne_lentille_traitement">
+        <EntityType Name="ligne_traitement_lentille">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="idligne_traitement_lentille" />
           </Key>
-          <Property Name="id_lentille" Type="Int32" Nullable="false" />
-          <Property Name="id_traitement" Type="Int32" Nullable="false" />
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="lentille" Relationship="Self.FK_ligne_lentille_traitement_lentille" FromRole="ligne_lentille_traitement" ToRole="lentille" />
-          <NavigationProperty Name="traitement" Relationship="Self.FK_ligne_lentille_traitement_traitement" FromRole="ligne_lentille_traitement" ToRole="traitement" />
+          <Property Name="idligne_traitement_lentille" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="traitement_idTraitement" Type="Int32" Nullable="false" />
+          <Property Name="lentille_idLentille" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="lentille" Relationship="Self.ligne_traitement_lentille_fk_ligne_traitement_lentille_lentille1" FromRole="ligne_traitement_lentille" ToRole="lentille" />
+          <NavigationProperty Name="traitement" Relationship="Self.ligne_traitement_lentille_fk_ligne_traitement_lentille_traitement1" FromRole="ligne_traitement_lentille" ToRole="traitement" />
+        </EntityType>
+        <EntityType Name="ligne_traitement_verre">
+          <Key>
+            <PropertyRef Name="idligne_traitement_verre" />
+          </Key>
+          <Property Name="idligne_traitement_verre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="verre_idVerre" Type="Int32" Nullable="false" />
+          <Property Name="traitement_idTraitement" Type="Int32" Nullable="false" />
+          <Property Name="niveau" Type="Int32" />
+          <NavigationProperty Name="traitement" Relationship="Self.ligne_traitement_verre_fk_ligne_traitement_verre_traitement1" FromRole="ligne_traitement_verre" ToRole="traitement" />
+          <NavigationProperty Name="verre" Relationship="Self.ligne_traitement_verre_fk_ligne_traitement_verre_verre1" FromRole="ligne_traitement_verre" ToRole="verre" />
         </EntityType>
         <EntityType Name="ligne_type_lentille">
           <Key>
@@ -978,22 +896,12 @@
           <NavigationProperty Name="lentillespheriques" Relationship="Self.lentillespherique_fk_LentilleSpherique_TypeLentille1" FromRole="ligne_type_lentille" ToRole="lentillespherique" />
           <NavigationProperty Name="lentilletoriques" Relationship="Self.lentilletoriques_fk_LentilleToriques_TypeLentille1" FromRole="ligne_type_lentille" ToRole="lentilletoriques" />
         </EntityType>
-        <EntityType Name="ligne_verre_traitement">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id_verre" Type="Int32" Nullable="false" />
-          <Property Name="id_traitement" Type="Int32" Nullable="false" />
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="traitement" Relationship="Self.FK_ligne_traitement_traitement1" FromRole="ligne_verre_traitement" ToRole="traitement" />
-          <NavigationProperty Name="verre" Relationship="Self.FK_ligne_traitement_verre" FromRole="ligne_verre_traitement" ToRole="verre" />
-        </EntityType>
         <EntityType Name="lignecommande">
           <Key>
             <PropertyRef Name="idLigne" />
           </Key>
           <Property Name="idLigne" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idArticle" Type="Int32" Nullable="false" />
+          <Property Name="idArticle" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="idCmdFournisseur" Type="Int32" Nullable="false" />
           <Property Name="Date_Commande" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Adresse_Commande" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
@@ -1008,8 +916,8 @@
             <PropertyRef Name="idLigne" />
           </Key>
           <Property Name="idLigne" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idArticle" Type="Int32" Nullable="false" />
-          <Property Name="idCmdClient" Type="Int32" Nullable="false" />
+          <Property Name="idArticle" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="idCmdClient" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Date_Commande" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Adresse_Commande" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Qte_Commande" Type="Int32" Nullable="false" />
@@ -1017,22 +925,6 @@
           <Property Name="EtatCmd" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="article" Relationship="Self.ligneentree_fk_LigneEntree_Article1" FromRole="ligneentree" ToRole="article" />
           <NavigationProperty Name="cmdclient" Relationship="Self.ligneentree_fk_LigneEntree_CmdClient1" FromRole="ligneentree" ToRole="cmdclient" />
-        </EntityType>
-        <EntityType Name="oeil">
-          <Key>
-            <PropertyRef Name="idOeil" />
-          </Key>
-          <Property Name="idOeil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SPH_G" Type="Single" Nullable="false" />
-          <Property Name="CYL_G" Type="Single" Nullable="false" />
-          <Property Name="AXE_G" Type="Single" Nullable="false" />
-          <Property Name="ADD_G" Type="Single" Nullable="false" />
-          <Property Name="SPH_D" Type="Single" Nullable="false" />
-          <Property Name="CYL_D" Type="Single" Nullable="false" />
-          <Property Name="AXE_D" Type="Single" Nullable="false" />
-          <Property Name="ADD_D" Type="Single" Nullable="false" />
-          <NavigationProperty Name="lentilles" Relationship="Self.lentille_fk_Lentille_Oeil1" FromRole="oeil" ToRole="lentille" />
-          <NavigationProperty Name="verres" Relationship="Self.verre_fk_Verre_Oeil1" FromRole="oeil" ToRole="verre" />
         </EntityType>
         <EntityType Name="ophtalmologue">
           <Key>
@@ -1056,13 +948,9 @@
           <Property Name="dateExpiration" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="photo" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ophtalmologue_ophtalmologueId" Type="Int32" Nullable="false" />
-          <Property Name="client_cin" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="idTypeVerre" Type="Int32" />
-          <NavigationProperty Name="client" Relationship="Self.FK_ordonnance_client" FromRole="ordonnance" ToRole="client" />
+          <Property Name="ophtalmologueId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ophtalmologue" Relationship="Self.ordonnance_fk_ordonnance_ophtalmologue1" FromRole="ordonnance" ToRole="ophtalmologue" />
-          <NavigationProperty Name="typeverre" Relationship="Self.FK_ordonnance_typeverre" FromRole="ordonnance" ToRole="typeverre" />
-          <NavigationProperty Name="visions" Relationship="Self.FK_vision_ordonnance" FromRole="ordonnance" ToRole="vision" />
+          <NavigationProperty Name="visites" Relationship="Self.visite_fk_visite_ordonnance1" FromRole="ordonnance" ToRole="visite" />
         </EntityType>
         <EntityType Name="traitement">
           <Key>
@@ -1070,17 +958,16 @@
           </Key>
           <Property Name="idTraitement" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nom" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="Niveau" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ligne_lentille_traitement" Relationship="Self.FK_ligne_lentille_traitement_traitement" FromRole="traitement" ToRole="ligne_lentille_traitement" />
-          <NavigationProperty Name="ligne_verre_traitement" Relationship="Self.FK_ligne_traitement_traitement1" FromRole="traitement" ToRole="ligne_verre_traitement" />
+          <NavigationProperty Name="ligne_traitement_lentille" Relationship="Self.ligne_traitement_lentille_fk_ligne_traitement_lentille_traitement1" FromRole="traitement" ToRole="ligne_traitement_lentille" />
+          <NavigationProperty Name="ligne_traitement_verre" Relationship="Self.ligne_traitement_verre_fk_ligne_traitement_verre_traitement1" FromRole="traitement" ToRole="ligne_traitement_verre" />
         </EntityType>
-        <EntityType Name="typeLentille">
+        <EntityType Name="type_lentille">
           <Key>
-            <PropertyRef Name="idTypeLentille" />
+            <PropertyRef Name="idtype_lentille" />
           </Key>
-          <Property Name="idTypeLentille" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="lentilles" Relationship="Self.FK_lentille_typeLentille" FromRole="typeLentille" ToRole="lentille" />
+          <Property Name="idtype_lentille" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="lentilles" Relationship="Self.lentille_fk_lentille_type_lentille1" FromRole="type_lentille" ToRole="lentille" />
         </EntityType>
         <EntityType Name="typeverre">
           <Key>
@@ -1088,8 +975,6 @@
           </Key>
           <Property Name="idTypeVerre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NomType" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="lentilles" Relationship="Self.FK_lentille_typeverre" FromRole="typeverre" ToRole="lentille" />
-          <NavigationProperty Name="ordonnances" Relationship="Self.FK_ordonnance_typeverre" FromRole="typeverre" ToRole="ordonnance" />
           <NavigationProperty Name="verres" Relationship="Self.verre_fk_Verre_TypeVerre1" FromRole="typeverre" ToRole="verre" />
         </EntityType>
         <EntityType Name="verre">
@@ -1097,33 +982,46 @@
             <PropertyRef Name="idVerre" />
           </Key>
           <Property Name="idVerre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idArticle" Type="Int32" Nullable="false" />
-          <Property Name="idTraitement" Type="Int32" Nullable="false" />
+          <Property Name="idArticle" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="idTypeVerre" Type="Int32" Nullable="false" />
-          <Property Name="idOeil" Type="Int32" Nullable="false" />
-          <Property Name="Modele" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
           <Property Name="Teinte" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="article" Relationship="Self.verre_fk_Verre_Article1" FromRole="verre" ToRole="article" />
-          <NavigationProperty Name="ligne_verre_traitement" Relationship="Self.FK_ligne_traitement_verre" FromRole="verre" ToRole="ligne_verre_traitement" />
-          <NavigationProperty Name="oeil" Relationship="Self.verre_fk_Verre_Oeil1" FromRole="verre" ToRole="oeil" />
+          <NavigationProperty Name="ligne_traitement_verre" Relationship="Self.ligne_traitement_verre_fk_ligne_traitement_verre_verre1" FromRole="verre" ToRole="ligne_traitement_verre" />
           <NavigationProperty Name="typeverre" Relationship="Self.verre_fk_Verre_TypeVerre1" FromRole="verre" ToRole="typeverre" />
+          <NavigationProperty Name="visions" Relationship="Self.vision_fk_vision_verre1" FromRole="verre" ToRole="vision" />
         </EntityType>
         <EntityType Name="vision">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="idOeil" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="od_sphere" Type="Int32" Nullable="false" />
-          <Property Name="od_cylindre" Type="Int32" Nullable="false" />
-          <Property Name="od_axe" Type="Int32" Nullable="false" />
-          <Property Name="od_add" Type="Int32" Nullable="false" />
-          <Property Name="og_sphère" Type="Int32" Nullable="false" />
-          <Property Name="og_cylindre" Type="Int32" Nullable="false" />
-          <Property Name="og_axe" Type="Int32" Nullable="false" />
-          <Property Name="og_add" Type="Int32" Nullable="false" />
-          <Property Name="vision_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ordonnance_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ordonnance" Relationship="Self.FK_vision_ordonnance" FromRole="vision" ToRole="ordonnance" />
+          <Property Name="idOeil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cyl" Type="Single" />
+          <Property Name="sph" Type="Single" />
+          <Property Name="axe" Type="Single" />
+          <Property Name="add" Type="Single" />
+          <Property Name="ecart" Type="Single" />
+          <Property Name="hauteur" Type="Single" />
+          <Property Name="date_modification" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="lentille_idLentille" Type="Int32" />
+          <Property Name="verre_idVerre" Type="Int32" />
+          <Property Name="gauche" Type="Boolean" Nullable="false" />
+          <Property Name="loin" Type="Boolean" Nullable="false" />
+          <Property Name="visite_id" Type="Int32" />
+          <NavigationProperty Name="lentille" Relationship="Self.vision_fk_vision_lentille1" FromRole="vision" ToRole="lentille" />
+          <NavigationProperty Name="verre" Relationship="Self.vision_fk_vision_verre1" FromRole="vision" ToRole="verre" />
+          <NavigationProperty Name="visite" Relationship="Self.FK_vision_visite" FromRole="vision" ToRole="visite" />
+          <NavigationProperty Name="vision_detaille" Relationship="Self.vision_detaille_fk_vision_detaille_vision" FromRole="vision" ToRole="vision_detaille" />
+        </EntityType>
+        <EntityType Name="vision_detaille">
+          <Key>
+            <PropertyRef Name="idvision_detaille" />
+          </Key>
+          <Property Name="idvision_detaille" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="remarques" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="vision_id" Type="Int32" Nullable="false" />
+          <Property Name="visite_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="vision" Relationship="Self.vision_detaille_fk_vision_detaille_vision" FromRole="vision_detaille" ToRole="vision" />
+          <NavigationProperty Name="visite" Relationship="Self.vision_detaille_fk_vision_detaille_visite1" FromRole="vision_detaille" ToRole="visite" />
         </EntityType>
         <EntityType Name="visite">
           <Key>
@@ -1133,8 +1031,11 @@
           <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="raison" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="client_cin" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ordonnance_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="client" Relationship="Self.visite_fk_visite_client" FromRole="visite" ToRole="client" />
-          <NavigationProperty Name="examen" Relationship="Self.FK_examen_visite" FromRole="visite" ToRole="examen" />
+          <NavigationProperty Name="ordonnance" Relationship="Self.visite_fk_visite_ordonnance1" FromRole="visite" ToRole="ordonnance" />
+          <NavigationProperty Name="visions" Relationship="Self.FK_vision_visite" FromRole="visite" ToRole="vision" />
+          <NavigationProperty Name="vision_detaille" Relationship="Self.vision_detaille_fk_vision_detaille_visite1" FromRole="visite" ToRole="vision_detaille" />
         </EntityType>
         <Association Name="article_fk_Article_Categorie1">
           <End Role="categorie" Type="Self.categorie" Multiplicity="1" />
@@ -1149,9 +1050,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="cadre_fk_Cadre_Article1">
-          <End Role="article" Type="Self.article" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="article" Type="Self.article" Multiplicity="1" />
           <End Role="cadre" Type="Self.cadre" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="article">
@@ -1175,9 +1074,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="lignecommande_fk_LigneCommande_Article1">
-          <End Role="article" Type="Self.article" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="article" Type="Self.article" Multiplicity="1" />
           <End Role="lignecommande" Type="Self.lignecommande" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="article">
@@ -1189,9 +1086,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="ligneentree_fk_LigneEntree_Article1">
-          <End Role="article" Type="Self.article" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="article" Type="Self.article" Multiplicity="1" />
           <End Role="ligneentree" Type="Self.ligneentree" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="article">
@@ -1203,9 +1098,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="verre_fk_Verre_Article1">
-          <End Role="article" Type="Self.article" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="article" Type="Self.article" Multiplicity="1" />
           <End Role="verre" Type="Self.verre" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="article">
@@ -1216,38 +1109,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_cmdclient_client">
-          <End Role="client" Type="Self.client" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="cmdclient_fk_cmdclient_client1">
+          <End Role="client" Type="Self.client" Multiplicity="1" />
           <End Role="cmdclient" Type="Self.cmdclient" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="client">
               <PropertyRef Name="cin" />
             </Principal>
             <Dependent Role="cmdclient">
-              <PropertyRef Name="cin" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ordonnance_client">
-          <End Role="client" Type="Self.client" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ordonnance" Type="Self.ordonnance" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="client">
-              <PropertyRef Name="cin" />
-            </Principal>
-            <Dependent Role="ordonnance">
               <PropertyRef Name="client_cin" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="visite_fk_visite_client">
-          <End Role="client" Type="Self.client" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="client" Type="Self.client" Multiplicity="1" />
           <End Role="visite" Type="Self.visite" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="client">
@@ -1294,63 +1169,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_examen_visite">
-          <End Role="visite" Type="Self.visite" Multiplicity="1" />
-          <End Role="examen" Type="Self.examan" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="visite">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="examen">
-              <PropertyRef Name="visite_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_lentille_typeLentille">
-          <End Role="typeLentille" Type="Self.typeLentille" Multiplicity="1" />
+        <Association Name="lentille_fk_lentille_type_lentille1">
+          <End Role="type_lentille" Type="Self.type_lentille" Multiplicity="1" />
           <End Role="lentille" Type="Self.lentille" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="typeLentille">
-              <PropertyRef Name="idTypeLentille" />
+            <Principal Role="type_lentille">
+              <PropertyRef Name="idtype_lentille" />
             </Principal>
             <Dependent Role="lentille">
-              <PropertyRef Name="idTypeLentille" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_lentille_typeverre">
-          <End Role="typeverre" Type="Self.typeverre" Multiplicity="1" />
-          <End Role="lentille" Type="Self.lentille" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="typeverre">
-              <PropertyRef Name="idTypeVerre" />
-            </Principal>
-            <Dependent Role="lentille">
-              <PropertyRef Name="idTypeLentille" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ligne_lentille_traitement_lentille">
-          <End Role="lentille" Type="Self.lentille" Multiplicity="1" />
-          <End Role="ligne_lentille_traitement" Type="Self.ligne_lentille_traitement" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="lentille">
-              <PropertyRef Name="idLentille" />
-            </Principal>
-            <Dependent Role="ligne_lentille_traitement">
-              <PropertyRef Name="id_lentille" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="lentille_fk_Lentille_Oeil1">
-          <End Role="oeil" Type="Self.oeil" Multiplicity="0..1" />
-          <End Role="lentille" Type="Self.lentille" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="oeil">
-              <PropertyRef Name="idOeil" />
-            </Principal>
-            <Dependent Role="lentille">
-              <PropertyRef Name="idOeil" />
+              <PropertyRef Name="idtype_lentille" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1363,6 +1190,30 @@
             </Principal>
             <Dependent Role="lentille">
               <PropertyRef Name="idLigneType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ligne_traitement_lentille_fk_ligne_traitement_lentille_lentille1">
+          <End Role="lentille" Type="Self.lentille" Multiplicity="1" />
+          <End Role="ligne_traitement_lentille" Type="Self.ligne_traitement_lentille" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lentille">
+              <PropertyRef Name="idLentille" />
+            </Principal>
+            <Dependent Role="ligne_traitement_lentille">
+              <PropertyRef Name="lentille_idLentille" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="vision_fk_vision_lentille1">
+          <End Role="lentille" Type="Self.lentille" Multiplicity="0..1" />
+          <End Role="vision" Type="Self.vision" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lentille">
+              <PropertyRef Name="idLentille" />
+            </Principal>
+            <Dependent Role="vision">
+              <PropertyRef Name="lentille_idLentille" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1402,55 +1253,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ligne_lentille_traitement_traitement">
+        <Association Name="ligne_traitement_lentille_fk_ligne_traitement_lentille_traitement1">
           <End Role="traitement" Type="Self.traitement" Multiplicity="1" />
-          <End Role="ligne_lentille_traitement" Type="Self.ligne_lentille_traitement" Multiplicity="*" />
+          <End Role="ligne_traitement_lentille" Type="Self.ligne_traitement_lentille" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="traitement">
               <PropertyRef Name="idTraitement" />
             </Principal>
-            <Dependent Role="ligne_lentille_traitement">
-              <PropertyRef Name="id_traitement" />
+            <Dependent Role="ligne_traitement_lentille">
+              <PropertyRef Name="traitement_idTraitement" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ligne_traitement_traitement1">
+        <Association Name="ligne_traitement_verre_fk_ligne_traitement_verre_traitement1">
           <End Role="traitement" Type="Self.traitement" Multiplicity="1" />
-          <End Role="ligne_verre_traitement" Type="Self.ligne_verre_traitement" Multiplicity="*" />
+          <End Role="ligne_traitement_verre" Type="Self.ligne_traitement_verre" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="traitement">
               <PropertyRef Name="idTraitement" />
             </Principal>
-            <Dependent Role="ligne_verre_traitement">
-              <PropertyRef Name="id_traitement" />
+            <Dependent Role="ligne_traitement_verre">
+              <PropertyRef Name="traitement_idTraitement" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ligne_traitement_verre">
-          <End Role="verre" Type="Self.verre" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ligne_verre_traitement" Type="Self.ligne_verre_traitement" Multiplicity="*" />
+        <Association Name="ligne_traitement_verre_fk_ligne_traitement_verre_verre1">
+          <End Role="verre" Type="Self.verre" Multiplicity="1" />
+          <End Role="ligne_traitement_verre" Type="Self.ligne_traitement_verre" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="verre">
               <PropertyRef Name="idVerre" />
             </Principal>
-            <Dependent Role="ligne_verre_traitement">
-              <PropertyRef Name="id_verre" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="verre_fk_Verre_Oeil1">
-          <End Role="oeil" Type="Self.oeil" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="verre" Type="Self.verre" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="oeil">
-              <PropertyRef Name="idOeil" />
-            </Principal>
-            <Dependent Role="verre">
-              <PropertyRef Name="idOeil" />
+            <Dependent Role="ligne_traitement_verre">
+              <PropertyRef Name="verre_idVerre" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1462,30 +1297,18 @@
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="ordonnance">
-              <PropertyRef Name="ophtalmologue_ophtalmologueId" />
+              <PropertyRef Name="ophtalmologueId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ordonnance_typeverre">
-          <End Role="typeverre" Type="Self.typeverre" Multiplicity="0..1" />
-          <End Role="ordonnance" Type="Self.ordonnance" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="typeverre">
-              <PropertyRef Name="idTypeVerre" />
-            </Principal>
-            <Dependent Role="ordonnance">
-              <PropertyRef Name="idTypeVerre" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_vision_ordonnance">
+        <Association Name="visite_fk_visite_ordonnance1">
           <End Role="ordonnance" Type="Self.ordonnance" Multiplicity="1" />
-          <End Role="vision" Type="Self.vision" Multiplicity="*" />
+          <End Role="visite" Type="Self.visite" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ordonnance">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="vision">
+            <Dependent Role="visite">
               <PropertyRef Name="ordonnance_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -1502,6 +1325,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="vision_fk_vision_verre1">
+          <End Role="verre" Type="Self.verre" Multiplicity="0..1" />
+          <End Role="vision" Type="Self.vision" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="verre">
+              <PropertyRef Name="idVerre" />
+            </Principal>
+            <Dependent Role="vision">
+              <PropertyRef Name="verre_idVerre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_vision_visite">
+          <End Role="visite" Type="Self.visite" Multiplicity="0..1" />
+          <End Role="vision" Type="Self.vision" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="visite">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="vision">
+              <PropertyRef Name="visite_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="vision_detaille_fk_vision_detaille_vision">
+          <End Role="vision" Type="Self.vision" Multiplicity="1" />
+          <End Role="vision_detaille" Type="Self.vision_detaille" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vision">
+              <PropertyRef Name="idOeil" />
+            </Principal>
+            <Dependent Role="vision_detaille">
+              <PropertyRef Name="vision_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="vision_detaille_fk_vision_detaille_visite1">
+          <End Role="visite" Type="Self.visite" Multiplicity="1" />
+          <End Role="vision_detaille" Type="Self.vision_detaille" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="visite">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="vision_detaille">
+              <PropertyRef Name="visite_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="dbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="articles" EntityType="Self.article" />
           <EntitySet Name="cadres" EntityType="Self.cadre" />
@@ -1509,25 +1380,24 @@
           <EntitySet Name="clients" EntityType="Self.client" />
           <EntitySet Name="cmdclients" EntityType="Self.cmdclient" />
           <EntitySet Name="cmdfournisseurs" EntityType="Self.cmdfournisseur" />
-          <EntitySet Name="examen" EntityType="Self.examan" />
           <EntitySet Name="fournisseurs" EntityType="Self.fournisseur" />
           <EntitySet Name="lentilles" EntityType="Self.lentille" />
           <EntitySet Name="lentillemultifocales" EntityType="Self.lentillemultifocale" />
           <EntitySet Name="lentillespheriques" EntityType="Self.lentillespherique" />
           <EntitySet Name="lentilletoriques" EntityType="Self.lentilletorique" />
-          <EntitySet Name="ligne_lentille_traitement" EntityType="Self.ligne_lentille_traitement" />
+          <EntitySet Name="ligne_traitement_lentille" EntityType="Self.ligne_traitement_lentille" />
+          <EntitySet Name="ligne_traitement_verre" EntityType="Self.ligne_traitement_verre" />
           <EntitySet Name="ligne_type_lentille" EntityType="Self.ligne_type_lentille" />
-          <EntitySet Name="ligne_verre_traitement" EntityType="Self.ligne_verre_traitement" />
           <EntitySet Name="lignecommandes" EntityType="Self.lignecommande" />
           <EntitySet Name="ligneentrees" EntityType="Self.ligneentree" />
-          <EntitySet Name="oeils" EntityType="Self.oeil" />
           <EntitySet Name="ophtalmologues" EntityType="Self.ophtalmologue" />
           <EntitySet Name="ordonnances" EntityType="Self.ordonnance" />
           <EntitySet Name="traitements" EntityType="Self.traitement" />
-          <EntitySet Name="typeLentilles" EntityType="Self.typeLentille" />
+          <EntitySet Name="type_lentille" EntityType="Self.type_lentille" />
           <EntitySet Name="typeverres" EntityType="Self.typeverre" />
           <EntitySet Name="verres" EntityType="Self.verre" />
           <EntitySet Name="visions" EntityType="Self.vision" />
+          <EntitySet Name="vision_detaille" EntityType="Self.vision_detaille" />
           <EntitySet Name="visites" EntityType="Self.visite" />
           <AssociationSet Name="article_fk_Article_Categorie1" Association="Self.article_fk_Article_Categorie1">
             <End Role="categorie" EntitySet="categories" />
@@ -1553,13 +1423,9 @@
             <End Role="article" EntitySet="articles" />
             <End Role="verre" EntitySet="verres" />
           </AssociationSet>
-          <AssociationSet Name="FK_cmdclient_client" Association="Self.FK_cmdclient_client">
+          <AssociationSet Name="cmdclient_fk_cmdclient_client1" Association="Self.cmdclient_fk_cmdclient_client1">
             <End Role="client" EntitySet="clients" />
             <End Role="cmdclient" EntitySet="cmdclients" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ordonnance_client" Association="Self.FK_ordonnance_client">
-            <End Role="client" EntitySet="clients" />
-            <End Role="ordonnance" EntitySet="ordonnances" />
           </AssociationSet>
           <AssociationSet Name="visite_fk_visite_client" Association="Self.visite_fk_visite_client">
             <End Role="client" EntitySet="clients" />
@@ -1577,29 +1443,21 @@
             <End Role="cmdfournisseur" EntitySet="cmdfournisseurs" />
             <End Role="lignecommande" EntitySet="lignecommandes" />
           </AssociationSet>
-          <AssociationSet Name="FK_examen_visite" Association="Self.FK_examen_visite">
-            <End Role="visite" EntitySet="visites" />
-            <End Role="examen" EntitySet="examen" />
-          </AssociationSet>
-          <AssociationSet Name="FK_lentille_typeLentille" Association="Self.FK_lentille_typeLentille">
-            <End Role="typeLentille" EntitySet="typeLentilles" />
-            <End Role="lentille" EntitySet="lentilles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_lentille_typeverre" Association="Self.FK_lentille_typeverre">
-            <End Role="typeverre" EntitySet="typeverres" />
-            <End Role="lentille" EntitySet="lentilles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ligne_lentille_traitement_lentille" Association="Self.FK_ligne_lentille_traitement_lentille">
-            <End Role="lentille" EntitySet="lentilles" />
-            <End Role="ligne_lentille_traitement" EntitySet="ligne_lentille_traitement" />
-          </AssociationSet>
-          <AssociationSet Name="lentille_fk_Lentille_Oeil1" Association="Self.lentille_fk_Lentille_Oeil1">
-            <End Role="oeil" EntitySet="oeils" />
+          <AssociationSet Name="lentille_fk_lentille_type_lentille1" Association="Self.lentille_fk_lentille_type_lentille1">
+            <End Role="type_lentille" EntitySet="type_lentille" />
             <End Role="lentille" EntitySet="lentilles" />
           </AssociationSet>
           <AssociationSet Name="lentille_fk_Lentille_TypeLentille1" Association="Self.lentille_fk_Lentille_TypeLentille1">
             <End Role="ligne_type_lentille" EntitySet="ligne_type_lentille" />
             <End Role="lentille" EntitySet="lentilles" />
+          </AssociationSet>
+          <AssociationSet Name="ligne_traitement_lentille_fk_ligne_traitement_lentille_lentille1" Association="Self.ligne_traitement_lentille_fk_ligne_traitement_lentille_lentille1">
+            <End Role="lentille" EntitySet="lentilles" />
+            <End Role="ligne_traitement_lentille" EntitySet="ligne_traitement_lentille" />
+          </AssociationSet>
+          <AssociationSet Name="vision_fk_vision_lentille1" Association="Self.vision_fk_vision_lentille1">
+            <End Role="lentille" EntitySet="lentilles" />
+            <End Role="vision" EntitySet="visions" />
           </AssociationSet>
           <AssociationSet Name="lentillemultifocale_fk_LentilleMultifocale_TypeLentille1" Association="Self.lentillemultifocale_fk_LentilleMultifocale_TypeLentille1">
             <End Role="ligne_type_lentille" EntitySet="ligne_type_lentille" />
@@ -1613,37 +1471,45 @@
             <End Role="ligne_type_lentille" EntitySet="ligne_type_lentille" />
             <End Role="lentilletoriques" EntitySet="lentilletoriques" />
           </AssociationSet>
-          <AssociationSet Name="FK_ligne_lentille_traitement_traitement" Association="Self.FK_ligne_lentille_traitement_traitement">
+          <AssociationSet Name="ligne_traitement_lentille_fk_ligne_traitement_lentille_traitement1" Association="Self.ligne_traitement_lentille_fk_ligne_traitement_lentille_traitement1">
             <End Role="traitement" EntitySet="traitements" />
-            <End Role="ligne_lentille_traitement" EntitySet="ligne_lentille_traitement" />
+            <End Role="ligne_traitement_lentille" EntitySet="ligne_traitement_lentille" />
           </AssociationSet>
-          <AssociationSet Name="FK_ligne_traitement_traitement1" Association="Self.FK_ligne_traitement_traitement1">
+          <AssociationSet Name="ligne_traitement_verre_fk_ligne_traitement_verre_traitement1" Association="Self.ligne_traitement_verre_fk_ligne_traitement_verre_traitement1">
             <End Role="traitement" EntitySet="traitements" />
-            <End Role="ligne_verre_traitement" EntitySet="ligne_verre_traitement" />
+            <End Role="ligne_traitement_verre" EntitySet="ligne_traitement_verre" />
           </AssociationSet>
-          <AssociationSet Name="FK_ligne_traitement_verre" Association="Self.FK_ligne_traitement_verre">
+          <AssociationSet Name="ligne_traitement_verre_fk_ligne_traitement_verre_verre1" Association="Self.ligne_traitement_verre_fk_ligne_traitement_verre_verre1">
             <End Role="verre" EntitySet="verres" />
-            <End Role="ligne_verre_traitement" EntitySet="ligne_verre_traitement" />
-          </AssociationSet>
-          <AssociationSet Name="verre_fk_Verre_Oeil1" Association="Self.verre_fk_Verre_Oeil1">
-            <End Role="oeil" EntitySet="oeils" />
-            <End Role="verre" EntitySet="verres" />
+            <End Role="ligne_traitement_verre" EntitySet="ligne_traitement_verre" />
           </AssociationSet>
           <AssociationSet Name="ordonnance_fk_ordonnance_ophtalmologue1" Association="Self.ordonnance_fk_ordonnance_ophtalmologue1">
             <End Role="ophtalmologue" EntitySet="ophtalmologues" />
             <End Role="ordonnance" EntitySet="ordonnances" />
           </AssociationSet>
-          <AssociationSet Name="FK_ordonnance_typeverre" Association="Self.FK_ordonnance_typeverre">
-            <End Role="typeverre" EntitySet="typeverres" />
+          <AssociationSet Name="visite_fk_visite_ordonnance1" Association="Self.visite_fk_visite_ordonnance1">
             <End Role="ordonnance" EntitySet="ordonnances" />
-          </AssociationSet>
-          <AssociationSet Name="FK_vision_ordonnance" Association="Self.FK_vision_ordonnance">
-            <End Role="ordonnance" EntitySet="ordonnances" />
-            <End Role="vision" EntitySet="visions" />
+            <End Role="visite" EntitySet="visites" />
           </AssociationSet>
           <AssociationSet Name="verre_fk_Verre_TypeVerre1" Association="Self.verre_fk_Verre_TypeVerre1">
             <End Role="typeverre" EntitySet="typeverres" />
             <End Role="verre" EntitySet="verres" />
+          </AssociationSet>
+          <AssociationSet Name="vision_fk_vision_verre1" Association="Self.vision_fk_vision_verre1">
+            <End Role="verre" EntitySet="verres" />
+            <End Role="vision" EntitySet="visions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_vision_visite" Association="Self.FK_vision_visite">
+            <End Role="visite" EntitySet="visites" />
+            <End Role="vision" EntitySet="visions" />
+          </AssociationSet>
+          <AssociationSet Name="vision_detaille_fk_vision_detaille_vision" Association="Self.vision_detaille_fk_vision_detaille_vision">
+            <End Role="vision" EntitySet="visions" />
+            <End Role="vision_detaille" EntitySet="vision_detaille" />
+          </AssociationSet>
+          <AssociationSet Name="vision_detaille_fk_vision_detaille_visite1" Association="Self.vision_detaille_fk_vision_detaille_visite1">
+            <End Role="visite" EntitySet="visites" />
+            <End Role="vision_detaille" EntitySet="vision_detaille" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -1661,7 +1527,6 @@
                 <ScalarProperty Name="PrixUnitaire" ColumnName="PrixUnitaire" />
                 <ScalarProperty Name="Garantie" ColumnName="Garantie" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Designation" ColumnName="Designation" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1707,7 +1572,7 @@
               <MappingFragment StoreEntitySet="cmdclient">
                 <ScalarProperty Name="idCmdClient" ColumnName="idCmdClient" />
                 <ScalarProperty Name="DateCmd" ColumnName="DateCmd" />
-                <ScalarProperty Name="cin" ColumnName="cin" />
+                <ScalarProperty Name="client_cin" ColumnName="client_cin" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1717,32 +1582,6 @@
                 <ScalarProperty Name="idCmdFournisseur" ColumnName="idCmdFournisseur" />
                 <ScalarProperty Name="idFournisseur" ColumnName="idFournisseur" />
                 <ScalarProperty Name="DateEntree" ColumnName="DateEntree" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="examen">
-            <EntityTypeMapping TypeName="optique_pfeModel.examan">
-              <MappingFragment StoreEntitySet="examen">
-                <ScalarProperty Name="od_sphere_loins" ColumnName="od_sphere_loins" />
-                <ScalarProperty Name="od_cylindre_loins" ColumnName="od_cylindre_loins" />
-                <ScalarProperty Name="od_axe_loins" ColumnName="od_axe_loins" />
-                <ScalarProperty Name="od_add_loins" ColumnName="od_add_loins" />
-                <ScalarProperty Name="og_sphère_loins" ColumnName="og_sphère_loins" />
-                <ScalarProperty Name="og_cylindre_loins" ColumnName="og_cylindre_loins" />
-                <ScalarProperty Name="og_axe_loins" ColumnName="og_axe_loins" />
-                <ScalarProperty Name="og_add_loins" ColumnName="og_add_loins" />
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="visite_id" ColumnName="visite_id" />
-                <ScalarProperty Name="date_derniere_modif" ColumnName="date_derniere_modif" />
-                <ScalarProperty Name="remarques" ColumnName="remarques" />
-                <ScalarProperty Name="og_add_pres" ColumnName="og_add_pres" />
-                <ScalarProperty Name="od_sphere_pres" ColumnName="od_sphere_pres" />
-                <ScalarProperty Name="od_cylindre_pres" ColumnName="od_cylindre_pres" />
-                <ScalarProperty Name="od_axe_pres" ColumnName="od_axe_pres" />
-                <ScalarProperty Name="od_add_pres" ColumnName="od_add_pres" />
-                <ScalarProperty Name="og_sphère_pres" ColumnName="og_sphère_pres" />
-                <ScalarProperty Name="og_cylindre_pres" ColumnName="og_cylindre_pres" />
-                <ScalarProperty Name="og_axe_pres" ColumnName="og_axe_pres" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1764,9 +1603,8 @@
                 <ScalarProperty Name="idLentille" ColumnName="idLentille" />
                 <ScalarProperty Name="idArticle" ColumnName="idArticle" />
                 <ScalarProperty Name="idLigneType" ColumnName="idLigneType" />
-                <ScalarProperty Name="idOeil" ColumnName="idOeil" />
                 <ScalarProperty Name="Couleur" ColumnName="Couleur" />
-                <ScalarProperty Name="idTypeLentille" ColumnName="idTypeLentille" />
+                <ScalarProperty Name="idtype_lentille" ColumnName="idtype_lentille" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1774,6 +1612,7 @@
             <EntityTypeMapping TypeName="optique_pfeModel.lentillemultifocale">
               <MappingFragment StoreEntitySet="lentillemultifocale">
                 <ScalarProperty Name="idLentilleMultifocale" ColumnName="idLentilleMultifocale" />
+                <ScalarProperty Name="ADD" ColumnName="ADD" />
                 <ScalarProperty Name="DOM" ColumnName="DOM" />
                 <ScalarProperty Name="idTypeLentille" ColumnName="idTypeLentille" />
               </MappingFragment>
@@ -1794,15 +1633,27 @@
               <MappingFragment StoreEntitySet="lentilletoriques">
                 <ScalarProperty Name="idLentilleToriques" ColumnName="idLentilleToriques" />
                 <ScalarProperty Name="idTypeLentille" ColumnName="idTypeLentille" />
+                <ScalarProperty Name="CYL" ColumnName="CYL" />
+                <ScalarProperty Name="AXE" ColumnName="AXE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ligne_lentille_traitement">
-            <EntityTypeMapping TypeName="optique_pfeModel.ligne_lentille_traitement">
-              <MappingFragment StoreEntitySet="ligne_lentille_traitement">
-                <ScalarProperty Name="id_lentille" ColumnName="id_lentille" />
-                <ScalarProperty Name="id_traitement" ColumnName="id_traitement" />
-                <ScalarProperty Name="id" ColumnName="id" />
+          <EntitySetMapping Name="ligne_traitement_lentille">
+            <EntityTypeMapping TypeName="optique_pfeModel.ligne_traitement_lentille">
+              <MappingFragment StoreEntitySet="ligne_traitement_lentille">
+                <ScalarProperty Name="idligne_traitement_lentille" ColumnName="idligne_traitement_lentille" />
+                <ScalarProperty Name="traitement_idTraitement" ColumnName="traitement_idTraitement" />
+                <ScalarProperty Name="lentille_idLentille" ColumnName="lentille_idLentille" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ligne_traitement_verre">
+            <EntityTypeMapping TypeName="optique_pfeModel.ligne_traitement_verre">
+              <MappingFragment StoreEntitySet="ligne_traitement_verre">
+                <ScalarProperty Name="idligne_traitement_verre" ColumnName="idligne_traitement_verre" />
+                <ScalarProperty Name="verre_idVerre" ColumnName="verre_idVerre" />
+                <ScalarProperty Name="traitement_idTraitement" ColumnName="traitement_idTraitement" />
+                <ScalarProperty Name="niveau" ColumnName="niveau" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1810,15 +1661,6 @@
             <EntityTypeMapping TypeName="optique_pfeModel.ligne_type_lentille">
               <MappingFragment StoreEntitySet="ligne_type_lentille">
                 <ScalarProperty Name="idTypeLentille" ColumnName="idTypeLentille" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ligne_verre_traitement">
-            <EntityTypeMapping TypeName="optique_pfeModel.ligne_verre_traitement">
-              <MappingFragment StoreEntitySet="ligne_verre_traitement">
-                <ScalarProperty Name="id_verre" ColumnName="id_verre" />
-                <ScalarProperty Name="id_traitement" ColumnName="id_traitement" />
-                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1850,21 +1692,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="oeils">
-            <EntityTypeMapping TypeName="optique_pfeModel.oeil">
-              <MappingFragment StoreEntitySet="oeil">
-                <ScalarProperty Name="idOeil" ColumnName="idOeil" />
-                <ScalarProperty Name="SPH_G" ColumnName="SPH_G" />
-                <ScalarProperty Name="CYL_G" ColumnName="CYL_G" />
-                <ScalarProperty Name="AXE_G" ColumnName="AXE_G" />
-                <ScalarProperty Name="ADD_G" ColumnName="ADD_G" />
-                <ScalarProperty Name="SPH_D" ColumnName="SPH_D" />
-                <ScalarProperty Name="CYL_D" ColumnName="CYL_D" />
-                <ScalarProperty Name="AXE_D" ColumnName="AXE_D" />
-                <ScalarProperty Name="ADD_D" ColumnName="ADD_D" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ophtalmologues">
             <EntityTypeMapping TypeName="optique_pfeModel.ophtalmologue">
               <MappingFragment StoreEntitySet="ophtalmologue">
@@ -1886,9 +1713,7 @@
                 <ScalarProperty Name="dateExpiration" ColumnName="dateExpiration" />
                 <ScalarProperty Name="notes" ColumnName="notes" />
                 <ScalarProperty Name="photo" ColumnName="photo" />
-                <ScalarProperty Name="ophtalmologue_ophtalmologueId" ColumnName="ophtalmologue_ophtalmologueId" />
-                <ScalarProperty Name="client_cin" ColumnName="client_cin" />
-                <ScalarProperty Name="idTypeVerre" ColumnName="idTypeVerre" />
+                <ScalarProperty Name="ophtalmologueId" ColumnName="ophtalmologueId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1897,15 +1722,14 @@
               <MappingFragment StoreEntitySet="traitement">
                 <ScalarProperty Name="idTraitement" ColumnName="idTraitement" />
                 <ScalarProperty Name="Nom" ColumnName="Nom" />
-                <ScalarProperty Name="Niveau" ColumnName="Niveau" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="typeLentilles">
-            <EntityTypeMapping TypeName="optique_pfeModel.typeLentille">
-              <MappingFragment StoreEntitySet="typeLentille">
-                <ScalarProperty Name="idTypeLentille" ColumnName="idTypeLentille" />
-                <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <EntitySetMapping Name="type_lentille">
+            <EntityTypeMapping TypeName="optique_pfeModel.type_lentille">
+              <MappingFragment StoreEntitySet="type_lentille">
+                <ScalarProperty Name="idtype_lentille" ColumnName="idtype_lentille" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1922,10 +1746,7 @@
               <MappingFragment StoreEntitySet="verre">
                 <ScalarProperty Name="idVerre" ColumnName="idVerre" />
                 <ScalarProperty Name="idArticle" ColumnName="idArticle" />
-                <ScalarProperty Name="idTraitement" ColumnName="idTraitement" />
                 <ScalarProperty Name="idTypeVerre" ColumnName="idTypeVerre" />
-                <ScalarProperty Name="idOeil" ColumnName="idOeil" />
-                <ScalarProperty Name="Modele" ColumnName="Modele" />
                 <ScalarProperty Name="Teinte" ColumnName="Teinte" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1933,17 +1754,29 @@
           <EntitySetMapping Name="visions">
             <EntityTypeMapping TypeName="optique_pfeModel.vision">
               <MappingFragment StoreEntitySet="vision">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="od_sphere" ColumnName="od_sphere" />
-                <ScalarProperty Name="od_cylindre" ColumnName="od_cylindre" />
-                <ScalarProperty Name="od_axe" ColumnName="od_axe" />
-                <ScalarProperty Name="od_add" ColumnName="od_add" />
-                <ScalarProperty Name="og_sphère" ColumnName="og_sphère" />
-                <ScalarProperty Name="og_cylindre" ColumnName="og_cylindre" />
-                <ScalarProperty Name="og_axe" ColumnName="og_axe" />
-                <ScalarProperty Name="og_add" ColumnName="og_add" />
-                <ScalarProperty Name="vision_type" ColumnName="vision_type" />
-                <ScalarProperty Name="ordonnance_id" ColumnName="ordonnance_id" />
+                <ScalarProperty Name="idOeil" ColumnName="idOeil" />
+                <ScalarProperty Name="cyl" ColumnName="cyl" />
+                <ScalarProperty Name="sph" ColumnName="sph" />
+                <ScalarProperty Name="axe" ColumnName="axe" />
+                <ScalarProperty Name="add" ColumnName="add" />
+                <ScalarProperty Name="ecart" ColumnName="ecart" />
+                <ScalarProperty Name="hauteur" ColumnName="hauteur" />
+                <ScalarProperty Name="date_modification" ColumnName="date_modification" />
+                <ScalarProperty Name="lentille_idLentille" ColumnName="lentille_idLentille" />
+                <ScalarProperty Name="verre_idVerre" ColumnName="verre_idVerre" />
+                <ScalarProperty Name="gauche" ColumnName="gauche" />
+                <ScalarProperty Name="loin" ColumnName="loin" />
+                <ScalarProperty Name="visite_id" ColumnName="visite_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vision_detaille">
+            <EntityTypeMapping TypeName="optique_pfeModel.vision_detaille">
+              <MappingFragment StoreEntitySet="vision_detaille">
+                <ScalarProperty Name="idvision_detaille" ColumnName="idvision_detaille" />
+                <ScalarProperty Name="remarques" ColumnName="remarques" />
+                <ScalarProperty Name="vision_id" ColumnName="vision_id" />
+                <ScalarProperty Name="visite_id" ColumnName="visite_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1954,6 +1787,7 @@
                 <ScalarProperty Name="date" ColumnName="date" />
                 <ScalarProperty Name="raison" ColumnName="raison" />
                 <ScalarProperty Name="client_cin" ColumnName="client_cin" />
+                <ScalarProperty Name="ordonnance_id" ColumnName="ordonnance_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

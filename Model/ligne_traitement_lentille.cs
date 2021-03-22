@@ -12,13 +12,13 @@ namespace MenuWithSubMenu.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class ligne_verre_traitement
+    public partial class ligne_traitement_lentille
     {
-        public int id_verre { get; set; }
-        public int id_traitement { get; set; }
-        public int id { get; set; }
+        public int idligne_traitement_lentille { get; set; }
+        public int traitement_idTraitement { get; set; }
+        public int lentille_idLentille { get; set; }
     
+        public virtual lentille lentille { get; set; }
         public virtual traitement traitement { get; set; }
-        public virtual verre verre { get; set; }
     }
 }

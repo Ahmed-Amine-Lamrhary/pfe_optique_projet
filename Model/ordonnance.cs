@@ -17,7 +17,7 @@ namespace MenuWithSubMenu.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ordonnance()
         {
-            this.visions = new HashSet<vision>();
+            this.visites = new HashSet<visite>();
         }
     
         public int id { get; set; }
@@ -25,14 +25,10 @@ namespace MenuWithSubMenu.Model
         public System.DateTime dateExpiration { get; set; }
         public string notes { get; set; }
         public string photo { get; set; }
-        public int ophtalmologue_ophtalmologueId { get; set; }
-        public string client_cin { get; set; }
-        public Nullable<int> idTypeVerre { get; set; }
+        public int ophtalmologueId { get; set; }
     
-        public virtual client client { get; set; }
         public virtual ophtalmologue ophtalmologue { get; set; }
-        public virtual typeverre typeverre { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<vision> visions { get; set; }
+        public virtual ICollection<visite> visites { get; set; }
     }
 }

@@ -17,22 +17,22 @@ namespace MenuWithSubMenu.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public lentille()
         {
-            this.ligne_lentille_traitement = new HashSet<ligne_lentille_traitement>();
+            this.ligne_traitement_lentille = new HashSet<ligne_traitement_lentille>();
+            this.visions = new HashSet<vision>();
         }
     
         public int idLentille { get; set; }
-        public int idArticle { get; set; }
+        public string idArticle { get; set; }
         public int idLigneType { get; set; }
-        public Nullable<int> idOeil { get; set; }
         public string Couleur { get; set; }
-        public int idTypeLentille { get; set; }
+        public int idtype_lentille { get; set; }
     
         public virtual article article { get; set; }
-        public virtual typeLentille typeLentille { get; set; }
-        public virtual typeverre typeverre { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ligne_lentille_traitement> ligne_lentille_traitement { get; set; }
-        public virtual oeil oeil { get; set; }
+        public virtual type_lentille type_lentille { get; set; }
         public virtual ligne_type_lentille ligne_type_lentille { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ligne_traitement_lentille> ligne_traitement_lentille { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<vision> visions { get; set; }
     }
 }

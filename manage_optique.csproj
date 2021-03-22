@@ -88,9 +88,6 @@
     <Compile Include="Model\cmdfournisseur.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\examan.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Model\fournisseur.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -112,13 +109,13 @@
     <Compile Include="Model\ligneentree.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\ligne_lentille_traitement.cs">
+    <Compile Include="Model\ligne_traitement_lentille.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ligne_traitement_verre.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\ligne_type_lentille.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\ligne_verre_traitement.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Model1.Context.cs">
@@ -136,9 +133,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Model\oeil.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Model\ophtalmologue.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -148,16 +142,19 @@
     <Compile Include="Model\traitement.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\typeLentille.cs">
+    <Compile Include="Model\typeverre.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\typeverre.cs">
+    <Compile Include="Model\type_lentille.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\verre.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\vision.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\vision_detaille.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\visite.cs">
@@ -187,9 +184,6 @@
     <Compile Include="Pages\Acceuil.xaml.cs">
       <DependentUpon>Acceuil.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\AddArticle.xaml.cs">
-      <DependentUpon>AddArticle.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\AddOphta.xaml.cs">
       <DependentUpon>AddOphta.xaml</DependentUpon>
     </Compile>
@@ -215,12 +209,6 @@
     <Compile Include="Utils\MyContext.cs" />
     <Compile Include="ViewModel\CommandViewModel.cs" />
     <Compile Include="ViewModel\SideMenuViewModel.cs" />
-    <Compile Include="Windows\AddExam.xaml.cs">
-      <DependentUpon>AddExam.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\AddLigneCmd.xaml.cs">
-      <DependentUpon>AddLigneCmd.xaml</DependentUpon>
-    </Compile>
     <Page Include="Assets\IconDictionary.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -276,10 +264,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\AddArticle.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages\AddOphta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -331,14 +315,6 @@
     <Page Include="Pages\Settings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Windows\AddExam.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\AddLigneCmd.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -398,6 +374,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Model\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

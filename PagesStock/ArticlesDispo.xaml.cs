@@ -43,7 +43,8 @@ namespace MenuWithSubMenu.PagesStock
 
             try
             {
-                listArticle = searchBar.Text != "" ? await db.articles.Where(c => c.Designation.Contains(searchBar.Text)).ToListAsync() : await db.articles.ToListAsync();
+                //listArticle = searchBar.Text != "" ? await db.articles.Where(c => c.Designation.Contains(searchBar.Text)).ToListAsync() : await db.articles.ToListAsync();
+                listArticle = await db.articles.ToListAsync();
 
                 count = (int)Math.Ceiling((decimal)listArticle.Count / 10);
                 pagination.MaxPageCount = count;
@@ -87,7 +88,7 @@ namespace MenuWithSubMenu.PagesStock
         private void voirArticle(object sender, RoutedEventArgs e)
         {
             article articleRow = articlesDataGrid.SelectedItem as article;
-            int articleId = articleRow.idArticle;
+            string articleId = articleRow.idArticle;
 
             //ArticleAbout articleAbout = new ArticleAbout(articleId, this);
 
@@ -99,7 +100,7 @@ namespace MenuWithSubMenu.PagesStock
         {
 
             article articleRow = articlesDataGrid.SelectedItem as article;
-            int articleId = articleRow.idArticle;
+            string articleId = articleRow.idArticle;
             //UpdateArticle update = new UpdateArticle(db.articles.Where(article => article.idArticle == articleId).SingleOrDefault(), this);
             //MyContext.navigateTo(update);
         }

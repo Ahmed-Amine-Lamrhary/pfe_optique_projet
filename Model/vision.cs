@@ -14,18 +14,30 @@ namespace MenuWithSubMenu.Model
     
     public partial class vision
     {
-        public int id { get; set; }
-        public int od_sphere { get; set; }
-        public int od_cylindre { get; set; }
-        public int od_axe { get; set; }
-        public int od_add { get; set; }
-        public int og_sphère { get; set; }
-        public int og_cylindre { get; set; }
-        public int og_axe { get; set; }
-        public int og_add { get; set; }
-        public string vision_type { get; set; }
-        public int ordonnance_id { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public vision()
+        {
+            this.vision_detaille = new HashSet<vision_detaille>();
+        }
     
-        public virtual ordonnance ordonnance { get; set; }
+        public int idOeil { get; set; }
+        public Nullable<float> cyl { get; set; }
+        public Nullable<float> sph { get; set; }
+        public Nullable<float> axe { get; set; }
+        public Nullable<float> add { get; set; }
+        public Nullable<float> ecart { get; set; }
+        public Nullable<float> hauteur { get; set; }
+        public System.DateTime date_modification { get; set; }
+        public Nullable<int> lentille_idLentille { get; set; }
+        public Nullable<int> verre_idVerre { get; set; }
+        public bool gauche { get; set; }
+        public bool loin { get; set; }
+        public Nullable<int> visite_id { get; set; }
+    
+        public virtual lentille lentille { get; set; }
+        public virtual verre verre { get; set; }
+        public virtual visite visite { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<vision_detaille> vision_detaille { get; set; }
     }
 }

@@ -37,13 +37,13 @@ namespace MenuWithSubMenu.Pages
             prevPage = prevP;
 
             // get ophtalmologues
-            List<ophtalmologue> ophtalmologues = db.ophtalmologues.Distinct().ToList();
+            List<ophtalmologue> ophtalmologues = db.ophtalmologues.ToList();
             ophtalmologueText.ItemsSource = ophtalmologues;
             ophtalmologueText.DisplayMemberPath = "nom";
             ophtalmologueText.SelectedValuePath = "id";
 
             // get types de verre
-            List<typeverre> typesverre = db.typeverres.Distinct().ToList();
+            List<typeverre> typesverre = db.typeverres.ToList();
             typeVerres.ItemsSource = typesverre;
             typeVerres.DisplayMemberPath = "NomType";
             typeVerres.SelectedValuePath = "idTypeVerre";
@@ -77,60 +77,100 @@ namespace MenuWithSubMenu.Pages
                 });
                 db.SaveChanges();
 
+                //Ordonnance:
+
                 ordonnance newOrdonnance = new ordonnance()
                 {
                     dateCreation = (DateTime)dateCreationOrdonnance.SelectedDate.Value.Date,
                     dateExpiration = (DateTime)dateExpirationOrdonnance.SelectedDate.Value.Date,
-                    idTypeVerre = (int)typeVerres.SelectedValue,
                     notes = notesOphtalmologue.Text,
                     photo = "/C:/Images",
-                    ophtalmologue_ophtalmologueId = (int)ophtalmologueText.SelectedValue,
-                    client_cin = cinText.Text
+                    ophtalmologueId = (int)ophtalmologueText.SelectedValue,
                 };
 
                 db.ordonnances.Add(newOrdonnance);
                 db.SaveChanges();
 
-                vision vision_Pres = new vision()
-                {
-                    od_add = int.Parse(od_add_pres.Text),
-                    od_cylindre = int.Parse(od_cyl_pres.Text),
-                    od_axe = int.Parse(od_axe_pres.Text),
-                    od_sphere = int.Parse(od_sph_pres.Text),
-                    og_add = int.Parse(og_add_pres.Text),
-                    og_cylindre = int.Parse(og_cyl_pres.Text),
-                    og_axe = int.Parse(og_axe_pres.Text),
-                    og_sphère = int.Parse(og_sph_pres.Text),
-                    vision_type = "pres",
-                    ordonnance_id = newOrdonnance.id
-                };
+                //visite :
 
-                db.visions.Add(vision_Pres);
-                db.SaveChanges();
-
-                vision vision_Loins = new vision()
-                {
-                    od_add = int.Parse(od_add_loin.Text),
-                    od_cylindre = int.Parse(od_cyl_loin.Text),
-                    od_axe = int.Parse(od_axe_loin.Text),
-                    od_sphere = int.Parse(od_sph_loin.Text),
-                    og_add = int.Parse(og_add_loin.Text),
-                    og_cylindre = int.Parse(og_cyl_loin.Text),
-                    og_axe = int.Parse(og_axe_loin.Text),
-                    og_sphère = int.Parse(og_sph_loin.Text),
-                    vision_type = "loins",
-                    ordonnance_id = newOrdonnance.id
-                };
-
-                db.visions.Add(vision_Loins);
-                db.SaveChanges();
-
-                db.visites.Add(new visite()
+                visite new_visite = new visite()
                 {
                     client_cin = cinText.Text,
                     date = DateTime.Now,
                     raison = raisonvisiteText.Text,
-                });
+                    ordonnance_id = newOrdonnance.id
+                };
+
+                db.visites.Add(new_visite);
+                db.SaveChanges();
+
+                //vision :
+                //Vision Loin & gauche:
+
+                vision vision_Loins_gauche = new vision()
+                {
+                    add = float.Parse(og_add_loin.Text),
+                    cyl = float.Parse(og_cyl_loin.Text),
+                    axe = float.Parse(og_axe_loin.Text),
+                    sph = float.Parse(og_sph_loin.Text),
+                    gauche = true,
+                    loin = true,
+                    ecart = float.Parse(ecartLoinText.Text),
+                    hauteur = float.Parse(hauteurLoinText.Text)
+                };
+
+                db.visions.Add(vision_Loins_gauche);
+                db.SaveChanges();
+
+                //Vision Loin & droit:
+
+                vision vision_Loins_droit = new vision()
+                {
+                    add = float.Parse(od_add_loin.Text),
+                    cyl = float.Parse(od_cyl_loin.Text),
+                    axe = float.Parse(od_axe_loin.Text),
+                    sph = float.Parse(od_sph_loin.Text),
+                    gauche = false,
+                    loin = true,
+                    ecart = float.Parse(ecartLoinText.Text),
+                    hauteur = float.Parse(hauteurLoinText.Text)
+                };
+
+                db.visions.Add(vision_Loins_droit);
+                db.SaveChanges();
+
+                //Vision pres & droit:
+
+                vision vision_pres_droit = new vision()
+                {
+                    add = float.Parse(od_add_pres.Text),
+                    cyl = float.Parse(od_cyl_pres.Text),
+                    axe = float.Parse(od_axe_pres.Text),
+                    sph = float.Parse(od_sph_pres.Text),
+                    gauche = false,
+                    loin = false,
+                    ecart = float.Parse(ecartPresText.Text),
+                    hauteur = float.Parse(hauteurPresText.Text)
+                };
+
+                db.visions.Add(vision_pres_droit);
+                db.SaveChanges();
+
+                //Vision pres & gauche:
+
+                vision vision_pres_gauche = new vision()
+                {
+                    add = float.Parse(og_add_pres.Text),
+                    cyl = float.Parse(og_cyl_pres.Text),
+                    axe = float.Parse(og_axe_pres.Text),
+                    sph = float.Parse(og_sph_pres.Text),
+                    gauche = true,
+                    loin = false,
+                    ecart = float.Parse(ecartPresText.Text),
+                    hauteur = float.Parse(hauteurPresText.Text)
+                };
+
+                db.visions.Add(vision_pres_gauche);
                 db.SaveChanges();
 
 

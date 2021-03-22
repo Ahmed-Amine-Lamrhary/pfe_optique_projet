@@ -26,6 +26,8 @@ namespace MenuWithSubMenu.Pages
         private client pageClient;
         private string clientCin;
         private Page prevPage;
+        private List<visite> listVisite;
+        private List<ordonnance> listOrdonnance;
 
         public ClientProfile(string clientCin, Page prevP)
         {
@@ -33,7 +35,7 @@ namespace MenuWithSubMenu.Pages
             this.clientCin = clientCin;
             db = new dbEntities();
             prevPage = prevP;
-
+            listOrdonnance = new List<ordonnance>();
             getClientInformation();
         }
 
@@ -68,10 +70,15 @@ namespace MenuWithSubMenu.Pages
                 panelMaladies.Visibility = Visibility.Collapsed; 
             }
             // get visites
-            visiteData.ItemsSource = db.visites.Where(visite => visite.client_cin == clientCin).ToList();
+            listVisite = db.visites.Where(visite => visite.client_cin == clientCin).ToList();
+            visiteData.ItemsSource = listVisite;
 
             // get ordonnances
-            odonnanceData.ItemsSource = db.ordonnances.Where(ordonnance => ordonnance.client_cin == clientCin).ToList();
+            foreach (visite o in listVisite)
+            {
+                listOrdonnance.Add(db.ordonnances.Where(ordonnance => ordonnance.id == o.ordonnance_id).SingleOrDefault());
+            }
+            odonnanceData.ItemsSource = listOrdonnance;
         }
 
         private void voirOrdonnance(object sender, RoutedEventArgs e)

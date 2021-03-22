@@ -12,18 +12,14 @@ namespace MenuWithSubMenu.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class typeLentille
+    public partial class vision_detaille
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public typeLentille()
-        {
-            this.lentilles = new HashSet<lentille>();
-        }
+        public int idvision_detaille { get; set; }
+        public string remarques { get; set; }
+        public int vision_id { get; set; }
+        public int visite_id { get; set; }
     
-        public int idTypeLentille { get; set; }
-        public string Nom { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<lentille> lentilles { get; set; }
+        public virtual vision vision { get; set; }
+        public virtual visite visite { get; set; }
     }
 }

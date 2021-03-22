@@ -15,7 +15,7 @@ namespace MenuWithSubMenu.Model
     public partial class lignecommande
     {
         public int idLigne { get; set; }
-        public int idArticle { get; set; }
+        public string idArticle { get; set; }
         public int idCmdFournisseur { get; set; }
         public System.DateTime Date_Commande { get; set; }
         public string Adresse_Commande { get; set; }

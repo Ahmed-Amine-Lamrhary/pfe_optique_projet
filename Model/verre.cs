@@ -17,21 +17,20 @@ namespace MenuWithSubMenu.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public verre()
         {
-            this.ligne_verre_traitement = new HashSet<ligne_verre_traitement>();
+            this.ligne_traitement_verre = new HashSet<ligne_traitement_verre>();
+            this.visions = new HashSet<vision>();
         }
     
         public int idVerre { get; set; }
-        public int idArticle { get; set; }
-        public int idTraitement { get; set; }
+        public string idArticle { get; set; }
         public int idTypeVerre { get; set; }
-        public int idOeil { get; set; }
-        public string Modele { get; set; }
         public string Teinte { get; set; }
     
         public virtual article article { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ligne_verre_traitement> ligne_verre_traitement { get; set; }
-        public virtual oeil oeil { get; set; }
+        public virtual ICollection<ligne_traitement_verre> ligne_traitement_verre { get; set; }
         public virtual typeverre typeverre { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<vision> visions { get; set; }
     }
 }

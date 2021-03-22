@@ -33,45 +33,50 @@ namespace MenuWithSubMenu.Pages
 
             ordonnance = db.ordonnances.Where(ordonnance => ordonnance.id == ordonnanceId).SingleOrDefault();
 
-            // type verres
-            typeverre typeverre = db.typeverres.Where(t => t.idTypeVerre == ordonnance.idTypeVerre).SingleOrDefault();
+            visite newVisiste = db.visites.Where(visite => visite.ordonnance_id == ordonnance.id).SingleOrDefault();
 
-            // vision loins
-            vision visionLoins = db.visions.Where(v => v.ordonnance_id == ordonnance.id && v.vision_type == "loins").SingleOrDefault();
+            // vision loins & gauche
+            vision visionLoinsGauche = db.visions.Where(v => v.visite_id == newVisiste.id && v.gauche == true && v.loin == true).SingleOrDefault();
 
-            // vision pres
-            vision visionPres = db.visions.Where(v => v.ordonnance_id == ordonnance.id && v.vision_type == "pres").SingleOrDefault();
+            // vision pres & gauche
+            vision visionPresGauche = db.visions.Where(v => v.visite_id == newVisiste.id && v.gauche == true && v.loin == false).SingleOrDefault();
+
+            // vision pres & droit
+            vision visionPresDroit = db.visions.Where(v => v.visite_id == newVisiste.id && v.gauche == false && v.loin == false).SingleOrDefault();
+
+            // vision loin & droit
+            vision visionLoinDroit = db.visions.Where(v => v.visite_id == newVisiste.id && v.gauche == false && v.loin == true).SingleOrDefault();
+
 
             dateCreationBox.Text = ordonnance.dateCreation.ToString();
             dateExpirationBox.Text = ordonnance.dateExpiration.ToString();
-            typeVerresBox.Text = typeverre.NomType;
 
             // loins
-            od_sph_loin.Text = visionLoins.od_sphere.ToString();
-            od_cyl_loin.Text = visionLoins.od_cylindre.ToString();
-            od_axe_loin.Text = visionLoins.od_axe.ToString();
-            od_add_loin.Text = visionLoins.od_add.ToString();
+            od_sph_loin.Text = visionLoinDroit.sph.ToString();
+            od_cyl_loin.Text = visionLoinDroit.cyl.ToString();
+            od_axe_loin.Text = visionLoinDroit.axe.ToString();
+            od_add_loin.Text = visionLoinDroit.add.ToString();
 
-            og_sph_loin.Text = visionLoins.og_sphère.ToString();
-            og_cyl_loin.Text = visionLoins.og_cylindre.ToString();
-            og_axe_loin.Text = visionLoins.og_axe.ToString();
-            og_add_loin.Text = visionLoins.og_add.ToString();
+            og_sph_loin.Text = visionLoinsGauche.sph.ToString();
+            og_cyl_loin.Text = visionLoinsGauche.cyl.ToString();
+            og_axe_loin.Text = visionLoinsGauche.axe.ToString();
+            og_add_loin.Text = visionLoinsGauche.add.ToString();
 
 
             // près
-            od_sph_pres.Text = visionPres.od_sphere.ToString();
-            od_cyl_pres.Text = visionPres.od_cylindre.ToString();
-            od_axe_pres.Text = visionPres.od_axe.ToString();
-            od_add_pres.Text = visionPres.od_add.ToString();
+            od_sph_pres.Text = visionPresDroit.sph.ToString();
+            od_cyl_pres.Text = visionPresDroit.cyl.ToString();
+            od_axe_pres.Text = visionPresDroit.axe.ToString();
+            od_add_pres.Text = visionPresDroit.add.ToString();
 
-            og_sph_pres.Text = visionPres.og_sphère.ToString();
-            og_cyl_pres.Text = visionPres.og_cylindre.ToString();
-            og_axe_pres.Text = visionPres.og_axe.ToString();
-            og_add_pres.Text = visionPres.og_add.ToString();
+            og_sph_pres.Text = visionPresGauche.sph.ToString();
+            og_cyl_pres.Text = visionPresGauche.cyl.ToString();
+            og_axe_pres.Text = visionPresGauche.axe.ToString();
+            og_add_pres.Text = visionPresGauche.add.ToString();
         }
         private void voirOphta(object sender, RoutedEventArgs e)
         {
-            int ophtaId = ordonnance.ophtalmologue_ophtalmologueId;
+            int ophtaId = ordonnance.ophtalmologueId;
 
             OphtaProfile ophtaProfile = new OphtaProfile(ophtaId, this);
 
@@ -80,7 +85,7 @@ namespace MenuWithSubMenu.Pages
 
         private void voirClient(object sender, RoutedEventArgs e)
         {
-            string clientCin = ordonnance.client_cin;
+            string clientCin = db.visites.Where(v => v.ordonnance_id == ordonnance.id).Single().client_cin;
 
             ClientProfile clientProfile = new ClientProfile(clientCin, this);
 

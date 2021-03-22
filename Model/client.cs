@@ -18,7 +18,6 @@ namespace MenuWithSubMenu.Model
         public client()
         {
             this.cmdclients = new HashSet<cmdclient>();
-            this.ordonnances = new HashSet<ordonnance>();
             this.visites = new HashSet<visite>();
         }
     
@@ -34,8 +33,6 @@ namespace MenuWithSubMenu.Model
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cmdclient> cmdclients { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ordonnance> ordonnances { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<visite> visites { get; set; }
     }

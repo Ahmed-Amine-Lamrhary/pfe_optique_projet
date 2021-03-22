@@ -87,7 +87,7 @@ namespace MenuWithSubMenu.PagesStock
         private void voirCmd(object sender, RoutedEventArgs e)
         {
             article articleRow = cmdFourniDataGrid.SelectedItem as article;
-            int articleId = articleRow.idArticle;
+            string articleId = articleRow.idArticle;
 
             //ArticleAbout articleAbout = new ArticleAbout(articleId, this);
 
@@ -99,7 +99,7 @@ namespace MenuWithSubMenu.PagesStock
         {
 
             article articleRow = cmdFourniDataGrid.SelectedItem as article;
-            int articleId = articleRow.idArticle;
+            string articleId = articleRow.idArticle;
             //UpdateArticle update = new UpdateArticle(db.articles.Where(article => article.idArticle == articleId).SingleOrDefault(), this);
             //MyContext.navigateTo(update);
         }

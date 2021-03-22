@@ -4,18 +4,17 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MenuWithSubMenu.Pages"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      mc:Ignorable="d" d:DesignWidth="800"
       Title="AddVisite"
-      Background="White">
+      Background="White" Height="696">
 
     <Grid>
         <StackPanel>
             <Button Margin="10" Click="ReturnBtn_Click" Name="returnBtn" Background="WhiteSmoke" Content="&lt; Return"  HorizontalAlignment="Left"/>
             <StackPanel Margin="10">
-                <TextBox Margin="10" Name="rasonVissite"/>
+                <TextBox Margin='5' Name="raisonVisite"/>
                 <TextBlock Text="Ordonnance"/>
-                
+
                 <StackPanel>
                     <ComboBox Margin="5" Height="23" Text="Ophtalmologue" Name="ophtalmologueText"/>
                     <DatePicker Margin="5" Height="23" Name="dateCreationOrdonnance"/>
@@ -39,6 +38,8 @@
                                 <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_axe_loin"/>
                                 <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_add_loin"/>
                             </StackPanel>
+                            <TextBox Name="ecartLoinText" Text="Ecart" Margin="5"/>
+                            <TextBox Name="hauteurLoinText" Text="Hauteur" Margin="5"/>
                         </StackPanel>
                         <!-- Vision Prés -->
                         <TextBlock Margin="5" Height="23" TextWrapping="Wrap" Text="Vision de près :" Name="visionPres"/>
@@ -57,16 +58,17 @@
                                 <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_axe_pres"/>
                                 <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_add_pres"/>
                             </StackPanel>
+
+                            <TextBox Name="ecartPresText" Text="Ecart" Margin="5"/>
+                            <TextBox Name="hauteurPresText" Text="Hauteur" Margin="5"/>
                         </StackPanel>
                     </StackPanel>
                     <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Notes" Name="notesOphtalmologue"/>
                     <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Ajouter photo" Name="photoScanne"/>
                 </StackPanel>
-                <DataGrid Name="examList" Margin="10"></DataGrid>
-                <Button Margin="10" Click="addExam" Name="ajouterExam" Content="Ajouter Examen"/>
                 <Button Margin="10" Click="saveVisite" Name="addVisite" Content="Créer Visite"/>
             </StackPanel>
         </StackPanel>
-        
+
     </Grid>
 </Page>

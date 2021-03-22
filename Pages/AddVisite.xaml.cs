@@ -1,6 +1,5 @@
 ﻿using MenuWithSubMenu.Model;
 using MenuWithSubMenu.Utils;
-using MenuWithSubMenu.Windows;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -23,7 +22,7 @@ namespace MenuWithSubMenu.Pages
     public partial class AddVisite : Page
     {
         dbEntities db;
-        private List<examan> listExamen;
+        private List<vision> listeVision;
         DbContextTransaction transaction;
         private string clientCin;
 
@@ -31,8 +30,7 @@ namespace MenuWithSubMenu.Pages
         {
             InitializeComponent();
             db = new dbEntities();
-            listExamen = new List<examan>();
-            examList.ItemsSource = listExamen;
+            listeVision = new List<vision>();
             this.clientCin = clientCin;
 
             // get ophtalmologues
@@ -49,80 +47,107 @@ namespace MenuWithSubMenu.Pages
 
 
         }
-        private void addExam(object sender, RoutedEventArgs e)
-        {
-            AddExam newExam = new AddExam(this);
-            newExam.Show();
-        }
         private void saveVisite(object sender, RoutedEventArgs e)
         {
             try
             {
                 transaction = db.Database.BeginTransaction();
-                visite newVisite = new visite()
-                {
-                    date = DateTime.Now,
-                    raison = rasonVissite.Text,
-                    client_cin = clientCin
-                };
-                db.visites.Add(newVisite);
-                db.SaveChanges();
-
-                
 
                 ordonnance newOrdonnance = new ordonnance()
                 {
                     dateCreation = (DateTime)dateCreationOrdonnance.SelectedDate.Value.Date,
                     dateExpiration = (DateTime)dateExpirationOrdonnance.SelectedDate.Value.Date,
-                    idTypeVerre = (int)typeVerres.SelectedValue,
                     notes = notesOphtalmologue.Text,
                     photo = "/C:/Images",
-                    ophtalmologue_ophtalmologueId = (int)ophtalmologueText.SelectedValue,
-                    client_cin = clientCin
+                    ophtalmologueId = (int)ophtalmologueText.SelectedValue,
                 };
                 db.ordonnances.Add(newOrdonnance);
                 db.SaveChanges();
 
-                vision vis_loins = new vision()
+                visite newVisite = new visite()
                 {
+                    date = DateTime.Now,
+                    raison = raisonVisite.Text,
+                    client_cin = clientCin,
                     ordonnance_id = newOrdonnance.id,
-                    od_add = int.Parse(od_add_loin.Text),
-                    od_cylindre = int.Parse(od_cyl_loin.Text),
-                    od_axe = int.Parse(od_axe_loin.Text),
-                    od_sphere = int.Parse(od_sph_loin.Text),
-                    og_add = int.Parse(og_add_loin.Text),
-                    og_cylindre = int.Parse(og_cyl_loin.Text),
-                    og_axe = int.Parse(og_axe_loin.Text),
-                    og_sphère = int.Parse(og_sph_loin.Text),
-                    vision_type = "loins"
                 };
-                db.visions.Add(vis_loins);
+                db.visites.Add(newVisite);
                 db.SaveChanges();
 
-                vision vis_pres = new vision()
+                //Vision Loin & gauche:
+
+                vision vision_Loins_gauche = new vision()
                 {
-                    ordonnance_id = newOrdonnance.id,
-                    od_add = int.Parse(od_add_pres.Text),
-                    od_cylindre = int.Parse(od_cyl_pres.Text),
-                    od_axe = int.Parse(od_axe_pres.Text),
-                    od_sphere = int.Parse(od_sph_pres.Text),
-                    og_add = int.Parse(og_add_pres.Text),
-                    og_cylindre = int.Parse(og_cyl_pres.Text),
-                    og_axe = int.Parse(og_axe_pres.Text),
-                    og_sphère = int.Parse(og_sph_pres.Text),
-                    vision_type = "pres"
+                    add = float.Parse(og_add_loin.Text),
+                    cyl = float.Parse(og_cyl_loin.Text),
+                    axe = float.Parse(og_axe_loin.Text),
+                    sph = float.Parse(og_sph_loin.Text),
+                    gauche = true,
+                    loin = true,
+                    ecart = float.Parse(ecartLoinText.Text),
+                    hauteur = float.Parse(hauteurLoinText.Text),
+                    visite_id = newVisite.id
                 };
-                db.visions.Add(vis_pres);
+
+                db.visions.Add(vision_Loins_gauche);
                 db.SaveChanges();
 
+                //Vision Loin & droit:
 
-                foreach (examan ex in listExamen)
+                vision vision_Loins_droit = new vision()
                 {
-                    ex.visite_id = newVisite.id;
+                    add = float.Parse(od_add_loin.Text),
+                    cyl = float.Parse(od_cyl_loin.Text),
+                    axe = float.Parse(od_axe_loin.Text),
+                    sph = float.Parse(od_sph_loin.Text),
+                    gauche = false,
+                    loin = true,
+                    ecart = float.Parse(ecartLoinText.Text),
+                    hauteur = float.Parse(hauteurLoinText.Text),
+                    visite_id = newVisite.id
 
-                    db.examen.Add(ex);
-                    db.SaveChanges();
-                }
+                };
+
+                db.visions.Add(vision_Loins_droit);
+                db.SaveChanges();
+
+                //Vision pres & droit:
+
+                vision vision_pres_droit = new vision()
+                {
+                    add = float.Parse(od_add_pres.Text),
+                    cyl = float.Parse(od_cyl_pres.Text),
+                    axe = float.Parse(od_axe_pres.Text),
+                    sph = float.Parse(od_sph_pres.Text),
+                    gauche = false,
+                    loin = false,
+                    ecart = float.Parse(ecartPresText.Text),
+                    hauteur = float.Parse(hauteurPresText.Text),
+                    visite_id = newVisite.id
+
+                };
+
+                db.visions.Add(vision_pres_droit);
+                db.SaveChanges();
+
+                //Vision pres & gauche:
+
+                vision vision_pres_gauche = new vision()
+                {
+                    add = float.Parse(og_add_pres.Text),
+                    cyl = float.Parse(og_cyl_pres.Text),
+                    axe = float.Parse(og_axe_pres.Text),
+                    sph = float.Parse(og_sph_pres.Text),
+                    gauche = true,
+                    loin = false,
+                    ecart = float.Parse(ecartPresText.Text),
+                    hauteur = float.Parse(hauteurPresText.Text),
+                    visite_id = newVisite.id
+
+                };
+
+                db.visions.Add(vision_pres_gauche);
+                db.SaveChanges();
 
                 transaction.Commit();
             }
@@ -133,11 +158,7 @@ namespace MenuWithSubMenu.Pages
                 transaction.Rollback();
             }
         }
-        public void addExamToList(examan exam)
-        {
-            listExamen.Add(exam);
-            examList.Items.Refresh();
-        }
+
         private void ReturnBtn_Click(object sender, RoutedEventArgs e)
         {
             MyContext.navigateTo(new EspaceClient());

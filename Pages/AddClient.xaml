@@ -74,9 +74,10 @@
                         <DatePicker Margin="5" Height="23" Name="dateCreationOrdonnance"/>
                         <DatePicker Margin="5" Height="23" Name="dateExpirationOrdonnance"/>
                         <ComboBox Name="typeVerres" Margin="5" Height="23"/>
+                        <Separator/>
                         <!-- Vision Loins -->
                         <TextBlock Margin="5" Height="23" TextWrapping="Wrap" Text="Vision de loin :" Name="visionLoins"/>
-                        <StackPanel>
+                        <StackPanel >
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="OD :"/>
                                 <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="od_sph_loin"/>
@@ -91,7 +92,18 @@
                                 <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_axe_loin"/>
                                 <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_add_loin"/>
                             </StackPanel>
+                            <!--Ecart-->
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="5" Height="23" TextWrapping="Wrap" Text="Ecart :" />
+                                <TextBox Margin="5" Height="23" Width="200" Text="1" Name="ecartLoinText"/>
+                            </StackPanel>
+                            <!--Hauteur-->
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="5" Height="23" TextWrapping="Wrap" Text="Hauteur :"/>
+                                <TextBox Margin="5" Height="23" Width="200" Text="1" Name="hauteurLoinText"/>
+                            </StackPanel>
                         </StackPanel>
+                        <Separator/>
                         <!-- Vision Prés -->
                         <TextBlock Margin="5" Height="23" TextWrapping="Wrap" Text="Vision de près :" Name="visionPres"/>
                         <StackPanel>
@@ -108,6 +120,16 @@
                                 <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_cyl_pres"/>
                                 <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_axe_pres"/>
                                 <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="1" Name="og_add_pres"/>
+                            </StackPanel>
+                            <!--Ecart-->
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="5" Height="23" TextWrapping="Wrap" Text="Ecart :" />
+                                <TextBox Margin="5" Height="23" Width="200" Text="1" Name="ecartPresText"/>
+                            </StackPanel>
+                            <!--Hauteur-->
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="5" Height="23" TextWrapping="Wrap" Text="Hauteur :"/>
+                                <TextBox Margin="5" Height="23" Width="200" Text="1" Name="hauteurPresText"/>
                             </StackPanel>
                         </StackPanel>
 

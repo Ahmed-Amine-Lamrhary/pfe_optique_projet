@@ -38,8 +38,8 @@ namespace MenuWithSubMenu.Pages
             visite = db.visites.Where(visite => visite.id == visiteId).SingleOrDefault();
             raisonVisite.Text = visite.raison;
 
-            List<examan> listExamens  = db.examen.Where(examan => examan.visite_id == visiteId).ToList();
-            examList.ItemsSource = listExamens;
+            List<vision> listVisions  = db.visions.Where(v => v.idOeil == visiteId).ToList();
+            examList.ItemsSource = listVisions;
         }
         private void ReturnBtn_Click(object sender, RoutedEventArgs e)
         {

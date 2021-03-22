@@ -15,8 +15,8 @@ namespace MenuWithSubMenu.Model
     public partial class ligneentree
     {
         public int idLigne { get; set; }
-        public int idArticle { get; set; }
-        public int idCmdClient { get; set; }
+        public string idArticle { get; set; }
+        public string idCmdClient { get; set; }
         public System.DateTime Date_Commande { get; set; }
         public string Adresse_Commande { get; set; }
         public int Qte_Commande { get; set; }

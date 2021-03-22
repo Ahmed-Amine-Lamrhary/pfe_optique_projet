@@ -15,6 +15,7 @@ namespace MenuWithSubMenu.Model
     public partial class lentillemultifocale
     {
         public int idLentilleMultifocale { get; set; }
+        public Nullable<float> ADD { get; set; }
         public Nullable<float> DOM { get; set; }
         public int idTypeLentille { get; set; }
     

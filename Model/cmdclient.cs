@@ -20,9 +20,9 @@ namespace MenuWithSubMenu.Model
             this.ligneentrees = new HashSet<ligneentree>();
         }
     
-        public int idCmdClient { get; set; }
+        public string idCmdClient { get; set; }
         public System.DateTime DateCmd { get; set; }
-        public string cin { get; set; }
+        public string client_cin { get; set; }
     
         public virtual client client { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

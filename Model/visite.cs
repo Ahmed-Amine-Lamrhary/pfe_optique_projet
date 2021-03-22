@@ -17,16 +17,21 @@ namespace MenuWithSubMenu.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public visite()
         {
-            this.examen = new HashSet<examan>();
+            this.visions = new HashSet<vision>();
+            this.vision_detaille = new HashSet<vision_detaille>();
         }
     
         public int id { get; set; }
         public System.DateTime date { get; set; }
         public string raison { get; set; }
         public string client_cin { get; set; }
+        public int ordonnance_id { get; set; }
     
         public virtual client client { get; set; }
+        public virtual ordonnance ordonnance { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<examan> examen { get; set; }
+        public virtual ICollection<vision> visions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<vision_detaille> vision_detaille { get; set; }
     }
 }
