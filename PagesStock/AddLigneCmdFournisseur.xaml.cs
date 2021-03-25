@@ -23,6 +23,7 @@ namespace MenuWithSubMenu.PagesStock
         private Page prevPage;
         private AddCmd addCmdPage;
         private List<traitement> traitements;
+        private List<reference> references;
         private int coutTrait,maxTrait;
 
         public AddLigneCmdFournisseur(Page prevP, AddCmd addCmdP)
@@ -33,7 +34,9 @@ namespace MenuWithSubMenu.PagesStock
             maxTrait = db.traitements.Count();
             prevPage = prevP;
             addCmdPage = addCmdP;
+            references = new List<reference>();
             fillComboBox();
+            
         }
 
         public void selectItem(object sender, SelectionChangedEventArgs e)
@@ -56,7 +59,8 @@ namespace MenuWithSubMenu.PagesStock
                     lentillePanel.Visibility = Visibility.Collapsed;
                     cadrePanel.Visibility = Visibility.Visible;
                     break;
-            }       
+            }
+            updateReferenceCombo();
 
         }
         
@@ -79,6 +83,8 @@ namespace MenuWithSubMenu.PagesStock
             typeLentilleText.DisplayMemberPath = "nom";
             typeLentilleText.SelectedValuePath = "idtype_lentille";
 
+            updateReferenceCombo();
+
             traitements = db.traitements.Distinct().ToList();
             newTraitementNom.ItemsSource = traitements;
             newTraitementNom.DisplayMemberPath = "Nom";
@@ -87,6 +93,20 @@ namespace MenuWithSubMenu.PagesStock
             lentilleNewTrat.ItemsSource = traitements;
             lentilleNewTrat.DisplayMemberPath = "Nom";
             lentilleNewTrat.SelectedValuePath = "idTraitement";
+        }
+         
+        public void updateReferenceCombo()
+        {
+            //Références Combobox :
+            foreach (article a in db.articles.ToList())
+            {
+                if (a.idCategorie == (int)categorie.SelectedValue)
+                    references.Add(db.references.Where(r => r.id_article.Equals(a.idArticle)).First());
+
+            }
+            referenceText.ItemsSource = references;
+            referenceText.DisplayMemberPath = "id_article";
+            referenceText.SelectedValuePath = "id_article";
         }
         
         public void addTraitLentilleButton(object sender, RoutedEventArgs e)
@@ -166,6 +186,14 @@ namespace MenuWithSubMenu.PagesStock
         // save ligne
         public void saveLigne(object sender, RoutedEventArgs e)
         {
+            if (newRefText.Visibility == Visibility.Visible && referenceIsExiste(newRefText.Text))
+            {
+                MessageBox.Show("Référence déja existe");
+                btnNewRef.Content = "Ajouter réference";
+                newRefText.Visibility = Visibility.Collapsed;
+                referenceText.Visibility = Visibility.Visible;
+                return;
+            }
 
             if (!addCmdPage.lignesCmd.Contains(this))
                 addCmdPage.addNewLigneToList(this);
@@ -179,22 +207,49 @@ namespace MenuWithSubMenu.PagesStock
         {
             return traitements;
         }
-        /*public List<traitement> Get_traitements_selectionee()
-        {
-            foreach (StackPanel stack in traitementsLentilleBox.Children.OfType<StackPanel>())
-            {
-                
-                foreach(ComboBox c in stack.Children.OfType<ComboBox>)
-                {
-                    traitementsSelectiones.Add(new traitement()
-                    {
-                        idTraitement = (int)c.SelectedValue,
-                    });
-                }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if(newRefText.Visibility == Visibility.Collapsed)
+            {
+                newRefText.Visibility = Visibility.Visible;
+                btnNewRef.Content = "X";
+                referenceText.IsEnabled = false;
             }
-            return traitementsSelectiones;
-        }*/
+            else
+            {
+                newRefText.Visibility = Visibility.Collapsed;
+                btnNewRef.Content = "Ajouter Référence";
+                referenceText.IsEnabled = true;
+            }
+        }
+
+        private bool referenceIsExiste(string reference)
+        {
+            foreach (article a in db.articles.ToList())
+            {
+                if (a.idArticle.Equals(reference))
+                    return true;
+            }
+            return false;
+        }
+
+        /*public List<traitement> Get_traitements_selectionee()
+{
+   foreach (StackPanel stack in traitementsLentilleBox.Children.OfType<StackPanel>())
+   {
+
+       foreach(ComboBox c in stack.Children.OfType<ComboBox>)
+       {
+           traitementsSelectiones.Add(new traitement()
+           {
+               idTraitement = (int)c.SelectedValue,
+           });
+       }
+
+   }
+   return traitementsSelectiones;
+}*/
 
         private void TypeLentilleText_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

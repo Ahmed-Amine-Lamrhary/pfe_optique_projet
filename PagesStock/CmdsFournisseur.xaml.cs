@@ -25,6 +25,7 @@ namespace MenuWithSubMenu.PagesStock
     {
         dbEntities db;
         List<cmdfournisseur> listCmdFourni;
+
         int count;
 
         public CmdsFournisseur()
@@ -86,13 +87,13 @@ namespace MenuWithSubMenu.PagesStock
 
         private void voirCmd(object sender, RoutedEventArgs e)
         {
-            article articleRow = cmdFourniDataGrid.SelectedItem as article;
-            string articleId = articleRow.idArticle;
+            cmdfournisseur cmd = cmdFourniDataGrid.SelectedItem as cmdfournisseur;
+            int cmdId = cmd.idCmdFournisseur;
 
-            //ArticleAbout articleAbout = new ArticleAbout(articleId, this);
+            CmdsLigne cmdAbout = new CmdsLigne(cmdId);
 
 
-            //MyContext.navigateTo(articleAbout);
+            MyContext.navigateTo(cmdAbout);
         }
 
         private void updateCmd(object sender, RoutedEventArgs e)

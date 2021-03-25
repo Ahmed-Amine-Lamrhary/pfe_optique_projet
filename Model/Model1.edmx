@@ -186,6 +186,13 @@
           <Property Name="photo" Type="nvarchar" MaxLength="45" Nullable="false" />
           <Property Name="ophtalmologueId" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="reference">
+          <Key>
+            <PropertyRef Name="id_reference" />
+          </Key>
+          <Property Name="id_reference" Type="int" Nullable="false" />
+          <Property Name="id_article" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
         <EntityType Name="traitement">
           <Key>
             <PropertyRef Name="idTraitement" />
@@ -298,6 +305,18 @@
             </Principal>
             <Dependent Role="cmdfournisseur">
               <PropertyRef Name="idFournisseur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_reference_article">
+          <End Role="article" Type="Self.article" Multiplicity="1" />
+          <End Role="reference" Type="Self.reference" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="article">
+              <PropertyRef Name="idArticle" />
+            </Principal>
+            <Dependent Role="reference">
+              <PropertyRef Name="id_article" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -608,6 +627,7 @@
           <EntitySet Name="ligneentree" EntityType="Self.ligneentree" Schema="optique_pfe" store:Type="Tables" />
           <EntitySet Name="ophtalmologue" EntityType="Self.ophtalmologue" Schema="optique_pfe" store:Type="Tables" />
           <EntitySet Name="ordonnance" EntityType="Self.ordonnance" Schema="optique_pfe" store:Type="Tables" />
+          <EntitySet Name="reference" EntityType="Self.reference" Schema="optique_pfe" store:Type="Tables" />
           <EntitySet Name="traitement" EntityType="Self.traitement" Schema="optique_pfe" store:Type="Tables" />
           <EntitySet Name="type_lentille" EntityType="Self.type_lentille" Schema="optique_pfe" store:Type="Tables" />
           <EntitySet Name="typeverre" EntityType="Self.typeverre" Schema="optique_pfe" store:Type="Tables" />
@@ -630,6 +650,10 @@
           <AssociationSet Name="cmdfournisseur$fk_CmdFournisseur_Fournisseur" Association="Self.cmdfournisseur$fk_CmdFournisseur_Fournisseur">
             <End Role="fournisseur" EntitySet="fournisseur" />
             <End Role="cmdfournisseur" EntitySet="cmdfournisseur" />
+          </AssociationSet>
+          <AssociationSet Name="FK_reference_article" Association="Self.FK_reference_article">
+            <End Role="article" EntitySet="article" />
+            <End Role="reference" EntitySet="reference" />
           </AssociationSet>
           <AssociationSet Name="FK_vision_visite" Association="Self.FK_vision_visite">
             <End Role="visite" EntitySet="visite" />
@@ -745,6 +769,7 @@
           <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="categorie" Relationship="Self.article_fk_Article_Categorie1" FromRole="article" ToRole="categorie" />
           <NavigationProperty Name="cadres" Relationship="Self.cadre_fk_Cadre_Article1" FromRole="article" ToRole="cadre" />
+          <NavigationProperty Name="references" Relationship="Self.FK_reference_article" FromRole="article" ToRole="reference" />
           <NavigationProperty Name="lentilles" Relationship="Self.lentille_fk_Lentille_Article1" FromRole="article" ToRole="lentille" />
           <NavigationProperty Name="lignecommandes" Relationship="Self.lignecommande_fk_LigneCommande_Article1" FromRole="article" ToRole="lignecommande" />
           <NavigationProperty Name="ligneentrees" Relationship="Self.ligneentree_fk_LigneEntree_Article1" FromRole="article" ToRole="ligneentree" />
@@ -952,6 +977,14 @@
           <NavigationProperty Name="ophtalmologue" Relationship="Self.ordonnance_fk_ordonnance_ophtalmologue1" FromRole="ordonnance" ToRole="ophtalmologue" />
           <NavigationProperty Name="visites" Relationship="Self.visite_fk_visite_ordonnance1" FromRole="ordonnance" ToRole="visite" />
         </EntityType>
+        <EntityType Name="reference">
+          <Key>
+            <PropertyRef Name="id_reference" />
+          </Key>
+          <Property Name="id_reference" Type="Int32" Nullable="false" />
+          <Property Name="id_article" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="article" Relationship="Self.FK_reference_article" FromRole="reference" ToRole="article" />
+        </EntityType>
         <EntityType Name="traitement">
           <Key>
             <PropertyRef Name="idTraitement" />
@@ -1058,6 +1091,18 @@
             </Principal>
             <Dependent Role="cadre">
               <PropertyRef Name="idArticle" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_reference_article">
+          <End Role="article" Type="Self.article" Multiplicity="1" />
+          <End Role="reference" Type="Self.reference" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="article">
+              <PropertyRef Name="idArticle" />
+            </Principal>
+            <Dependent Role="reference">
+              <PropertyRef Name="id_article" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1392,6 +1437,7 @@
           <EntitySet Name="ligneentrees" EntityType="Self.ligneentree" />
           <EntitySet Name="ophtalmologues" EntityType="Self.ophtalmologue" />
           <EntitySet Name="ordonnances" EntityType="Self.ordonnance" />
+          <EntitySet Name="references" EntityType="Self.reference" />
           <EntitySet Name="traitements" EntityType="Self.traitement" />
           <EntitySet Name="type_lentille" EntityType="Self.type_lentille" />
           <EntitySet Name="typeverres" EntityType="Self.typeverre" />
@@ -1406,6 +1452,10 @@
           <AssociationSet Name="cadre_fk_Cadre_Article1" Association="Self.cadre_fk_Cadre_Article1">
             <End Role="article" EntitySet="articles" />
             <End Role="cadre" EntitySet="cadres" />
+          </AssociationSet>
+          <AssociationSet Name="FK_reference_article" Association="Self.FK_reference_article">
+            <End Role="article" EntitySet="articles" />
+            <End Role="reference" EntitySet="references" />
           </AssociationSet>
           <AssociationSet Name="lentille_fk_Lentille_Article1" Association="Self.lentille_fk_Lentille_Article1">
             <End Role="article" EntitySet="articles" />
@@ -1714,6 +1764,14 @@
                 <ScalarProperty Name="notes" ColumnName="notes" />
                 <ScalarProperty Name="photo" ColumnName="photo" />
                 <ScalarProperty Name="ophtalmologueId" ColumnName="ophtalmologueId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="references">
+            <EntityTypeMapping TypeName="optique_pfeModel.reference">
+              <MappingFragment StoreEntitySet="reference">
+                <ScalarProperty Name="id_reference" ColumnName="id_reference" />
+                <ScalarProperty Name="id_article" ColumnName="id_article" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

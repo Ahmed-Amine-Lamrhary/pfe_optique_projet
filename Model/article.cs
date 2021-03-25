@@ -18,6 +18,7 @@ namespace MenuWithSubMenu.Model
         public article()
         {
             this.cadres = new HashSet<cadre>();
+            this.references = new HashSet<reference>();
             this.lentilles = new HashSet<lentille>();
             this.lignecommandes = new HashSet<lignecommande>();
             this.ligneentrees = new HashSet<ligneentree>();
@@ -34,6 +35,8 @@ namespace MenuWithSubMenu.Model
         public virtual categorie categorie { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cadre> cadres { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<reference> references { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<lentille> lentilles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

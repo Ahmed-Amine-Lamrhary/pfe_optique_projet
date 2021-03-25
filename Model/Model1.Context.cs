@@ -43,6 +43,7 @@ namespace MenuWithSubMenu.Model
         public virtual DbSet<ligneentree> ligneentrees { get; set; }
         public virtual DbSet<ophtalmologue> ophtalmologues { get; set; }
         public virtual DbSet<ordonnance> ordonnances { get; set; }
+        public virtual DbSet<reference> references { get; set; }
         public virtual DbSet<traitement> traitements { get; set; }
         public virtual DbSet<type_lentille> type_lentille { get; set; }
         public virtual DbSet<typeverre> typeverres { get; set; }

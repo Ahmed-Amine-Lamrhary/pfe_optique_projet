@@ -90,20 +90,39 @@ namespace MenuWithSubMenu.PagesStock
                 };
                 db.cmdfournisseurs.Add(commande);
                 db.SaveChanges();
+
+                
+                string refer = null;
                 foreach (AddLigneCmdFournisseur ligne in lignesCmd)
                 {
-                    article article = new article()
-                    {
-                        idCategorie = (int)ligne.categorie.SelectedValue,
-                        QteDisponible = 0,
-                        PrixUnitaire = int.Parse(ligne.prixText.Text),
-                        Garantie = ligne.garantieText.Text,
-                        Description = ligne.descText.Text,
-                        idArticle = ligne.referenceText.Text
 
-                    };
-                    db.articles.Add(article);
-                    db.SaveChanges();
+
+
+                    article article = null;
+                    if (ligne.newRefText.Visibility == Visibility.Visible)
+                    {
+                        refer = ligne.newRefText.Text;
+                        
+                           
+                        article = new article()
+                        {
+                            idCategorie = (int)ligne.categorie.SelectedValue,
+                            QteDisponible = 0,
+                            PrixUnitaire = int.Parse(ligne.prixText.Text),
+                            Garantie = ligne.garantieText.Text,
+                            Description = ligne.descText.Text,
+                            idArticle = refer,
+                        };
+                        db.articles.Add(article);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        refer = (string)ligne.referenceText.SelectedValue;
+                        article = db.articles.Where(a => a.idArticle == refer).Single();
+                    }
+
+
                     // if article is new
                     int selectedIemValue = (int)ligne.categorie.SelectedValue;
                     switch (selectedIemValue)
@@ -402,6 +421,15 @@ namespace MenuWithSubMenu.PagesStock
                 }
                 transaction.Rollback();
             }
+        }
+        private bool referenceIsExiste(string reference)
+        {
+            foreach (article a in db.articles.ToList())
+            {
+                if (a.idArticle.Equals(reference))
+                    return true;
+            }
+            return false;
         }
     }
 }

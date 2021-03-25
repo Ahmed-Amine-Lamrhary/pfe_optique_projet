@@ -21,7 +21,21 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0">
-                    <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Reference" Name="referenceText"/>
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="241*" />
+                                <ColumnDefinition Width="149*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <ComboBox Grid.Column="0" Margin="5" Text="Reference" Name="referenceText"/>
+                            <Button Name="btnNewRef" Click="Button_Click" Content="Ajouté référence" Grid.Column="1"/>
+
+                        </Grid >
+                    </StackPanel>
+                    <TextBox Visibility="Collapsed" Margin="5" Height="23" TextWrapping="Wrap" Text="Nouveau Référence" Name="newRefText"/>
                     <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Quantité de commande" Name="qteText"/>
                     <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Prix unitaire" Name="prixText" />
                     <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Garantie" Name="garantieText" />
