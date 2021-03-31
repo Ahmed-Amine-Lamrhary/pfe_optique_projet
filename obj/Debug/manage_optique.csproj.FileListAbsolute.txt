@@ -155,7 +155,6 @@ G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Pages\AddClient.g.cs
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Pages\Settings.g.cs
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\App.g.cs
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\MenuWithSubMenu_Content.g.cs
-G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\GeneratedInternalTypeHelper.g.cs
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\MenuWithSubMenu_MarkupCompile.cache
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\MenuWithSubMenu_MarkupCompile.lref
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\App.baml
@@ -196,9 +195,7 @@ G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Pages\UpdateClient.baml
 C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Pages\AddVisite.g.cs
 C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Pages\AddVisite.baml
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Pages\AddVisite.g.cs
-G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Windows\AddExam.g.cs
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Pages\AddVisite.baml
-G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Windows\AddExam.baml
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Pages\AboutVisite.g.cs
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Pages\AboutVisite.baml
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Pages\AddOphta.g.cs
@@ -223,8 +220,6 @@ C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Pages\Acceuil.baml
 C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Pages\AddOphta.baml
 C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Pages\OphtaProfile.baml
 C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\Pages\UpdateOphta.baml
-G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Pages\AddArticle.g.cs
-G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Pages\AddArticle.baml
 C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\PagesStock\AddCmd.g.cs
 C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\PagesStock\ArticlesDispo.g.cs
 C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\PagesStock\CmdsFournisseur.g.cs
@@ -240,16 +235,122 @@ G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\PagesStock\AddLigneCmdFournisseur
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\PagesStock\ArticlesDispo.g.cs
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\PagesStock\CmdsFournisseur.g.cs
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\PagesStock\Fournisseurs.g.cs
-G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Windows\AddLigneCmd.g.cs
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\PagesStock\AddCmd.baml
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\PagesStock\AddLigneCmdFournisseur.baml
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\PagesStock\ArticlesDispo.baml
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\PagesStock\CmdsFournisseur.baml
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\PagesStock\Fournisseurs.baml
-G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Windows\AddLigneCmd.baml
 G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\Caliburn.Micro.dll
 G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\Caliburn.Micro.xml
 C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\bin\Debug\Caliburn.Micro.dll
 C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\bin\Debug\Caliburn.Micro.xml
 C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\PagesStock\CmdsLigne.g.cs
 C:\Users\BIG CHOIX\Desktop\git\pfe_optique_projet\obj\Debug\PagesStock\CmdsLigne.baml
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\PagesStock\CmdsLigne.g.cs
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\PagesStock\CmdsLigne.baml
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\PagesStock\FournisseurProfile.g.cs
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\PagesStock\FournisseurProfile.baml
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\PagesStock\AddFournisseur.g.cs
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\PagesStock\AddFournisseur.baml
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\PagesStock\UpdateFournisseur.g.cs
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\PagesStock\UpdateFournisseur.baml
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\PagesStock\CmdsClients.g.cs
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\PagesStock\CmdsClients.baml
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\PagesStock\AddCmdClient.g.cs
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\PagesStock\AddLigneCmdClient.g.cs
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\PagesStock\AddCmdClient.baml
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\PagesStock\AddLigneCmdClient.baml
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.BootstrapIcons.dll
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.BoxIcons.dll
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Codicons.dll
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Core.dll
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.dll
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Entypo.dll
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.EvaIcons.dll
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.FeatherIcons.dll
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.FileIcons.dll
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Fontaudio.dll
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.FontAwesome.dll
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.ForkAwesome.dll
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Ionicons.dll
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.JamIcons.dll
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Material.dll
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.MaterialDesign.dll
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.MaterialLight.dll
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Microns.dll
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Modern.dll
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Octicons.dll
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.PicolIcons.dll
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.PixelartIcons.dll
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.RadixIcons.dll
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.RemixIcon.dll
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.RPGAwesome.dll
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.SimpleIcons.dll
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Typicons.dll
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Unicons.dll
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.VaadinIcons.dll
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.WeatherIcons.dll
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Zondicons.dll
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.pdb
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.xml
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.BootstrapIcons.pdb
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.BootstrapIcons.xml
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.BoxIcons.pdb
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.BoxIcons.xml
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Codicons.pdb
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Codicons.xml
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Core.pdb
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Core.xml
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Entypo.pdb
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Entypo.xml
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.EvaIcons.pdb
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.EvaIcons.xml
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.FeatherIcons.pdb
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.FeatherIcons.xml
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.FileIcons.pdb
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.FileIcons.xml
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Fontaudio.pdb
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Fontaudio.xml
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.FontAwesome.pdb
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.FontAwesome.xml
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.ForkAwesome.pdb
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.ForkAwesome.xml
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Ionicons.pdb
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Ionicons.xml
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.JamIcons.pdb
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.JamIcons.xml
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Material.pdb
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Material.xml
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.MaterialDesign.pdb
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.MaterialDesign.xml
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.MaterialLight.pdb
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.MaterialLight.xml
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Microns.pdb
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Microns.xml
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Modern.pdb
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Modern.xml
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Octicons.pdb
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Octicons.xml
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.PicolIcons.pdb
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.PicolIcons.xml
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.PixelartIcons.pdb
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.PixelartIcons.xml
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.RadixIcons.pdb
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.RadixIcons.xml
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.RemixIcon.pdb
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.RemixIcon.xml
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.RPGAwesome.pdb
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.RPGAwesome.xml
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.SimpleIcons.pdb
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.SimpleIcons.xml
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Typicons.pdb
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Typicons.xml
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Unicons.pdb
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Unicons.xml
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.VaadinIcons.pdb
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.VaadinIcons.xml
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.WeatherIcons.pdb
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.WeatherIcons.xml
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Zondicons.pdb
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Zondicons.xml
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\GeneratedInternalTypeHelper.g.cs

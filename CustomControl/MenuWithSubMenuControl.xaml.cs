@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace MenuWithSubMenu.CustomControl
 {
-    /// <summary>
-    /// Interaction logic for MenuWithSubMenuControl.xaml
-    /// </summary>
     public partial class MenuWithSubMenuControl : UserControl
     {
         public MenuWithSubMenuControl()

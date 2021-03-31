@@ -22,22 +22,24 @@ namespace MenuWithSubMenu
                 return new List<MenuItemsData>
                 {
                     // Acceuil
-                    new MenuItemsData(){ PathData= (PathGeometry)dict["icon_dashboard"], MenuText="Acceuil",file_name="Acceuil",dir="Pages", SubMenuList=null},
+                    new MenuItemsData(){ icon="Home5Line", MenuText="Acceuil",file_name="Acceuil",dir="Pages", SubMenuList=null},
                     
                     // Client
-                    new MenuItemsData(){ PathData= (PathGeometry)dict["icon_dashboard"], MenuText="EspaceClient",file_name="EspaceClient",dir="Pages", SubMenuList=null},
+                    new MenuItemsData(){ icon="DoorOpenLine", MenuText="Espace Client",file_name="EspaceClient",dir="Pages", SubMenuList=null},
                     
                     // Visite
-                    new MenuItemsData(){ PathData= (PathGeometry)dict["icon_settings"], MenuText="Visites",file_name="Visites",dir="Pages", SubMenuList=null},
+                    new MenuItemsData(){ icon="DoorOpenLine", MenuText="Visites",file_name="Visites",dir="Pages", SubMenuList=null},
 
                     // Ophtalmologue
-                    new MenuItemsData(){ PathData= (PathGeometry)dict["icon_settings"], MenuText="Ophtalmologues",file_name="Ophtalmologues",dir="Pages", SubMenuList=null},
+                    new MenuItemsData(){ icon="DoorOpenLine", MenuText="Ophtalmologues",file_name="Ophtalmologues",dir="Pages", SubMenuList=null},
 
                     // Stock
-                    new MenuItemsData(){ PathData= (PathGeometry)dict["icon_settings"], MenuText="Commandes Fournisseur",file_name="CmdsFournisseur",dir="PagesStock", SubMenuList=null},
+                    new MenuItemsData(){ icon="DoorOpenLine", MenuText="Commandes Fournisseur",file_name="CmdsFournisseur",dir="PagesStock", SubMenuList=null},
+
+                    new MenuItemsData(){ icon="DoorOpenLine", MenuText="Commandes de clients",file_name="CmdsClients",dir="PagesStock", SubMenuList=null},
 
                     // Fournisseurs
-                    new MenuItemsData(){ PathData= (PathGeometry)dict["icon_settings"], MenuText="Fournisseurs",file_name="Fournisseurs",dir="Pages", SubMenuList=null}
+                    new MenuItemsData(){ icon="DoorOpenLine", MenuText="Fournisseurs",file_name="Fournisseurs",dir="PagesStock", SubMenuList=null}
 
                                      
                     /*
@@ -55,7 +57,7 @@ namespace MenuWithSubMenu
     public class MenuItemsData
     {
         //Icon Data
-        public PathGeometry PathData { get; set; }
+        public string icon { get; set; }
         public string MenuText { get; set; }
         public string dir { get; set; }
         public string file_name { get; set; }
@@ -66,7 +68,7 @@ namespace MenuWithSubMenu
             Command = new CommandViewModel(Execute);
 
             // active page by default
-            navigateToPage("Acceuil","Pages");
+            navigateToPage("Acceuil", "Pages");
         }
 
         public ICommand Command { get; }

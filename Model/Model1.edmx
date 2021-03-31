@@ -54,7 +54,7 @@
           <Key>
             <PropertyRef Name="idCmdClient" />
           </Key>
-          <Property Name="idCmdClient" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="idCmdClient" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DateCmd" Type="date" Nullable="false" />
           <Property Name="client_cin" Type="nvarchar" MaxLength="10" Nullable="false" />
         </EntityType>
@@ -156,7 +156,7 @@
           </Key>
           <Property Name="idLigne" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idArticle" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="idCmdClient" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="idCmdClient" Type="int" Nullable="false" />
           <Property Name="Date_Commande" Type="date" Nullable="false" />
           <Property Name="Adresse_Commande" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="Qte_Commande" Type="int" Nullable="false" />
@@ -190,7 +190,7 @@
           <Key>
             <PropertyRef Name="id_reference" />
           </Key>
-          <Property Name="id_reference" Type="int" Nullable="false" />
+          <Property Name="id_reference" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_article" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="traitement">
@@ -817,7 +817,7 @@
           <Key>
             <PropertyRef Name="idCmdClient" />
           </Key>
-          <Property Name="idCmdClient" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="idCmdClient" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DateCmd" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="client_cin" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="client" Relationship="Self.cmdclient_fk_cmdclient_client1" FromRole="cmdclient" ToRole="client" />
@@ -942,7 +942,7 @@
           </Key>
           <Property Name="idLigne" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idArticle" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="idCmdClient" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="idCmdClient" Type="Int32" Nullable="false" />
           <Property Name="Date_Commande" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Adresse_Commande" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Qte_Commande" Type="Int32" Nullable="false" />
@@ -981,7 +981,7 @@
           <Key>
             <PropertyRef Name="id_reference" />
           </Key>
-          <Property Name="id_reference" Type="Int32" Nullable="false" />
+          <Property Name="id_reference" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_article" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="article" Relationship="Self.FK_reference_article" FromRole="reference" ToRole="article" />
         </EntityType>
@@ -1866,7 +1866,7 @@
         <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

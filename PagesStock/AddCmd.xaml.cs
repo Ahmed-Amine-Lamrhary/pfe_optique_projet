@@ -92,18 +92,16 @@ namespace MenuWithSubMenu.PagesStock
                 db.SaveChanges();
 
                 
-                string refer = null;
+                string reference = null;
                 foreach (AddLigneCmdFournisseur ligne in lignesCmd)
                 {
-
-
-
                     article article = null;
+                    
+                    // new reference
                     if (ligne.newRefText.Visibility == Visibility.Visible)
                     {
-                        refer = ligne.newRefText.Text;
+                        reference = ligne.newRefText.Text;
                         
-                           
                         article = new article()
                         {
                             idCategorie = (int)ligne.categorie.SelectedValue,
@@ -111,280 +109,276 @@ namespace MenuWithSubMenu.PagesStock
                             PrixUnitaire = int.Parse(ligne.prixText.Text),
                             Garantie = ligne.garantieText.Text,
                             Description = ligne.descText.Text,
-                            idArticle = refer,
+                            idArticle = reference,
                         };
                         db.articles.Add(article);
                         db.SaveChanges();
-                    }
-                    else
-                    {
-                        refer = (string)ligne.referenceText.SelectedValue;
-                        article = db.articles.Where(a => a.idArticle == refer).Single();
-                    }
 
+                        int selectedIemValue = (int)ligne.categorie.SelectedValue;
 
-                    // if article is new
-                    int selectedIemValue = (int)ligne.categorie.SelectedValue;
-                    switch (selectedIemValue)
-                    {
-                        //Verre
-                        case 1:
-
-                            verre new_verre = new verre()
-                            {
-                                idTypeVerre = (int)ligne.typeVerresText.SelectedValue,
-                                idArticle = article.idArticle,
-                                Teinte = ligne.teintText.Text
-                            };
-                            db.verres.Add(new_verre);
-                            db.SaveChanges();
-                            //vision :
-                            //Vision Loin & gauche:
-
-                            vision vision_Loins_gauche = new vision()
-                            {
-                                add = float.Parse(ligne.og_add_loin_verre.Text),
-                                cyl = float.Parse(ligne.og_cyl_loin_verre.Text),
-                                axe = float.Parse(ligne.og_axe_loin_verre.Text),
-                                sph = float.Parse(ligne.og_sph_loin_verre.Text),
-                                gauche = true,
-                                loin = true,
-                                ecart = float.Parse(ligne.ecartLoinText_verre.Text),
-                                hauteur = float.Parse(ligne.hauteurLoinText_verre.Text),
-                                verre_idVerre = new_verre.idVerre,
-                            };
-
-                            db.visions.Add(vision_Loins_gauche);
-                            db.SaveChanges();
-
-                            //Vision Loin & droit:
-
-                            vision vision_Loins_droit = new vision()
-                            {
-                                add = float.Parse(ligne.od_add_loin_verre.Text),
-                                cyl = float.Parse(ligne.od_cyl_loin_verre.Text),
-                                axe = float.Parse(ligne.od_axe_loin_verre.Text),
-                                sph = float.Parse(ligne.od_sph_loin_verre.Text),
-                                gauche = false,
-                                loin = true,
-                                ecart = float.Parse(ligne.ecartLoinText_verre.Text),
-                                hauteur = float.Parse(ligne.hauteurLoinText_verre.Text),
-                                verre_idVerre = new_verre.idVerre,
-                            };
-
-                            db.visions.Add(vision_Loins_droit);
-                            db.SaveChanges();
-
-                            //Vision pres & droit:
-
-                            vision vision_pres_droit = new vision()
-                            {
-                                add = float.Parse(ligne.od_add_pres_verre.Text),
-                                cyl = float.Parse(ligne.od_cyl_pres_verre.Text),
-                                axe = float.Parse(ligne.od_axe_pres_verre.Text),
-                                sph = float.Parse(ligne.od_sph_pres_verre.Text),
-                                gauche = false,
-                                loin = false,
-                                ecart = float.Parse(ligne.ecartPresText_verre.Text),
-                                hauteur = float.Parse(ligne.hauteurPresText_verre.Text),
-                                verre_idVerre = new_verre.idVerre,
-                            };
-
-                            db.visions.Add(vision_pres_droit);
-                            db.SaveChanges();
-
-                            //Vision pres & gauche:
-
-                            vision vision_pres_gauche = new vision()
-                            {
-                                add = float.Parse(ligne.og_add_pres_verre.Text),
-                                cyl = float.Parse(ligne.og_cyl_pres_verre.Text),
-                                axe = float.Parse(ligne.og_axe_pres_verre.Text),
-                                sph = float.Parse(ligne.og_sph_pres_verre.Text),
-                                gauche = true,
-                                loin = false,
-                                ecart = float.Parse(ligne.ecartPresText_verre.Text),
-                                hauteur = float.Parse(ligne.hauteurPresText_verre.Text),
-                                verre_idVerre = new_verre.idVerre,
-                            };
-
-                            db.visions.Add(vision_pres_gauche);
-                            db.SaveChanges();
-                           
-                            foreach (traitement t in ligne.get_traitements())
-                            {
-                                ligne_traitement_verre new_ligne_traitement = new ligne_traitement_verre()
+                        switch (selectedIemValue)
+                        {
+                            //Verre
+                            case 1:
+                                verre new_verre = new verre()
                                 {
-                                    verre_idVerre = new_verre.idVerre,
-                                    traitement_idTraitement = t.idTraitement,
+                                    idTypeVerre = (int)ligne.typeVerresText.SelectedValue,
+                                    idArticle = article.idArticle,
+                                    Teinte = ligne.teintText.Text
                                 };
-                                db.ligne_traitement_verre.Add(new_ligne_traitement);
+                                db.verres.Add(new_verre);
                                 db.SaveChanges();
-                            }
-                            
-                            break;
-                        //Lentille
-                        case 2:
+                                //vision :
+                                //Vision Loin & gauche:
 
-                            ligne_type_lentille newlignetypelentille = new ligne_type_lentille() { };
-                            db.ligne_type_lentille.Add(newlignetypelentille);
-                            db.SaveChanges();
-
-                            lentille new_lentille = new lentille()
-                            {
-                                idArticle = article.idArticle,
-                                Couleur = ligne.couleurLentille.Text,
-                                idtype_lentille = (int)ligne.typeLentilleText.SelectedValue,
-                                idLigneType = newlignetypelentille.idTypeLentille,
-                            };
-                            db.lentilles.Add(new_lentille);
-                            db.SaveChanges();
-
-                            //vision :
-                            //Vision Loin & gauche:
-
-                            vision vision_Loins_gauche_lentille = new vision()
-                            {
-                                add = float.Parse(ligne.og_add_loin_lentille.Text),
-                                cyl = float.Parse(ligne.og_cyl_loin_lentille.Text),
-                                axe = float.Parse(ligne.og_axe_loin_lentille.Text),
-                                sph = float.Parse(ligne.og_sph_loin_lentille.Text),
-                                gauche = true,
-                                loin = true,
-                                ecart = float.Parse(ligne.ecartLoinText_verre.Text),
-                                hauteur = float.Parse(ligne.hauteurLoinText_verre.Text),
-                                lentille_idLentille = new_lentille.idLentille,
-                            };
-
-                            db.visions.Add(vision_Loins_gauche_lentille);
-                            db.SaveChanges();
-
-                            //Vision Loin & droit:
-
-                            vision vision_Loins_droit_lentille = new vision()
-                            {
-                                add = float.Parse(ligne.od_add_loin_lentille.Text),
-                                cyl = float.Parse(ligne.od_cyl_loin_lentille.Text),
-                                axe = float.Parse(ligne.od_axe_loin_lentille.Text),
-                                sph = float.Parse(ligne.od_sph_loin_lentille.Text),
-                                gauche = false,
-                                loin = true,
-                                ecart = float.Parse(ligne.ecartLoinText_lentille.Text),
-                                hauteur = float.Parse(ligne.hauteurLoinText_lentille.Text),
-                                lentille_idLentille = new_lentille.idLentille,
-                            };
-
-                            db.visions.Add(vision_Loins_droit_lentille);
-                            db.SaveChanges();
-
-                            //Vision pres & droit:
-
-                            vision vision_pres_droit_lentille = new vision()
-                            {
-                                add = float.Parse(ligne.od_add_pres_lentille.Text),
-                                cyl = float.Parse(ligne.od_cyl_pres_lentille.Text),
-                                axe = float.Parse(ligne.od_axe_pres_lentille.Text),
-                                sph = float.Parse(ligne.od_sph_pres_lentille.Text),
-                                gauche = false,
-                                loin = false,
-                                ecart = float.Parse(ligne.ecartPresText_lentille.Text),
-                                hauteur = float.Parse(ligne.hauteurPresText_lentille.Text),
-                                lentille_idLentille = new_lentille.idLentille,
-                            };
-
-                            db.visions.Add(vision_pres_droit_lentille);
-                            db.SaveChanges();
-
-                            //Vision pres & gauche:
-
-                            vision vision_pres_gauche_lentille = new vision()
-                            {
-                                add = float.Parse(ligne.og_add_pres_lentille.Text),
-                                cyl = float.Parse(ligne.og_cyl_pres_lentille.Text),
-                                axe = float.Parse(ligne.og_axe_pres_lentille.Text),
-                                sph = float.Parse(ligne.og_sph_pres_lentille.Text),
-                                gauche = true,
-                                loin = false,
-                                ecart = float.Parse(ligne.ecartPresText_lentille.Text),
-                                hauteur = float.Parse(ligne.hauteurPresText_lentille.Text),
-                                lentille_idLentille = new_lentille.idLentille,
-                            };
-
-                            db.visions.Add(vision_pres_gauche_lentille);
-                            db.SaveChanges();
-                            //TypeLentille :
-                            
-                            switch ((int)ligne.typeLentilleText.SelectedValue)
-                            {
-                                //Lentille Torique
-                                case 1:
-                                    lentilletorique newLentilleTorique = new lentilletorique() {
-                                        idTypeLentille = newlignetypelentille.idTypeLentille
-                                    };
-                                    db.lentilletoriques.Add(newLentilleTorique);
-                                    break;
-                                //Lentille MultiFocale
-                                case 2:
-                                    lentillemultifocale newLentilleMulti = new lentillemultifocale()
-                                    {
-                                        DOM = float.Parse(ligne.domText.Text),
-                                        idTypeLentille = newlignetypelentille.idTypeLentille
-                                    };
-                                    db.lentillemultifocales.Add(newLentilleMulti);
-                                    break;
-                                //Lentille Spherique
-                                case 3:
-                                    lentillespherique newLentilleSph = new lentillespherique()
-                                    {
-                                        DIA = float.Parse(ligne.diaText.Text),
-                                        RC = float.Parse(ligne.rcText.Text),
-                                        idTypeLentille = newlignetypelentille.idTypeLentille
-                                    };
-                                    db.lentillespheriques.Add(newLentilleSph);
-                                    break;
-                            }
-                            db.SaveChanges();
-
-                            foreach (traitement t in ligne.get_traitements())
-                            {
-                                try
+                                vision vision_Loins_gauche = new vision()
                                 {
-                                    ligne_traitement_lentille new_ligne_traitement = new ligne_traitement_lentille()
-                                    {
-                                        lentille_idLentille = new_lentille.idLentille,
-                                        traitement_idTraitement = t.idTraitement
-                                    };
+                                    add = float.Parse(ligne.og_add_loin_verre.Text),
+                                    cyl = float.Parse(ligne.og_cyl_loin_verre.Text),
+                                    axe = float.Parse(ligne.og_axe_loin_verre.Text),
+                                    sph = float.Parse(ligne.og_sph_loin_verre.Text),
+                                    gauche = true,
+                                    loin = true,
+                                    ecart = float.Parse(ligne.ecartLoinText_verre.Text),
+                                    hauteur = float.Parse(ligne.hauteurLoinText_verre.Text),
+                                    verre_idVerre = new_verre.idVerre,
+                                };
 
-                                    db.ligne_traitement_lentille.Add(new_ligne_traitement);
+                                db.visions.Add(vision_Loins_gauche);
+                                db.SaveChanges();
+
+                                //Vision Loin & droit:
+
+                                vision vision_Loins_droit = new vision()
+                                {
+                                    add = float.Parse(ligne.od_add_loin_verre.Text),
+                                    cyl = float.Parse(ligne.od_cyl_loin_verre.Text),
+                                    axe = float.Parse(ligne.od_axe_loin_verre.Text),
+                                    sph = float.Parse(ligne.od_sph_loin_verre.Text),
+                                    gauche = false,
+                                    loin = true,
+                                    ecart = float.Parse(ligne.ecartLoinText_verre.Text),
+                                    hauteur = float.Parse(ligne.hauteurLoinText_verre.Text),
+                                    verre_idVerre = new_verre.idVerre,
+                                };
+
+                                db.visions.Add(vision_Loins_droit);
+                                db.SaveChanges();
+
+                                //Vision pres & droit:
+
+                                vision vision_pres_droit = new vision()
+                                {
+                                    add = float.Parse(ligne.od_add_pres_verre.Text),
+                                    cyl = float.Parse(ligne.od_cyl_pres_verre.Text),
+                                    axe = float.Parse(ligne.od_axe_pres_verre.Text),
+                                    sph = float.Parse(ligne.od_sph_pres_verre.Text),
+                                    gauche = false,
+                                    loin = false,
+                                    ecart = float.Parse(ligne.ecartPresText_verre.Text),
+                                    hauteur = float.Parse(ligne.hauteurPresText_verre.Text),
+                                    verre_idVerre = new_verre.idVerre,
+                                };
+
+                                db.visions.Add(vision_pres_droit);
+                                db.SaveChanges();
+
+                                //Vision pres & gauche:
+
+                                vision vision_pres_gauche = new vision()
+                                {
+                                    add = float.Parse(ligne.og_add_pres_verre.Text),
+                                    cyl = float.Parse(ligne.og_cyl_pres_verre.Text),
+                                    axe = float.Parse(ligne.og_axe_pres_verre.Text),
+                                    sph = float.Parse(ligne.og_sph_pres_verre.Text),
+                                    gauche = true,
+                                    loin = false,
+                                    ecart = float.Parse(ligne.ecartPresText_verre.Text),
+                                    hauteur = float.Parse(ligne.hauteurPresText_verre.Text),
+                                    verre_idVerre = new_verre.idVerre,
+                                };
+
+                                db.visions.Add(vision_pres_gauche);
+                                db.SaveChanges();
+
+                                foreach (traitement t in ligne.get_traitements())
+                                {
+                                    ligne_traitement_verre new_ligne_traitement = new ligne_traitement_verre()
+                                    {
+                                        verre_idVerre = new_verre.idVerre,
+                                        traitement_idTraitement = t.idTraitement,
+                                    };
+                                    db.ligne_traitement_verre.Add(new_ligne_traitement);
                                     db.SaveChanges();
                                 }
-                                catch(Exception ex)
+
+                                break;
+                            //Lentille
+                            case 2:
+
+                                ligne_type_lentille newlignetypelentille = new ligne_type_lentille() { };
+                                db.ligne_type_lentille.Add(newlignetypelentille);
+                                db.SaveChanges();
+
+                                lentille new_lentille = new lentille()
                                 {
-                                    MessageBox.Show(ex.ToString());
+                                    idArticle = article.idArticle,
+                                    Couleur = ligne.couleurLentille.Text,
+                                    idtype_lentille = (int)ligne.typeLentilleText.SelectedValue,
+                                    idLigneType = newlignetypelentille.idTypeLentille,
+                                };
+                                db.lentilles.Add(new_lentille);
+                                db.SaveChanges();
+
+                                //vision :
+                                //Vision Loin & gauche:
+
+                                vision vision_Loins_gauche_lentille = new vision()
+                                {
+                                    add = float.Parse(ligne.og_add_loin_lentille.Text),
+                                    cyl = float.Parse(ligne.og_cyl_loin_lentille.Text),
+                                    axe = float.Parse(ligne.og_axe_loin_lentille.Text),
+                                    sph = float.Parse(ligne.og_sph_loin_lentille.Text),
+                                    gauche = true,
+                                    loin = true,
+                                    ecart = float.Parse(ligne.ecartLoinText_verre.Text),
+                                    hauteur = float.Parse(ligne.hauteurLoinText_verre.Text),
+                                    lentille_idLentille = new_lentille.idLentille,
+                                };
+
+                                db.visions.Add(vision_Loins_gauche_lentille);
+                                db.SaveChanges();
+
+                                //Vision Loin & droit:
+
+                                vision vision_Loins_droit_lentille = new vision()
+                                {
+                                    add = float.Parse(ligne.od_add_loin_lentille.Text),
+                                    cyl = float.Parse(ligne.od_cyl_loin_lentille.Text),
+                                    axe = float.Parse(ligne.od_axe_loin_lentille.Text),
+                                    sph = float.Parse(ligne.od_sph_loin_lentille.Text),
+                                    gauche = false,
+                                    loin = true,
+                                    ecart = float.Parse(ligne.ecartLoinText_lentille.Text),
+                                    hauteur = float.Parse(ligne.hauteurLoinText_lentille.Text),
+                                    lentille_idLentille = new_lentille.idLentille,
+                                };
+
+                                db.visions.Add(vision_Loins_droit_lentille);
+                                db.SaveChanges();
+
+                                //Vision pres & droit:
+
+                                vision vision_pres_droit_lentille = new vision()
+                                {
+                                    add = float.Parse(ligne.od_add_pres_lentille.Text),
+                                    cyl = float.Parse(ligne.od_cyl_pres_lentille.Text),
+                                    axe = float.Parse(ligne.od_axe_pres_lentille.Text),
+                                    sph = float.Parse(ligne.od_sph_pres_lentille.Text),
+                                    gauche = false,
+                                    loin = false,
+                                    ecart = float.Parse(ligne.ecartPresText_lentille.Text),
+                                    hauteur = float.Parse(ligne.hauteurPresText_lentille.Text),
+                                    lentille_idLentille = new_lentille.idLentille,
+                                };
+
+                                db.visions.Add(vision_pres_droit_lentille);
+                                db.SaveChanges();
+
+                                //Vision pres & gauche:
+
+                                vision vision_pres_gauche_lentille = new vision()
+                                {
+                                    add = float.Parse(ligne.og_add_pres_lentille.Text),
+                                    cyl = float.Parse(ligne.og_cyl_pres_lentille.Text),
+                                    axe = float.Parse(ligne.og_axe_pres_lentille.Text),
+                                    sph = float.Parse(ligne.og_sph_pres_lentille.Text),
+                                    gauche = true,
+                                    loin = false,
+                                    ecart = float.Parse(ligne.ecartPresText_lentille.Text),
+                                    hauteur = float.Parse(ligne.hauteurPresText_lentille.Text),
+                                    lentille_idLentille = new_lentille.idLentille,
+                                };
+
+                                db.visions.Add(vision_pres_gauche_lentille);
+                                db.SaveChanges();
+                                //TypeLentille :
+
+                                switch ((int)ligne.typeLentilleText.SelectedValue)
+                                {
+                                    //Lentille Torique
+                                    case 1:
+                                        lentilletorique newLentilleTorique = new lentilletorique()
+                                        {
+                                            idTypeLentille = newlignetypelentille.idTypeLentille
+                                        };
+                                        db.lentilletoriques.Add(newLentilleTorique);
+                                        break;
+                                    //Lentille MultiFocale
+                                    case 2:
+                                        lentillemultifocale newLentilleMulti = new lentillemultifocale()
+                                        {
+                                            DOM = float.Parse(ligne.domText.Text),
+                                            idTypeLentille = newlignetypelentille.idTypeLentille
+                                        };
+                                        db.lentillemultifocales.Add(newLentilleMulti);
+                                        break;
+                                    //Lentille Spherique
+                                    case 3:
+                                        lentillespherique newLentilleSph = new lentillespherique()
+                                        {
+                                            DIA = float.Parse(ligne.diaText.Text),
+                                            RC = float.Parse(ligne.rcText.Text),
+                                            idTypeLentille = newlignetypelentille.idTypeLentille
+                                        };
+                                        db.lentillespheriques.Add(newLentilleSph);
+                                        break;
                                 }
-                                
-                            }
-                            break;
-                         //Cadre
-                        case 3:
-                            cadre new_cadre = new cadre()
-                            {
-                                DiametreVerre = int.Parse(ligne.diametreText.Text),
-                                HauteurVerre = int.Parse(ligne.hautteur_verre_text.Text),
-                                LongeurBrache = int.Parse(ligne.langeur_brance_text.Text),
-                                Pont = int.Parse(ligne.pontText.Text),
-                                Largeur = int.Parse(ligne.largeurText.Text),
-                                idArticle = article.idArticle,
-                                Couleur = ligne.couleurText.Text
-                            };
-                            db.cadres.Add(new_cadre);
-                            db.SaveChanges();
-                            break;
+                                db.SaveChanges();
+
+                                foreach (traitement t in ligne.get_traitements())
+                                {
+                                    try
+                                    {
+                                        ligne_traitement_lentille new_ligne_traitement = new ligne_traitement_lentille()
+                                        {
+                                            lentille_idLentille = new_lentille.idLentille,
+                                            traitement_idTraitement = t.idTraitement
+                                        };
+
+                                        db.ligne_traitement_lentille.Add(new_ligne_traitement);
+                                        db.SaveChanges();
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        MessageBox.Show(ex.ToString());
+                                    }
+
+                                }
+                                break;
+                            //Cadre
+                            case 3:
+                                cadre new_cadre = new cadre()
+                                {
+                                    DiametreVerre = int.Parse(ligne.diametreText.Text),
+                                    HauteurVerre = int.Parse(ligne.hautteur_verre_text.Text),
+                                    LongeurBrache = int.Parse(ligne.langeur_brance_text.Text),
+                                    Pont = int.Parse(ligne.pontText.Text),
+                                    Largeur = int.Parse(ligne.largeurText.Text),
+                                    idArticle = article.idArticle,
+                                    Couleur = ligne.couleurText.Text
+                                };
+                                db.cadres.Add(new_cadre);
+                                db.SaveChanges();
+                                break;
+                        }
                     }
-                    
-
-                    // if article is already in stock
-
+                    // refrence already in database
+                    else
+                    {
+                        reference = (string)ligne.referenceText.SelectedValue;
+                        article = db.articles.Where(a => a.idArticle == reference).Single();
+                    }
 
                     // create ligne de commande
                     db.lignecommandes.Add(new lignecommande()
@@ -398,9 +392,8 @@ namespace MenuWithSubMenu.PagesStock
                         EtatCmd = "En-Cours"
                     });
                     db.SaveChanges();
-
-                    
                 }
+
                 transaction.Commit();
                 MessageBox.Show("Votre Commande a été bien ajouté");
                 MyContext.navigateTo(new CmdsFournisseur());
