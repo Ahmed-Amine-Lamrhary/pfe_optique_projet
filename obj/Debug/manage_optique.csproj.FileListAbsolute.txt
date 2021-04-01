@@ -354,3 +354,5 @@ G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.WeatherIc
 G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Zondicons.pdb
 G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Zondicons.xml
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\GeneratedInternalTypeHelper.g.cs
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\SplashScreen.g.cs
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\SplashScreen.baml

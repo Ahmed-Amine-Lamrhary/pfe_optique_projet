@@ -1,0 +1,19 @@
+﻿<Window x:Class="MenuWithSubMenu.SplashScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MenuWithSubMenu"
+        mc:Ignorable="d"
+        Title="SplashScreen" Height="300" Width="450"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        Background="#e8ebee"
+        >
+    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Image Width="160" 
+                       Source="Assets/images/logo.png"
+                       RenderOptions.BitmapScalingMode="HighQuality"
+                       />
+    </StackPanel>
+</Window>

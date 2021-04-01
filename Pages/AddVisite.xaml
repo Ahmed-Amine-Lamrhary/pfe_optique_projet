@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:MenuWithSubMenu.Pages"
       mc:Ignorable="d" d:DesignWidth="800"
       Title="AddVisite"
-      Background="White" Height="696">
+      Height="696">
 
     <Grid>
         <StackPanel>

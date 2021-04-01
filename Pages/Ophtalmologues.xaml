@@ -7,8 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       xmlns:hc="https://handyorg.github.io/handycontrol"
-      Title="Inbox"
-      Background="White"
+      Title="Ophtalmologues"
       >
     <Grid x:Name="grid_AssetView"  VerticalAlignment="Top">
         <Border 

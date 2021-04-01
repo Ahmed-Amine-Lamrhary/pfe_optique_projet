@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:MenuWithSubMenu.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Mails">
+      Title="Fournisseurs">
 
     <Grid>
         <TextBlock FontSize="30" Text="This is Mails" HorizontalAlignment="Center" VerticalAlignment="Center"/>

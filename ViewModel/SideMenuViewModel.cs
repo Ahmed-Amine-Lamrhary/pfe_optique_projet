@@ -15,42 +15,51 @@ namespace MenuWithSubMenu
         ResourceDictionary dict = Application.LoadComponent(new Uri("/MenuWithSubMenu;component/Assets/IconDictionary.xaml", UriKind.RelativeOrAbsolute)) as ResourceDictionary;
 
         //Our Source List for Menu Items
-        public List<MenuItemsData> MenuList
+        public List<MenuItemsData> OtherMenuList
         {
             get
             {
                 return new List<MenuItemsData>
                 {
                     // Acceuil
-                    new MenuItemsData(){ icon="Home5Line", MenuText="Acceuil",file_name="Acceuil",dir="Pages", SubMenuList=null},
-                    
+                    new MenuItemsData(){ icon="Home5Line", MenuText="Acceuil",file_name="Acceuil",dir="Pages", SubMenuList=null}                    
+                };
+            }
+        }
+
+        public List<MenuItemsData> ClienteleMenuList
+        {
+            get
+            {
+                return new List<MenuItemsData>
+                {
                     // Client
-                    new MenuItemsData(){ icon="DoorOpenLine", MenuText="Espace Client",file_name="EspaceClient",dir="Pages", SubMenuList=null},
+                    new MenuItemsData(){ icon="User4Line", MenuText="Espace Client",file_name="EspaceClient",dir="Pages", SubMenuList=null},
                     
                     // Visite
                     new MenuItemsData(){ icon="DoorOpenLine", MenuText="Visites",file_name="Visites",dir="Pages", SubMenuList=null},
 
                     // Ophtalmologue
-                    new MenuItemsData(){ icon="DoorOpenLine", MenuText="Ophtalmologues",file_name="Ophtalmologues",dir="Pages", SubMenuList=null},
-
-                    // Stock
-                    new MenuItemsData(){ icon="DoorOpenLine", MenuText="Commandes Fournisseur",file_name="CmdsFournisseur",dir="PagesStock", SubMenuList=null},
-
-                    new MenuItemsData(){ icon="DoorOpenLine", MenuText="Commandes de clients",file_name="CmdsClients",dir="PagesStock", SubMenuList=null},
-
-                    // Fournisseurs
-                    new MenuItemsData(){ icon="DoorOpenLine", MenuText="Fournisseurs",file_name="Fournisseurs",dir="PagesStock", SubMenuList=null}
-
-                                     
-                    /*
-                    new MenuItemsData(){ PathData= (PathGeometry)dict["icon_users"], MenuText="Espace Client"
-                    
-                    , SubMenuList=new List<SubMenuItemsData>{
-                    new SubMenuItemsData(){ PathData=(PathGeometry)dict["icon_adduser"], SubMenuText="Ajouter Client" },
-                    new SubMenuItemsData(){ PathData=(PathGeometry)dict["icon_alluser"], SubMenuText="ClientArea" }}
-                    },*/
+                    new MenuItemsData(){ icon="EyeLine", MenuText="Ophtalmologues",file_name="Ophtalmologues",dir="Pages", SubMenuList=null},
                 };
             }   
+        }
+
+        public List<MenuItemsData> StockMenuList
+        {
+            get
+            {
+                return new List<MenuItemsData>
+                {
+                    // Stock
+                    new MenuItemsData(){ icon="FolderLine", MenuText="Commandes Fournisseur",file_name="CmdsFournisseur",dir="PagesStock", SubMenuList=null},
+
+                    new MenuItemsData(){ icon="BillLine", MenuText="Commandes de clients",file_name="CmdsClients",dir="PagesStock", SubMenuList=null},
+
+                    // Fournisseurs
+                    new MenuItemsData(){ icon="TruckLine", MenuText="Fournisseurs",file_name="Fournisseurs",dir="PagesStock", SubMenuList=null}
+                };
+            }
         }
     }
 

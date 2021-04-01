@@ -38,105 +38,11 @@
         </Grid.ColumnDefinitions>
         
         <!-- Sidebar -->
-        
-        <!--
-        <StackPanel Background="#e8ebee">
-            <StackPanel HorizontalAlignment="Center" Margin="10 30 0 20">
-                <Image Width="80" 
-                       Source="Assets/images/logo.png"
-                       RenderOptions.BitmapScalingMode="HighQuality"
-                       />
-            </StackPanel>
-
-            <StackPanel>
-                <TextBlock Text="CLIENTELE" Margin="10" Style="{StaticResource TitleStyle}" />
-
-                <ListView Padding="0" Style="{StaticResource BaseStyle}" Background="Transparent" BorderThickness="0">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="FontSize" Value="13" />
-                            <Setter Property="FontWeight" Value="DemiBold" />
-                            <Setter Property="Cursor" Value="Hand" />
-                            <Setter Property="Padding" Value="20 15 20 15" />
-                            <Setter Property="BorderThickness" Value="0"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#ebeef0" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                    <ListViewItem>
-                        <TextBlock>
-                            <iconPacks:PackIconRemixIcon Kind="User4Line" Style="{StaticResource IconStyle}" />
-                            Clients
-                        </TextBlock>
-                    </ListViewItem>
-                    <ListViewItem>
-                        <TextBlock>
-                            <iconPacks:PackIconRemixIcon Kind="FileLine" Style="{StaticResource IconStyle}" /> Ordonnances
-                        </TextBlock>
-                    </ListViewItem>
-                    <ListViewItem>
-                        <TextBlock>
-                            <iconPacks:PackIconRemixIcon Kind="DoorOpenLine" Style="{StaticResource IconStyle}" /> Visites
-                        </TextBlock>
-                    </ListViewItem>
-                </ListView>
-            </StackPanel>
-
-            <StackPanel Margin="0 15 0 0">
-                <TextBlock Text="STOCK" Margin="10" Style="{StaticResource TitleStyle}" />
-
-                <ListView Padding="0" Style="{StaticResource BaseStyle}" Background="Transparent" BorderThickness="0">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="FontSize" Value="13" />
-                            <Setter Property="FontWeight" Value="DemiBold" />
-                            <Setter Property="Cursor" Value="Hand" />
-                            <Setter Property="Padding" Value="20 15 20 15" />
-                            <Setter Property="BorderThickness" Value="0"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#ebeef0" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                    <ListViewItem>
-                        <TextBlock>
-                            <iconPacks:PackIconRemixIcon Kind="ArchiveLine" Style="{StaticResource IconStyle}" />
-                            Commandes de clients
-                        </TextBlock>
-                    </ListViewItem>
-                    <ListViewItem>
-                        <TextBlock>
-                            <iconPacks:PackIconRemixIcon Kind="TruckLine" Style="{StaticResource IconStyle}" />
-                            Fournisseurs
-                        </TextBlock>
-                    </ListViewItem>
-                    <ListViewItem>
-                        <TextBlock>
-                            <iconPacks:PackIconRemixIcon Kind="CameraLensLine" Style="{StaticResource IconStyle}" />
-                            Articles
-                        </TextBlock>
-                    </ListViewItem>
-                    <ListViewItem>
-                        <TextBlock>
-                            <iconPacks:PackIconRemixIcon Kind="BillLine" Style="{StaticResource IconStyle}" />
-                            Factures
-                        </TextBlock>
-                    </ListViewItem>
-                </ListView>
-            </StackPanel>
-
-        </StackPanel>
-        -->
-
-
-        <customcontrol:MenuWithSubMenuControl HasIcon="True" SubMenuPadding="15,0,0,0"/>
+        <customcontrol:MenuWithSubMenuControl HasIcon="True" />
 
         <!-- Pages -->
-        <Frame x:Name="MainWindowFrame" Grid.Column="1" NavigationUIVisibility="Hidden" BorderThickness="0"/>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="1">
+            <Frame x:Name="MainWindowFrame" Margin="25" NavigationUIVisibility="Hidden" BorderThickness="0"/>
+        </ScrollViewer>
     </Grid>
 </Window>

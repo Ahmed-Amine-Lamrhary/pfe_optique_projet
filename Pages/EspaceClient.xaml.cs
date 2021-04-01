@@ -20,9 +20,6 @@ using System.Windows.Shapes;
 
 namespace MenuWithSubMenu.Pages
 {
-    /// <summary>
-    /// Interaction logic for EspaceClient.xaml
-    /// </summary>
     public partial class EspaceClient : Page
     {
         dbEntities db;
@@ -35,32 +32,49 @@ namespace MenuWithSubMenu.Pages
             InitializeComponent();
            
             db = new dbEntities();
+            listClient = new List<client>();
+            pagination.MaxPageCount = 0;
             searchBar.Text = "";
+            
             getClients(0);
         }
 
-        private void getClients(int skip)
+        private async void getClients(int skip)
         {
             loadingBox.Visibility = Visibility.Visible;
-            clientsDataGrid.Visibility = Visibility.Hidden;
+            clientsDataGrid.Visibility = Visibility.Collapsed;
+            nothingBox.Visibility = Visibility.Collapsed;
 
             try
             {
-                listClient = searchBar.Text != "" ? db.clients.Where(c => c.nom.Contains(searchBar.Text) || c.prenom.Contains(searchBar.Text) || c.cin.Contains(searchBar.Text) || c.email.Contains(searchBar.Text)).ToList() :  db.clients.ToList();
+                if (searchBar.Text != "")
+                {
+                    listClient = await db.clients.Where(c => c.nom.Contains(searchBar.Text) || c.prenom.Contains(searchBar.Text) || c.cin.Contains(searchBar.Text) || c.email.Contains(searchBar.Text)).ToListAsync();
+                }
+                else
+                {
+                    listClient = await db.clients.ToListAsync();
+                }
+
+                if (listClient.Count() == 0)
+                {
+                    nothingBox.Visibility = Visibility.Visible;
+                    return;
+                }
 
                 count = (int)Math.Ceiling((decimal)listClient.Count / 10);
                 pagination.MaxPageCount = count;
                 clientsDataGrid.ItemsSource = listClient.Skip(skip).Take(10);
-                
+                clientsDataGrid.Visibility = Visibility.Visible;
             }
             catch (Exception exp)
             {
                 Console.WriteLine(exp.Message);
+                nothingBox.Visibility = Visibility.Visible;
             }
             finally
             {
-                loadingBox.Visibility = Visibility.Hidden;
-                clientsDataGrid.Visibility = Visibility.Visible;
+                loadingBox.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -106,6 +120,7 @@ namespace MenuWithSubMenu.Pages
             UpdateClient update = new UpdateClient(db.clients.Where(client => client.cin == clientCin).SingleOrDefault(), this);
             MyContext.navigateTo(update);
         }
+
         private void deleteClient(object sender, RoutedEventArgs e)
         {
 
@@ -134,6 +149,7 @@ namespace MenuWithSubMenu.Pages
      
             
         }
+        
         private void addClient(object sender, RoutedEventArgs e)
         {
             AddClient add_Client = new AddClient(this);
@@ -149,16 +165,18 @@ namespace MenuWithSubMenu.Pages
             AddVisite addVisite = new AddVisite(clientCin);
             MyContext.navigateTo(addVisite);
         }
+        
         private void page_PageUpdated(object sender, HandyControl.Data.FunctionEventArgs<int> e)
         {
-
             getClients((e.Info-1) * 10);
         }
 
         private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (searchBar.Text != "") cancelFocus.Visibility = Visibility.Visible;
+            else cancelFocus.Visibility = Visibility.Collapsed;
+
             getClients(0);
-            
         }
 
         private void CancelFocus_Click(object sender, RoutedEventArgs e)

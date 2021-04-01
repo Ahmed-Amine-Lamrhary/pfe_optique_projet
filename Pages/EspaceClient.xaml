@@ -7,12 +7,56 @@
       xmlns:hc="https://handyorg.github.io/handycontrol"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="AllUsers">
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      Title="AllUsers"
+      >
 
+    <Page.Resources>
+        <!-- Style of Options buttons -->
+        <Style BasedOn="{StaticResource {x:Type Button}}"
+           TargetType="Button"
+           x:Key="OptionsButtonStyle">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+        <!-- Style of Options buttons Icons -->
+        <Style BasedOn="{StaticResource {x:Type iconPacks:PackIconRemixIcon}}"
+           TargetType="iconPacks:PackIconRemixIcon"
+           x:Key="OptionsButtonIconStyle">
+            <Setter Property="Width" Value="13" />
+            <Setter Property="Height" Value="13" />
+        </Style>
+        <!-- Style of close button icon -->
+        <Style BasedOn="{StaticResource {x:Type iconPacks:PackIconRemixIcon}}"
+           TargetType="iconPacks:PackIconRemixIcon"
+           x:Key="SearchButtonIcon">
+            <Setter Property="Width" Value="10" />
+            <Setter Property="Height" Value="10" />
+            <Setter Property="Foreground" Value="Red" />
+        </Style>
+    </Page.Resources>
 
-    <Grid Margin="10" x:Name="grid_AssetView"  VerticalAlignment="Top">
-        <!--Loading Bar-->
-        <Border Visibility="Hidden"
+    <Grid x:Name="grid_AssetView"  VerticalAlignment="Top">
+        <StackPanel>
+            <!--Tools Bar-->
+            <Border Margin="0 0 0 20" Padding="15" CornerRadius="5" Background="White">
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <hc:SearchBar Grid.Column="0" TextChanged="SearchBar_TextChanged" Name="searchBar" hc:InfoElement.Placeholder="Rechercher..."/>
+                    <Button Margin="5 0 0 0" Cursor="Hand" BorderThickness="0" Background="Transparent" HorizontalAlignment="Left" Grid.Column="1" Name="cancelFocus" Click="CancelFocus_Click" Visibility="Collapsed">
+                        <iconPacks:PackIconRemixIcon Kind="CloseLine" Style="{StaticResource SearchButtonIcon}" />
+                    </Button>
+                    <Button HorizontalAlignment="Right" Grid.Column="2" Background="#55a8fd" Foreground="White" Height="35" Padding="15 0 15 0" Cursor="Hand" BorderThickness="0" Content="Ajouter Client" Click="addClient" />
+                </Grid>
+            </Border>
+
+            <!-- Loading -->
+            <Border Visibility="Collapsed"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:hc="https://handyorg.github.io/handycontrol"
@@ -20,53 +64,74 @@
             Panel.ZIndex="1000"
         Width="400"
         Height="247"
-        Name="loadingBox"
-        Background="{DynamicResource RegionBrush}">
-            <hc:SimplePanel>
-                <TextBlock Style="{StaticResource TextBlockLargeBold}" Text="Please wait..."/>
-            </hc:SimplePanel>
-        </Border>
+        Name="loadingBox">
+                <hc:SimplePanel>
+                    <TextBlock Style="{StaticResource TextBlockLargeBold}" >
+                        <iconPacks:PackIconRemixIcon Spin="True" SpinDuration="1" Kind="Loader4Line" Width="35" Height="35" Foreground="#55a8fd" />
+                    </TextBlock>
+                </hc:SimplePanel>
+            </Border>
 
-        <StackPanel>
-            <!--Tools Bar-->
-            <Grid Margin="15">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <hc:SearchBar Grid.Column="0" TextChanged="SearchBar_TextChanged" Name="searchBar" hc:InfoElement.Placeholder="Rechercher..."/>
-                <Button HorizontalAlignment="Left" Grid.Column="1" Name="cancelFocus" Click="CancelFocus_Click" Content="X"></Button>
-                <Button HorizontalAlignment="Right" Grid.Column="2"  Content="Ajouter Client" Click="addClient"></Button>
-            </Grid>
+            <!-- Nothing found -->
+            <Border Visibility="Collapsed"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        CornerRadius="10"
+            Panel.ZIndex="1000"
+        Width="400"
+        Height="247"
+        Name="nothingBox">
+                <hc:SimplePanel>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <iconPacks:PackIconRemixIcon Kind="FilePaperLine" HorizontalAlignment="Center" Width="65" Height="65" Foreground="#55a8fd" />
+                        <TextBlock Margin="0 15 0 0" Style="{StaticResource TextBlockLargeBold}" Text="Rien n'a été trouvé" />
+                    </StackPanel>
+                </hc:SimplePanel>
+            </Border>
+
             <!--DataGrid-->
-            <DataGrid Visibility="Hidden"  Name="clientsDataGrid" AutoGeneratedColumns="DataGrid_AutoGeneratedColumns">
+            <DataGrid Background="Transparent" Visibility="Hidden"  Name="clientsDataGrid" HeadersVisibility="All" RowHeaderWidth="60" AutoGenerateColumns="False">
+                <DataGrid.RowHeaderTemplate>
+                    <DataTemplate>
+                        <CheckBox IsChecked="{Binding IsSelected,RelativeSource={RelativeSource AncestorType=DataGridRow}}"/>
+                    </DataTemplate>
+                </DataGrid.RowHeaderTemplate>
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn Width="50" Header="Edit">
+                    <DataGridTextColumn Header="CIN" Width="1*" Binding="{Binding cin}"/>
+                    <DataGridTextColumn Header="Prenom" Width="1*" Binding="{Binding prenom}"/>
+                    <DataGridTextColumn Header="Nom" Width="1*" Binding="{Binding nom}"/>
+                    <DataGridTextColumn Header="Adresse" Width="1*" Binding="{Binding adresse}"/>
+                    <DataGridTextColumn Header="Email" Width="1*" Binding="{Binding email}"/>
+                    <DataGridTextColumn Header="Telephone" Width="1*" Binding="{Binding telephone}"/>
+                    <DataGridTextColumn Header="Date de naissance" Width="1*" Binding="{Binding dateNaissance}"/>
+                    
+                    <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-
-                                <MenuItem Click="AddPresetButton_Click" x:Name="AddPresetButton">
-                                    <MenuItem.Icon>
-                                        <TextBlock Text="More" />
-                                    </MenuItem.Icon>
-
-                                    <MenuItem.ContextMenu>
-                                        <ContextMenu>
-                                            <MenuItem Header="Ajouter visite" Click="ajouterVisite"/>
-                                            <MenuItem Header="Voir client" Click="voirClient" />
-                                            <MenuItem Header="Modifier client" Click="updateClient"/>
-                                            <MenuItem Header="Supprimer client" Click="deleteClient"/>
-                                        </ContextMenu>
-                                    </MenuItem.ContextMenu>
-                                </MenuItem>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button ToolTip="Ajouter une visite" Style="{StaticResource OptionsButtonStyle}" Click="ajouterVisite">
+                                        <iconPacks:PackIconRemixIcon Kind="AddCircleLine" Style="{StaticResource OptionsButtonIconStyle}" />
+                                    </Button>
+                                    <Button ToolTip="Voir les informations" Style="{StaticResource OptionsButtonStyle}" Click="voirClient">
+                                        <iconPacks:PackIconRemixIcon Kind="FolderUserLine" Style="{StaticResource OptionsButtonIconStyle}" />
+                                    </Button>
+                                    <Button ToolTip="Modifier les informations" Style="{StaticResource OptionsButtonStyle}" Click="updateClient">
+                                        <iconPacks:PackIconRemixIcon Kind="RecycleLine" Style="{StaticResource OptionsButtonIconStyle}" />
+                                    </Button>
+                                    <Button ToolTip="Supprimer" Style="{StaticResource OptionsButtonStyle}" Click="deleteClient">
+                                        <iconPacks:PackIconRemixIcon Kind="DeleteBinLine" Style="{StaticResource OptionsButtonIconStyle}" />
+                                    </Button>
+                                </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <StackPanel Margin="10" VerticalAlignment="Center">
-                <hc:Pagination PageUpdated="page_PageUpdated" Name="pagination" MaxPageCount="10" PageIndex="1" IsJumpEnabled="True"/>
+
+
+            <StackPanel Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <hc:Pagination PageUpdated="page_PageUpdated" Name="pagination" MaxPageCount="10" PageIndex="1" IsJumpEnabled="False"/>
             </StackPanel>
         </StackPanel>
     </Grid>
