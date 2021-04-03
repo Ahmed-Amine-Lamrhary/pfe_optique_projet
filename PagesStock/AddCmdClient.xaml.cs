@@ -37,14 +37,30 @@ namespace MenuWithSubMenu.PagesStock
             lignesCmd = new BindableCollection<AddLigneCmdClient>();
             this.cmdClient = cmdClient;
 
-            // get lignes
-            List<ligneentree> ligneentree = db.ligneentrees.Where(l => l.idCmdClient == cmdClient.idCmdClient).ToList();
-            foreach(ligneentree ligne in ligneentree)
-            {
-                lignesCmd.Add(new AddLigneCmdClient(this, this, ligne));
-            }
+            lignesCmdBox.Visibility = Visibility.Collapsed;
+            nothingBox.Visibility = Visibility.Collapsed;
+            loadingBox.Visibility = Visibility.Visible;
 
-            lignesCmdBox.ItemsSource = ligneentree;
+            try
+            {
+                // get lignes
+                List<ligneentree> ligneentree = db.ligneentrees.Where(l => l.idCmdClient == cmdClient.idCmdClient).ToList();
+                foreach (ligneentree ligne in ligneentree)
+                {
+                    lignesCmd.Add(new AddLigneCmdClient(this, this, ligne));
+                }
+
+                lignesCmdBox.ItemsSource = ligneentree;
+
+                lignesCmdBox.Visibility = Visibility.Visible;
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                nothingBox.Visibility = Visibility.Visible;
+            } finally
+            {
+                loadingBox.Visibility = Visibility.Collapsed;
+            }
 
             List<client> clients = db.clients.Distinct().ToList();
             selectClient.ItemsSource = clients;
@@ -76,6 +92,8 @@ namespace MenuWithSubMenu.PagesStock
             selectClient.DisplayMemberPath = "nom";
             selectClient.SelectedValuePath = "cin";
 
+            nothingBox.Visibility = Visibility.Visible;
+
             selectClient.SelectedIndex = 0;
         }
 
@@ -90,7 +108,22 @@ namespace MenuWithSubMenu.PagesStock
         {
             lignesCmd.Add(newLigne);
             lignesCmdBox.ItemsSource = lignesCmd;
+            nothingBox.Visibility = Visibility.Collapsed;
+            lignesCmdBox.Visibility = Visibility.Visible;
         }
+
+        public void removeLigneFromList(AddLigneCmdClient ligne)
+        {
+            lignesCmd.Remove(ligne);
+            lignesCmdBox.ItemsSource = lignesCmd;
+
+            if (lignesCmd.Count() == 0)
+            {
+                nothingBox.Visibility = Visibility.Visible;
+                lignesCmdBox.Visibility = Visibility.Collapsed;
+            }
+        }
+
 
         public void updateLigneInList(AddLigneCmdClient ligne)
         {
@@ -157,9 +190,6 @@ namespace MenuWithSubMenu.PagesStock
                         });
                         db.SaveChanges();
 
-                    } else
-                    {
-                        // article is not in stock
                     }
 
                     /*
@@ -535,6 +565,11 @@ namespace MenuWithSubMenu.PagesStock
             {
                 MessageBox.Show("Ligne is completed");
             }
+        }
+
+        private void editLigne(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

@@ -1,36 +1,54 @@
 ﻿using MenuWithSubMenu.Model;
 using MenuWithSubMenu.Utils;
 using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace MenuWithSubMenu.Pages
 {
-    /// <summary>
-    /// Interaction logic for Visite.xaml
-    /// </summary>
     public partial class Visite : Page
     {
+        dbEntities db;
+        List<visite> listVisites;
+
+        int count;
+
         public Visite()
         {
             InitializeComponent();
 
-            // show loading
+            db = new dbEntities();
 
+            getVisites(0);
+        }
 
-            dbEntities db = new dbEntities();
+        private async void getVisites(int skip)
+        {
+            loadingBox.Visibility = Visibility.Visible;
+            visitesDataGrid.Visibility = Visibility.Collapsed;
+            nothingBox.Visibility = Visibility.Collapsed;
+
             try
             {
-                visitesDataGrid.ItemsSource = db.visites.ToList();
+                listVisites = await db.visites.ToListAsync();
+
+                count = (int)Math.Ceiling((decimal)listVisites.Count / 10);
+                pagination.MaxPageCount = count;
+                visitesDataGrid.ItemsSource = listVisites.Skip(skip).Take(10);
+
+                visitesDataGrid.Visibility = Visibility.Visible;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+                nothingBox.Visibility = Visibility.Visible;
             }
             finally
             {
-                // hide loading
+                loadingBox.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -70,6 +88,11 @@ namespace MenuWithSubMenu.Pages
             string clientCin = visiteRow.client_cin;
             ClientProfile clientProfile = new ClientProfile(clientCin, this);
             MyContext.navigateTo(clientProfile);
+        }
+
+        private void pagination_PageUpdated(object sender, HandyControl.Data.FunctionEventArgs<int> e)
+        {
+            getVisites((e.Info - 1) * 10);
         }
     }
 }

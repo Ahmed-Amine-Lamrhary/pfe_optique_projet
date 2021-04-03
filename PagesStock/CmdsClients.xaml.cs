@@ -32,26 +32,27 @@ namespace MenuWithSubMenu.PagesStock
         private async void getCmdClients(int skip)
         {
             loadingBox.Visibility = Visibility.Visible;
-            // cmdClientsDataGrid.Visibility = Visibility.Hidden;
+            cmdClientsDataGrid.Visibility = Visibility.Collapsed;
+            nothingBox.Visibility = Visibility.Collapsed;
 
             try
             {
                 listCmdClients = await db.cmdclients.ToListAsync();
 
                 count = (int)Math.Ceiling((decimal)listCmdClients.Count / 10);
-                // pagination.MaxPageCount = count;
+                pagination.MaxPageCount = count;
                 cmdClientsDataGrid.ItemsSource = listCmdClients.Skip(skip).Take(10);
-                // listCmds.ItemsSource = listCmdClients.Skip(skip).Take(10);
 
+                cmdClientsDataGrid.Visibility = Visibility.Visible;
             }
             catch (Exception exp)
             {
                 Console.WriteLine(exp.Message);
+                nothingBox.Visibility = Visibility.Visible;
             }
             finally
             {
-                loadingBox.Visibility = Visibility.Hidden;
-                cmdClientsDataGrid.Visibility = Visibility.Visible;
+                loadingBox.Visibility = Visibility.Collapsed;
             }
         }
 

@@ -104,7 +104,6 @@
                     <DataGridTextColumn Header="Adresse" Width="1*" Binding="{Binding adresse}"/>
                     <DataGridTextColumn Header="Email" Width="1*" Binding="{Binding email}"/>
                     <DataGridTextColumn Header="Telephone" Width="1*" Binding="{Binding telephone}"/>
-                    <DataGridTextColumn Header="Date de naissance" Width="1*" Binding="{Binding dateNaissance}"/>
                     
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>

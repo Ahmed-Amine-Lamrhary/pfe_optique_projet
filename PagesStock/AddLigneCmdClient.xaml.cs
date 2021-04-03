@@ -402,7 +402,7 @@ namespace MenuWithSubMenu.PagesStock
         // abort ligne
         public void deleteLigne(object sender, RoutedEventArgs e)
         {
-            addCmdPage.lignesCmd.Remove(this);
+            addCmdPage.removeLigneFromList(this);
             MyContext.navigateTo(prevPage);
         }
 

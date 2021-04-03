@@ -162,7 +162,7 @@ namespace MenuWithSubMenu.Pages
             client clientRow = clientsDataGrid.SelectedItem as client;
             string clientCin = clientRow.cin;
 
-            AddVisite addVisite = new AddVisite(clientCin);
+            AddVisite addVisite = new AddVisite(clientCin, this);
             MyContext.navigateTo(addVisite);
         }
         

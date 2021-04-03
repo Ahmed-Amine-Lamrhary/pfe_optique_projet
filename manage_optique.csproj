@@ -282,9 +282,6 @@
     <Compile Include="PagesStock\CmdsFournisseur.xaml.cs">
       <DependentUpon>CmdsFournisseur.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PagesStock\CmdsLigne.xaml.cs">
-      <DependentUpon>CmdsLigne.xaml</DependentUpon>
-    </Compile>
     <Compile Include="PagesStock\FournisseurProfile.xaml.cs">
       <DependentUpon>FournisseurProfile.xaml</DependentUpon>
     </Compile>
@@ -383,10 +380,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PagesStock\CmdsFournisseur.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PagesStock\CmdsLigne.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

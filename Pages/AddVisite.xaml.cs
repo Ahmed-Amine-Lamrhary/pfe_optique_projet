@@ -25,13 +25,15 @@ namespace MenuWithSubMenu.Pages
         private List<vision> listeVision;
         DbContextTransaction transaction;
         private string clientCin;
+        private Page prevPage;
 
-        public AddVisite(string clientCin)
+        public AddVisite(string clientCin, Page prevP)
         {
             InitializeComponent();
             db = new dbEntities();
             listeVision = new List<vision>();
             this.clientCin = clientCin;
+            this.prevPage = prevP;
 
             // get ophtalmologues
             List<ophtalmologue> ophtalmologues = db.ophtalmologues.Distinct().ToList();
@@ -78,14 +80,14 @@ namespace MenuWithSubMenu.Pages
 
                 vision vision_Loins_gauche = new vision()
                 {
-                    add = float.Parse(og_add_loin.Text),
-                    cyl = float.Parse(og_cyl_loin.Text),
-                    axe = float.Parse(og_axe_loin.Text),
-                    sph = float.Parse(og_sph_loin.Text),
+                    add = (float?)og_add_loin.Value,
+                    cyl = (float?)og_cyl_loin.Value,
+                    axe = (float?)og_axe_loin.Value,
+                    sph = (float?)og_sph_loin.Value,
                     gauche = true,
                     loin = true,
-                    ecart = float.Parse(ecartLoinText.Text),
-                    hauteur = float.Parse(hauteurLoinText.Text),
+                    ecart = (float?)ecartLoinText.Value,
+                    hauteur = (float?)hauteurLoinText.Value,
                     visite_id = newVisite.id
                 };
 
@@ -96,14 +98,14 @@ namespace MenuWithSubMenu.Pages
 
                 vision vision_Loins_droit = new vision()
                 {
-                    add = float.Parse(od_add_loin.Text),
-                    cyl = float.Parse(od_cyl_loin.Text),
-                    axe = float.Parse(od_axe_loin.Text),
-                    sph = float.Parse(od_sph_loin.Text),
+                    add = (float?)od_add_loin.Value,
+                    cyl = (float?)od_cyl_loin.Value,
+                    axe = (float?)od_axe_loin.Value,
+                    sph = (float?)od_sph_loin.Value,
                     gauche = false,
                     loin = true,
-                    ecart = float.Parse(ecartLoinText.Text),
-                    hauteur = float.Parse(hauteurLoinText.Text),
+                    ecart = (float?)ecartLoinText.Value,
+                    hauteur = (float?)hauteurLoinText.Value,
                     visite_id = newVisite.id
 
                 };
@@ -115,14 +117,14 @@ namespace MenuWithSubMenu.Pages
 
                 vision vision_pres_droit = new vision()
                 {
-                    add = float.Parse(od_add_pres.Text),
-                    cyl = float.Parse(od_cyl_pres.Text),
-                    axe = float.Parse(od_axe_pres.Text),
-                    sph = float.Parse(od_sph_pres.Text),
+                    add = (float?)od_add_pres.Value,
+                    cyl = (float?)od_cyl_pres.Value,
+                    axe = (float?)od_axe_pres.Value,
+                    sph = (float?)od_sph_pres.Value,
                     gauche = false,
                     loin = false,
-                    ecart = float.Parse(ecartPresText.Text),
-                    hauteur = float.Parse(hauteurPresText.Text),
+                    ecart = (float?)ecartPresText.Value,
+                    hauteur = (float?)hauteurPresText.Value,
                     visite_id = newVisite.id
 
                 };
@@ -134,14 +136,14 @@ namespace MenuWithSubMenu.Pages
 
                 vision vision_pres_gauche = new vision()
                 {
-                    add = float.Parse(og_add_pres.Text),
-                    cyl = float.Parse(og_cyl_pres.Text),
-                    axe = float.Parse(og_axe_pres.Text),
-                    sph = float.Parse(og_sph_pres.Text),
+                    add = (float?)og_add_pres.Value,
+                    cyl = (float?)og_cyl_pres.Value,
+                    axe = (float?)og_axe_pres.Value,
+                    sph = (float?)og_sph_pres.Value,
                     gauche = true,
                     loin = false,
-                    ecart = float.Parse(ecartPresText.Text),
-                    hauteur = float.Parse(hauteurPresText.Text),
+                    ecart = (float?)ecartPresText.Value,
+                    hauteur = (float?)hauteurPresText.Value,
                     visite_id = newVisite.id
 
                 };
@@ -161,7 +163,7 @@ namespace MenuWithSubMenu.Pages
 
         private void ReturnBtn_Click(object sender, RoutedEventArgs e)
         {
-            MyContext.navigateTo(new EspaceClient());
+            MyContext.navigateTo(prevPage);
         }
     }
 }

@@ -21,32 +21,43 @@ namespace MenuWithSubMenu.PagesStock
     public partial class Fournisseurs : Page
     {
         dbEntities db;
+        List<fournisseur> listFournisseurs;
+
+        int count;
+
         public Fournisseurs()
         {
             InitializeComponent();
 
             db = new dbEntities();
 
-            getFournisseurs();
+            getFournisseurs(0);
         }
 
-        private async void getFournisseurs()
+        private async void getFournisseurs(int skip)
         {
             loadingBox.Visibility = Visibility.Visible;
-            fournisseursDataGrid.Visibility = Visibility.Hidden;
+            fournisseursDataGrid.Visibility = Visibility.Collapsed;
+            nothingBox.Visibility = Visibility.Collapsed;
 
             try
             {
-                fournisseursDataGrid.ItemsSource = await db.fournisseurs.ToListAsync();
+                listFournisseurs = await db.fournisseurs.ToListAsync();
+
+                count = (int)Math.Ceiling((decimal)listFournisseurs.Count / 10);
+                pagination.MaxPageCount = count;
+                fournisseursDataGrid.ItemsSource = listFournisseurs.Skip(skip).Take(10);
+
+                fournisseursDataGrid.Visibility = Visibility.Visible;
             }
             catch (Exception exp)
             {
                 Console.WriteLine(exp.Message);
+                nothingBox.Visibility = Visibility.Visible;
             }
             finally
             {
-                loadingBox.Visibility = Visibility.Hidden;
-                fournisseursDataGrid.Visibility = Visibility.Visible;
+                loadingBox.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -102,6 +113,11 @@ namespace MenuWithSubMenu.PagesStock
             AddFournisseur add_Fournisseur = new AddFournisseur(this);
             MyContext.navigateTo(add_Fournisseur);
             fournisseursDataGrid.Items.Refresh();
+        }
+
+        private void pagination_PageUpdated(object sender, HandyControl.Data.FunctionEventArgs<int> e)
+        {
+            getFournisseurs((e.Info - 1) * 10);
         }
     }
 }

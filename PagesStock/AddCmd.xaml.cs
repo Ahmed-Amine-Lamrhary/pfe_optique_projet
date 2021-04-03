@@ -24,9 +24,60 @@ namespace MenuWithSubMenu.PagesStock
     {
         dbEntities db;
         DbContextTransaction transaction;
+        cmdfournisseur cmdfournisseur;
 
         public BindableCollection<AddLigneCmdFournisseur> lignesCmd;
 
+        // update constructor
+        public AddCmd(cmdfournisseur cmdfournisseur)
+        {
+            InitializeComponent();
+
+            db = new dbEntities();
+            lignesCmd = new BindableCollection<AddLigneCmdFournisseur>();
+            this.cmdfournisseur = cmdfournisseur;
+
+            lignesCmdBox.Visibility = Visibility.Collapsed;
+            nothingBox.Visibility = Visibility.Collapsed;
+            loadingBox.Visibility = Visibility.Visible;
+
+            try
+            {
+                // get lignes
+                List<lignecommande> lignecommandes = db.lignecommandes.Where(l => l.idCmdFournisseur == cmdfournisseur.idCmdFournisseur).ToList();
+                foreach (lignecommande ligne in lignecommandes)
+                {
+                    lignesCmd.Add(new AddLigneCmdFournisseur(this, this, ligne));
+                }
+
+                lignesCmdBox.ItemsSource = lignecommandes;
+                lignesCmdBox.Visibility = Visibility.Visible;
+
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                nothingBox.Visibility = Visibility.Visible;
+            } finally
+            {
+                loadingBox.Visibility = Visibility.Collapsed;
+            }
+
+            List<fournisseur> fournisseurs = db.fournisseurs.Distinct().ToList();
+            selectFournisseur.ItemsSource = fournisseurs;
+            selectFournisseur.DisplayMemberPath = "Nom";
+            selectFournisseur.SelectedValuePath = "idFournisseur";
+
+            for (var i = 0; i < fournisseurs.Count(); i++)
+            {
+                if (fournisseurs[i].idFournisseur == cmdfournisseur.idFournisseur)
+                {
+                    selectFournisseur.SelectedIndex = i;
+                    break;
+                }
+            }
+        }
+
+        // create constructor
         public AddCmd()
         {
             InitializeComponent();
@@ -40,6 +91,8 @@ namespace MenuWithSubMenu.PagesStock
             selectFournisseur.ItemsSource = fournisseurs;
             selectFournisseur.DisplayMemberPath = "Nom";
             selectFournisseur.SelectedValuePath = "idFournisseur";
+
+            nothingBox.Visibility = Visibility.Visible;
 
             selectFournisseur.SelectedIndex = 0;
         }
@@ -55,6 +108,8 @@ namespace MenuWithSubMenu.PagesStock
         {
             lignesCmd.Add(newLigne);
             lignesCmdBox.ItemsSource = lignesCmd;
+            nothingBox.Visibility = Visibility.Collapsed;
+            lignesCmdBox.Visibility = Visibility.Visible;
         }
 
         public void updateLigneInList(AddLigneCmdFournisseur ligne)
@@ -64,7 +119,20 @@ namespace MenuWithSubMenu.PagesStock
             lignesCmdBox.ItemsSource = lignesCmd;
         }
 
-        private void editLigne(object sender, MouseButtonEventArgs e)
+        public void removeLigneFromList(AddLigneCmdFournisseur ligne)
+        {
+            lignesCmd.Remove(ligne);
+            lignesCmdBox.ItemsSource = lignesCmd;
+
+            if (lignesCmd.Count() == 0)
+            {
+                nothingBox.Visibility = Visibility.Visible;
+                lignesCmdBox.Visibility = Visibility.Collapsed;
+            }
+        }
+
+
+        private void editLigne(object sender, RoutedEventArgs e)
         {
             AddLigneCmdFournisseur ligne = lignesCmdBox.SelectedItem as AddLigneCmdFournisseur;
             MyContext.navigateTo(ligne);
@@ -79,22 +147,40 @@ namespace MenuWithSubMenu.PagesStock
                 return;
             }
 
+            cmdfournisseur commande;
+            string message;
+
             try
             {
                 transaction = db.Database.BeginTransaction();
 
-                // create commande
-                cmdfournisseur commande = new cmdfournisseur() {
-                    idFournisseur = (int)selectFournisseur.SelectedValue,
-                    DateEntree = DateTime.Now
-                };
-                db.cmdfournisseurs.Add(commande);
-                db.SaveChanges();
+                if (cmdfournisseur == null)
+                {
+                    // create commande
+                    commande = new cmdfournisseur()
+                    {
+                        idFournisseur = (int)selectFournisseur.SelectedValue,
+                        DateEntree = DateTime.Now
+                    };
+                    db.cmdfournisseurs.Add(commande);
+                    db.SaveChanges();
 
-                
+                    message = "Votre Commande a été bien ajouté";
+                } else
+                {
+                    // get commande
+                    commande = cmdfournisseur;
+                    db.cmdfournisseurs.Where(c => c.idCmdFournisseur == commande.idCmdFournisseur).SingleOrDefault().idFournisseur = (int)selectFournisseur.SelectedValue;
+                    db.SaveChanges();
+
+                    message = "Votre Commande a été bien modifié";
+                }
+
                 string reference = null;
                 foreach (AddLigneCmdFournisseur ligne in lignesCmd)
                 {
+                    if (ligne.isUpdate) continue;
+
                     article article = null;
                     
                     // new reference
@@ -133,14 +219,14 @@ namespace MenuWithSubMenu.PagesStock
 
                                 vision vision_Loins_gauche = new vision()
                                 {
-                                    add = float.Parse(ligne.og_add_loin_verre.Text),
-                                    cyl = float.Parse(ligne.og_cyl_loin_verre.Text),
-                                    axe = float.Parse(ligne.og_axe_loin_verre.Text),
-                                    sph = float.Parse(ligne.og_sph_loin_verre.Text),
+                                    add = (float?)ligne.og_add_loin_verre.Value,
+                                    cyl = (float?)ligne.og_cyl_loin_verre.Value,
+                                    axe = (float?)ligne.og_axe_loin_verre.Value,
+                                    sph = (float?)ligne.og_sph_loin_verre.Value,
                                     gauche = true,
                                     loin = true,
-                                    ecart = float.Parse(ligne.ecartLoinText_verre.Text),
-                                    hauteur = float.Parse(ligne.hauteurLoinText_verre.Text),
+                                    ecart = (float?)ligne.ecartLoinText_verre.Value,
+                                    hauteur = (float?)ligne.hauteurLoinText_verre.Value,
                                     verre_idVerre = new_verre.idVerre,
                                 };
 
@@ -151,14 +237,14 @@ namespace MenuWithSubMenu.PagesStock
 
                                 vision vision_Loins_droit = new vision()
                                 {
-                                    add = float.Parse(ligne.od_add_loin_verre.Text),
-                                    cyl = float.Parse(ligne.od_cyl_loin_verre.Text),
-                                    axe = float.Parse(ligne.od_axe_loin_verre.Text),
-                                    sph = float.Parse(ligne.od_sph_loin_verre.Text),
+                                    add = (float?)ligne.od_add_loin_verre.Value,
+                                    cyl = (float?)ligne.od_cyl_loin_verre.Value,
+                                    axe = (float?)ligne.od_axe_loin_verre.Value,
+                                    sph = (float?)ligne.od_sph_loin_verre.Value,
                                     gauche = false,
                                     loin = true,
-                                    ecart = float.Parse(ligne.ecartLoinText_verre.Text),
-                                    hauteur = float.Parse(ligne.hauteurLoinText_verre.Text),
+                                    ecart = (float?)ligne.ecartLoinText_verre.Value,
+                                    hauteur = (float?)ligne.hauteurLoinText_verre.Value,
                                     verre_idVerre = new_verre.idVerre,
                                 };
 
@@ -169,14 +255,14 @@ namespace MenuWithSubMenu.PagesStock
 
                                 vision vision_pres_droit = new vision()
                                 {
-                                    add = float.Parse(ligne.od_add_pres_verre.Text),
-                                    cyl = float.Parse(ligne.od_cyl_pres_verre.Text),
-                                    axe = float.Parse(ligne.od_axe_pres_verre.Text),
-                                    sph = float.Parse(ligne.od_sph_pres_verre.Text),
+                                    add = (float?)ligne.od_add_pres_verre.Value,
+                                    cyl = (float?)ligne.od_cyl_pres_verre.Value,
+                                    axe = (float?)ligne.od_axe_pres_verre.Value,
+                                    sph = (float?)ligne.od_sph_pres_verre.Value,
                                     gauche = false,
                                     loin = false,
-                                    ecart = float.Parse(ligne.ecartPresText_verre.Text),
-                                    hauteur = float.Parse(ligne.hauteurPresText_verre.Text),
+                                    ecart = (float?)ligne.ecartPresText_verre.Value,
+                                    hauteur = (float?)ligne.hauteurPresText_verre.Value,
                                     verre_idVerre = new_verre.idVerre,
                                 };
 
@@ -187,14 +273,14 @@ namespace MenuWithSubMenu.PagesStock
 
                                 vision vision_pres_gauche = new vision()
                                 {
-                                    add = float.Parse(ligne.og_add_pres_verre.Text),
-                                    cyl = float.Parse(ligne.og_cyl_pres_verre.Text),
-                                    axe = float.Parse(ligne.og_axe_pres_verre.Text),
-                                    sph = float.Parse(ligne.og_sph_pres_verre.Text),
+                                    add = (float?)ligne.og_add_pres_verre.Value,
+                                    cyl = (float?)ligne.og_cyl_pres_verre.Value,
+                                    axe = (float?)ligne.og_axe_pres_verre.Value,
+                                    sph = (float?)ligne.og_sph_pres_verre.Value,
                                     gauche = true,
                                     loin = false,
-                                    ecart = float.Parse(ligne.ecartPresText_verre.Text),
-                                    hauteur = float.Parse(ligne.hauteurPresText_verre.Text),
+                                    ecart = (float?)ligne.ecartPresText_verre.Value,
+                                    hauteur = (float?)ligne.hauteurPresText_verre.Value,
                                     verre_idVerre = new_verre.idVerre,
                                 };
 
@@ -235,14 +321,14 @@ namespace MenuWithSubMenu.PagesStock
 
                                 vision vision_Loins_gauche_lentille = new vision()
                                 {
-                                    add = float.Parse(ligne.og_add_loin_lentille.Text),
-                                    cyl = float.Parse(ligne.og_cyl_loin_lentille.Text),
-                                    axe = float.Parse(ligne.og_axe_loin_lentille.Text),
-                                    sph = float.Parse(ligne.og_sph_loin_lentille.Text),
+                                    add = (float?)ligne.og_add_loin_lentille.Value,
+                                    cyl = (float?)ligne.og_cyl_loin_lentille.Value,
+                                    axe = (float?)ligne.og_axe_loin_lentille.Value,
+                                    sph = (float?)ligne.og_sph_loin_lentille.Value,
                                     gauche = true,
                                     loin = true,
-                                    ecart = float.Parse(ligne.ecartLoinText_verre.Text),
-                                    hauteur = float.Parse(ligne.hauteurLoinText_verre.Text),
+                                    ecart = (float?)ligne.ecartLoinText_verre.Value,
+                                    hauteur = (float?)ligne.hauteurLoinText_verre.Value,
                                     lentille_idLentille = new_lentille.idLentille,
                                 };
 
@@ -253,14 +339,14 @@ namespace MenuWithSubMenu.PagesStock
 
                                 vision vision_Loins_droit_lentille = new vision()
                                 {
-                                    add = float.Parse(ligne.od_add_loin_lentille.Text),
-                                    cyl = float.Parse(ligne.od_cyl_loin_lentille.Text),
-                                    axe = float.Parse(ligne.od_axe_loin_lentille.Text),
-                                    sph = float.Parse(ligne.od_sph_loin_lentille.Text),
+                                    add = (float?)ligne.od_add_loin_lentille.Value,
+                                    cyl = (float?)ligne.od_cyl_loin_lentille.Value,
+                                    axe = (float?)ligne.od_axe_loin_lentille.Value,
+                                    sph = (float?)ligne.od_sph_loin_lentille.Value,
                                     gauche = false,
                                     loin = true,
-                                    ecart = float.Parse(ligne.ecartLoinText_lentille.Text),
-                                    hauteur = float.Parse(ligne.hauteurLoinText_lentille.Text),
+                                    ecart = (float?)ligne.ecartLoinText_lentille.Value,
+                                    hauteur = (float?)ligne.hauteurLoinText_lentille.Value,
                                     lentille_idLentille = new_lentille.idLentille,
                                 };
 
@@ -271,14 +357,14 @@ namespace MenuWithSubMenu.PagesStock
 
                                 vision vision_pres_droit_lentille = new vision()
                                 {
-                                    add = float.Parse(ligne.od_add_pres_lentille.Text),
-                                    cyl = float.Parse(ligne.od_cyl_pres_lentille.Text),
-                                    axe = float.Parse(ligne.od_axe_pres_lentille.Text),
-                                    sph = float.Parse(ligne.od_sph_pres_lentille.Text),
+                                    add = (float?)ligne.od_add_pres_lentille.Value,
+                                    cyl = (float?)ligne.od_cyl_pres_lentille.Value,
+                                    axe = (float?)ligne.od_axe_pres_lentille.Value,
+                                    sph = (float?)ligne.od_sph_pres_lentille.Value,
                                     gauche = false,
                                     loin = false,
-                                    ecart = float.Parse(ligne.ecartPresText_lentille.Text),
-                                    hauteur = float.Parse(ligne.hauteurPresText_lentille.Text),
+                                    ecart = (float?)ligne.ecartPresText_lentille.Value,
+                                    hauteur = (float?)ligne.hauteurPresText_lentille.Value,
                                     lentille_idLentille = new_lentille.idLentille,
                                 };
 
@@ -289,14 +375,14 @@ namespace MenuWithSubMenu.PagesStock
 
                                 vision vision_pres_gauche_lentille = new vision()
                                 {
-                                    add = float.Parse(ligne.og_add_pres_lentille.Text),
-                                    cyl = float.Parse(ligne.og_cyl_pres_lentille.Text),
-                                    axe = float.Parse(ligne.og_axe_pres_lentille.Text),
-                                    sph = float.Parse(ligne.og_sph_pres_lentille.Text),
+                                    add = (float?)ligne.og_add_pres_lentille.Value,
+                                    cyl = (float?)ligne.og_cyl_pres_lentille.Value,
+                                    axe = (float?)ligne.og_axe_pres_lentille.Value,
+                                    sph = (float?)ligne.og_sph_pres_lentille.Value,
                                     gauche = true,
                                     loin = false,
-                                    ecart = float.Parse(ligne.ecartPresText_lentille.Text),
-                                    hauteur = float.Parse(ligne.hauteurPresText_lentille.Text),
+                                    ecart = (float?)ligne.ecartPresText_lentille.Value,
+                                    hauteur = (float?)ligne.hauteurPresText_lentille.Value,
                                     lentille_idLentille = new_lentille.idLentille,
                                 };
 
@@ -377,7 +463,7 @@ namespace MenuWithSubMenu.PagesStock
                     else
                     {
                         reference = (string)ligne.referenceText.SelectedValue;
-                        article = db.articles.Where(a => a.idArticle == reference).Single();
+                        article = db.articles.Where(a => a.idArticle == reference).SingleOrDefault();
                     }
 
                     // create ligne de commande
@@ -395,7 +481,7 @@ namespace MenuWithSubMenu.PagesStock
                 }
 
                 transaction.Commit();
-                MessageBox.Show("Votre Commande a été bien ajouté");
+                MessageBox.Show(message);
                 MyContext.navigateTo(new CmdsFournisseur());
 
             } catch (DbEntityValidationException ex)
@@ -415,6 +501,7 @@ namespace MenuWithSubMenu.PagesStock
                 transaction.Rollback();
             }
         }
+        
         private bool referenceIsExiste(string reference)
         {
             foreach (article a in db.articles.ToList())
@@ -423,6 +510,52 @@ namespace MenuWithSubMenu.PagesStock
                     return true;
             }
             return false;
+        }
+
+        public void changeEtat(object sender, RoutedEventArgs e)
+        {
+            lignecommande ligne = lignesCmdBox.SelectedItem as lignecommande;
+            if (ligne.EtatCmd == "En-Cours")
+            {
+                // convert to completed
+                try
+                {
+                    transaction = db.Database.BeginTransaction();
+                    // change etat to completed
+                    ligne.EtatCmd = "completed";
+                    db.SaveChanges();
+
+                    // change article qte
+                    article article = db.articles.Where(a => a.idArticle == ligne.idArticle).SingleOrDefault();
+
+                    article.QteDisponible += ligne.Qte_Commande;
+                    db.SaveChanges();
+
+                    transaction.Commit();
+                    MessageBox.Show("La ligne est complétée");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    transaction.Rollback();
+                }
+            }
+        }
+
+        public void deleteLigne(object sender, RoutedEventArgs e)
+        {
+            lignecommande ligne = lignesCmdBox.SelectedItem as lignecommande;
+            if (ligne.EtatCmd == "En-Cours")
+            {
+                db.lignecommandes.Remove(ligne);
+                db.SaveChanges();
+
+                MyContext.navigateTo(new CmdsFournisseur());
+            }
+            else
+            {
+                MessageBox.Show("Ligne is completed");
+            }
         }
     }
 }

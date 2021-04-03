@@ -12,6 +12,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -323,6 +324,59 @@ namespace MenuWithSubMenu.Pages
         private void ReturnBtn_Click(object sender, RoutedEventArgs e)
         {
             MyContext.navigateTo(prevPage);
+        }
+
+        // Upload photo of ordonnance
+        private void ajouterPhotoOrdonnance(object sender, RoutedEventArgs e)
+        {
+            // open file dialog   
+            OpenFileDialog open = new OpenFileDialog();
+            // image filters  
+            open.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp; *.png)|*.jpg; *.jpeg; *.gif; *.bmp; *.png";
+            if (open.ShowDialog() == DialogResult.OK)
+            {
+                photoOrdonnance.Source = new BitmapImage(new Uri(open.FileName));
+            }
+        }
+
+        private void Button_Prev(object sender, RoutedEventArgs e)
+        {
+            step.Prev();
+
+            if (step.StepIndex == 1)
+            {
+                addClientBtn.Visibility = Visibility.Visible;
+                infoOrdoGrid.Visibility = Visibility.Visible;
+                infoPersoGrid.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                addClientBtn.Visibility = Visibility.Hidden;
+                infoOrdoGrid.Visibility = Visibility.Collapsed;
+                infoPersoGrid.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void Button_Next(object sender, RoutedEventArgs e)
+        {
+            step.Next();
+
+            if (step.StepIndex == 1)
+            {
+                addClientBtn.Visibility = Visibility.Visible;
+                infoOrdoGrid.Visibility = Visibility.Visible;
+                infoPersoGrid.Visibility = Visibility.Collapsed;
+            } else
+            {
+                addClientBtn.Visibility = Visibility.Hidden;
+                infoOrdoGrid.Visibility = Visibility.Collapsed;
+                infoPersoGrid.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void showPhotoOrdonnance(object sender, RoutedEventArgs e)
+        {
+            new ImageBrowser(new Uri(photoOrdonnance.Source.ToString())).Show();
         }
     }
 }

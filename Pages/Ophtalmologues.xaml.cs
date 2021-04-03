@@ -18,38 +18,46 @@ using System.Windows.Shapes;
 
 namespace MenuWithSubMenu.Pages
 {
-    /// <summary>
-    /// Interaction logic for Inbox.xaml
-    /// </summary>
     public partial class Ophtalmologues : Page
     {
         dbEntities db;
+        List<ophtalmologue> listOphta;
+
+        int count;
+
         public Ophtalmologues()
         {
             InitializeComponent();
 
             db = new dbEntities();
 
-            getOphtalmologues();
+            getOphtalmologues(0);
         }
 
-        private async void getOphtalmologues()
+        private async void getOphtalmologues(int skip)
         {
             loadingBox.Visibility = Visibility.Visible;
-            ophtalmologuesDataGrid.Visibility = Visibility.Hidden;
+            ophtalmologuesDataGrid.Visibility = Visibility.Collapsed;
+            nothingBox.Visibility = Visibility.Collapsed;
 
             try
             {
-                ophtalmologuesDataGrid.ItemsSource = await db.ophtalmologues.ToListAsync();
+                listOphta = await db.ophtalmologues.ToListAsync();
+
+                count = (int)Math.Ceiling((decimal)listOphta.Count / 10);
+                pagination.MaxPageCount = count;
+                ophtalmologuesDataGrid.ItemsSource = listOphta.Skip(skip).Take(10);
+
+                ophtalmologuesDataGrid.Visibility = Visibility.Visible;
             }
             catch (Exception exp)
             {
                 Console.WriteLine(exp.Message);
+                nothingBox.Visibility = Visibility.Visible;
             }
             finally
             {
-                loadingBox.Visibility = Visibility.Hidden;
-                ophtalmologuesDataGrid.Visibility = Visibility.Visible;
+                loadingBox.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -106,6 +114,11 @@ namespace MenuWithSubMenu.Pages
             AddOphta add_ophta = new AddOphta();
             MyContext.navigateTo(add_ophta);
             ophtalmologuesDataGrid.Items.Refresh();
+        }
+
+        private void pagination_PageUpdated(object sender, HandyControl.Data.FunctionEventArgs<int> e)
+        {
+            getOphtalmologues((e.Info - 1) * 10);
         }
     }
 }

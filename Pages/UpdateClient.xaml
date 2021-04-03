@@ -6,21 +6,84 @@
       xmlns:local="clr-namespace:MenuWithSubMenu.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="UpdateClient">
+      Title="UpdateClient"
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      xmlns:hc="https://handyorg.github.io/handycontrol"
+      >
+
+    <Page.Resources>
+        <!-- Style of Textbox -->
+        <Style BasedOn="{StaticResource {x:Type TextBox}}"
+           TargetType="TextBox"
+           x:Key="TextBoxStyle">
+            <Setter Property="Margin" Value="0 0 0 10" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="#d6e0ea" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Padding" Value="5" />
+        </Style>
+
+        <!-- Style of Label -->
+        <Style BasedOn="{StaticResource {x:Type TextBlock}}"
+           TargetType="TextBlock"
+           x:Key="LabelTextStyle">
+            <Setter Property="Margin" Value="0 15 0 3" />
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+
+        <!-- Style of Title -->
+        <Style BasedOn="{StaticResource {x:Type TextBlock}}"
+           TargetType="TextBlock"
+           x:Key="TitleStyle">
+            <Setter Property="Margin" Value="0 0 0 15" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontWeight" Value="Regular" />
+            <Setter Property="Opacity" Value="0.4" />
+        </Style>
+
+        <!-- Style of Border -->
+        <Style TargetType="Border" x:Key="BorderStyle">
+            <Setter Property="Background" Value="White" />
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="Margin" Value="4" />
+            <Setter Property="Padding" Value="7" />
+        </Style>
+
+    </Page.Resources>
 
     <Grid>
         <StackPanel>
-            <Button Margin="10" Click="ReturnBtn_Click" Name="returnBtn" Background="WhiteSmoke" Content="&lt; Return"  HorizontalAlignment="Left"/>
+            <StackPanel Margin="10px" Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                <Button BorderThickness="0" Cursor="Hand" Click="ReturnBtn_Click" Name="returnBtn" HorizontalAlignment="Left">
+                    <iconPacks:PackIconRemixIcon Kind="ArrowLeftSLine" Width="14" Height="14" />
+                </Button>
+
+                <Button Content="Enregistrer" Margin="20 0 0 0" Click="updateClient" Background="#55a8fd" Foreground="White" Height="35" Padding="15 0 15 0" Cursor="Hand" BorderThickness="0"/>
+            </StackPanel>
+                        
             <Grid Margin="15px">
             <StackPanel>
-                <TextBox Margin="5" IsEnabled="False"  Height="23" TextWrapping="Wrap" Text="CIN" Name="cinText"/>
-                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Nom" Name="nomText"/>
-                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Prenom" Name="prenomText" />
-                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Adresse" Name="adresseText" />
-                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Email" Name="emailText" />
-                <TextBox Margin="5" Height="23" TextWrapping="Wrap" Text="Telephone" Name="telText" />
-                <DatePicker Margin="5" Height="23" Name="dateText"/>
-                <Button Margin="5" Content="Update client" Click="updateClient"  VerticalAlignment="Center" HorizontalAlignment="Center" />
+
+                <TextBlock Style="{StaticResource LabelTextStyle}" Text="CIN" />
+                <hc:TextBox IsEnabled="False" Name="cinText"/>
+
+                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Nom" />
+                <hc:TextBox Name="nomText"/>
+
+                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Prenom" />
+                <hc:TextBox Name="prenomText" />
+
+                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Adresse" />
+                <hc:TextBox Name="adresseText" />
+
+                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Email" />
+                <hc:TextBox Name="emailText" />
+
+                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Telephone" />
+                <hc:TextBox Name="telText" />
+
+                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Date de naissance" />
+                <DatePicker Name="dateText"/>
 
             </StackPanel>
         </Grid>

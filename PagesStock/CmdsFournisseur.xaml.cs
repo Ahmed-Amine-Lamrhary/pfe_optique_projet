@@ -40,7 +40,8 @@ namespace MenuWithSubMenu.PagesStock
         private async void getCmdFourni(int skip)
         {
             loadingBox.Visibility = Visibility.Visible;
-            cmdFourniDataGrid.Visibility = Visibility.Hidden;
+            cmdFourniDataGrid.Visibility = Visibility.Collapsed;
+            nothingBox.Visibility = Visibility.Collapsed;
 
             try
             {
@@ -49,16 +50,16 @@ namespace MenuWithSubMenu.PagesStock
                 count = (int)Math.Ceiling((decimal)listCmdFourni.Count / 10);
                 pagination.MaxPageCount = count;
                 cmdFourniDataGrid.ItemsSource = listCmdFourni.Skip(skip).Take(10);
-
+                cmdFourniDataGrid.Visibility = Visibility.Visible;
             }
             catch (Exception exp)
             {
                 Console.WriteLine(exp.Message);
+                nothingBox.Visibility = Visibility.Visible;
             }
             finally
             {
-                loadingBox.Visibility = Visibility.Hidden;
-                cmdFourniDataGrid.Visibility = Visibility.Visible;
+                loadingBox.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -88,22 +89,12 @@ namespace MenuWithSubMenu.PagesStock
         private void voirCmd(object sender, RoutedEventArgs e)
         {
             cmdfournisseur cmd = cmdFourniDataGrid.SelectedItem as cmdfournisseur;
-            int cmdId = cmd.idCmdFournisseur;
 
-            CmdsLigne cmdAbout = new CmdsLigne(cmdId);
+            AddCmd addCmd = new AddCmd(cmd);
 
-
-            MyContext.navigateTo(cmdAbout);
+            MyContext.navigateTo(addCmd);
         }
 
-        private void updateCmd(object sender, RoutedEventArgs e)
-        {
-
-            article articleRow = cmdFourniDataGrid.SelectedItem as article;
-            string articleId = articleRow.idArticle;
-            //UpdateArticle update = new UpdateArticle(db.articles.Where(article => article.idArticle == articleId).SingleOrDefault(), this);
-            //MyContext.navigateTo(update);
-        }
         private void deleteCmd(object sender, RoutedEventArgs e)
         {
 
@@ -140,7 +131,6 @@ namespace MenuWithSubMenu.PagesStock
 
         private void page_PageUpdated(object sender, HandyControl.Data.FunctionEventArgs<int> e)
         {
-
             getCmdFourni((e.Info - 1) * 10);
         }
     }

@@ -7,15 +7,97 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AddCmdClient"
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
       >
+
+    <Page.Resources>
+        <!-- Style of Options buttons -->
+        <Style BasedOn="{StaticResource {x:Type Button}}"
+           TargetType="Button"
+           x:Key="OptionsButtonStyle">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+        <!-- Style of Options buttons Icons -->
+        <Style BasedOn="{StaticResource {x:Type iconPacks:PackIconRemixIcon}}"
+           TargetType="iconPacks:PackIconRemixIcon"
+           x:Key="OptionsButtonIconStyle">
+            <Setter Property="Width" Value="13" />
+            <Setter Property="Height" Value="13" />
+        </Style>
+        <!-- Style of close button icon -->
+        <Style BasedOn="{StaticResource {x:Type iconPacks:PackIconRemixIcon}}"
+           TargetType="iconPacks:PackIconRemixIcon"
+           x:Key="SearchButtonIcon">
+            <Setter Property="Width" Value="10" />
+            <Setter Property="Height" Value="10" />
+            <Setter Property="Foreground" Value="Red" />
+        </Style>
+        <!-- Style of Label -->
+        <Style BasedOn="{StaticResource {x:Type TextBlock}}"
+           TargetType="TextBlock"
+           x:Key="LabelTextStyle">
+            <Setter Property="Margin" Value="0 15 0 3" />
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+    </Page.Resources>
+
 
     <Grid>
         <StackPanel>
-            <ComboBox Name="selectClient" Text="Client" />
+            <!--Tools Bar-->
+            <Border Margin="0 0 0 20" Padding="15" CornerRadius="5" Background="White">
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Button HorizontalAlignment="Right" Grid.Column="2" Background="#55a8fd" Foreground="White" Height="35" Padding="15 0 15 0" Cursor="Hand" BorderThickness="0" Content="Enregistrer la commande" Click="saveCmd" />
+                </Grid>
+            </Border>
 
-            <TextBlock Text="Ajouter les lignes de commandes:" FontSize="20" />
+            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Client" />
+            <ComboBox Margin="0 0 0 20" Name="selectClient" />
 
-            <DataGrid Name="lignesCmdBox" HeadersVisibility="All" RowHeaderWidth="60" AutoGenerateColumns="False">
+            <!-- Loading -->
+            <Border Visibility="Collapsed"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        CornerRadius="10"
+            Panel.ZIndex="1000"
+        Width="400"
+        Height="247"
+        Name="loadingBox">
+                <hc:SimplePanel>
+                    <TextBlock Style="{StaticResource TextBlockLargeBold}" >
+                        <iconPacks:PackIconRemixIcon Spin="True" SpinDuration="1" Kind="Loader4Line" Width="35" Height="35" Foreground="#55a8fd" />
+                    </TextBlock>
+                </hc:SimplePanel>
+            </Border>
+
+            <!-- Nothing found -->
+            <Border Visibility="Collapsed"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        CornerRadius="10"
+            Panel.ZIndex="1000"
+        Width="400"
+        Height="247"
+        Name="nothingBox">
+                <hc:SimplePanel>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <iconPacks:PackIconRemixIcon Kind="FilePaperLine" HorizontalAlignment="Center" Width="65" Height="65" Foreground="#55a8fd" />
+                        <TextBlock Margin="0 15 0 0" Style="{StaticResource TextBlockLargeBold}" Text="Rien n'a été trouvé" />
+                    </StackPanel>
+                </hc:SimplePanel>
+            </Border>
+
+
+            <DataGrid Background="Transparent" Visibility="Collapsed" Name="lignesCmdBox" HeadersVisibility="All" RowHeaderWidth="60" AutoGenerateColumns="False">
                 <DataGrid.RowHeaderTemplate>
                     <DataTemplate>
                         <CheckBox IsChecked="{Binding IsSelected,RelativeSource={RelativeSource AncestorType=DataGridRow}}"/>
@@ -24,32 +106,32 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="1*" Binding="{Binding idLigne}"/>
                     <DataGridTextColumn Header="Date" Width="1*" Binding="{Binding Date_Commande}"/>
-                    <DataGridTextColumn Header="Adresse de commande" Width="1*" Binding="{Binding Adresse_Commande}"/>
-                    <DataGridTextColumn Header="Quantité de commande" Width="1*" Binding="{Binding Qte_Commande}"/>
+                    <DataGridTextColumn Header="Adresse" Width="1*" Binding="{Binding Adresse_Commande}"/>
+                    <DataGridTextColumn Header="Quantité" Width="1*" Binding="{Binding Qte_Commande}"/>
                     <DataGridTextColumn Header="Prix total" Width="1*" Binding="{Binding Prix_Total}"/>
-                    <DataGridTextColumn Header="Etat de ligne de commande" Width="1*" Binding="{Binding EtatCmd}"/>
+                    <DataGridTextColumn Header="Etat" Width="1*" Binding="{Binding EtatCmd}"/>
 
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Click="changeEtat">Etat</Button>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-
-                    <DataGridTemplateColumn>
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Click="deleteLigne">Supprimer</Button>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button ToolTip="Changer l'état" Style="{StaticResource OptionsButtonStyle}" Click="changeEtat">
+                                        <iconPacks:PackIconRemixIcon Kind="FolderUserLine" Style="{StaticResource OptionsButtonIconStyle}" />
+                                    </Button>
+                                    <Button ToolTip="Supprimer" Style="{StaticResource OptionsButtonStyle}" Click="deleteLigne">
+                                        <iconPacks:PackIconRemixIcon Kind="DeleteBinLine" Style="{StaticResource OptionsButtonIconStyle}" />
+                                    </Button>
+                                    <Button ToolTip="Modifier" Style="{StaticResource OptionsButtonStyle}" Click="editLigne">
+                                        <iconPacks:PackIconRemixIcon Kind="DeleteBinLine" Style="{StaticResource OptionsButtonIconStyle}" />
+                                    </Button>
+                                </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
 
-            <Button Content="Ajouter" Click="ajouterLigne" />
-
-            <Button Margin="50" Content="Enregistrer la commande" Click="saveCmd" />
+            <Button Margin="0 20 0 0" Content="Ajouter une ligne" Click="ajouterLigne" Cursor="Hand" />
         </StackPanel>
     </Grid>
 </Page>

@@ -24,7 +24,26 @@ namespace MenuWithSubMenu.PagesStock
         private AddCmd addCmdPage;
         private List<traitement> traitements;
         private List<article> references;
+        public lignecommande lignecommande;
+        public bool isUpdate;
 
+        // update constructor
+        public AddLigneCmdFournisseur(Page prevP, AddCmd addCmdP, lignecommande lignecommande)
+        {
+            InitializeComponent();
+            db = new dbEntities();
+            prevPage = prevP;
+            addCmdPage = addCmdP;
+            references = new List<article>();
+            this.isUpdate = true;
+            this.lignecommande = lignecommande;
+
+            fillComboBox();
+
+        }
+
+
+        // create constructor
         public AddLigneCmdFournisseur(Page prevP, AddCmd addCmdP)
         {
             InitializeComponent();
@@ -32,6 +51,7 @@ namespace MenuWithSubMenu.PagesStock
             prevPage = prevP;
             addCmdPage = addCmdP;
             references = new List<article>();
+            this.isUpdate = false;
             fillComboBox();
             
         }
@@ -69,39 +89,39 @@ namespace MenuWithSubMenu.PagesStock
                 {
                     if (vision.gauche)
                     {
-                        og_sph_loin_verre.Text = vision.sph.ToString();
-                        og_cyl_loin_verre.Text = vision.cyl.ToString();
-                        og_axe_loin_verre.Text = vision.axe.ToString();
-                        og_add_loin_verre.Text = vision.add.ToString();
+                        og_sph_loin_verre.Value = (double)vision.sph;
+                        og_cyl_loin_verre.Value = (double)vision.cyl;
+                        og_axe_loin_verre.Value = (double)vision.axe;
+                        og_add_loin_verre.Value = (double)vision.add;
                     }
                     else
                     {
-                        od_sph_loin_verre.Text = vision.sph.ToString();
-                        od_cyl_loin_verre.Text = vision.cyl.ToString();
-                        od_axe_loin_verre.Text = vision.axe.ToString();
-                        od_add_loin_verre.Text = vision.add.ToString();
+                        od_sph_loin_verre.Value = (double)vision.sph;
+                        od_cyl_loin_verre.Value = (double)vision.cyl;
+                        od_axe_loin_verre.Value = (double)vision.axe;
+                        od_add_loin_verre.Value = (double)vision.add;
                     }
-                    ecartLoinText_verre.Text = vision.ecart.ToString();
-                    hauteurLoinText_verre.Text = vision.hauteur.ToString();
+                    ecartLoinText_verre.Value = (double)vision.ecart;
+                    hauteurLoinText_verre.Value = (double)vision.hauteur;
                 }
                 else
                 {
                     if (vision.gauche)
                     {
-                        og_sph_pres_verre.Text = vision.sph.ToString();
-                        og_cyl_pres_verre.Text = vision.cyl.ToString();
-                        og_axe_pres_verre.Text = vision.axe.ToString();
-                        og_add_pres_verre.Text = vision.add.ToString();
+                        og_sph_pres_verre.Value = (double)vision.sph;
+                        og_cyl_pres_verre.Value = (double)vision.cyl;
+                        og_axe_pres_verre.Value = (double)vision.axe;
+                        og_add_pres_verre.Value = (double)vision.add;
                     }
                     else
                     {
-                        od_sph_pres_verre.Text = vision.sph.ToString();
-                        od_cyl_pres_verre.Text = vision.cyl.ToString();
-                        od_axe_pres_verre.Text = vision.axe.ToString();
-                        od_add_pres_verre.Text = vision.add.ToString();
+                        od_sph_pres_verre.Value = (double)vision.sph;
+                        od_cyl_pres_verre.Value = (double)vision.cyl;
+                        od_axe_pres_verre.Value = (double)vision.axe;
+                        od_add_pres_verre.Value = (double)vision.add;
                     }
-                    ecartPresText_verre.Text = vision.ecart.ToString();
-                    hauteurPresText_verre.Text = vision.hauteur.ToString();
+                    ecartPresText_verre.Value = (double)vision.ecart;
+                    hauteurPresText_verre.Value = (double)vision.hauteur;
                 }
             }
         }
@@ -114,39 +134,39 @@ namespace MenuWithSubMenu.PagesStock
                 {
                     if (vision.gauche)
                     {
-                        og_sph_loin_lentille.Text = vision.sph.ToString();
-                        og_cyl_loin_lentille.Text = vision.cyl.ToString();
-                        og_axe_loin_lentille.Text = vision.axe.ToString();
-                        og_add_loin_lentille.Text = vision.add.ToString();
+                        og_sph_loin_lentille.Value = (double)vision.sph;
+                        og_cyl_loin_lentille.Value = (double)vision.cyl;
+                        og_axe_loin_lentille.Value = (double)vision.axe;
+                        og_add_loin_lentille.Value = (double)vision.add;
                     }
                     else
                     {
-                        od_sph_loin_lentille.Text = vision.sph.ToString();
-                        od_cyl_loin_lentille.Text = vision.cyl.ToString();
-                        od_axe_loin_lentille.Text = vision.axe.ToString();
-                        od_add_loin_lentille.Text = vision.add.ToString();
+                        od_sph_loin_lentille.Value = (double)vision.sph;
+                        od_cyl_loin_lentille.Value = (double)vision.cyl;
+                        od_axe_loin_lentille.Value = (double)vision.axe;
+                        od_add_loin_lentille.Value = (double)vision.add;
                     }
-                    ecartLoinText_lentille.Text = vision.ecart.ToString();
-                    hauteurLoinText_lentille.Text = vision.hauteur.ToString();
+                    ecartLoinText_lentille.Value = (double)vision.ecart;
+                    hauteurLoinText_lentille.Value = (double)vision.hauteur;
                 }
                 else
                 {
                     if (vision.gauche)
                     {
-                        og_sph_pres_lentille.Text = vision.sph.ToString();
-                        og_cyl_pres_lentille.Text = vision.cyl.ToString();
-                        og_axe_pres_lentille.Text = vision.axe.ToString();
-                        og_add_pres_lentille.Text = vision.add.ToString();
+                        og_sph_pres_lentille.Value = (double)vision.sph;
+                        og_cyl_pres_lentille.Value = (double)vision.cyl;
+                        og_axe_pres_lentille.Value = (double)vision.axe;
+                        og_add_pres_lentille.Value = (double)vision.add;
                     }
                     else
                     {
-                        od_sph_pres_lentille.Text = vision.sph.ToString();
-                        od_cyl_pres_lentille.Text = vision.cyl.ToString();
-                        od_axe_pres_lentille.Text = vision.axe.ToString();
-                        od_add_pres_lentille.Text = vision.add.ToString();
+                        od_sph_pres_lentille.Value = (double)vision.sph;
+                        od_cyl_pres_lentille.Value = (double)vision.cyl;
+                        od_axe_pres_lentille.Value = (double)vision.axe;
+                        od_add_pres_lentille.Value = (double)vision.add;
                     }
-                    ecartPresText_lentille.Text = vision.ecart.ToString();
-                    hauteurPresText_lentille.Text = vision.hauteur.ToString();
+                    ecartPresText_lentille.Value = (double)vision.ecart;
+                    hauteurPresText_lentille.Value = (double)vision.hauteur;
                 }
             }
         }
@@ -363,7 +383,7 @@ namespace MenuWithSubMenu.PagesStock
         // abort ligne
         public void deleteLigne(object sender, RoutedEventArgs e)
         {
-            addCmdPage.lignesCmd.Remove(this);
+            addCmdPage.removeLigneFromList(this);
             MyContext.navigateTo(prevPage);
         }
 
@@ -400,7 +420,7 @@ namespace MenuWithSubMenu.PagesStock
             if(newRefText.Visibility == Visibility.Collapsed)
             {
                 newRefText.Visibility = Visibility.Visible;
-                btnNewRef.Content = "X";
+                refBtnIcon.Kind = MahApps.Metro.IconPacks.PackIconRemixIconKind.CloseCircleLine;
                 referenceText.IsEnabled = false;
 
                 articleInfoBox.IsEnabled = true;
@@ -409,7 +429,7 @@ namespace MenuWithSubMenu.PagesStock
             else
             {
                 newRefText.Visibility = Visibility.Collapsed;
-                btnNewRef.Content = "Ajouter Référence";
+                refBtnIcon.Kind = MahApps.Metro.IconPacks.PackIconRemixIconKind.AddCircleLine;
                 referenceText.IsEnabled = true;
 
                 articleInfoBox.IsEnabled = false;
