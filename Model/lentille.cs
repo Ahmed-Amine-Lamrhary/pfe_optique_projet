@@ -17,7 +17,6 @@ namespace MenuWithSubMenu.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public lentille()
         {
-            this.ligne_traitement_lentille = new HashSet<ligne_traitement_lentille>();
             this.visions = new HashSet<vision>();
         }
     
@@ -28,10 +27,6 @@ namespace MenuWithSubMenu.Model
         public int idtype_lentille { get; set; }
     
         public virtual article article { get; set; }
-        public virtual type_lentille type_lentille { get; set; }
-        public virtual ligne_type_lentille ligne_type_lentille { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ligne_traitement_lentille> ligne_traitement_lentille { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<vision> visions { get; set; }
     }

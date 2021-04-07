@@ -22,7 +22,6 @@ namespace MenuWithSubMenu.Model
             this.lentilles = new HashSet<lentille>();
             this.lignecommandes = new HashSet<lignecommande>();
             this.ligneentrees = new HashSet<ligneentree>();
-            this.verres = new HashSet<verre>();
         }
     
         public string idArticle { get; set; }
@@ -43,7 +42,5 @@ namespace MenuWithSubMenu.Model
         public virtual ICollection<lignecommande> lignecommandes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ligneentree> ligneentrees { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<verre> verres { get; set; }
     }
 }

@@ -14,6 +14,9 @@ namespace MenuWithSubMenu.Pages
         dbEntities db;
         List<visite> listVisites;
 
+        DateTime? startDate;
+        DateTime? endDate;
+
         int count;
 
         public Visite()
@@ -33,7 +36,16 @@ namespace MenuWithSubMenu.Pages
 
             try
             {
-                listVisites = await db.visites.ToListAsync();
+                if (startDate != null && endDate != null)
+                {
+                    listVisites = await db.visites.Where(v => v.date <= endDate && v.date >= startDate).ToListAsync();
+                }
+                else if (startDate == null && endDate != null)
+                    listVisites = await db.visites.Where(v => v.date <= endDate).ToListAsync();
+                else if (startDate != null && endDate == null)
+                    listVisites = await db.visites.Where(v => v.date >= startDate).ToListAsync();
+                else
+                    listVisites = await db.visites.ToListAsync();
 
                 count = (int)Math.Ceiling((decimal)listVisites.Count / 10);
                 pagination.MaxPageCount = count;
@@ -93,6 +105,37 @@ namespace MenuWithSubMenu.Pages
         private void pagination_PageUpdated(object sender, HandyControl.Data.FunctionEventArgs<int> e)
         {
             getVisites((e.Info - 1) * 10);
+        }
+
+        private void filterByDate(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                startDate = (DateTime)filterStartDate.SelectedDate;
+                endDate = (DateTime)filterEndDate.SelectedDate;
+
+                if (startDate <= endDate)
+                    getVisites(0);
+                else
+                {
+                    MessageBox.Show("start date must be less than end date");
+
+                    startDate = endDate = null;
+                    filterStartDate.SelectedDate = filterEndDate.SelectedDate = null;
+                }
+            } catch(Exception)
+            {
+                startDate = endDate = null;
+                getVisites(0);
+            }
+        }
+
+        private void resetFilter(object sender, RoutedEventArgs e)
+        {
+            startDate = endDate = null;
+            filterStartDate.SelectedDate = filterEndDate.SelectedDate = null;
+
+            getVisites(0);
         }
     }
 }

@@ -35,7 +35,6 @@ namespace MenuWithSubMenu.Model
         public Nullable<int> visite_id { get; set; }
     
         public virtual lentille lentille { get; set; }
-        public virtual verre verre { get; set; }
         public virtual visite visite { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<vision_detaille> vision_detaille { get; set; }

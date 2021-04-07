@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,11 +30,14 @@ namespace MenuWithSubMenu.Pages
         dbEntities db;
         DbContextTransaction transaction;
         private Page prevPage;
+        private OpenFileDialog currentPhoto;
 
         public AddClient(Page prevP)
         {
             InitializeComponent();
             db = new dbEntities();
+
+            currentPhoto = new OpenFileDialog();
 
             prevPage = prevP;
 
@@ -42,12 +46,6 @@ namespace MenuWithSubMenu.Pages
             ophtalmologueText.ItemsSource = ophtalmologues;
             ophtalmologueText.DisplayMemberPath = "nom";
             ophtalmologueText.SelectedValuePath = "id";
-
-            // get types de verre
-            List<typeverre> typesverre = db.typeverres.ToList();
-            typeVerres.ItemsSource = typesverre;
-            typeVerres.DisplayMemberPath = "NomType";
-            typeVerres.SelectedValuePath = "idTypeVerre";
         }
 
         private void addClient(object sender, RoutedEventArgs e)
@@ -78,14 +76,21 @@ namespace MenuWithSubMenu.Pages
                 });
                 db.SaveChanges();
 
-                //Ordonnance:
+                /* Ordonnance */
+
+                // ordonnance image
+                string fileNameToSave = DateTime.Now.ToString("yyyy-dd-M--HH-mm-ss") + System.IO.Path.GetExtension(currentPhoto.FileName);
+                string rootPath = System.IO.Path.GetDirectoryName(System.IO.Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+                string filePath = rootPath + @"\Data\ordonnances\" + fileNameToSave;
+
+                File.Copy(currentPhoto.FileName, filePath);
 
                 ordonnance newOrdonnance = new ordonnance()
                 {
                     dateCreation = (DateTime)dateCreationOrdonnance.SelectedDate.Value.Date,
                     dateExpiration = (DateTime)dateExpirationOrdonnance.SelectedDate.Value.Date,
                     notes = notesOphtalmologue.Text,
-                    photo = "/C:/Images",
+                    photo = filePath,
                     ophtalmologueId = (int)ophtalmologueText.SelectedValue,
                 };
 
@@ -93,7 +98,6 @@ namespace MenuWithSubMenu.Pages
                 db.SaveChanges();
 
                 //visite :
-
                 visite new_visite = new visite()
                 {
                     client_cin = cinText.Text,
@@ -117,7 +121,8 @@ namespace MenuWithSubMenu.Pages
                     gauche = true,
                     loin = true,
                     ecart = (float?)ecartLoinText.Value,
-                    hauteur = (float?)hauteurLoinText.Value
+                    hauteur = (float?)hauteurLoinText.Value,
+                    visite_id = new_visite.id
                 };
 
                 db.visions.Add(vision_Loins_gauche);
@@ -134,7 +139,8 @@ namespace MenuWithSubMenu.Pages
                     gauche = false,
                     loin = true,
                     ecart = (float?)ecartLoinText.Value,
-                    hauteur = (float?)hauteurLoinText.Value
+                    hauteur = (float?)hauteurLoinText.Value,
+                    visite_id = new_visite.id
                 };
 
                 db.visions.Add(vision_Loins_droit);
@@ -151,7 +157,8 @@ namespace MenuWithSubMenu.Pages
                     gauche = false,
                     loin = false,
                     ecart = (float?)ecartPresText.Value,
-                    hauteur = (float?)hauteurPresText.Value
+                    hauteur = (float?)hauteurPresText.Value,
+                    visite_id = new_visite.id
                 };
 
                 db.visions.Add(vision_pres_droit);
@@ -168,14 +175,17 @@ namespace MenuWithSubMenu.Pages
                     gauche = true,
                     loin = false,
                     ecart = (float?)ecartPresText.Value,
-                    hauteur = (float?)hauteurPresText.Value
+                    hauteur = (float?)hauteurPresText.Value,
+                    visite_id = new_visite.id
                 };
 
                 db.visions.Add(vision_pres_gauche);
                 db.SaveChanges();
-
+                
 
                 transaction.Commit();
+
+                MyContext.navigateTo(prevPage);
             }
             catch (Exception exc)
             {
@@ -336,6 +346,7 @@ namespace MenuWithSubMenu.Pages
             if (open.ShowDialog() == DialogResult.OK)
             {
                 photoOrdonnance.Source = new BitmapImage(new Uri(open.FileName));
+                currentPhoto = open;
             }
         }
 

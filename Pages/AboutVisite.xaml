@@ -7,7 +7,61 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AboutVisite"
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      
+      Background="White"
       >
+
+    <Page.Resources>
+        <!-- Style of Textbox -->
+        <Style BasedOn="{StaticResource {x:Type TextBox}}"
+           TargetType="TextBox"
+           x:Key="TextBoxStyle">
+            <Setter Property="Margin" Value="0 0 0 10" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="#d6e0ea" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Padding" Value="5" />
+        </Style>
+
+        <!-- Style of Label -->
+        <Style BasedOn="{StaticResource {x:Type TextBlock}}"
+           TargetType="TextBlock"
+           x:Key="LabelTextStyle">
+            <Setter Property="Margin" Value="0 15 0 3" />
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+
+        <!-- Style of Title -->
+        <Style BasedOn="{StaticResource {x:Type TextBlock}}"
+           TargetType="TextBlock"
+           x:Key="TitleStyle">
+            <Setter Property="Margin" Value="0 0 0 15" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontWeight" Value="Regular" />
+            <Setter Property="Opacity" Value="0.4" />
+        </Style>
+
+        <!-- Style of Border -->
+        <Style TargetType="Border" x:Key="BorderStyle">
+            <Setter Property="Background" Value="White" />
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="Margin" Value="4" />
+            <Setter Property="Padding" Value="7" />
+        </Style>
+
+        <!-- Style of image button -->
+        <Style TargetType="{x:Type Button}" x:Key="ImageButtonStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <ContentPresenter/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Page.Resources>
 
     <Grid>
         <StackPanel>
@@ -17,6 +71,5 @@
                 <DataGrid Name="examList" Margin="10"></DataGrid>
             </StackPanel>
         </StackPanel>
-        
     </Grid>
 </Page>

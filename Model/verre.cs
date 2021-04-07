@@ -18,19 +18,21 @@ namespace MenuWithSubMenu.Model
         public verre()
         {
             this.ligne_traitement_verre = new HashSet<ligne_traitement_verre>();
-            this.visions = new HashSet<vision>();
+            this.ligneentrees = new HashSet<ligneentree>();
+            this.visites = new HashSet<visite>();
         }
     
         public int idVerre { get; set; }
-        public string idArticle { get; set; }
-        public int idTypeVerre { get; set; }
         public string Teinte { get; set; }
+        public Nullable<double> indice { get; set; }
+        public string matiere { get; set; }
+        public string geometrie { get; set; }
     
-        public virtual article article { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ligne_traitement_verre> ligne_traitement_verre { get; set; }
-        public virtual typeverre typeverre { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<vision> visions { get; set; }
+        public virtual ICollection<ligneentree> ligneentrees { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<visite> visites { get; set; }
     }
 }

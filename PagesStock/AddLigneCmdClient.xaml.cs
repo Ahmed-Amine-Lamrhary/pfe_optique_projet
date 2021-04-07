@@ -28,6 +28,67 @@ namespace MenuWithSubMenu.PagesStock
         public ligneentree ligne;
         public bool isUpdate;
 
+        public List<vision> visions;
+        public visite lastClientVisite;
+
+        // execute in both consturctors
+        private void getVisions()
+        {
+            visions = db.visions.Where(v => v.visite_id == lastClientVisite.id).ToList();
+
+            // show visions
+            foreach(vision v in visions)
+            {
+                // pres
+                if (!v.loin)
+                {
+                    // droite
+                    if (!v.gauche)
+                    {
+                        od_sph_pres.Value = (double)v.sph;
+                        od_axe_pres.Value = (double)v.axe;
+                        od_add_pres.Value = (double)v.add;
+                        od_cyl_pres.Value = (double)v.cyl;
+                    }
+                    // gauche
+                    else
+                    {
+                        og_sph_pres.Value = (double)v.sph;
+                        og_axe_pres.Value = (double)v.axe;
+                        og_add_pres.Value = (double)v.add;
+                        og_cyl_pres.Value = (double)v.cyl;
+                    }
+
+                    // hauteur et ecart
+                    ecartLoinText.Value = (double)v.ecart;
+                    hauteurLoinText.Value = (double)v.hauteur;
+
+                } else
+                {
+                    // droite
+                    if (!v.gauche)
+                    {
+                        od_sph_loin.Value = (double)v.sph;
+                        od_axe_loin.Value = (double)v.axe;
+                        od_add_loin.Value = (double)v.add;
+                        od_cyl_loin.Value = (double)v.cyl;
+                    }
+                    // gauche
+                    else
+                    {
+                        og_sph_loin.Value = (double)v.sph;
+                        og_axe_loin.Value = (double)v.axe;
+                        og_add_loin.Value = (double)v.add;
+                        og_cyl_loin.Value = (double)v.cyl;
+                    }
+
+                    // hauteur et ecart
+                    ecartPresText.Value = (double)v.ecart;
+                    hauteurPresText.Value = (double)v.hauteur;
+                }
+            }
+        }
+
         // update constructor
         public AddLigneCmdClient(Page prevP, AddCmdClient addCmdP, ligneentree ligne)
         {
@@ -44,7 +105,7 @@ namespace MenuWithSubMenu.PagesStock
         }
 
         // create constructor
-        public AddLigneCmdClient(Page prevP, AddCmdClient addCmdP)
+        public AddLigneCmdClient(Page prevP, AddCmdClient addCmdP, visite lastClientVisite)
         {
             InitializeComponent();
 
@@ -53,8 +114,11 @@ namespace MenuWithSubMenu.PagesStock
             addCmdPage = addCmdP;
             references = new List<article>();
             this.isUpdate = false;
+            this.lastClientVisite = lastClientVisite;
 
             fillComboBox();
+
+            getVisions();
         }
 
         public void selectItem(object sender, SelectionChangedEventArgs e)
@@ -64,33 +128,33 @@ namespace MenuWithSubMenu.PagesStock
             {
                 case 1:
                     verrePanel.Visibility = Visibility.Visible;
-                    lentillePanel.Visibility = Visibility.Collapsed;
                     cadrePanel.Visibility = Visibility.Collapsed;
+                    referenceBox.Visibility = Visibility.Collapsed;
+                    articleInfoBox.Visibility = Visibility.Collapsed;
+                    additionalInfoBox.IsEnabled = true;
                     break;
+
                 case 2:
                     verrePanel.Visibility = Visibility.Collapsed;
-                    lentillePanel.Visibility = Visibility.Visible;
-                    cadrePanel.Visibility = Visibility.Collapsed;
+                    cadrePanel.Visibility = Visibility.Visible;
+                    referenceBox.Visibility = Visibility.Visible;
+                    articleInfoBox.Visibility = Visibility.Visible;
+                    additionalInfoBox.IsEnabled = false;
                     break;
+
                 case 3:
                     verrePanel.Visibility = Visibility.Collapsed;
-                    lentillePanel.Visibility = Visibility.Collapsed;
                     cadrePanel.Visibility = Visibility.Visible;
+                    referenceBox.Visibility = Visibility.Visible;
+                    articleInfoBox.Visibility = Visibility.Visible;
+                    additionalInfoBox.IsEnabled = false;
                     break;
             }
             updateReferenceCombo();
-
-            // initialize
-            qteText.Text = "";
-            prixText.Text = "";
-            garantieText.Text = "";
-            descText.Text = "";
-            marqueText.Text = "";
-            modelText.Text = "";
         }
 
         public void fillVisionsVerre(List<vision> visions)
-        {
+        { /*
             foreach (vision vision in visions)
             {
                 if (vision.loin)
@@ -131,72 +195,18 @@ namespace MenuWithSubMenu.PagesStock
                     ecartPresText_verre.Text = vision.ecart.ToString();
                     hauteurPresText_verre.Text = vision.hauteur.ToString();
                 }
-            }
+            }*/
         }
 
-        public void fillVisionsLentille(List<vision> visions)
-        {
-            foreach (vision vision in visions)
-            {
-                if (vision.loin)
-                {
-                    if (vision.gauche)
-                    {
-                        og_sph_loin_lentille.Text = vision.sph.ToString();
-                        og_cyl_loin_lentille.Text = vision.cyl.ToString();
-                        og_axe_loin_lentille.Text = vision.axe.ToString();
-                        og_add_loin_lentille.Text = vision.add.ToString();
-                    }
-                    else
-                    {
-                        od_sph_loin_lentille.Text = vision.sph.ToString();
-                        od_cyl_loin_lentille.Text = vision.cyl.ToString();
-                        od_axe_loin_lentille.Text = vision.axe.ToString();
-                        od_add_loin_lentille.Text = vision.add.ToString();
-                    }
-                    ecartLoinText_lentille.Text = vision.ecart.ToString();
-                    hauteurLoinText_lentille.Text = vision.hauteur.ToString();
-                }
-                else
-                {
-                    if (vision.gauche)
-                    {
-                        og_sph_pres_lentille.Text = vision.sph.ToString();
-                        og_cyl_pres_lentille.Text = vision.cyl.ToString();
-                        og_axe_pres_lentille.Text = vision.axe.ToString();
-                        og_add_pres_lentille.Text = vision.add.ToString();
-                    }
-                    else
-                    {
-                        od_sph_pres_lentille.Text = vision.sph.ToString();
-                        od_cyl_pres_lentille.Text = vision.cyl.ToString();
-                        od_axe_pres_lentille.Text = vision.axe.ToString();
-                        od_add_pres_lentille.Text = vision.add.ToString();
-                    }
-                    ecartPresText_lentille.Text = vision.ecart.ToString();
-                    hauteurPresText_lentille.Text = vision.hauteur.ToString();
-                }
-            }
-        }
 
         public void selectReference(object sender, SelectionChangedEventArgs e)
         {
-            // initialize
-            prixText.Text = "";
-            garantieText.Text = "";
-            descText.Text = "";
-            traitementsBox.Children.Clear();
-            traitementsLentilleBox.Children.Clear();
-            teintText.Text = "";
-            couleurLentille.Text = "";
-
-            // begin
             string idReference = (string)referenceText.SelectedValue;
             article reference = db.articles.Where(article => article.idArticle == idReference).SingleOrDefault();
 
             if (reference != null)
             {
-                this.selectedReference = reference;
+                selectedReference = reference;
 
                 // reference information
                 prixText.Text = reference.PrixUnitaire.ToString();
@@ -205,82 +215,14 @@ namespace MenuWithSubMenu.PagesStock
                 /*marqueText.Text = ;
                 modelText.Text = ;*/
 
-                int selectedCategorieId = (int)categorie.SelectedValue;
-                switch (selectedCategorieId)
-                {
-                    // verre
-                    case 1:
-                        verre verre = db.verres.Where(v => v.idArticle == reference.idArticle).SingleOrDefault();
-                        typeVerresText.SelectedIndex = verre.idTypeVerre - 1;
-
-                        // teinte
-                        teintText.Text = verre.Teinte;
-
-                        // traitements
-                        List<ligne_traitement_verre> lignesVerre = db.ligne_traitement_verre.Where(l => l.verre_idVerre == verre.idVerre).ToList();
-                        foreach(ligne_traitement_verre ligne in lignesVerre)
-                        {
-                            
-                            traitement traitement = db.traitements.Where(t => t.idTraitement == ligne.traitement_idTraitement).SingleOrDefault();
-                            addTraitVerre(ligne.niveau.ToString(), traitement.Nom);
-                        }
-
-                        // visions
-                        fillVisionsVerre(db.visions.Where(v => v.verre_idVerre == verre.idVerre).ToList());
-                        break;
-                    // lentille
-                    case 2:
-                        lentille lentille = db.lentilles.Where(l => l.idArticle == reference.idArticle).SingleOrDefault();
-
-                        couleurLentille.Text = lentille.Couleur;
-
-                        // type de lentille
-                        string type = db.type_lentille.Where(t => t.idtype_lentille == lentille.idtype_lentille).SingleOrDefault().nom;
-                        switch (type)
-                        {
-                            case "Les Lentilles Toriques":
-                                lentilletorique lentilleTorique = db.lentilletoriques.Where(l => l.idTypeLentille == lentille.idLigneType).SingleOrDefault();
-                                typeLentilleText.SelectedIndex = 0;
-                                cylText.Text = lentilleTorique.CYL.ToString();
-                                axeText.Text = lentilleTorique.AXE.ToString();
-                                break;
-                            case "Les Lentilles MultiFocales":
-                                lentillemultifocale lentilleMultiFocale = db.lentillemultifocales.Where(l => l.idTypeLentille == lentille.idLigneType).SingleOrDefault();
-                                typeLentilleText.SelectedIndex = 1;
-                                domText.Text = lentilleMultiFocale.DOM.ToString();
-                                addText.Text = lentilleMultiFocale.ADD.ToString();
-                                break;
-                            case "Les Lentilles Spheriques":
-                                lentillespherique lentilleSpherique = db.lentillespheriques.Where(l => l.idTypeLentille == lentille.idLigneType).SingleOrDefault();
-                                typeLentilleText.SelectedIndex = 2;
-                                rcText.Text = lentilleSpherique.RC.ToString();
-                                diaText.Text = lentilleSpherique.DIA.ToString();
-                                break;
-                        } 
-
-                        // traitements
-                        List<ligne_traitement_lentille> lignesLentilles = db.ligne_traitement_lentille.Where(l => l.lentille_idLentille == lentille.idLentille).ToList();
-                        foreach (ligne_traitement_lentille ligne in lignesLentilles)
-                        {
-                            traitement traitement = db.traitements.Where(t => t.idTraitement == ligne.traitement_idTraitement).SingleOrDefault();
-                            addTraitLentille("", traitement.Nom);
-                        }
-
-                        // visions
-                        fillVisionsLentille(db.visions.Where(v => v.lentille_idLentille == lentille.idLentille).ToList());
-
-                        break;
-                    // cadre
-                    case 3:
-                        cadre cadre = db.cadres.Where(c => c.idArticle == reference.idArticle).SingleOrDefault();
-                        diametreText.Text = cadre.DiametreVerre.ToString();
-                        pontText.Text = cadre.Pont.ToString();
-                        langeur_brance_text.Text = cadre.LongeurBrache.ToString();
-                        largeurText.Text = cadre.Largeur.ToString();
-                        hautteur_verre_text.Text = cadre.HauteurVerre.ToString();
-                        couleurText.Text = cadre.Couleur;
-                        break;
-                }
+                // int selectedCategorieId = (int)categorie.SelectedValue;
+                cadre cadre = db.cadres.Where(c => c.idArticle == reference.idArticle).SingleOrDefault();
+                diametreText.Text = cadre.DiametreVerre.ToString();
+                pontText.Text = cadre.Pont.ToString();
+                langeur_brance_text.Text = cadre.LongeurBrache.ToString();
+                largeurText.Text = cadre.Largeur.ToString();
+                hautteur_verre_text.Text = cadre.HauteurVerre.ToString();
+                couleurText.Text = cadre.Couleur;
             }
         }
 
@@ -293,16 +235,6 @@ namespace MenuWithSubMenu.PagesStock
 
             categorie.SelectedIndex = 0;
 
-            List<typeverre> typeVerres = db.typeverres.Distinct().ToList();
-            typeVerresText.ItemsSource = typeVerres;
-            typeVerresText.DisplayMemberPath = "NomType";
-            typeVerresText.SelectedValuePath = "idTypeVerre";
-
-            List<type_lentille> typeLentille = db.type_lentille.Distinct().ToList();
-            typeLentilleText.ItemsSource = typeLentille;
-            typeLentilleText.DisplayMemberPath = "nom";
-            typeLentilleText.SelectedValuePath = "idtype_lentille";
-
             updateReferenceCombo();
 
             traitements = db.traitements.Distinct().ToList();
@@ -310,9 +242,22 @@ namespace MenuWithSubMenu.PagesStock
             newTraitementNom.DisplayMemberPath = "Nom";
             newTraitementNom.SelectedValuePath = "idTraitement";
 
-            lentilleNewTrat.ItemsSource = traitements;
-            lentilleNewTrat.DisplayMemberPath = "Nom";
-            lentilleNewTrat.SelectedValuePath = "idTraitement";
+            // matières
+            matiereVerresText.Items.Add("Minérale");
+            matiereVerresText.Items.Add("Polycarbonate");
+            matiereVerresText.Items.Add("Organique");
+
+            // géométries
+            geometrieVerresText.Items.Add("Verres progressives");
+
+            // teinte
+            teintText.Items.Add("Blanc");
+            teintText.Items.Add("Solaire");
+            teintText.Items.Add("Sport");
+            teintText.Items.Add("Spéciales");
+            teintText.Items.Add("Effet mode");
+            teintText.Items.Add("Variable");
+
         }
 
         public void updateReferenceCombo()
@@ -333,32 +278,10 @@ namespace MenuWithSubMenu.PagesStock
             referenceText.SelectedIndex = 0;
         }
 
-        public void addTraitLentilleButton(object sender, RoutedEventArgs e)
-        {
-            addTraitLentille(lentilleNewTratNiveau.Text, lentilleNewTrat.DisplayMemberPath);
-        }
-
         public void addTraitVerreButton(object sender, RoutedEventArgs e)
         {
             addTraitVerre(newTraitementNiveau.Text, newTraitementNom.DisplayMemberPath);
         }
-
-        public void addTraitLentille(string niveau, string nom)
-        {
-            StackPanel stackPanel = new StackPanel() { Orientation = System.Windows.Controls.Orientation.Horizontal };
-
-            TextBlock newTextBlock = new TextBlock() { Text = nom, IsEnabled = false };
-            TextBox newTextBox = new TextBox() { Width = 100, Text = niveau };
-            Button supprimerBtn = new Button() { Content = "Supprimer" };
-            supprimerBtn.Click += supprimerTraitementLentille;
-
-            stackPanel.Children.Add(newTextBlock);
-            stackPanel.Children.Add(newTextBox);
-            stackPanel.Children.Add(supprimerBtn);
-
-            traitementsLentilleBox.Children.Add(stackPanel);
-        }
-
 
         public void addTraitVerre(string niveau, string nom)
         {
@@ -389,11 +312,6 @@ namespace MenuWithSubMenu.PagesStock
             traitementsBox.Children.Remove((UIElement)(sender as FrameworkElement).Parent);
         }
 
-        private void supprimerTraitementLentille(object sender, RoutedEventArgs e)
-        {
-            traitementsLentilleBox.Children.Remove((UIElement)(sender as FrameworkElement).Parent);
-        }
-
         private void ReturnBtn_Click(object sender, RoutedEventArgs e)
         {
             MyContext.navigateTo(prevPage);
@@ -412,11 +330,12 @@ namespace MenuWithSubMenu.PagesStock
         // save ligne
         public void saveLigne(object sender, RoutedEventArgs e)
         {
-            if (this.selectedReference.QteDisponible < int.Parse(qteText.Text))
+            if (selectedReference != null && selectedReference.QteDisponible < int.Parse(qteText.Text))
             {
                 MessageBox.Show("Quantité non disponible");
                 return;
             }
+
 
             if (!addCmdPage.lignesCmd.Contains(this))
                 addCmdPage.addNewLigneToList(this);
@@ -443,63 +362,46 @@ namespace MenuWithSubMenu.PagesStock
             return false;
         }
 
+        private void matiereVerresText_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string matiere = (string)matiereVerresText.SelectedValue;
+            indiceVerresText.Items.Clear();
+
+            switch(matiere)
+            {
+                case "Minérale":
+                    indiceVerresText.Items.Add(1.80);
+                    indiceVerresText.Items.Add(1.90);
+                    break;
+                case "Polycarbonate":
+                    indiceVerresText.Items.Add(1.59);
+                    break;
+                case "Organique":
+                    indiceVerresText.Items.Add(1.50);
+                    indiceVerresText.Items.Add(1.60);
+                    indiceVerresText.Items.Add(1.67);
+                    indiceVerresText.Items.Add(1.71);
+                    indiceVerresText.Items.Add(1.74);
+                    break;
+            }
+        }
+
         /*public List<traitement> Get_traitements_selectionee()
-{
-   foreach (StackPanel stack in traitementsLentilleBox.Children.OfType<StackPanel>())
-   {
-
-       foreach(ComboBox c in stack.Children.OfType<ComboBox>)
-       {
-           traitementsSelectiones.Add(new traitement()
+        {
+           foreach (StackPanel stack in traitementsLentilleBox.Children.OfType<StackPanel>())
            {
-               idTraitement = (int)c.SelectedValue,
-           });
-       }
 
-   }
-   return traitementsSelectiones;
-}*/
+               foreach(ComboBox c in stack.Children.OfType<ComboBox>)
+               {
+                   traitementsSelectiones.Add(new traitement()
+                   {
+                       idTraitement = (int)c.SelectedValue,
+                   });
+               }
 
-        private void TypeLentilleText_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            int selectedIemValue = (int)typeLentilleText.SelectedValue;
-            switch (selectedIemValue)
-            {
-                case 1:
-                    panelMultiFocale.Visibility = Visibility.Collapsed;
-                    panelSpherique.Visibility = Visibility.Collapsed;
-                    break;
-                case 2:
-                    panelMultiFocale.Visibility = Visibility.Visible;
-                    panelSpherique.Visibility = Visibility.Collapsed;
-                    break;
-                case 3:
-                    panelMultiFocale.Visibility = Visibility.Collapsed;
-                    panelSpherique.Visibility = Visibility.Visible;
-                    break;
-            }
-        }
+           }
+           return traitementsSelectiones;
+        }*/
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (newRefText.Visibility == Visibility.Collapsed)
-            {
-                newRefText.Visibility = Visibility.Visible;
-                // btnNewRef.Content = "X";
-                referenceText.IsEnabled = false;
-
-                articleInfoBox.IsEnabled = true;
-                additionalInfoBox.IsEnabled = true;
-            }
-            else
-            {
-                newRefText.Visibility = Visibility.Collapsed;
-                // btnNewRef.Content = "Ajouter Référence";
-                referenceText.IsEnabled = true;
-
-                articleInfoBox.IsEnabled = false;
-                additionalInfoBox.IsEnabled = false;
-            }
-        }
     }
 }

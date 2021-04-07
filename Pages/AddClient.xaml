@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MenuWithSubMenu.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="1020.799" d:DesignWidth="800"
+     d:DesignWidth="800"
       Title="AddClient"
       xmlns:hc="https://handyorg.github.io/handycontrol"
       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
@@ -81,7 +81,7 @@
                     </hc:StepBar>
 
                     <!-- Informations personnelles -->
-                    <Grid Visibility="Visible" Name="infoPersoGrid" Margin="10">
+                    <Grid Visibility="Collapsed" Name="infoPersoGrid" Margin="10">
                         <StackPanel>
                             <!-- CIN -->
                             <TextBlock Style="{StaticResource LabelTextStyle}" Text="CIN" />
@@ -152,7 +152,7 @@
 
 
                     <!-- Ordonnance -->
-                    <Grid Visibility="Collapsed" Name="infoOrdoGrid" Margin="10">
+                    <Grid Visibility="Visible" Name="infoOrdoGrid" Margin="10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1.5*"></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
@@ -166,9 +166,6 @@
 
                             <TextBlock Style="{StaticResource LabelTextStyle}" Text="Date d'expiration" />
                             <DatePicker Name="dateExpirationOrdonnance"/>
-
-                            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Type de verres" />
-                            <ComboBox Name="typeVerres" SelectedIndex="0" />
 
                             <TextBlock Style="{StaticResource LabelTextStyle}" Text="Notes" />
                             <hc:TextBox Name="notesOphtalmologue"/>

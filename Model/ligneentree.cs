@@ -20,10 +20,12 @@ namespace MenuWithSubMenu.Model
         public System.DateTime Date_Commande { get; set; }
         public string Adresse_Commande { get; set; }
         public int Qte_Commande { get; set; }
-        public float Prix_Total { get; set; }
+        public Nullable<float> Prix_Total { get; set; }
         public string EtatCmd { get; set; }
+        public Nullable<int> idVerre { get; set; }
     
         public virtual article article { get; set; }
         public virtual cmdclient cmdclient { get; set; }
+        public virtual verre verre { get; set; }
     }
 }

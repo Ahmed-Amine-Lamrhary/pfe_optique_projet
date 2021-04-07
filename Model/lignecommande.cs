@@ -22,8 +22,10 @@ namespace MenuWithSubMenu.Model
         public int Qte_Commande { get; set; }
         public float Prix_Total { get; set; }
         public string EtatCmd { get; set; }
+        public Nullable<int> idVisite { get; set; }
     
         public virtual article article { get; set; }
         public virtual cmdfournisseur cmdfournisseur { get; set; }
+        public virtual visite visite { get; set; }
     }
 }

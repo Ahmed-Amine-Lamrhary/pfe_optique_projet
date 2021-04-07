@@ -17,15 +17,12 @@ namespace MenuWithSubMenu.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public traitement()
         {
-            this.ligne_traitement_lentille = new HashSet<ligne_traitement_lentille>();
             this.ligne_traitement_verre = new HashSet<ligne_traitement_verre>();
         }
     
         public int idTraitement { get; set; }
         public string Nom { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ligne_traitement_lentille> ligne_traitement_lentille { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ligne_traitement_verre> ligne_traitement_verre { get; set; }
     }

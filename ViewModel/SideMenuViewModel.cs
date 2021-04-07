@@ -51,13 +51,17 @@ namespace MenuWithSubMenu
             {
                 return new List<MenuItemsData>
                 {
-                    // Stock
+                    // Commandes Fournisseur
                     new MenuItemsData(){ icon="FolderLine", MenuText="Commandes Fournisseur",file_name="CmdsFournisseur",dir="PagesStock", SubMenuList=null},
 
+                    // Commandes de clients
                     new MenuItemsData(){ icon="BillLine", MenuText="Commandes de clients",file_name="CmdsClients",dir="PagesStock", SubMenuList=null},
 
                     // Fournisseurs
-                    new MenuItemsData(){ icon="TruckLine", MenuText="Fournisseurs",file_name="Fournisseurs",dir="PagesStock", SubMenuList=null}
+                    new MenuItemsData(){ icon="TruckLine", MenuText="Fournisseurs",file_name="Fournisseurs",dir="PagesStock", SubMenuList=null},
+                
+                    // Articles en stock
+                    new MenuItemsData(){ icon="StackLine", MenuText="Articles en stock",file_name="ArticlesDispo",dir="PagesStock", SubMenuList=null}
                 };
             }
         }

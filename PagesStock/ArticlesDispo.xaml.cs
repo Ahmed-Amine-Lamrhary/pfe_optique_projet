@@ -132,11 +132,6 @@ namespace MenuWithSubMenu.PagesStock
 
 
         }
-        private void addArticle(object sender, RoutedEventArgs e)
-        {
-            //AddArticle add_article = new AddArticle(this);
-            //MyContext.navigateTo(add_article);
-        }
 
         private void page_PageUpdated(object sender, HandyControl.Data.FunctionEventArgs<int> e)
         {

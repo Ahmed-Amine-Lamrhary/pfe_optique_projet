@@ -6,114 +6,156 @@
       xmlns:local="clr-namespace:MenuWithSubMenu.Pages"
       mc:Ignorable="d" 
       xmlns:hc="https://handyorg.github.io/handycontrol"
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="ClientProfile">
+      d:DesignWidth="800"
+      Title="ClientProfile"
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"      
+      >
+
+    <Page.Resources>
+        <!-- Style of Textbox -->
+        <Style BasedOn="{StaticResource {x:Type TextBox}}"
+           TargetType="TextBox"
+           x:Key="TextBoxStyle">
+            <Setter Property="Margin" Value="0 0 0 10" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="#d6e0ea" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Padding" Value="5" />
+        </Style>
+
+        <!-- Style of Label -->
+        <Style BasedOn="{StaticResource {x:Type TextBlock}}"
+           TargetType="TextBlock"
+           x:Key="LabelTextStyle">
+            <Setter Property="Margin" Value="0 15 0 3" />
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+
+        <!-- Style of Title -->
+        <Style BasedOn="{StaticResource {x:Type TextBlock}}"
+           TargetType="TextBlock"
+           x:Key="TitleStyle">
+            <Setter Property="Margin" Value="0 0 0 15" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontWeight" Value="Regular" />
+            <Setter Property="Opacity" Value="0.4" />
+        </Style>
+
+        <!-- Style of Border -->
+        <Style TargetType="Border" x:Key="BorderStyle">
+            <Setter Property="Background" Value="White" />
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="Margin" Value="4" />
+            <Setter Property="Padding" Value="7" />
+        </Style>
+
+        <!-- Style of image button -->
+        <Style TargetType="{x:Type Button}" x:Key="ImageButtonStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <ContentPresenter/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Page.Resources>
 
     <Grid>
         <StackPanel>
-            <Button Margin="10" Click="ReturnBtn_Click" Name="returnBtn" Background="WhiteSmoke" Content="&lt; Return"  HorizontalAlignment="Left"/>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="3*" />
-                </Grid.ColumnDefinitions>
+            <StackPanel Margin="10px" Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                <Button BorderThickness="0" Cursor="Hand" Click="ReturnBtn_Click" Name="returnBtn" HorizontalAlignment="Left">
+                    <iconPacks:PackIconRemixIcon Kind="ArrowLeftSLine" Width="14" Height="14" />
+                </Button>
+            </StackPanel>
 
-                <!-- Left -->
-                <Grid Margin="15" Grid.Column="0" HorizontalAlignment="Center">
-                    <StackPanel>
-                        <hc:Gravatar Content="Gravatar" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                        <TextBlock HorizontalAlignment="Center" Name="fullnameBox" />
-                    </StackPanel>
-                </Grid>
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
 
-                <!-- Right -->
-                <Grid Margin="15" Grid.Column="1">
-                    <StackPanel>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
+                    <!-- Info -->
+                    <Grid Margin="0 0 15 0" Grid.Column="0">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource TitleStyle}" Text="Informations Personnelles" />
 
-                            <!-- Info -->
-                            <Grid Grid.Column="0">
-                                <StackPanel>
-                                    <TextBlock Text="Informations Personnelles" />
-                                    <TextBlock Text="CIN" Name="cinBox" />
-                                    <TextBlock Text="Adresse" Name="adresseBox" />
-                                    <TextBlock Text="Email" Name="emailBox" />
-                                    <TextBlock Text="Telephone" Name="telephoneBox" />
-                                    <TextBlock Text="Date de naissance" Name="dateNaissanceBox" />
-                                </StackPanel>
-                            </Grid>
-                            <!-- Visites -->
-                            <Grid Grid.Column="1">
-                                <StackPanel>
-                                    <TextBlock Text="Visites" />
-                                    <DataGrid Name="visiteData" />
-                                </StackPanel>
-                            </Grid>
-                        </Grid>
-                        <!-- Meds and Maladies -->
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
+                            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Nom complet" />
+                            <hc:TextBox Name="fullnameBox" IsEnabled="False" />
 
-                            <!-- Info -->
-                            <Grid Grid.Column="0" Margin="5">
-                                <StackPanel Name="panelMeds">
-                                    <TextBlock  Text="Medicaments :"/>
-                                    <ListBox Name="meds" Margin="10" Style="{DynamicResource ListBoxCustom}">
+                            <TextBlock Style="{StaticResource LabelTextStyle}" Text="CIN" />
+                            <hc:TextBox Name="cinBox" IsEnabled="False" />
 
-                                    </ListBox>
-                                </StackPanel>
-                            </Grid>
-                            <!-- Visites -->
-                            <Grid Grid.Column="1" Margin="5">
-                                <StackPanel Name="panelMaladies">
-                                    <TextBlock Text="Maladies :"/>
-                                    <ListBox Name="maladies" Margin="10"  Style="{DynamicResource ListBoxCustom}">
+                            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Adresse" />
+                            <hc:TextBox Name="adresseBox" IsEnabled="False" />
 
-                                    </ListBox>
-                                </StackPanel>
-                            </Grid>
-                        </Grid>
+                            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Email" />
+                            <hc:TextBox Name="emailBox" IsEnabled="False" />
 
-                        <!-- Ordonnances -->
-                        <StackPanel Margin="5">
-                            <TextBlock Text="Ordonnances" />
+                            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Telephone" />
+                            <hc:TextBox Name="telephoneBox" IsEnabled="False" />
 
-                            <DataGrid hc:DataGridAttach.ShowRowNumber="True" Name="odonnanceData" AutoGeneratedColumns="DataGrid_AutoGeneratedColumns">
-                                <DataGrid.Columns>
-                                    <DataGridTemplateColumn Width="50" Header="Edit">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-
-                                                <MenuItem Click="AddPresetButton_Click" x:Name="AddPresetButton">
-                                                    <MenuItem.Icon>
-                                                        <TextBlock Text="More" />
-                                                    </MenuItem.Icon>
-
-                                                    <MenuItem.ContextMenu>
-                                                        <ContextMenu>
-                                                            <MenuItem Header="Voir Ordonnance" Click="voirOrdonnance" />
-                                                        </ContextMenu>
-                                                    </MenuItem.ContextMenu>
-                                                </MenuItem>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                </DataGrid.Columns>
-                            </DataGrid>
-
+                            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Date de naissance" />
+                            <hc:TextBox Name="dateNaissanceBox" IsEnabled="False" />
                         </StackPanel>
+                    </Grid>
+                    <!-- Visites -->
+                    <Grid Grid.Column="1">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource TitleStyle}" Text="Visites" />
+                            <DataGrid Name="visiteData" />
 
-                    </StackPanel>
+                            <!-- Medicaments -->
+                            <StackPanel Margin="0 15 0 0" Name="panelMeds">
+                                <TextBlock Style="{StaticResource TitleStyle}" Text="Medicaments" />
+                                <ListBox Name="meds" Style="{DynamicResource ListBoxCustom}">
 
+                                </ListBox>
+                            </StackPanel>
+
+                            <!-- Maladies -->
+                            <StackPanel Margin="0 15 0 0" Name="panelMaladies">
+                                <TextBlock Style="{StaticResource TitleStyle}" Text="Maladies" />
+                                <ListBox Name="maladies"  Style="{DynamicResource ListBoxCustom}">
+
+                                </ListBox>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
                 </Grid>
-            </Grid>
+
+                <!-- Ordonnances -->
+                <StackPanel Margin="0 25 0 0">
+                    <TextBlock Style="{StaticResource TitleStyle}" Text="Ordonnances" />
+
+                    <DataGrid hc:DataGridAttach.ShowRowNumber="True" Name="odonnanceData" AutoGeneratedColumns="DataGrid_AutoGeneratedColumns">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Width="50" Header="Edit">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+
+                                        <MenuItem Click="AddPresetButton_Click" x:Name="AddPresetButton">
+                                            <MenuItem.Icon>
+                                                <TextBlock Text="More" />
+                                            </MenuItem.Icon>
+
+                                            <MenuItem.ContextMenu>
+                                                <ContextMenu>
+                                                    <MenuItem Header="Voir Ordonnance" Click="voirOrdonnance" />
+                                                </ContextMenu>
+                                            </MenuItem.ContextMenu>
+                                        </MenuItem>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                </StackPanel>
+
+            </StackPanel>
         </StackPanel>
         
         

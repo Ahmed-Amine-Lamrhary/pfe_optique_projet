@@ -22,6 +22,7 @@ namespace MenuWithSubMenu.Model
         public Nullable<float> Largeur { get; set; }
         public Nullable<float> HauteurVerre { get; set; }
         public string Couleur { get; set; }
+        public Nullable<bool> isSunGlasses { get; set; }
     
         public virtual article article { get; set; }
     }

@@ -1,8 +1,10 @@
-﻿using MenuWithSubMenu.Model;
+﻿using HandyControl.Controls;
+using MenuWithSubMenu.Model;
 using MenuWithSubMenu.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +12,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -26,6 +29,7 @@ namespace MenuWithSubMenu.Pages
         DbContextTransaction transaction;
         private string clientCin;
         private Page prevPage;
+        private OpenFileDialog currentPhoto;
 
         public AddVisite(string clientCin, Page prevP)
         {
@@ -40,14 +44,6 @@ namespace MenuWithSubMenu.Pages
             ophtalmologueText.ItemsSource = ophtalmologues;
             ophtalmologueText.DisplayMemberPath = "nom";
             ophtalmologueText.SelectedValuePath = "id";
-
-            // get types de verre
-            List<typeverre> typesverre = db.typeverres.Distinct().ToList();
-            typeVerres.ItemsSource = typesverre;
-            typeVerres.DisplayMemberPath = "NomType";
-            typeVerres.SelectedValuePath = "idTypeVerre";
-
-
         }
         private void saveVisite(object sender, RoutedEventArgs e)
         {
@@ -55,12 +51,19 @@ namespace MenuWithSubMenu.Pages
             {
                 transaction = db.Database.BeginTransaction();
 
+                // ordonnance image
+                string fileNameToSave = DateTime.Now.ToString("yyyy-dd-M--HH-mm-ss") + System.IO.Path.GetExtension(currentPhoto.FileName);
+                string rootPath = System.IO.Path.GetDirectoryName(System.IO.Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+                string filePath = rootPath + @"\Data\ordonnances\" + fileNameToSave;
+
+                File.Copy(currentPhoto.FileName, filePath);
+
                 ordonnance newOrdonnance = new ordonnance()
                 {
                     dateCreation = (DateTime)dateCreationOrdonnance.SelectedDate.Value.Date,
                     dateExpiration = (DateTime)dateExpirationOrdonnance.SelectedDate.Value.Date,
                     notes = notesOphtalmologue.Text,
-                    photo = "/C:/Images",
+                    photo = filePath,
                     ophtalmologueId = (int)ophtalmologueText.SelectedValue,
                 };
                 db.ordonnances.Add(newOrdonnance);
@@ -164,6 +167,25 @@ namespace MenuWithSubMenu.Pages
         private void ReturnBtn_Click(object sender, RoutedEventArgs e)
         {
             MyContext.navigateTo(prevPage);
+        }
+
+        private void showPhotoOrdonnance(object sender, RoutedEventArgs e)
+        {
+            new ImageBrowser(new Uri(photoOrdonnance.Source.ToString())).Show();
+        }
+
+        // Upload photo of ordonnance
+        private void ajouterPhotoOrdonnance(object sender, RoutedEventArgs e)
+        {
+            // open file dialog   
+            OpenFileDialog open = new OpenFileDialog();
+            // image filters  
+            open.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp; *.png)|*.jpg; *.jpeg; *.gif; *.bmp; *.png";
+            if (open.ShowDialog() == DialogResult.OK)
+            {
+                photoOrdonnance.Source = new BitmapImage(new Uri(open.FileName));
+                currentPhoto = open;
+            }
         }
     }
 }
