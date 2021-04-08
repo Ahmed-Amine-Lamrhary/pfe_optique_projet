@@ -23,6 +23,8 @@ namespace MenuWithSubMenu.PagesStock
         dbEntities db;
         List<fournisseur> listFournisseurs;
 
+        private List<fournisseur> checkedFour = new List<fournisseur>();
+
         int count;
 
         public Fournisseurs()
@@ -42,7 +44,21 @@ namespace MenuWithSubMenu.PagesStock
 
             try
             {
-                listFournisseurs = await db.fournisseurs.ToListAsync();
+                if (searchBar.Text != "")
+                {
+                    listFournisseurs = await db.fournisseurs.Where(c => c.Nom.Contains(searchBar.Text) || c.Email.Contains(searchBar.Text)).ToListAsync();
+                }
+                else
+                {
+                    listFournisseurs = await db.fournisseurs.ToListAsync();
+                }
+
+                if (listFournisseurs.Count() == 0)
+                {
+                    nothingBox.Visibility = Visibility.Visible;
+                    return;
+                }
+
 
                 count = (int)Math.Ceiling((decimal)listFournisseurs.Count / 10);
                 pagination.MaxPageCount = count;
@@ -119,5 +135,68 @@ namespace MenuWithSubMenu.PagesStock
         {
             getFournisseurs((e.Info - 1) * 10);
         }
+
+        private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (searchBar.Text != "") cancelFocus.Visibility = Visibility.Visible;
+            else cancelFocus.Visibility = Visibility.Collapsed;
+
+            getFournisseurs(0);
+        }
+
+        private void CancelFocus_Click(object sender, RoutedEventArgs e)
+        {
+            searchBar.Text = "";
+        }
+
+
+        private void checkCmd(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)e.OriginalSource;
+            DataGridRow dataGridRow = VisualTreeHelpers.FindAncestor<DataGridRow>(checkBox);
+            fournisseur fournisseur = (fournisseur)dataGridRow.DataContext;
+
+            checkedFour.Add(fournisseur);
+
+            if (checkedFour.Count() > 0)
+                groupInfo.Visibility = Visibility.Visible;
+            else
+                groupInfo.Visibility = Visibility.Collapsed;
+        }
+
+        private void unCheckCmd(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)e.OriginalSource;
+            DataGridRow dataGridRow = VisualTreeHelpers.FindAncestor<DataGridRow>(checkBox);
+            fournisseur fournisseur = (fournisseur)dataGridRow.DataContext;
+
+            checkedFour.Remove(fournisseur);
+
+            if (checkedFour.Count() > 0)
+                groupInfo.Visibility = Visibility.Visible;
+            else
+                groupInfo.Visibility = Visibility.Collapsed;
+        }
+
+        private void deleteMany(object sender, RoutedEventArgs e)
+        {
+            DbContextTransaction transaction = db.Database.BeginTransaction();
+            try
+            {
+                foreach(fournisseur fournisseur in checkedFour)
+                {
+                    db.fournisseurs.Remove(fournisseur);
+                    db.SaveChanges();
+                }
+
+                transaction.Commit();
+            } catch (Exception)
+            {
+                transaction.Rollback();
+                MessageBox.Show("Erreur");
+            }
+        }
+
+
     }
 }

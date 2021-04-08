@@ -28,6 +28,8 @@ namespace MenuWithSubMenu.PagesStock
 
         public BindableCollection<AddLigneCmdClient> lignesCmd;
 
+        private List<ligneentree> checkedLignes = new List<ligneentree>();
+
         // update constructor
         public AddCmdClient(cmdclient cmdClient)
         {
@@ -40,6 +42,8 @@ namespace MenuWithSubMenu.PagesStock
             lignesCmdBox.Visibility = Visibility.Collapsed;
             nothingBox.Visibility = Visibility.Collapsed;
             loadingBox.Visibility = Visibility.Visible;
+
+            addLigneBtn.Visibility = Visibility.Collapsed;
 
             try
             {
@@ -200,6 +204,33 @@ namespace MenuWithSubMenu.PagesStock
                         db.verres.Add(verre);
                         db.SaveChanges();
 
+                        // add traitements
+                        if ((bool)ligne.traitementsCheckbox.IsChecked && ligne.traitementsBox.Children.Count > 0)
+                        {
+                            foreach (StackPanel panel in ligne.traitementsBox.Children)
+                            {
+                                int idTraitement = 0;
+                                int niveau = 0;
+
+                                foreach (object child in panel.Children)
+                                {
+                                    if (child is ComboBox)
+                                        idTraitement = (int)(child as ComboBox).SelectedValue;
+                                    else if (child is TextBox)
+                                        niveau = int.Parse((child as TextBox).Text);
+                                }
+
+                                ligne_traitement_verre new_ligne_traitement = new ligne_traitement_verre()
+                                {
+                                    verre_idVerre = verre.idVerre,
+                                    traitement_idTraitement = idTraitement,
+                                    niveau = niveau
+                                };
+                                db.ligne_traitement_verre.Add(new_ligne_traitement);
+                                db.SaveChanges();
+                            }
+                        }
+
                         // add ligne
                         db.ligneentrees.Add(new ligneentree()
                         {
@@ -209,7 +240,8 @@ namespace MenuWithSubMenu.PagesStock
                             Date_Commande = DateTime.Now,
                             Adresse_Commande = "",
                             Qte_Commande = int.Parse(ligne.qteText.Text),
-                            EtatCmd = "En-Cours"
+                            EtatCmd = "En-Cours",
+                            Prix_Total = int.Parse(ligne.qteText.Text) * float.Parse(ligne.verrePrix.Text),
                         });
                         db.SaveChanges();
                     } else
@@ -237,39 +269,6 @@ namespace MenuWithSubMenu.PagesStock
                 transaction.Rollback();
             }
         }
-
-        public void changeEtat(object sender, RoutedEventArgs e)
-        {
-            ligneentree ligne = lignesCmdBox.SelectedItem as ligneentree;
-            if (ligne.EtatCmd == "En-Cours")
-            {
-                // convert to completed
-                try
-                {
-                    transaction = db.Database.BeginTransaction();
-                    // change etat to completed
-                    ligne.EtatCmd = "completed";
-                    db.SaveChanges();
-
-                    // change article qte
-                    article article = db.articles.Where(a => a.idArticle == ligne.idArticle).SingleOrDefault();
-                    if (article.QteDisponible >= ligne.Qte_Commande)
-                    {
-                        article.QteDisponible -= ligne.Qte_Commande;
-                        db.SaveChanges();
-
-                        transaction.Commit();
-                        MessageBox.Show("La ligne est complétée");
-                    } else
-                        throw new Exception("Qantité non disponible");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    transaction.Rollback();
-                }
-            }
-        }
     
         public void deleteLigne(object sender, RoutedEventArgs e)
         {
@@ -290,5 +289,55 @@ namespace MenuWithSubMenu.PagesStock
         {
             
         }
+
+
+        private void checkCmd(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)e.OriginalSource;
+            DataGridRow dataGridRow = VisualTreeHelpers.FindAncestor<DataGridRow>(checkBox);
+            ligneentree ligneentree = (ligneentree)dataGridRow.DataContext;
+
+            checkedLignes.Add(ligneentree);
+
+            if (checkedLignes.Count() > 0)
+                groupInfo.Visibility = Visibility.Visible;
+            else
+                groupInfo.Visibility = Visibility.Collapsed;
+        }
+
+        private void unCheckCmd(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)e.OriginalSource;
+            DataGridRow dataGridRow = VisualTreeHelpers.FindAncestor<DataGridRow>(checkBox);
+            ligneentree ligneentree = (ligneentree)dataGridRow.DataContext;
+
+            checkedLignes.Remove(ligneentree);
+
+            if (checkedLignes.Count() > 0)
+                groupInfo.Visibility = Visibility.Visible;
+            else
+                groupInfo.Visibility = Visibility.Collapsed;
+        }
+
+        private void deleteMany(object sender, RoutedEventArgs e)
+        {
+            DbContextTransaction transaction = db.Database.BeginTransaction();
+            try
+            {
+                foreach (ligneentree ligneentree in checkedLignes)
+                {
+                    db.ligneentrees.Remove(ligneentree);
+                    db.SaveChanges();
+                }
+
+                transaction.Commit();
+            }
+            catch (Exception)
+            {
+                transaction.Rollback();
+                System.Windows.MessageBox.Show("Erreur");
+            }
+        }
+
     }
 }

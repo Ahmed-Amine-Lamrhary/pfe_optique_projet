@@ -26,6 +26,8 @@ namespace MenuWithSubMenu.Pages
         List<client> listClient;
         int count;
 
+        private List<client> checkedClients = new List<client>();
+
         public EspaceClient()
         {
 
@@ -183,5 +185,57 @@ namespace MenuWithSubMenu.Pages
         {
             searchBar.Text = "";
         }
+
+
+
+        private void checkCmd(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)e.OriginalSource;
+            DataGridRow dataGridRow = VisualTreeHelpers.FindAncestor<DataGridRow>(checkBox);
+            client client = (client)dataGridRow.DataContext;
+
+            checkedClients.Add(client);
+
+            if (checkedClients.Count() > 0)
+                groupInfo.Visibility = Visibility.Visible;
+            else
+                groupInfo.Visibility = Visibility.Collapsed;
+        }
+
+        private void unCheckCmd(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)e.OriginalSource;
+            DataGridRow dataGridRow = VisualTreeHelpers.FindAncestor<DataGridRow>(checkBox);
+            client client = (client)dataGridRow.DataContext;
+
+            checkedClients.Remove(client);
+
+            if (checkedClients.Count() > 0)
+                groupInfo.Visibility = Visibility.Visible;
+            else
+                groupInfo.Visibility = Visibility.Collapsed;
+        }
+
+        private void deleteMany(object sender, RoutedEventArgs e)
+        {
+            DbContextTransaction transaction = db.Database.BeginTransaction();
+            try
+            {
+                foreach (client client in checkedClients)
+                {
+                    db.clients.Remove(client);
+                    db.SaveChanges();
+                }
+
+                transaction.Commit();
+            }
+            catch (Exception)
+            {
+                transaction.Rollback();
+                System.Windows.MessageBox.Show("Erreur");
+            }
+        }
+
+
     }
 }

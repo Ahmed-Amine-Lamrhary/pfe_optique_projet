@@ -8,6 +8,8 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AddCmdClient"
       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      
+      Background="White"
       >
 
     <Page.Resources>
@@ -96,11 +98,15 @@
                 </hc:SimplePanel>
             </Border>
 
-
+            <!-- Group info -->
+            <StackPanel Orientation="Horizontal" Name="groupInfo" Visibility="Collapsed">
+                <Button Content="Supprimer" Click="deleteMany" Name="deleteCmdsBtn" Background="Red" Foreground="White" Cursor="Hand" BorderThickness="0"></Button>
+            </StackPanel>
+            
             <DataGrid Background="Transparent" Visibility="Collapsed" Name="lignesCmdBox" HeadersVisibility="All" RowHeaderWidth="60" AutoGenerateColumns="False">
                 <DataGrid.RowHeaderTemplate>
                     <DataTemplate>
-                        <CheckBox IsChecked="{Binding IsSelected,RelativeSource={RelativeSource AncestorType=DataGridRow}}"/>
+                        <CheckBox Unchecked="unCheckCmd" Checked="checkCmd" Cursor="Hand" />
                     </DataTemplate>
                 </DataGrid.RowHeaderTemplate>
                 <DataGrid.Columns>
@@ -115,9 +121,6 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Button ToolTip="Changer l'état" Style="{StaticResource OptionsButtonStyle}" Click="changeEtat">
-                                        <iconPacks:PackIconRemixIcon Kind="FolderUserLine" Style="{StaticResource OptionsButtonIconStyle}" />
-                                    </Button>
                                     <Button ToolTip="Supprimer" Style="{StaticResource OptionsButtonStyle}" Click="deleteLigne">
                                         <iconPacks:PackIconRemixIcon Kind="DeleteBinLine" Style="{StaticResource OptionsButtonIconStyle}" />
                                     </Button>
@@ -131,7 +134,7 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <Button Margin="0 20 0 0" Content="Ajouter une ligne" Click="ajouterLigne" Cursor="Hand" />
+            <Button Margin="0 20 0 0" Content="Ajouter une ligne" Click="ajouterLigne" Cursor="Hand" Name="addLigneBtn" />
         </StackPanel>
     </Grid>
 </Page>

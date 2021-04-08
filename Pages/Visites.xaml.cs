@@ -17,6 +17,8 @@ namespace MenuWithSubMenu.Pages
         DateTime? startDate;
         DateTime? endDate;
 
+        private List<visite> checkedVisites = new List<visite>();
+
         int count;
 
         public Visite()
@@ -114,16 +116,8 @@ namespace MenuWithSubMenu.Pages
                 startDate = (DateTime)filterStartDate.SelectedDate;
                 endDate = (DateTime)filterEndDate.SelectedDate;
 
-                if (startDate <= endDate)
-                    getVisites(0);
-                else
-                {
-                    MessageBox.Show("start date must be less than end date");
-
-                    startDate = endDate = null;
-                    filterStartDate.SelectedDate = filterEndDate.SelectedDate = null;
-                }
-            } catch(Exception)
+                filterByDateFunc();
+            } catch (Exception)
             {
                 startDate = endDate = null;
                 getVisites(0);
@@ -137,5 +131,103 @@ namespace MenuWithSubMenu.Pages
 
             getVisites(0);
         }
+
+        private void selectLastDate(object sender, SelectionChangedEventArgs e)
+        {
+            endDate = DateTime.Now;
+
+            switch (lastDate.SelectedIndex)
+            {
+                // last day
+                case 0:
+                    startDate = DateTime.Today.AddDays(-1);
+                    break;
+                // last week
+                case 1:
+                    startDate = DateTime.Today.AddDays(-7);
+                    break;
+                // last month
+                case 2:
+                    startDate = DateTime.Today.AddMonths(-1);
+                    break;
+                // last year
+                case 3:
+                    startDate = DateTime.Today.AddYears(-1);
+                    break;
+            }
+
+            filterByDateFunc();
+        }
+
+        private void filterByDateFunc()
+        {
+            try
+            {
+                if (startDate <= endDate)
+                    getVisites(0);
+                else
+                {
+                    MessageBox.Show("start date must be less than end date");
+
+                    startDate = endDate = null;
+                    filterStartDate.SelectedDate = filterEndDate.SelectedDate = null;
+                }
+            }
+            catch (Exception)
+            {
+                startDate = endDate = null;
+                getVisites(0);
+            }
+        }
+
+
+        private void checkCmd(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)e.OriginalSource;
+            DataGridRow dataGridRow = VisualTreeHelpers.FindAncestor<DataGridRow>(checkBox);
+            visite visite = (visite)dataGridRow.DataContext;
+
+            checkedVisites.Add(visite);
+
+            if (checkedVisites.Count() > 0)
+                groupInfo.Visibility = Visibility.Visible;
+            else
+                groupInfo.Visibility = Visibility.Collapsed;
+        }
+
+        private void unCheckCmd(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)e.OriginalSource;
+            DataGridRow dataGridRow = VisualTreeHelpers.FindAncestor<DataGridRow>(checkBox);
+            visite visite = (visite)dataGridRow.DataContext;
+
+            checkedVisites.Remove(visite);
+
+            if (checkedVisites.Count() > 0)
+                groupInfo.Visibility = Visibility.Visible;
+            else
+                groupInfo.Visibility = Visibility.Collapsed;
+        }
+
+        private void deleteMany(object sender, RoutedEventArgs e)
+        {
+            DbContextTransaction transaction = db.Database.BeginTransaction();
+            try
+            {
+                foreach (visite visite in checkedVisites)
+                {
+                    db.visites.Remove(visite);
+                    db.SaveChanges();
+                }
+
+                transaction.Commit();
+            }
+            catch (Exception)
+            {
+                transaction.Rollback();
+                MessageBox.Show("Erreur");
+            }
+        }
+
     }
 }

@@ -23,6 +23,8 @@ namespace MenuWithSubMenu.Pages
         dbEntities db;
         List<ophtalmologue> listOphta;
 
+        private List<ophtalmologue> checkedOphta = new List<ophtalmologue>();
+
         int count;
 
         public Ophtalmologues()
@@ -42,7 +44,20 @@ namespace MenuWithSubMenu.Pages
 
             try
             {
-                listOphta = await db.ophtalmologues.ToListAsync();
+                if (searchBar.Text != "")
+                {
+                    listOphta = await db.ophtalmologues.Where(c => c.nom.Contains(searchBar.Text) || c.prenom.Contains(searchBar.Text) || c.email.Contains(searchBar.Text)).ToListAsync();
+                }
+                else
+                {
+                    listOphta = await db.ophtalmologues.ToListAsync();
+                }
+
+                if (listOphta.Count() == 0)
+                {
+                    nothingBox.Visibility = Visibility.Visible;
+                    return;
+                }
 
                 count = (int)Math.Ceiling((decimal)listOphta.Count / 10);
                 pagination.MaxPageCount = count;
@@ -120,5 +135,68 @@ namespace MenuWithSubMenu.Pages
         {
             getOphtalmologues((e.Info - 1) * 10);
         }
+
+        private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (searchBar.Text != "") cancelFocus.Visibility = Visibility.Visible;
+            else cancelFocus.Visibility = Visibility.Collapsed;
+
+            getOphtalmologues(0);
+        }
+
+        private void CancelFocus_Click(object sender, RoutedEventArgs e)
+        {
+            searchBar.Text = "";
+        }
+
+
+        private void checkCmd(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)e.OriginalSource;
+            DataGridRow dataGridRow = VisualTreeHelpers.FindAncestor<DataGridRow>(checkBox);
+            ophtalmologue ophtalmologue = (ophtalmologue)dataGridRow.DataContext;
+
+            checkedOphta.Add(ophtalmologue);
+
+            if (checkedOphta.Count() > 0)
+                groupInfo.Visibility = Visibility.Visible;
+            else
+                groupInfo.Visibility = Visibility.Collapsed;
+        }
+
+        private void unCheckCmd(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)e.OriginalSource;
+            DataGridRow dataGridRow = VisualTreeHelpers.FindAncestor<DataGridRow>(checkBox);
+            ophtalmologue ophtalmologue = (ophtalmologue)dataGridRow.DataContext;
+
+            checkedOphta.Remove(ophtalmologue);
+
+            if (checkedOphta.Count() > 0)
+                groupInfo.Visibility = Visibility.Visible;
+            else
+                groupInfo.Visibility = Visibility.Collapsed;
+        }
+
+        private void deleteMany(object sender, RoutedEventArgs e)
+        {
+            DbContextTransaction transaction = db.Database.BeginTransaction();
+            try
+            {
+                foreach (ophtalmologue ophtalmologue in checkedOphta)
+                {
+                    db.ophtalmologues.Remove(ophtalmologue);
+                    db.SaveChanges();
+                }
+
+                transaction.Commit();
+            }
+            catch (Exception)
+            {
+                transaction.Rollback();
+                MessageBox.Show("Erreur");
+            }
+        }
+
     }
 }

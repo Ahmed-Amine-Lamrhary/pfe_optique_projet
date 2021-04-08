@@ -141,18 +141,22 @@
                             <TextBlock Style="{StaticResource LabelTextStyle}" Text="Teinte" />
                             <ComboBox Name="teintText" />
 
+                            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Prix" />
+                            <hc:TextBox Name="verrePrix" />
+
+
                             <!-- Add Traitement -->
                             <StackPanel Margin="0 10 0 0">
                                 <StackPanel Margin="0 0 0 10" Orientation="Horizontal" VerticalAlignment="Center">
-                                    <ToggleButton IsChecked="True" Name="medicamentsCheckbox" Style="{StaticResource ToggleButtonSwitch}"/>
+                                    <ToggleButton IsChecked="True" Name="traitementsCheckbox" Style="{StaticResource ToggleButtonSwitch}"/>
                                     <TextBlock Text="Traitements" Margin="5" />
                                 </StackPanel>
 
-                                <StackPanel Visibility="{Binding IsChecked,ElementName=medicamentsCheckbox,Converter={StaticResource Boolean2VisibilityConverter}}">
+                                <StackPanel Visibility="{Binding IsChecked,ElementName=traitementsCheckbox,Converter={StaticResource Boolean2VisibilityConverter}}">
                                     <StackPanel Name="traitementsBox"></StackPanel>
 
                                     <StackPanel Orientation="Horizontal">
-                                        <ComboBox Margin="0 0 10 0" Width="100" Name="newTraitementNom" />
+                                        <ComboBox Margin="0 0 10 0" Width="200" Name="newTraitementNom" />
                                         <TextBox Margin="0 0 10 0" Width="100" Name="newTraitementNiveau"/>
                                         <Button Content="Ajouter" Click="addTraitVerreButton" />
                                     </StackPanel>

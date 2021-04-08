@@ -354,3 +354,6 @@ G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\MahApps.Metro.IconPacks.Zondicons
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\GeneratedInternalTypeHelper.g.cs
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\SplashScreen.g.cs
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\SplashScreen.baml
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\BouncyCastle.Crypto.dll
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\itextsharp.dll
+G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\itextsharp.xml

@@ -153,51 +153,6 @@ namespace MenuWithSubMenu.PagesStock
             updateReferenceCombo();
         }
 
-        public void fillVisionsVerre(List<vision> visions)
-        { /*
-            foreach (vision vision in visions)
-            {
-                if (vision.loin)
-                {
-                    if (vision.gauche)
-                    {
-                        og_sph_loin_verre.Text = vision.sph.ToString();
-                        og_cyl_loin_verre.Text = vision.cyl.ToString();
-                        og_axe_loin_verre.Text = vision.axe.ToString();
-                        og_add_loin_verre.Text = vision.add.ToString();
-                    }
-                    else
-                    {
-                        od_sph_loin_verre.Text = vision.sph.ToString();
-                        od_cyl_loin_verre.Text = vision.cyl.ToString();
-                        od_axe_loin_verre.Text = vision.axe.ToString();
-                        od_add_loin_verre.Text = vision.add.ToString();
-                    }
-                    ecartLoinText_verre.Text = vision.ecart.ToString();
-                    hauteurLoinText_verre.Text = vision.hauteur.ToString();
-                }
-                else
-                {
-                    if (vision.gauche)
-                    {
-                        og_sph_pres_verre.Text = vision.sph.ToString();
-                        og_cyl_pres_verre.Text = vision.cyl.ToString();
-                        og_axe_pres_verre.Text = vision.axe.ToString();
-                        og_add_pres_verre.Text = vision.add.ToString();
-                    }
-                    else
-                    {
-                        od_sph_pres_verre.Text = vision.sph.ToString();
-                        od_cyl_pres_verre.Text = vision.cyl.ToString();
-                        od_axe_pres_verre.Text = vision.axe.ToString();
-                        od_add_pres_verre.Text = vision.add.ToString();
-                    }
-                    ecartPresText_verre.Text = vision.ecart.ToString();
-                    hauteurPresText_verre.Text = vision.hauteur.ToString();
-                }
-            }*/
-        }
-
 
         public void selectReference(object sender, SelectionChangedEventArgs e)
         {
@@ -280,27 +235,25 @@ namespace MenuWithSubMenu.PagesStock
 
         public void addTraitVerreButton(object sender, RoutedEventArgs e)
         {
-            addTraitVerre(newTraitementNiveau.Text, newTraitementNom.DisplayMemberPath);
+            addTraitVerre(newTraitementNiveau.Text, newTraitementNom.DisplayMemberPath, newTraitementNom.SelectedIndex);
         }
 
-        public void addTraitVerre(string niveau, string nom)
+        public void addTraitVerre(string niveau, string nom, int selectedIndex)
         {
-            // coutTrait++;
-            // if (coutTrait >= maxTrait - 1)
-            //     return;
-            StackPanel stackPanel = new StackPanel() { Orientation = System.Windows.Controls.Orientation.Horizontal };
+            StackPanel stackPanel = new StackPanel() { Orientation = Orientation.Horizontal };
 
-            // ComboBox newCombobox = new ComboBox() { Width = 100 };
-            TextBlock newTextBlock = new TextBlock() { Text = nom, IsEnabled = false };
-            // newCombobox.ItemsSource = traitements;
-            // newCombobox.DisplayMemberPath = "Nom";
-            // newCombobox.SelectedValuePath = "idTraitement";
-            // newCombobox.SelectedIndex = selectedIndex;
+            ComboBox newCombobox = new ComboBox() { Width = 200, IsEnabled = false };
+            newCombobox.ItemsSource = traitements;
+            newCombobox.DisplayMemberPath = "Nom";
+            newCombobox.SelectedValuePath = "idTraitement";
+            newCombobox.SelectedIndex = selectedIndex;
+
             TextBox newTextBox = new TextBox() { Width = 100, Text = niveau };
+            
             Button supprimerBtn = new Button() { Content = "Supprimer" };
             supprimerBtn.Click += supprimerTraitementVerre;
 
-            stackPanel.Children.Add(newTextBlock);
+            stackPanel.Children.Add(newCombobox);
             stackPanel.Children.Add(newTextBox);
             stackPanel.Children.Add(supprimerBtn);
 
@@ -352,16 +305,6 @@ namespace MenuWithSubMenu.PagesStock
             return traitements;
         }
 
-        private bool referenceIsExiste(string reference)
-        {
-            foreach (article a in db.articles.ToList())
-            {
-                if (a.idArticle.Equals(reference))
-                    return true;
-            }
-            return false;
-        }
-
         private void matiereVerresText_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string matiere = (string)matiereVerresText.SelectedValue;
@@ -385,23 +328,6 @@ namespace MenuWithSubMenu.PagesStock
                     break;
             }
         }
-
-        /*public List<traitement> Get_traitements_selectionee()
-        {
-           foreach (StackPanel stack in traitementsLentilleBox.Children.OfType<StackPanel>())
-           {
-
-               foreach(ComboBox c in stack.Children.OfType<ComboBox>)
-               {
-                   traitementsSelectiones.Add(new traitement()
-                   {
-                       idTraitement = (int)c.SelectedValue,
-                   });
-               }
-
-           }
-           return traitementsSelectiones;
-        }*/
 
     }
 }

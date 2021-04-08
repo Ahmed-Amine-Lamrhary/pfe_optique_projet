@@ -90,11 +90,16 @@
                 </hc:SimplePanel>
             </Border>
 
+            <!--Group Info-->
+            <StackPanel Orientation="Horizontal" Name="groupInfo" Visibility="Collapsed">
+                <Button Content="Supprimer" Click="deleteMany" Name="deleteManyBtn" Background="Red" Foreground="White" Cursor="Hand" BorderThickness="0"></Button>
+            </StackPanel>
+
             <!--DataGrid-->
             <DataGrid Background="Transparent" Visibility="Hidden"  Name="clientsDataGrid" HeadersVisibility="All" RowHeaderWidth="60" AutoGenerateColumns="False">
                 <DataGrid.RowHeaderTemplate>
                     <DataTemplate>
-                        <CheckBox IsChecked="{Binding IsSelected,RelativeSource={RelativeSource AncestorType=DataGridRow}}"/>
+                        <CheckBox Unchecked="unCheckCmd" Checked="checkCmd" Cursor="Hand" />
                     </DataTemplate>
                 </DataGrid.RowHeaderTemplate>
                 <DataGrid.Columns>

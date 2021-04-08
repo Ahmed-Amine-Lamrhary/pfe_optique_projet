@@ -63,7 +63,7 @@
             </StackPanel>
 
             <TextBlock Style="{StaticResource LabelTextStyle}" Text="Catégorie" />
-            <ComboBox Name="categorie"/>
+            <ComboBox Name="categorie" SelectionChanged="selectItem"/>
             
             <Grid>
                 <Grid.ColumnDefinitions>

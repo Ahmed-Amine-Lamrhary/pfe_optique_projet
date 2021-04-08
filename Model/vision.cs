@@ -14,12 +14,6 @@ namespace MenuWithSubMenu.Model
     
     public partial class vision
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public vision()
-        {
-            this.vision_detaille = new HashSet<vision_detaille>();
-        }
-    
         public int idOeil { get; set; }
         public Nullable<float> cyl { get; set; }
         public Nullable<float> sph { get; set; }
@@ -36,7 +30,5 @@ namespace MenuWithSubMenu.Model
     
         public virtual lentille lentille { get; set; }
         public virtual visite visite { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<vision_detaille> vision_detaille { get; set; }
     }
 }

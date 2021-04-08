@@ -58,6 +58,7 @@
           <Property Name="idCmdClient" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DateCmd" Type="date" Nullable="false" />
           <Property Name="client_cin" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="idCmdFournisseur" Type="int" />
         </EntityType>
         <EntityType Name="cmdfournisseur">
           <Key>
@@ -102,14 +103,17 @@
             <PropertyRef Name="idLigne" />
           </Key>
           <Property Name="idLigne" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="idArticle" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="idArticle" Type="nvarchar" MaxLength="20" />
           <Property Name="idCmdFournisseur" Type="int" Nullable="false" />
           <Property Name="Date_Commande" Type="date" Nullable="false" />
           <Property Name="Adresse_Commande" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="Qte_Commande" Type="int" Nullable="false" />
-          <Property Name="Prix_Total" Type="real" Nullable="false" />
+          <Property Name="Prix_Total" Type="real" />
           <Property Name="EtatCmd" Type="nvarchar" MaxLength="45" />
           <Property Name="idVisite" Type="int" />
+          <Property Name="idCmdClient" Type="int" />
+          <Property Name="idVerre" Type="int" />
+          <Property Name="idLigneEntree" Type="int" />
         </EntityType>
         <EntityType Name="ligneentree">
           <Key>
@@ -211,7 +215,9 @@
           <Property Name="idVerre" Type="int" />
         </EntityType>
         <Association Name="article$fk_Article_Categorie1">
-          <End Role="categorie" Type="Self.categorie" Multiplicity="1" />
+          <End Role="categorie" Type="Self.categorie" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="article" Type="Self.article" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="categorie">
@@ -223,7 +229,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="cadre$fk_Cadre_Article1">
-          <End Role="article" Type="Self.article" Multiplicity="1" />
+          <End Role="article" Type="Self.article" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="cadre" Type="Self.cadre" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="article">
@@ -235,7 +243,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="cmdclient$fk_cmdclient_client1">
-          <End Role="client" Type="Self.client" Multiplicity="1" />
+          <End Role="client" Type="Self.client" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="cmdclient" Type="Self.cmdclient" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="client">
@@ -247,7 +257,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="cmdfournisseur$fk_CmdFournisseur_Fournisseur">
-          <End Role="fournisseur" Type="Self.fournisseur" Multiplicity="1" />
+          <End Role="fournisseur" Type="Self.fournisseur" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="cmdfournisseur" Type="Self.cmdfournisseur" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="fournisseur">
@@ -259,7 +271,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_lignecommande_visite">
-          <End Role="visite" Type="Self.visite" Multiplicity="0..1" />
+          <End Role="visite" Type="Self.visite" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="lignecommande" Type="Self.lignecommande" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="visite">
@@ -271,7 +285,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ligneentree_verre">
-          <End Role="verre" Type="Self.verre" Multiplicity="0..1" />
+          <End Role="verre" Type="Self.verre" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ligneentree" Type="Self.ligneentree" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="verre">
@@ -283,7 +299,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_reference_article">
-          <End Role="article" Type="Self.article" Multiplicity="1" />
+          <End Role="article" Type="Self.article" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="reference" Type="Self.reference" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="article">
@@ -295,7 +313,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_vision_visite">
-          <End Role="visite" Type="Self.visite" Multiplicity="0..1" />
+          <End Role="visite" Type="Self.visite" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="vision" Type="Self.vision" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="visite">
@@ -307,7 +327,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_visite_verre">
-          <End Role="verre" Type="Self.verre" Multiplicity="0..1" />
+          <End Role="verre" Type="Self.verre" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="visite" Type="Self.visite" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="verre">
@@ -319,7 +341,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="lentille$fk_Lentille_Article1">
-          <End Role="article" Type="Self.article" Multiplicity="1" />
+          <End Role="article" Type="Self.article" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="lentille" Type="Self.lentille" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="article">
@@ -331,7 +355,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="ligne_traitement_verre$fk_ligne_traitement_verre_traitement1">
-          <End Role="traitement" Type="Self.traitement" Multiplicity="1" />
+          <End Role="traitement" Type="Self.traitement" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ligne_traitement_verre" Type="Self.ligne_traitement_verre" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="traitement">
@@ -343,7 +369,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="ligne_traitement_verre$fk_ligne_traitement_verre_verre1">
-          <End Role="verre" Type="Self.verre" Multiplicity="1" />
+          <End Role="verre" Type="Self.verre" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ligne_traitement_verre" Type="Self.ligne_traitement_verre" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="verre">
@@ -355,7 +383,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="lignecommande$fk_LigneCommande_Article1">
-          <End Role="article" Type="Self.article" Multiplicity="1" />
+          <End Role="article" Type="Self.article" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="lignecommande" Type="Self.lignecommande" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="article">
@@ -367,7 +397,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="lignecommande$fk_LigneCommande_CmdFournisseur1">
-          <End Role="cmdfournisseur" Type="Self.cmdfournisseur" Multiplicity="1" />
+          <End Role="cmdfournisseur" Type="Self.cmdfournisseur" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="lignecommande" Type="Self.lignecommande" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="cmdfournisseur">
@@ -379,7 +411,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="ligneentree$fk_LigneEntree_Article1">
-          <End Role="article" Type="Self.article" Multiplicity="0..1" />
+          <End Role="article" Type="Self.article" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ligneentree" Type="Self.ligneentree" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="article">
@@ -391,7 +425,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="ligneentree$fk_LigneEntree_CmdClient1">
-          <End Role="cmdclient" Type="Self.cmdclient" Multiplicity="1" />
+          <End Role="cmdclient" Type="Self.cmdclient" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ligneentree" Type="Self.ligneentree" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="cmdclient">
@@ -403,7 +439,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="ordonnance$fk_ordonnance_ophtalmologue1">
-          <End Role="ophtalmologue" Type="Self.ophtalmologue" Multiplicity="1" />
+          <End Role="ophtalmologue" Type="Self.ophtalmologue" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ordonnance" Type="Self.ordonnance" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ophtalmologue">
@@ -415,7 +453,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="vision$fk_vision_lentille1">
-          <End Role="lentille" Type="Self.lentille" Multiplicity="0..1" />
+          <End Role="lentille" Type="Self.lentille" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="vision" Type="Self.vision" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="lentille">
@@ -426,20 +466,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="vision_detaille$fk_vision_detaille_vision">
-          <End Role="vision" Type="Self.vision" Multiplicity="1" />
-          <End Role="vision_detaille" Type="Self.vision_detaille" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="vision">
-              <PropertyRef Name="idOeil" />
-            </Principal>
-            <Dependent Role="vision_detaille">
-              <PropertyRef Name="vision_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="vision_detaille$fk_vision_detaille_visite1">
-          <End Role="visite" Type="Self.visite" Multiplicity="1" />
+          <End Role="visite" Type="Self.visite" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="vision_detaille" Type="Self.vision_detaille" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="visite">
@@ -451,7 +481,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="visite$fk_visite_client">
-          <End Role="client" Type="Self.client" Multiplicity="1" />
+          <End Role="client" Type="Self.client" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="visite" Type="Self.visite" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="client">
@@ -463,7 +495,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="visite$fk_visite_ordonnance1">
-          <End Role="ordonnance" Type="Self.ordonnance" Multiplicity="1" />
+          <End Role="ordonnance" Type="Self.ordonnance" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="visite" Type="Self.visite" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ordonnance">
@@ -566,10 +600,6 @@
             <End Role="lentille" EntitySet="lentille" />
             <End Role="vision" EntitySet="vision" />
           </AssociationSet>
-          <AssociationSet Name="vision_detaille$fk_vision_detaille_vision" Association="Self.vision_detaille$fk_vision_detaille_vision">
-            <End Role="vision" EntitySet="vision" />
-            <End Role="vision_detaille" EntitySet="vision_detaille" />
-          </AssociationSet>
           <AssociationSet Name="vision_detaille$fk_vision_detaille_visite1" Association="Self.vision_detaille$fk_vision_detaille_visite1">
             <End Role="visite" EntitySet="visite" />
             <End Role="vision_detaille" EntitySet="vision_detaille" />
@@ -651,6 +681,7 @@
           <Property Name="idCmdClient" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DateCmd" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="client_cin" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="idCmdFournisseur" Type="Int32" />
           <NavigationProperty Name="client" Relationship="Self.cmdclient_fk_cmdclient_client1" FromRole="cmdclient" ToRole="client" />
           <NavigationProperty Name="ligneentrees" Relationship="Self.ligneentree_fk_LigneEntree_CmdClient1" FromRole="cmdclient" ToRole="ligneentree" />
         </EntityType>
@@ -704,14 +735,17 @@
             <PropertyRef Name="idLigne" />
           </Key>
           <Property Name="idLigne" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idArticle" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="idArticle" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="idCmdFournisseur" Type="Int32" Nullable="false" />
           <Property Name="Date_Commande" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Adresse_Commande" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Qte_Commande" Type="Int32" Nullable="false" />
-          <Property Name="Prix_Total" Type="Single" Nullable="false" />
+          <Property Name="Prix_Total" Type="Single" />
           <Property Name="EtatCmd" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
           <Property Name="idVisite" Type="Int32" />
+          <Property Name="idCmdClient" Type="Int32" />
+          <Property Name="idVerre" Type="Int32" />
+          <Property Name="idLigneEntree" Type="Int32" />
           <NavigationProperty Name="article" Relationship="Self.lignecommande_fk_LigneCommande_Article1" FromRole="lignecommande" ToRole="article" />
           <NavigationProperty Name="cmdfournisseur" Relationship="Self.lignecommande_fk_LigneCommande_CmdFournisseur1" FromRole="lignecommande" ToRole="cmdfournisseur" />
           <NavigationProperty Name="visite" Relationship="Self.FK_lignecommande_visite" FromRole="lignecommande" ToRole="visite" />
@@ -807,7 +841,6 @@
           <Property Name="visite_id" Type="Int32" />
           <NavigationProperty Name="lentille" Relationship="Self.vision_fk_vision_lentille1" FromRole="vision" ToRole="lentille" />
           <NavigationProperty Name="visite" Relationship="Self.FK_vision_visite" FromRole="vision" ToRole="visite" />
-          <NavigationProperty Name="vision_detaille" Relationship="Self.vision_detaille_fk_vision_detaille_vision" FromRole="vision" ToRole="vision_detaille" />
         </EntityType>
         <EntityType Name="vision_detaille">
           <Key>
@@ -817,7 +850,6 @@
           <Property Name="remarques" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="vision_id" Type="Int32" Nullable="false" />
           <Property Name="visite_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="vision" Relationship="Self.vision_detaille_fk_vision_detaille_vision" FromRole="vision_detaille" ToRole="vision" />
           <NavigationProperty Name="visite" Relationship="Self.vision_detaille_fk_vision_detaille_visite1" FromRole="vision_detaille" ToRole="visite" />
         </EntityType>
         <EntityType Name="visite">
@@ -838,7 +870,9 @@
           <NavigationProperty Name="vision_detaille" Relationship="Self.vision_detaille_fk_vision_detaille_visite1" FromRole="visite" ToRole="vision_detaille" />
         </EntityType>
         <Association Name="article_fk_Article_Categorie1">
-          <End Role="categorie" Type="Self.categorie" Multiplicity="1" />
+          <End Role="categorie" Type="Self.categorie" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="article" Type="Self.article" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="categorie">
@@ -850,7 +884,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="cadre_fk_Cadre_Article1">
-          <End Role="article" Type="Self.article" Multiplicity="1" />
+          <End Role="article" Type="Self.article" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="cadre" Type="Self.cadre" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="article">
@@ -862,7 +898,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_reference_article">
-          <End Role="article" Type="Self.article" Multiplicity="1" />
+          <End Role="article" Type="Self.article" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="reference" Type="Self.reference" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="article">
@@ -874,7 +912,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="lentille_fk_Lentille_Article1">
-          <End Role="article" Type="Self.article" Multiplicity="1" />
+          <End Role="article" Type="Self.article" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="lentille" Type="Self.lentille" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="article">
@@ -886,7 +926,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="lignecommande_fk_LigneCommande_Article1">
-          <End Role="article" Type="Self.article" Multiplicity="1" />
+          <End Role="article" Type="Self.article" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="lignecommande" Type="Self.lignecommande" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="article">
@@ -898,7 +940,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="ligneentree_fk_LigneEntree_Article1">
-          <End Role="article" Type="Self.article" Multiplicity="0..1" />
+          <End Role="article" Type="Self.article" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ligneentree" Type="Self.ligneentree" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="article">
@@ -910,7 +954,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="cmdclient_fk_cmdclient_client1">
-          <End Role="client" Type="Self.client" Multiplicity="1" />
+          <End Role="client" Type="Self.client" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="cmdclient" Type="Self.cmdclient" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="client">
@@ -922,7 +968,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="visite_fk_visite_client">
-          <End Role="client" Type="Self.client" Multiplicity="1" />
+          <End Role="client" Type="Self.client" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="visite" Type="Self.visite" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="client">
@@ -934,7 +982,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="ligneentree_fk_LigneEntree_CmdClient1">
-          <End Role="cmdclient" Type="Self.cmdclient" Multiplicity="1" />
+          <End Role="cmdclient" Type="Self.cmdclient" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ligneentree" Type="Self.ligneentree" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="cmdclient">
@@ -946,7 +996,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="cmdfournisseur_fk_CmdFournisseur_Fournisseur">
-          <End Role="fournisseur" Type="Self.fournisseur" Multiplicity="1" />
+          <End Role="fournisseur" Type="Self.fournisseur" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="cmdfournisseur" Type="Self.cmdfournisseur" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="fournisseur">
@@ -958,7 +1010,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="lignecommande_fk_LigneCommande_CmdFournisseur1">
-          <End Role="cmdfournisseur" Type="Self.cmdfournisseur" Multiplicity="1" />
+          <End Role="cmdfournisseur" Type="Self.cmdfournisseur" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="lignecommande" Type="Self.lignecommande" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="cmdfournisseur">
@@ -970,7 +1024,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="vision_fk_vision_lentille1">
-          <End Role="lentille" Type="Self.lentille" Multiplicity="0..1" />
+          <End Role="lentille" Type="Self.lentille" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="vision" Type="Self.vision" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="lentille">
@@ -982,7 +1038,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="ligne_traitement_verre_fk_ligne_traitement_verre_traitement1">
-          <End Role="traitement" Type="Self.traitement" Multiplicity="1" />
+          <End Role="traitement" Type="Self.traitement" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ligne_traitement_verre" Type="Self.ligne_traitement_verre" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="traitement">
@@ -994,7 +1052,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="ligne_traitement_verre_fk_ligne_traitement_verre_verre1">
-          <End Role="verre" Type="Self.verre" Multiplicity="1" />
+          <End Role="verre" Type="Self.verre" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ligne_traitement_verre" Type="Self.ligne_traitement_verre" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="verre">
@@ -1006,7 +1066,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_lignecommande_visite">
-          <End Role="visite" Type="Self.visite" Multiplicity="0..1" />
+          <End Role="visite" Type="Self.visite" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="lignecommande" Type="Self.lignecommande" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="visite">
@@ -1018,7 +1080,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ligneentree_verre">
-          <End Role="verre" Type="Self.verre" Multiplicity="0..1" />
+          <End Role="verre" Type="Self.verre" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ligneentree" Type="Self.ligneentree" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="verre">
@@ -1030,7 +1094,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="ordonnance_fk_ordonnance_ophtalmologue1">
-          <End Role="ophtalmologue" Type="Self.ophtalmologue" Multiplicity="1" />
+          <End Role="ophtalmologue" Type="Self.ophtalmologue" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ordonnance" Type="Self.ordonnance" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ophtalmologue">
@@ -1042,7 +1108,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="visite_fk_visite_ordonnance1">
-          <End Role="ordonnance" Type="Self.ordonnance" Multiplicity="1" />
+          <End Role="ordonnance" Type="Self.ordonnance" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="visite" Type="Self.visite" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ordonnance">
@@ -1054,7 +1122,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_visite_verre">
-          <End Role="verre" Type="Self.verre" Multiplicity="0..1" />
+          <End Role="verre" Type="Self.verre" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="visite" Type="Self.visite" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="verre">
@@ -1066,7 +1136,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_vision_visite">
-          <End Role="visite" Type="Self.visite" Multiplicity="0..1" />
+          <End Role="visite" Type="Self.visite" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="vision" Type="Self.vision" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="visite">
@@ -1077,20 +1149,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="vision_detaille_fk_vision_detaille_vision">
-          <End Role="vision" Type="Self.vision" Multiplicity="1" />
-          <End Role="vision_detaille" Type="Self.vision_detaille" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="vision">
-              <PropertyRef Name="idOeil" />
-            </Principal>
-            <Dependent Role="vision_detaille">
-              <PropertyRef Name="vision_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="vision_detaille_fk_vision_detaille_visite1">
-          <End Role="visite" Type="Self.visite" Multiplicity="1" />
+          <End Role="visite" Type="Self.visite" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="vision_detaille" Type="Self.vision_detaille" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="visite">
@@ -1201,10 +1263,6 @@
             <End Role="visite" EntitySet="visites" />
             <End Role="vision" EntitySet="visions" />
           </AssociationSet>
-          <AssociationSet Name="vision_detaille_fk_vision_detaille_vision" Association="Self.vision_detaille_fk_vision_detaille_vision">
-            <End Role="vision" EntitySet="visions" />
-            <End Role="vision_detaille" EntitySet="vision_detaille" />
-          </AssociationSet>
           <AssociationSet Name="vision_detaille_fk_vision_detaille_visite1" Association="Self.vision_detaille_fk_vision_detaille_visite1">
             <End Role="visite" EntitySet="visites" />
             <End Role="vision_detaille" EntitySet="vision_detaille" />
@@ -1272,6 +1330,7 @@
                 <ScalarProperty Name="idCmdClient" ColumnName="idCmdClient" />
                 <ScalarProperty Name="DateCmd" ColumnName="DateCmd" />
                 <ScalarProperty Name="client_cin" ColumnName="client_cin" />
+                <ScalarProperty Name="idCmdFournisseur" ColumnName="idCmdFournisseur" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1329,6 +1388,9 @@
                 <ScalarProperty Name="Prix_Total" ColumnName="Prix_Total" />
                 <ScalarProperty Name="EtatCmd" ColumnName="EtatCmd" />
                 <ScalarProperty Name="idVisite" ColumnName="idVisite" />
+                <ScalarProperty Name="idCmdClient" ColumnName="idCmdClient" />
+                <ScalarProperty Name="idVerre" ColumnName="idVerre" />
+                <ScalarProperty Name="idLigneEntree" ColumnName="idLigneEntree" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

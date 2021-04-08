@@ -8,7 +8,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Visite"
-      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"       
       >
 
     <Page.Resources>
@@ -87,28 +87,48 @@
             
             <!-- Filter by date -->
             <StackPanel>
-                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Filtrer par date" />
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 20">
                     <StackPanel>
                         <TextBlock Text="De" Margin="0 0 0 5" />
-                        <DatePicker Margin="0 0 10 0" Width="200" Name="filterStartDate" />
+                        <DatePicker Margin="0 0 10 0" Width="120" Name="filterStartDate" />
                     </StackPanel>
                     <StackPanel>
                         <TextBlock Text="A" Margin="0 0 0 5" />
-                        <DatePicker Margin="0 0 10 0" Width="200" Name="filterEndDate" />
+                        <DatePicker Margin="0 0 10 0" Width="120" Name="filterEndDate" />
+                    </StackPanel>
+
+                    <Button Margin="0 19 10 0" ToolTip="Filtrer" Click="filterByDate">
+                        <iconPacks:PackIconRemixIcon Kind="SearchLine" HorizontalAlignment="Center"  />
+                    </Button>
+
+                    <Button Margin="0 19 10 0" ToolTip="Reset" Click="resetFilter">
+                        <iconPacks:PackIconRemixIcon Kind="RestartLine" HorizontalAlignment="Center"  />
+                    </Button>
+
+
+                    <StackPanel>
+                        <TextBlock Text="Dernier" Margin="0 0 0 5" />
+                        <ComboBox Margin="0 0 0 0" Name="lastDate" Width="150" SelectionChanged="selectLastDate">
+                            <ComboBoxItem Content="Dernier jour" TabIndex="0" />
+                            <ComboBoxItem Content="La semaine dernière" TabIndex="1" />
+                            <ComboBoxItem Content="Le mois dernier" TabIndex="2" />
+                            <ComboBoxItem Content="L'année dernière" TabIndex="3" />
+                        </ComboBox>
                     </StackPanel>
                     
-                    <Button Margin="0 19 10 0"  Click="filterByDate">Filtrer</Button>
-
-                    <Button Margin="0 19 0 0"  Click="resetFilter">Reset</Button>
                 </StackPanel>
             </StackPanel>
-            
+
+            <!--Group Info-->
+            <StackPanel Orientation="Horizontal" Name="groupInfo" Visibility="Collapsed">
+                <Button Content="Supprimer" Click="deleteMany" Name="deleteManyBtn" Background="Red" Foreground="White" Cursor="Hand" BorderThickness="0"></Button>
+            </StackPanel>
+
             <!--DataGrid-->
             <DataGrid Background="Transparent" Visibility="Collapsed" Name="visitesDataGrid" HeadersVisibility="All" RowHeaderWidth="60" AutoGenerateColumns="False">
                 <DataGrid.RowHeaderTemplate>
                     <DataTemplate>
-                        <CheckBox IsChecked="{Binding IsSelected,RelativeSource={RelativeSource AncestorType=DataGridRow}}"/>
+                        <CheckBox Unchecked="unCheckCmd" Checked="checkCmd"/>
                     </DataTemplate>
                 </DataGrid.RowHeaderTemplate>
                 <DataGrid.Columns>

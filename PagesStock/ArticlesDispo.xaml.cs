@@ -43,8 +43,20 @@ namespace MenuWithSubMenu.PagesStock
 
             try
             {
-                //listArticle = searchBar.Text != "" ? await db.articles.Where(c => c.Designation.Contains(searchBar.Text)).ToListAsync() : await db.articles.ToListAsync();
-                listArticle = await db.articles.ToListAsync();
+                if (searchBar.Text != "")
+                {
+                    listArticle = await db.articles.Where(c => c.idArticle.Contains(searchBar.Text)).ToListAsync();
+                }
+                else
+                {
+                    listArticle = await db.articles.ToListAsync();
+                }
+
+                if (listArticle.Count() == 0)
+                {
+                    // nothingBox.Visibility = Visibility.Visible;
+                    return;
+                }
 
                 count = (int)Math.Ceiling((decimal)listArticle.Count / 10);
                 pagination.MaxPageCount = count;
@@ -141,8 +153,10 @@ namespace MenuWithSubMenu.PagesStock
 
         private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
-            getArticles(0);
+            if (searchBar.Text != "") cancelFocus.Visibility = Visibility.Visible;
+            else cancelFocus.Visibility = Visibility.Collapsed;
 
+            getArticles(0);
         }
 
         private void CancelFocus_Click(object sender, RoutedEventArgs e)

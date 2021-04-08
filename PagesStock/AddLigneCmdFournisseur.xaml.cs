@@ -113,6 +113,11 @@ namespace MenuWithSubMenu.PagesStock
             }
         }
 
+        public void selectItem(object sender, SelectionChangedEventArgs e)
+        {
+            updateReferenceCombo();
+        }
+
         private void fillComboBox()
         {
             List<categorie> categories = db.categories.Where(c => c.Nom != "Verre Optique").Distinct().ToList();
@@ -121,6 +126,8 @@ namespace MenuWithSubMenu.PagesStock
             categorie.SelectedValuePath = "idCategorie";
 
             categorie.SelectedIndex = 0;
+
+            updateReferenceCombo();
         }
 
         private void ReturnBtn_Click(object sender, RoutedEventArgs e)
@@ -161,21 +168,22 @@ namespace MenuWithSubMenu.PagesStock
             return false;
         }
 
-        /*public List<traitement> Get_traitements_selectionee()
-{
-   foreach (StackPanel stack in traitementsLentilleBox.Children.OfType<StackPanel>())
-   {
+        public void updateReferenceCombo()
+        {
+            //Références Combobox :
+            references.Clear();
+            foreach (article a in db.articles.ToList())
+            {
+                if (a.idCategorie == (int)categorie.SelectedValue)
+                    references.Add(a);
 
-       foreach(ComboBox c in stack.Children.OfType<ComboBox>)
-       {
-           traitementsSelectiones.Add(new traitement()
-           {
-               idTraitement = (int)c.SelectedValue,
-           });
-       }
+            }
 
-   }
-   return traitementsSelectiones;
-}*/
+            referenceText.ItemsSource = null;
+            referenceText.ItemsSource = references;
+            referenceText.DisplayMemberPath = "idArticle";
+            referenceText.SelectedValuePath = "idArticle";
+            referenceText.SelectedIndex = 0;
+        }
     }
 }

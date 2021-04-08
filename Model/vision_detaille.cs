@@ -19,7 +19,6 @@ namespace MenuWithSubMenu.Model
         public int vision_id { get; set; }
         public int visite_id { get; set; }
     
-        public virtual vision vision { get; set; }
         public virtual visite visite { get; set; }
     }
 }

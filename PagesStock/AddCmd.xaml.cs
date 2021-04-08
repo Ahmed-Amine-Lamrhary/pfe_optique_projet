@@ -25,8 +25,11 @@ namespace MenuWithSubMenu.PagesStock
         dbEntities db;
         DbContextTransaction transaction;
         cmdfournisseur cmdfournisseur;
+        List<lignecommande> lignecommandes;
 
         public BindableCollection<AddLigneCmdFournisseur> lignesCmd;
+
+        private List<lignecommande> checkedLignes = new List<lignecommande>();
 
         // update constructor
         public AddCmd(cmdfournisseur cmdfournisseur)
@@ -43,17 +46,16 @@ namespace MenuWithSubMenu.PagesStock
 
             try
             {
-                // get lignes
-                List<lignecommande> lignecommandes = db.lignecommandes.Where(l => l.idCmdFournisseur == cmdfournisseur.idCmdFournisseur).ToList();
+                lignecommandes = db.lignecommandes.Where(l => l.idCmdFournisseur == cmdfournisseur.idCmdFournisseur).ToList();
                 foreach (lignecommande ligne in lignecommandes)
                 {
                     lignesCmd.Add(new AddLigneCmdFournisseur(this, this, ligne));
                 }
-
                 lignesCmdBox.ItemsSource = lignecommandes;
-                lignesCmdBox.Visibility = Visibility.Visible;
 
-            } catch (Exception ex)
+                lignesCmdBox.Visibility = Visibility.Visible;
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex);
                 nothingBox.Visibility = Visibility.Visible;
@@ -232,36 +234,6 @@ namespace MenuWithSubMenu.PagesStock
             return false;
         }
 
-        public void changeEtat(object sender, RoutedEventArgs e)
-        {
-            lignecommande ligne = lignesCmdBox.SelectedItem as lignecommande;
-            if (ligne.EtatCmd == "En-Cours")
-            {
-                // convert to completed
-                try
-                {
-                    transaction = db.Database.BeginTransaction();
-                    // change etat to completed
-                    ligne.EtatCmd = "completed";
-                    db.SaveChanges();
-
-                    // change article qte
-                    article article = db.articles.Where(a => a.idArticle == ligne.idArticle).SingleOrDefault();
-
-                    article.QteDisponible += ligne.Qte_Commande;
-                    db.SaveChanges();
-
-                    transaction.Commit();
-                    MessageBox.Show("La ligne est complétée");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    transaction.Rollback();
-                }
-            }
-        }
-
         public void deleteLigne(object sender, RoutedEventArgs e)
         {
             lignecommande ligne = lignesCmdBox.SelectedItem as lignecommande;
@@ -277,5 +249,54 @@ namespace MenuWithSubMenu.PagesStock
                 MessageBox.Show("Ligne is completed");
             }
         }
+
+        private void checkCmd(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)e.OriginalSource;
+            DataGridRow dataGridRow = VisualTreeHelpers.FindAncestor<DataGridRow>(checkBox);
+            lignecommande lignecommande = (lignecommande)dataGridRow.DataContext;
+
+            checkedLignes.Add(lignecommande);
+
+            if (checkedLignes.Count() > 0)
+                groupInfo.Visibility = Visibility.Visible;
+            else
+                groupInfo.Visibility = Visibility.Collapsed;
+        }
+
+        private void unCheckCmd(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)e.OriginalSource;
+            DataGridRow dataGridRow = VisualTreeHelpers.FindAncestor<DataGridRow>(checkBox);
+            lignecommande lignecommande = (lignecommande)dataGridRow.DataContext;
+
+            checkedLignes.Remove(lignecommande);
+
+            if (checkedLignes.Count() > 0)
+                groupInfo.Visibility = Visibility.Visible;
+            else
+                groupInfo.Visibility = Visibility.Collapsed;
+        }
+
+        private void deleteMany(object sender, RoutedEventArgs e)
+        {
+            DbContextTransaction transaction = db.Database.BeginTransaction();
+            try
+            {
+                foreach (lignecommande lignecommande in checkedLignes)
+                {
+                    db.lignecommandes.Remove(lignecommande);
+                    db.SaveChanges();
+                }
+
+                transaction.Commit();
+            }
+            catch (Exception)
+            {
+                transaction.Rollback();
+                System.Windows.MessageBox.Show("Erreur");
+            }
+        }
+
     }
 }
