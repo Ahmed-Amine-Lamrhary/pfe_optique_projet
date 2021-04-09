@@ -416,9 +416,12 @@ namespace MenuWithSubMenu.PagesStock
                 float? totalPrice = 0;
 
                 // pdf file
-                var pdfPath = @"G:\Learning\facture.pdf";
+                // var pdfPath = @"G:\Learning\facture.pdf";
+                string pdfPath = System.IO.Path.GetTempPath() + Guid.NewGuid().ToString() + ".pdf";
+
                 Document document = new Document(PageSize.A4, 10, 10, 10, 10);
                 PdfWriter pdfWriter = PdfWriter.GetInstance(document, new FileStream(pdfPath, FileMode.Create));
+                // PdfWriter pdfWriter = PdfWriter.GetInstance(document, myMemoryStream);
                 document.Open();
 
                 // print Header
@@ -437,7 +440,7 @@ namespace MenuWithSubMenu.PagesStock
                 opticInfo.AddElement(new Paragraph(OpticInfo.email, FontFactory.GetFont("Poppins", 9)));
                 headerTable.AddCell(opticInfo);
 
-                PdfPCell invoiceInfo = new PdfPCell() {Border = Rectangle.NO_BORDER};
+                PdfPCell invoiceInfo = new PdfPCell() { Border = Rectangle.NO_BORDER };
                 invoiceInfo.AddElement(new Paragraph("FACTURE", FontFactory.GetFont("Poppins", 17, Font.BOLD)));
                 invoiceInfo.AddElement(new Paragraph("Date " + commande.DateCmd, FontFactory.GetFont("Poppins", 9)));
                 invoiceInfo.AddElement(new Paragraph("Facture # " + commande.idCmdClient, FontFactory.GetFont("Poppins", 9)));
@@ -585,7 +588,10 @@ namespace MenuWithSubMenu.PagesStock
                 document.Add(new Paragraph("Prix à payer: " + (totalPrice + frais) + " DHS", FontFactory.GetFont("Poppins", 12, Font.BOLD)));
 
                 document.Close();
-            } catch(Exception ex)
+
+                System.Diagnostics.Process.Start(pdfPath);
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("Erreur: " + ex.Message);
             }
