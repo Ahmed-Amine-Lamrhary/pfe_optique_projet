@@ -314,6 +314,7 @@
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\MyContext.cs" />
+    <Compile Include="Utils\OpticInfo.cs" />
     <Compile Include="Utils\VisualTreeHelpers.cs" />
     <Compile Include="ViewModel\CommandViewModel.cs" />
     <Compile Include="ViewModel\SideMenuViewModel.cs" />

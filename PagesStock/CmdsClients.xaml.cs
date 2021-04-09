@@ -1,5 +1,6 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.draw;
 using MenuWithSubMenu.Model;
 using MenuWithSubMenu.Utils;
 using System;
@@ -10,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Image = iTextSharp.text.Image;
 
 namespace MenuWithSubMenu.PagesStock
 {
@@ -398,7 +400,18 @@ namespace MenuWithSubMenu.PagesStock
             {
                 // get information
                 cmdclient commande = cmdClientsDataGrid.SelectedItem as cmdclient;
-                List<ligneentree> lignes = db.ligneentrees.Where(l => l.idCmdClient == commande.idCmdClient).ToList();
+                List<ligneentree> lignesVerres = db.ligneentrees.Where(l => l.idCmdClient == commande.idCmdClient && l.idArticle == null).ToList();
+                List<ligneentree> lignesArticles = db.ligneentrees.Where(l => l.idCmdClient == commande.idCmdClient && l.idArticle != null).ToList();
+                List<ligneentree> lignesLunettes = new List<ligneentree>();
+                List<ligneentree> lignesMontures = new List<ligneentree>();
+                foreach (ligneentree ligne in lignesArticles)
+                {
+                    if (db.articles.Where(a => a.idArticle == ligne.idArticle).SingleOrDefault().idCategorie == 2)
+                        lignesLunettes.Add(ligne);
+                    else if (db.articles.Where(a => a.idArticle == ligne.idArticle).SingleOrDefault().idCategorie == 3)
+                        lignesMontures.Add(ligne);
+                }
+
                 client client = db.clients.Where(c => c.cin == commande.client_cin).SingleOrDefault();
                 float? totalPrice = 0;
 
@@ -409,80 +422,167 @@ namespace MenuWithSubMenu.PagesStock
                 document.Open();
 
                 // print Header
-                PdfPTable headerTable = new PdfPTable(2);
+                PdfPTable headerTable = new PdfPTable(2) { WidthPercentage = 100f };
 
-                // print optic information
-                PdfPCell opticInfo = new PdfPCell();
-                opticInfo.AddElement(new Paragraph("OPTICA"));
-                opticInfo.AddElement(new Paragraph("xxx Fes Ain Chkef"));
-                opticInfo.AddElement(new Paragraph("+2126487457"));
-                opticInfo.AddElement(new Paragraph("optica@gmail.com"));
+                PdfPCell opticInfo = new PdfPCell()
+                {
+                    Border = Rectangle.NO_BORDER
+                };
+
+                Image logo = Image.GetInstance(OpticInfo.logoUrl);
+                logo.ScalePercent(12f);
+                opticInfo.AddElement(logo);
+                opticInfo.AddElement(new Paragraph(OpticInfo.adresse, FontFactory.GetFont("Poppins", 9)));
+                opticInfo.AddElement(new Paragraph(OpticInfo.phone, FontFactory.GetFont("Poppins", 9)));
+                opticInfo.AddElement(new Paragraph(OpticInfo.email, FontFactory.GetFont("Poppins", 9)));
                 headerTable.AddCell(opticInfo);
 
-                // print client information
-                PdfPCell clientInfo = new PdfPCell();
-                clientInfo.AddElement(new Paragraph("Facture à: " + client.nom + " " + client.prenom));
-                clientInfo.AddElement(new Paragraph("CIN: " + client.cin));
-                clientInfo.AddElement(new Paragraph("Adresse: " + client.adresse));
-                clientInfo.AddElement(new Paragraph("Email: " + client.email));
-                clientInfo.AddElement(new Paragraph("Telephone: " + client.telephone));
-                headerTable.AddCell(clientInfo);
+                PdfPCell invoiceInfo = new PdfPCell() {Border = Rectangle.NO_BORDER};
+                invoiceInfo.AddElement(new Paragraph("FACTURE", FontFactory.GetFont("Poppins", 17, Font.BOLD)));
+                invoiceInfo.AddElement(new Paragraph("Date " + commande.DateCmd, FontFactory.GetFont("Poppins", 9)));
+                invoiceInfo.AddElement(new Paragraph("Facture # " + commande.idCmdClient, FontFactory.GetFont("Poppins", 9)));
+                headerTable.AddCell(invoiceInfo);
 
-                // print lignes table
-                PdfPTable articlesTable = new PdfPTable(4);
-                articlesTable.AddCell(new PdfPCell(new Phrase("Article")));
-                articlesTable.AddCell(new PdfPCell(new Phrase("Quantité")));
-                articlesTable.AddCell(new PdfPCell(new Phrase("Prix unitaire")));
-                articlesTable.AddCell(new PdfPCell(new Phrase("Prix total")));
-
-                PdfPTable verresTable = new PdfPTable(1);
-
-                foreach (ligneentree ligne in lignes)
+                // client info
+                PdfPTable clientTable = new PdfPTable(1) { WidthPercentage = 100f };
+                PdfPCell clientInfo = new PdfPCell()
                 {
-                    totalPrice += ligne.Prix_Total;
+                    Border = Rectangle.NO_BORDER,
+                    HorizontalAlignment = Element.ALIGN_RIGHT
+                };
 
-                    if (ligne.idArticle == null)
+                Font headingFont = new Font(Font.FontFamily.HELVETICA, 12.0f, Font.BOLD, BaseColor.WHITE);
+                Font thFont = new Font(Font.FontFamily.HELVETICA, 10.0f, Font.BOLD);
+                Font tdFont = new Font(Font.FontFamily.HELVETICA, 10.0f);
+
+                PdfPTable clientHeading = new PdfPTable(1) { WidthPercentage = 100f, SpacingAfter = 10, SpacingBefore = 15 };
+                clientHeading.AddCell(new PdfPCell(new Paragraph("Facture à", headingFont)) { BackgroundColor = new BaseColor(85, 168, 253), Border = Rectangle.NO_BORDER });
+
+                clientInfo.AddElement(new Paragraph(client.nom + " " + client.prenom, FontFactory.GetFont("Poppins", 9)));
+                clientInfo.AddElement(new Paragraph("CIN: " + client.cin, FontFactory.GetFont("Poppins", 9)));
+                clientInfo.AddElement(new Paragraph("Adresse: " + client.adresse, FontFactory.GetFont("Poppins", 9)));
+                clientInfo.AddElement(new Paragraph("Email: " + client.email, FontFactory.GetFont("Poppins", 9)));
+                clientInfo.AddElement(new Paragraph("Telephone: " + client.telephone, FontFactory.GetFont("Poppins", 9)));
+                clientTable.AddCell(clientInfo);
+
+                document.Add(headerTable);
+
+                document.Add(clientHeading);
+                document.Add(clientTable);
+
+                // montures
+                if (lignesMontures != null && lignesMontures.Count() > 0)
+                {
+                    PdfPTable monturesTable = new PdfPTable(4) { WidthPercentage = 100f };
+
+                    PdfPTable monturesHeading = new PdfPTable(1) { WidthPercentage = 100f, SpacingAfter = 10, SpacingBefore = 15 };
+                    monturesHeading.AddCell(new PdfPCell(new Paragraph("Montures", headingFont)) { BackgroundColor = new BaseColor(85, 168, 253), Border = Rectangle.NO_BORDER });
+
+
+                    monturesTable.AddCell(new PdfPCell(new Paragraph("Article", thFont)) { BorderColor = new BaseColor(232, 235, 238) });
+                    monturesTable.AddCell(new PdfPCell(new Paragraph("Quantité", thFont)) { BorderColor = new BaseColor(232, 235, 238) });
+                    monturesTable.AddCell(new PdfPCell(new Paragraph("Prix unitaire", thFont)) { BorderColor = new BaseColor(232, 235, 238) });
+                    monturesTable.AddCell(new PdfPCell(new Paragraph("Prix total", thFont)) { BorderColor = new BaseColor(232, 235, 238) });
+
+                    foreach (ligneentree ligne in lignesMontures)
                     {
-                        verre verre = db.verres.Where(v => v.idVerre == ligne.idVerre).SingleOrDefault();
+                        totalPrice += ligne.Prix_Total;
 
+                        article article = db.articles.Where(a => a.idArticle == ligne.idArticle).SingleOrDefault();
+
+                        monturesTable.AddCell(new PdfPCell(new Paragraph(article.idArticle, tdFont)) { BorderColor = new BaseColor(232, 235, 238) });
+                        monturesTable.AddCell(new PdfPCell(new Paragraph(ligne.Qte_Commande + "", tdFont)) { BorderColor = new BaseColor(232, 235, 238) });
+                        monturesTable.AddCell(new PdfPCell(new Paragraph(article.PrixUnitaire + " DHS", tdFont)) { BorderColor = new BaseColor(232, 235, 238) });
+                        monturesTable.AddCell(new PdfPCell(new Paragraph(ligne.Prix_Total + " DHS", tdFont)) { BorderColor = new BaseColor(232, 235, 238) });
+                    }
+
+                    document.Add(monturesHeading);
+                    document.Add(monturesTable);
+                }
+
+                // lunettes solaires
+                if (lignesLunettes != null && lignesLunettes.Count() > 0)
+                {
+                    PdfPTable lunettesTable = new PdfPTable(4) { WidthPercentage = 100f };
+
+                    PdfPTable lunettesHeading = new PdfPTable(1) { WidthPercentage = 100f, SpacingAfter = 10, SpacingBefore = 15 };
+                    lunettesHeading.AddCell(new PdfPCell(new Paragraph("Lunettes Solaires", headingFont)) { BackgroundColor = new BaseColor(85, 168, 253), Border = Rectangle.NO_BORDER });
+
+
+                    lunettesTable.AddCell(new PdfPCell(new Paragraph("Article", thFont)) { BorderColor = new BaseColor(232, 235, 238) });
+                    lunettesTable.AddCell(new PdfPCell(new Paragraph("Quantité", thFont)) { BorderColor = new BaseColor(232, 235, 238) });
+                    lunettesTable.AddCell(new PdfPCell(new Paragraph("Prix unitaire", thFont)) { BorderColor = new BaseColor(232, 235, 238) });
+                    lunettesTable.AddCell(new PdfPCell(new Paragraph("Prix total", thFont)) { BorderColor = new BaseColor(232, 235, 238) });
+
+                    foreach (ligneentree ligne in lignesLunettes)
+                    {
+                        totalPrice += ligne.Prix_Total;
+
+                        article article = db.articles.Where(a => a.idArticle == ligne.idArticle).SingleOrDefault();
+
+                        lunettesTable.AddCell(new PdfPCell(new Paragraph(article.idArticle, tdFont)) { BorderColor = new BaseColor(232, 235, 238) });
+                        lunettesTable.AddCell(new PdfPCell(new Paragraph(ligne.Qte_Commande + "", tdFont)) { BorderColor = new BaseColor(232, 235, 238) });
+                        lunettesTable.AddCell(new PdfPCell(new Paragraph(article.PrixUnitaire + " DHS", tdFont)) { BorderColor = new BaseColor(232, 235, 238) });
+                        lunettesTable.AddCell(new PdfPCell(new Paragraph(ligne.Prix_Total + " DHS", tdFont)) { BorderColor = new BaseColor(232, 235, 238) });
+                    }
+
+                    document.Add(lunettesHeading);
+                    document.Add(lunettesTable);
+                }
+
+                // verres
+                if (lignesVerres != null && lignesVerres.Count() > 0)
+                {
+                    PdfPTable verresTable = new PdfPTable(6) { WidthPercentage = 100f };
+
+                    PdfPTable verresHeading = new PdfPTable(1) { WidthPercentage = 100f, SpacingAfter = 10, SpacingBefore = 15 };
+                    verresHeading.AddCell(new PdfPCell(new Paragraph("Verres", headingFont)) { BackgroundColor = new BaseColor(85, 168, 253), Border = Rectangle.NO_BORDER });
+
+                    foreach (ligneentree ligne in lignesVerres)
+                    {
+                        totalPrice += ligne.Prix_Total;
+
+                        verre verre = db.verres.Where(v => v.idVerre == ligne.idVerre).SingleOrDefault();
                         List<ligne_traitement_verre> lignesTrait = db.ligne_traitement_verre.Where(l => l.verre_idVerre == verre.idVerre).ToList();
 
-                        PdfPCell verreCell = new PdfPCell();
-                        verreCell.AddElement(new Paragraph("Matière: " + verre.matiere));
-                        verreCell.AddElement(new Paragraph("Indice: " + verre.indice));
-                        verreCell.AddElement(new Paragraph("Géométrie: " + verre.geometrie));
-                        verreCell.AddElement(new Paragraph("Teinte: " + verre.Teinte));
-                        verreCell.AddElement(new Paragraph("Quantité: " + ligne.Qte_Commande));
-                        verreCell.AddElement(new Paragraph("Prix total: " + ligne.Prix_Total));
+                        verresTable.AddCell(new PdfPCell(new Paragraph("Matière", thFont)) { BorderColor = new BaseColor(232, 235, 238) });
+                        verresTable.AddCell(new PdfPCell(new Paragraph("Indice", thFont)) { BorderColor = new BaseColor(232, 235, 238) });
+                        verresTable.AddCell(new PdfPCell(new Paragraph("Géométrie", thFont)) { BorderColor = new BaseColor(232, 235, 238) });
+                        verresTable.AddCell(new PdfPCell(new Paragraph("Teinte", thFont)) { BorderColor = new BaseColor(232, 235, 238) });
+                        verresTable.AddCell(new PdfPCell(new Paragraph("Quantité", thFont)) { BorderColor = new BaseColor(232, 235, 238) });
+                        verresTable.AddCell(new PdfPCell(new Paragraph("Prix total", thFont)) { BorderColor = new BaseColor(232, 235, 238) });
 
+                        verresTable.AddCell(new PdfPCell(new Paragraph(verre.matiere, tdFont)) { BorderColor = new BaseColor(232, 235, 238) });
+                        verresTable.AddCell(new PdfPCell(new Paragraph(verre.indice + "", tdFont)) { BorderColor = new BaseColor(232, 235, 238) });
+                        verresTable.AddCell(new PdfPCell(new Paragraph(verre.geometrie, tdFont)) { BorderColor = new BaseColor(232, 235, 238) });
+                        verresTable.AddCell(new PdfPCell(new Paragraph(verre.Teinte, tdFont)) { BorderColor = new BaseColor(232, 235, 238) });
+                        verresTable.AddCell(new PdfPCell(new Paragraph(ligne.Qte_Commande + "", tdFont)) { BorderColor = new BaseColor(232, 235, 238) });
+                        verresTable.AddCell(new PdfPCell(new Paragraph(ligne.Prix_Total + " DHS", tdFont)) { BorderColor = new BaseColor(232, 235, 238) });
+
+                        // traitements
                         if (lignesTrait != null && lignesTrait.Count() > 0)
                         {
-                            verreCell.AddElement(new Paragraph("Traitements:"));
+                            verresTable.AddCell(new PdfPCell(new Paragraph("Traitements", thFont)) { BorderColor = new BaseColor(232, 235, 238), Colspan = 6 });
+
                             foreach (ligne_traitement_verre l in lignesTrait)
                             {
                                 traitement traitement = db.traitements.Where(t => t.idTraitement == l.traitement_idTraitement).SingleOrDefault();
-                                verreCell.AddElement(new Paragraph(traitement.Nom + " - Niveau: " + l.niveau));
+                                verresTable.AddCell(new PdfPCell(new Paragraph(traitement.Nom, tdFont)) { BorderColor = new BaseColor(232, 235, 238), Colspan = 3 });
+                                verresTable.AddCell(new PdfPCell(new Paragraph(l.niveau + "", tdFont)) { BorderColor = new BaseColor(232, 235, 238), Colspan = 3 });
                             }
                         }
 
-                        verresTable.AddCell(verreCell);
-                    } else
-                    {
-                        article article = db.articles.Where(a => a.idArticle == ligne.idArticle).SingleOrDefault();
-
-                        articlesTable.AddCell(new PdfPCell(new Phrase(article.idArticle)));
-                        articlesTable.AddCell(new PdfPCell(new Phrase(ligne.Qte_Commande + "")));
-                        articlesTable.AddCell(new PdfPCell(new Phrase(article.PrixUnitaire + "")));
-                        articlesTable.AddCell(new PdfPCell(new Phrase(ligne.Prix_Total + "")));
+                        verresTable.AddCell(new PdfPCell(new Paragraph("")) { Colspan = 6, MinimumHeight = 15, Border = Rectangle.NO_BORDER });
                     }
+
+                    document.Add(verresHeading);
+                    document.Add(verresTable);
                 }
 
-                document.Add(headerTable);
-                document.Add(new Paragraph("Montures: "));
-                document.Add(articlesTable);
-                document.Add(new Paragraph("Verres: "));
-                document.Add(verresTable);
-                document.Add(new Paragraph("Prix à payer: " + totalPrice + " DHS"));
+                int frais = 500;
+                document.Add(new Chunk(new LineSeparator(1f, 100f, new BaseColor(232, 235, 238), Element.ALIGN_CENTER, 0)));
+                document.Add(new Paragraph("Frais: " + frais + " DHS", FontFactory.GetFont("Poppins", 12)));
+                document.Add(new Paragraph("Prix à payer: " + (totalPrice + frais) + " DHS", FontFactory.GetFont("Poppins", 12, Font.BOLD)));
 
                 document.Close();
             } catch(Exception ex)
