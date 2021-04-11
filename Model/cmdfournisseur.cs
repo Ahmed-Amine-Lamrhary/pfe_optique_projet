@@ -27,5 +27,8 @@ namespace MenuWithSubMenu.Model
         public virtual fournisseur fournisseur { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<lignecommande> lignecommandes { get; set; }
+
+        // state (not saved in database)
+        public string etatCmd { get; set; }
     }
 }

@@ -36,21 +36,21 @@ namespace MenuWithSubMenu.PagesStock
             getFournisseurs(0);
         }
 
-        private async void getFournisseurs(int skip)
+        private async Task getFournisseurs(int skip)
         {
             loadingBox.Visibility = Visibility.Visible;
-            fournisseursDataGrid.Visibility = Visibility.Collapsed;
+            infoBox.Visibility = Visibility.Collapsed;
             nothingBox.Visibility = Visibility.Collapsed;
 
             try
             {
                 if (searchBar.Text != "")
                 {
-                    listFournisseurs = await db.fournisseurs.Where(c => c.Nom.Contains(searchBar.Text) || c.Email.Contains(searchBar.Text)).ToListAsync();
+                    listFournisseurs = await Task.Run(() => db.fournisseurs.Where(c => c.Nom.Contains(searchBar.Text) || c.Email.Contains(searchBar.Text)).ToList());
                 }
                 else
                 {
-                    listFournisseurs = await db.fournisseurs.ToListAsync();
+                    listFournisseurs = await Task.Run(() => db.fournisseurs.ToList());
                 }
 
                 if (listFournisseurs.Count() == 0)
@@ -64,7 +64,7 @@ namespace MenuWithSubMenu.PagesStock
                 pagination.MaxPageCount = count;
                 fournisseursDataGrid.ItemsSource = listFournisseurs.Skip(skip).Take(10);
 
-                fournisseursDataGrid.Visibility = Visibility.Visible;
+                infoBox.Visibility = Visibility.Visible;
             }
             catch (Exception exp)
             {

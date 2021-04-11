@@ -9,6 +9,7 @@ using System.Data;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Image = iTextSharp.text.Image;
@@ -40,7 +41,7 @@ namespace MenuWithSubMenu.PagesStock
             getCmdClients(0);
         }
 
-        private async void getCmdClients(int skip)
+        private async Task getCmdClients(int skip)
         {
             loadingBox.Visibility = Visibility.Visible;
             infoBox.Visibility = Visibility.Collapsed;
@@ -49,15 +50,30 @@ namespace MenuWithSubMenu.PagesStock
             try
             {
                 if (startDate != null && endDate != null)
-                {
-                    listCmdClients = await db.cmdclients.Where(c => c.DateCmd <= endDate && c.DateCmd >= startDate).ToListAsync();
-                }
+                    listCmdClients = await Task.Run(() => db.cmdclients.Where(c => c.DateCmd <= endDate && c.DateCmd >= startDate).ToList());
                 else if (startDate == null && endDate != null)
-                    listCmdClients = await db.cmdclients.Where(c => c.DateCmd <= endDate).ToListAsync();
+                    listCmdClients = await Task.Run(() => db.cmdclients.Where(c => c.DateCmd <= endDate).ToList());
                 else if (startDate != null && endDate == null)
-                    listCmdClients = await db.cmdclients.Where(c => c.DateCmd >= startDate).ToListAsync();
+                    listCmdClients = await Task.Run(() => db.cmdclients.Where(c => c.DateCmd >= startDate).ToList());
                 else
-                    listCmdClients = await db.cmdclients.ToListAsync();
+                    listCmdClients = await Task.Run(() => db.cmdclients.ToList());
+
+                // get states of orders
+                foreach(cmdclient cmd in listCmdClients)
+                {
+                    List<ligneentree> lignes = await Task.Run(() => db.ligneentrees.Where(l => l.idCmdClient == cmd.idCmdClient).ToList());
+                    int lignesNonPayee = 0;
+                    foreach(ligneentree ligne in lignes)
+                    {
+                        if (ligne.EtatCmd == "En-Cours")
+                            lignesNonPayee++;
+                    }
+
+                    if (lignesNonPayee == 0)
+                        cmd.etatCmd = "Payée";
+                    else
+                        cmd.etatCmd = "Non payée (" + lignesNonPayee + " lignes non payée)";
+                }
 
                 count = (int)Math.Ceiling((decimal)listCmdClients.Count / 10);
                 pagination.MaxPageCount = count;
@@ -119,8 +135,7 @@ namespace MenuWithSubMenu.PagesStock
         private void updateCmd(object sender, RoutedEventArgs e)
         {
             cmdclient cmdRow = cmdClientsDataGrid.SelectedItem as cmdclient;
-            int cmdId = cmdRow.idCmdClient;
-            AddCmdClient update = new AddCmdClient(db.cmdclients.Where(cmd => cmd.idCmdClient == cmdId).SingleOrDefault());
+            AddCmdClient update = new AddCmdClient(cmdRow);
             MyContext.navigateTo(update);
         }
         
@@ -157,11 +172,6 @@ namespace MenuWithSubMenu.PagesStock
         {
             AddCmdClient add_cmd_client = new AddCmdClient();
             MyContext.navigateTo(add_cmd_client);
-        }
-
-        private void deleteCmds(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void page_PageUpdated(object sender, HandyControl.Data.FunctionEventArgs<int> e)
@@ -468,6 +478,7 @@ namespace MenuWithSubMenu.PagesStock
                 clientInfo.AddElement(new Paragraph("Telephone: " + client.telephone, FontFactory.GetFont("Poppins", 9)));
                 clientTable.AddCell(clientInfo);
 
+                headerTable.SpacingAfter = 20;
                 document.Add(headerTable);
 
                 document.Add(clientHeading);
@@ -578,6 +589,7 @@ namespace MenuWithSubMenu.PagesStock
                         verresTable.AddCell(new PdfPCell(new Paragraph("")) { Colspan = 6, MinimumHeight = 15, Border = Rectangle.NO_BORDER });
                     }
 
+                    verresTable.SpacingAfter = 50;
                     document.Add(verresHeading);
                     document.Add(verresTable);
                 }

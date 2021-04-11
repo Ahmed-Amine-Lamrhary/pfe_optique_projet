@@ -56,22 +56,21 @@
             </Border>
 
             <!-- Loading -->
-            <Border Visibility="Collapsed"
+            <Border
+        Visibility="Collapsed"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:hc="https://handyorg.github.io/handycontrol"
         CornerRadius="10"
-            Panel.ZIndex="1000"
+        Panel.ZIndex="1000"
         Width="400"
         Height="247"
         Name="loadingBox">
-                <hc:SimplePanel>
-                    <TextBlock Style="{StaticResource TextBlockLargeBold}" >
-                        <iconPacks:PackIconRemixIcon Spin="True" SpinDuration="1" Kind="Loader4Line" Width="35" Height="35" Foreground="#55a8fd" />
-                    </TextBlock>
+                <hc:SimplePanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <iconPacks:PackIconRemixIcon Spin="True" SpinDuration="1" Kind="Loader4Line" Width="35" Height="35" Foreground="#55a8fd" />
                 </hc:SimplePanel>
             </Border>
-
+            
             <!-- Nothing found -->
             <Border Visibility="Collapsed"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -90,51 +89,50 @@
                 </hc:SimplePanel>
             </Border>
 
-            <!--Group Info-->
-            <StackPanel Orientation="Horizontal" Name="groupInfo" Visibility="Collapsed">
-                <Button Content="Supprimer" Click="deleteMany" Name="deleteManyBtn" Background="Red" Foreground="White" Cursor="Hand" BorderThickness="0"></Button>
+            <StackPanel Name="infoBox">
+                <!--Group Info-->
+                <StackPanel Orientation="Horizontal" Name="groupInfo" Visibility="Collapsed">
+                    <Button Content="Supprimer" Click="deleteMany" Name="deleteManyBtn" Background="Red" Foreground="White" Cursor="Hand" BorderThickness="0"></Button>
+                </StackPanel>
+
+                <!--DataGrid-->
+                <DataGrid Background="Transparent" Name="fournisseursDataGrid" HeadersVisibility="All" RowHeaderWidth="60" AutoGenerateColumns="False">
+                    <DataGrid.RowHeaderTemplate>
+                        <DataTemplate>
+                            <CheckBox Unchecked="unCheckCmd" Checked="checkCmd" Cursor="Hand" />
+                        </DataTemplate>
+                    </DataGrid.RowHeaderTemplate>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="1*" Binding="{Binding idCmdClient}"/>
+                        <DataGridTextColumn Header="Nom" Width="1*" Binding="{Binding Nom}"/>
+                        <DataGridTextColumn Header="Adresse" Width="1*" Binding="{Binding Adresse}"/>
+                        <DataGridTextColumn Header="Email" Width="1*" Binding="{Binding Email}"/>
+                        <DataGridTextColumn Header="Tel" Width="1*" Binding="{Binding Tel}"/>
+                        <DataGridTextColumn Header="Description" Width="1*" Binding="{Binding Description}"/>
+
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button ToolTip="Voir" Style="{StaticResource OptionsButtonStyle}" Click="voirFournisseur">
+                                            <iconPacks:PackIconRemixIcon Kind="FolderUserLine" Style="{StaticResource OptionsButtonIconStyle}" />
+                                        </Button>
+                                        <Button ToolTip="Modifier" Style="{StaticResource OptionsButtonStyle}" Click="updateFournisseur">
+                                            <iconPacks:PackIconRemixIcon Kind="PencilLine" Style="{StaticResource OptionsButtonIconStyle}" />
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+
+                <StackPanel Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <hc:Pagination PageUpdated="pagination_PageUpdated" Name="pagination" MaxPageCount="10" PageIndex="1" IsJumpEnabled="False"/>
+                </StackPanel>
             </StackPanel>
-
-            <!--DataGrid-->
-            <DataGrid Background="Transparent" Visibility="Collapsed"  Name="fournisseursDataGrid" HeadersVisibility="All" RowHeaderWidth="60" AutoGenerateColumns="False">
-                <DataGrid.RowHeaderTemplate>
-                    <DataTemplate>
-                        <CheckBox Unchecked="unCheckCmd" Checked="checkCmd" Cursor="Hand" />
-                    </DataTemplate>
-                </DataGrid.RowHeaderTemplate>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Width="1*" Binding="{Binding idCmdClient}"/>
-                    <DataGridTextColumn Header="Nom" Width="1*" Binding="{Binding Nom}"/>
-                    <DataGridTextColumn Header="Adresse" Width="1*" Binding="{Binding Adresse}"/>
-                    <DataGridTextColumn Header="Email" Width="1*" Binding="{Binding Email}"/>
-                    <DataGridTextColumn Header="Tel" Width="1*" Binding="{Binding Tel}"/>
-                    <DataGridTextColumn Header="Description" Width="1*" Binding="{Binding Description}"/>
-
-                    <DataGridTemplateColumn>
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Button ToolTip="Voir" Style="{StaticResource OptionsButtonStyle}" Click="voirFournisseur">
-                                        <iconPacks:PackIconRemixIcon Kind="FolderUserLine" Style="{StaticResource OptionsButtonIconStyle}" />
-                                    </Button>
-                                    <Button ToolTip="Modifier" Style="{StaticResource OptionsButtonStyle}" Click="updateFournisseur">
-                                        <iconPacks:PackIconRemixIcon Kind="DeleteBinLine" Style="{StaticResource OptionsButtonIconStyle}" />
-                                    </Button>
-                                    <Button ToolTip="Supprimer" Style="{StaticResource OptionsButtonStyle}" Click="deleteFournisseur">
-                                        <iconPacks:PackIconRemixIcon Kind="DeleteBinLine" Style="{StaticResource OptionsButtonIconStyle}" />
-                                    </Button>
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-
-
-            <StackPanel Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <hc:Pagination PageUpdated="pagination_PageUpdated" Name="pagination" MaxPageCount="10" PageIndex="1" IsJumpEnabled="False"/>
-            </StackPanel>
-
+            
         </StackPanel>
     </Grid>
 </Page>

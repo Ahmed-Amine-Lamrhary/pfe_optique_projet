@@ -98,6 +98,7 @@
             <!-- Group info -->
             <StackPanel Orientation="Horizontal" Name="groupInfo" Visibility="Collapsed">
                 <Button Content="Supprimer" Click="deleteMany" Name="deleteCmdsBtn" Background="Red" Foreground="White" Cursor="Hand" BorderThickness="0"></Button>
+                <Button Content="Verifier les lignes" Click="verifyLines" Cursor="Hand" Margin="5 0 0 0" />
             </StackPanel>
 
             <DataGrid Background="Transparent" Visibility="Collapsed" Name="lignesCmdBox" HeadersVisibility="All" RowHeaderWidth="60" AutoGenerateColumns="False">
@@ -107,9 +108,8 @@
                     </DataTemplate>
                 </DataGrid.RowHeaderTemplate>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="1*" Binding="{Binding idLigne}"/>
+                    <DataGridTextColumn Visibility="Collapsed" Width="1*" Binding="{Binding idLigne}"/>
                     <DataGridTextColumn Header="Date" Width="1*" Binding="{Binding Date_Commande}"/>
-                    <DataGridTextColumn Header="Adresse" Width="1*" Binding="{Binding Adresse_Commande}"/>
                     <DataGridTextColumn Header="Quantité" Width="1*" Binding="{Binding Qte_Commande}"/>
                     <DataGridTextColumn Header="Prix total" Width="1*" Binding="{Binding Prix_Total}"/>
                     <DataGridTextColumn Header="Etat" Width="1*" Binding="{Binding EtatCmd}"/>
@@ -118,11 +118,8 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Button ToolTip="Supprimer" Style="{StaticResource OptionsButtonStyle}" Click="deleteLigne">
-                                        <iconPacks:PackIconRemixIcon Kind="DeleteBinLine" Style="{StaticResource OptionsButtonIconStyle}" />
-                                    </Button>
-                                    <Button ToolTip="Modifier" Style="{StaticResource OptionsButtonStyle}" Click="editLigne">
-                                        <iconPacks:PackIconRemixIcon Kind="DeleteBinLine" Style="{StaticResource OptionsButtonIconStyle}" />
+                                    <Button ToolTip="Voir la ligne" Style="{StaticResource OptionsButtonStyle}" Click="voirLigne">
+                                        <iconPacks:PackIconRemixIcon Kind="SearchEyeLine" Style="{StaticResource OptionsButtonIconStyle}" />
                                     </Button>
                                 </StackPanel>
                             </DataTemplate>

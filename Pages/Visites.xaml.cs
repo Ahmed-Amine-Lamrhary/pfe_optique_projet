@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -30,30 +31,30 @@ namespace MenuWithSubMenu.Pages
             getVisites(0);
         }
 
-        private async void getVisites(int skip)
+        private async Task getVisites(int skip)
         {
             loadingBox.Visibility = Visibility.Visible;
-            visitesDataGrid.Visibility = Visibility.Collapsed;
+            infoBox.Visibility = Visibility.Collapsed;
             nothingBox.Visibility = Visibility.Collapsed;
 
             try
             {
                 if (startDate != null && endDate != null)
                 {
-                    listVisites = await db.visites.Where(v => v.date <= endDate && v.date >= startDate).ToListAsync();
+                    listVisites = await Task.Run(() => db.visites.Where(v => v.date <= endDate && v.date >= startDate).ToList());
                 }
                 else if (startDate == null && endDate != null)
-                    listVisites = await db.visites.Where(v => v.date <= endDate).ToListAsync();
+                    listVisites = await Task.Run(() => db.visites.Where(v => v.date <= endDate).ToList());
                 else if (startDate != null && endDate == null)
-                    listVisites = await db.visites.Where(v => v.date >= startDate).ToListAsync();
+                    listVisites = await Task.Run(() => db.visites.Where(v => v.date >= startDate).ToList());
                 else
-                    listVisites = await db.visites.ToListAsync();
+                    listVisites = await Task.Run(() => db.visites.ToList());
 
                 count = (int)Math.Ceiling((decimal)listVisites.Count / 10);
                 pagination.MaxPageCount = count;
                 visitesDataGrid.ItemsSource = listVisites.Skip(skip).Take(10);
 
-                visitesDataGrid.Visibility = Visibility.Visible;
+                infoBox.Visibility = Visibility.Visible;
             }
             catch (Exception e)
             {
@@ -179,7 +180,6 @@ namespace MenuWithSubMenu.Pages
                 getVisites(0);
             }
         }
-
 
         private void checkCmd(object sender, RoutedEventArgs e)
         {

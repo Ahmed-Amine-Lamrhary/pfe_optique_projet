@@ -41,7 +41,7 @@ namespace MenuWithSubMenu.Pages
             getClients(0);
         }
 
-        private async void getClients(int skip)
+        private async Task getClients(int skip)
         {
             loadingBox.Visibility = Visibility.Visible;
             clientsDataGrid.Visibility = Visibility.Collapsed;
@@ -51,11 +51,11 @@ namespace MenuWithSubMenu.Pages
             {
                 if (searchBar.Text != "")
                 {
-                    listClient = await db.clients.Where(c => c.nom.Contains(searchBar.Text) || c.prenom.Contains(searchBar.Text) || c.cin.Contains(searchBar.Text) || c.email.Contains(searchBar.Text)).ToListAsync();
+                    listClient = await Task.Run(() => db.clients.Where(c => c.nom.Contains(searchBar.Text) || c.prenom.Contains(searchBar.Text) || c.cin.Contains(searchBar.Text) || c.email.Contains(searchBar.Text)).ToList());
                 }
                 else
                 {
-                    listClient = await db.clients.ToListAsync();
+                    listClient = await Task.Run(() => db.clients.ToList());
                 }
 
                 if (listClient.Count() == 0)
@@ -123,35 +123,6 @@ namespace MenuWithSubMenu.Pages
             MyContext.navigateTo(update);
         }
 
-        private void deleteClient(object sender, RoutedEventArgs e)
-        {
-
-            /*try
-            {
-                DbContextTransaction transaction = db.Database.BeginTransaction();
-                client clientRow = clientsDataGrid.SelectedItem as client;
-
-                db.ordonnances.RemoveRange(db.ordonnances.Where(r => r.client_cin == clientRow.cin));
-                db.SaveChanges();
-
-                db.visites.RemoveRange(db.visites.Where(r => r.client_cin == clientRow.cin));
-                db.SaveChanges();
-
-                db.clients.Remove(clientRow);
-                db.SaveChanges();
-
-                transaction.Commit();
-
-                System.Windows.MessageBox.Show("Success");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }*/
-     
-            
-        }
-        
         private void addClient(object sender, RoutedEventArgs e)
         {
             AddClient add_Client = new AddClient(this);
@@ -185,8 +156,6 @@ namespace MenuWithSubMenu.Pages
         {
             searchBar.Text = "";
         }
-
-
 
         private void checkCmd(object sender, RoutedEventArgs e)
         {

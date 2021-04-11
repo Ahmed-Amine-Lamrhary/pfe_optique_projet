@@ -37,8 +37,9 @@ namespace MenuWithSubMenu.PagesStock
             references = new List<article>();
             this.isUpdate = true;
             this.lignecommande = lignecommande;
-
             fillComboBox();
+
+            // fill the information
 
         }
 
@@ -53,7 +54,6 @@ namespace MenuWithSubMenu.PagesStock
             references = new List<article>();
             this.isUpdate = false;
             fillComboBox();
-            
         }
 
         public void selectReference(object sender, SelectionChangedEventArgs e)

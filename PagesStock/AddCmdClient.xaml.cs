@@ -285,11 +285,11 @@ namespace MenuWithSubMenu.PagesStock
             }
         }
 
-        private void editLigne(object sender, RoutedEventArgs e)
+        private void voirLigne(object sender, RoutedEventArgs e)
         {
-            
+            ligneentree ligne = lignesCmdBox.SelectedItem as ligneentree;
+            MyContext.navigateTo(new AddLigneCmdClient(this, this, ligne));
         }
-
 
         private void checkCmd(object sender, RoutedEventArgs e)
         {
@@ -336,6 +336,45 @@ namespace MenuWithSubMenu.PagesStock
             {
                 transaction.Rollback();
                 System.Windows.MessageBox.Show("Erreur");
+            }
+        }
+
+        private void verifyLines(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                transaction = db.Database.BeginTransaction();
+
+                foreach (ligneentree ligne in checkedLignes)
+                {
+                    if (ligne.EtatCmd == "verified")
+                        continue;
+
+                    ligne.EtatCmd = "verified";
+                    db.SaveChanges();
+
+                    if (ligne.idArticle != null)
+                    {
+                        article article = db.articles.Where(a => a.idArticle == ligne.idArticle).SingleOrDefault();
+
+                        if (ligne.Qte_Commande <= article.QteDisponible)
+                        {
+                            article.QteDisponible -= ligne.Qte_Commande;
+                            db.SaveChanges();
+                        }
+                        else
+                        {
+                            MessageBox.Show("La quantité d'article " + article.idArticle + " n'est pas suffisante");
+                        }
+                    }
+                }
+
+                transaction.Commit();
+            }
+            catch (Exception)
+            {
+                transaction.Rollback();
+                MessageBox.Show("Erreur");
             }
         }
 

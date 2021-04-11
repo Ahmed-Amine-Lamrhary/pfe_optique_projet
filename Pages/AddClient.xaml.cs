@@ -213,8 +213,8 @@ namespace MenuWithSubMenu.Pages
         {
             if (!String.IsNullOrEmpty(newMedicament.Text) && !String.IsNullOrWhiteSpace(newMedicament.Text))
             {
-                StackPanel stackPanel = new StackPanel() { Orientation = System.Windows.Controls.Orientation.Horizontal };
-                System.Windows.Controls.TextBox textBox = new System.Windows.Controls.TextBox() { Text = newMedicament.Text, Width = 200 };
+                StackPanel stackPanel = new StackPanel() { Orientation = System.Windows.Controls.Orientation.Horizontal, Margin = new Thickness(0, 0, 0, 5) };
+                HandyControl.Controls.TextBox textBox = new HandyControl.Controls.TextBox() { Text = newMedicament.Text, Width = 200, Margin = new Thickness(0, 0, 10, 0) };
                 System.Windows.Controls.Button deleteButton = new System.Windows.Controls.Button() { Content = "Supprimer" };
                 deleteButton.Click += supprimerMedic;
 
@@ -270,8 +270,8 @@ namespace MenuWithSubMenu.Pages
         {
             if (!String.IsNullOrEmpty(newMaladie.Text) && !String.IsNullOrWhiteSpace(newMaladie.Text))
             {
-                StackPanel stackPanel = new StackPanel() { Orientation = System.Windows.Controls.Orientation.Horizontal };
-                System.Windows.Controls.TextBox textBox = new System.Windows.Controls.TextBox() { Text = newMaladie.Text, Width = 200 };
+                StackPanel stackPanel = new StackPanel() { Orientation = System.Windows.Controls.Orientation.Horizontal, Margin = new Thickness(0, 0, 0, 5) };
+                HandyControl.Controls.TextBox textBox = new HandyControl.Controls.TextBox() { Text = newMaladie.Text, Width = 200, Margin = new Thickness(0, 0, 10, 0) };
                 System.Windows.Controls.Button deleteButton = new System.Windows.Controls.Button() { Content = "Supprimer" };
                 deleteButton.Click += supprimerMaladie;
 

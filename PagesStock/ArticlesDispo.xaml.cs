@@ -36,41 +36,43 @@ namespace MenuWithSubMenu.PagesStock
             getArticles(0);
         }
 
-        private async void getArticles(int skip)
+        private async Task getArticles(int skip)
         {
             loadingBox.Visibility = Visibility.Visible;
-            articlesDataGrid.Visibility = Visibility.Hidden;
+            infoBox.Visibility = Visibility.Collapsed;
+            nothingBox.Visibility = Visibility.Collapsed;
 
             try
             {
                 if (searchBar.Text != "")
                 {
-                    listArticle = await db.articles.Where(c => c.idArticle.Contains(searchBar.Text)).ToListAsync();
+                    listArticle = await Task.Run(() => db.articles.Where(c => c.idArticle.Contains(searchBar.Text)).ToList());
                 }
                 else
                 {
-                    listArticle = await db.articles.ToListAsync();
+                    listArticle = await Task.Run(() => db.articles.ToList());
                 }
 
                 if (listArticle.Count() == 0)
                 {
-                    // nothingBox.Visibility = Visibility.Visible;
+                    nothingBox.Visibility = Visibility.Visible;
                     return;
                 }
 
                 count = (int)Math.Ceiling((decimal)listArticle.Count / 10);
                 pagination.MaxPageCount = count;
                 articlesDataGrid.ItemsSource = listArticle.Skip(skip).Take(10);
+                infoBox.Visibility = Visibility.Visible;
 
             }
             catch (Exception exp)
             {
                 Console.WriteLine(exp.Message);
+                nothingBox.Visibility = Visibility.Visible;
             }
             finally
             {
-                loadingBox.Visibility = Visibility.Hidden;
-                articlesDataGrid.Visibility = Visibility.Visible;
+                loadingBox.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -97,57 +99,8 @@ namespace MenuWithSubMenu.PagesStock
             }
         }
 
-        private void voirArticle(object sender, RoutedEventArgs e)
-        {
-            article articleRow = articlesDataGrid.SelectedItem as article;
-            string articleId = articleRow.idArticle;
-
-            //ArticleAbout articleAbout = new ArticleAbout(articleId, this);
-
-
-            //MyContext.navigateTo(articleAbout);
-        }
-
-        private void updateArticle(object sender, RoutedEventArgs e)
-        {
-
-            article articleRow = articlesDataGrid.SelectedItem as article;
-            string articleId = articleRow.idArticle;
-            //UpdateArticle update = new UpdateArticle(db.articles.Where(article => article.idArticle == articleId).SingleOrDefault(), this);
-            //MyContext.navigateTo(update);
-        }
-        private void deleteArticle(object sender, RoutedEventArgs e)
-        {
-
-            /*try
-            {
-                DbContextTransaction transaction = db.Database.BeginTransaction();
-                article articleRow = articlesDataGrid.SelectedItem as article;
-
-                db.ordonnances.RemoveRange(db.ordonnances.Where(r => r.article_cin == articleRow.cin));
-                db.SaveChanges();
-
-                db.visites.RemoveRange(db.visites.Where(r => r.article_cin == articleRow.cin));
-                db.SaveChanges();
-
-                db.articles.Remove(articleRow);
-                db.SaveChanges();
-
-                transaction.Commit();
-
-                System.Windows.MessageBox.Show("Success");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }*/
-
-
-        }
-
         private void page_PageUpdated(object sender, HandyControl.Data.FunctionEventArgs<int> e)
         {
-
             getArticles((e.Info - 1) * 10);
         }
 

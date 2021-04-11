@@ -12,7 +12,7 @@ namespace MenuWithSubMenu.Utils
     {
         public static void navigateTo(Page page, object data = null)
         {
-            foreach (System.Windows.Window window in Application.Current.Windows)
+            foreach (Window window in Application.Current.Windows)
             {
                 if (window.GetType() == typeof(MainWindow))
                 {

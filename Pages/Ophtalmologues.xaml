@@ -56,19 +56,18 @@
             </Border>
 
             <!-- Loading -->
-            <Border Visibility="Collapsed"
+            <Border
+        Visibility="Collapsed"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:hc="https://handyorg.github.io/handycontrol"
         CornerRadius="10"
-            Panel.ZIndex="1000"
+        Panel.ZIndex="1000"
         Width="400"
         Height="247"
         Name="loadingBox">
-                <hc:SimplePanel>
-                    <TextBlock Style="{StaticResource TextBlockLargeBold}" >
-                        <iconPacks:PackIconRemixIcon Spin="True" SpinDuration="1" Kind="Loader4Line" Width="35" Height="35" Foreground="#55a8fd" />
-                    </TextBlock>
+                <hc:SimplePanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <iconPacks:PackIconRemixIcon Spin="True" SpinDuration="1" Kind="Loader4Line" Width="35" Height="35" Foreground="#55a8fd" />
                 </hc:SimplePanel>
             </Border>
 
@@ -90,49 +89,49 @@
                 </hc:SimplePanel>
             </Border>
 
-            <!--Group Info-->
-            <StackPanel Orientation="Horizontal" Name="groupInfo" Visibility="Collapsed">
-                <Button Content="Supprimer" Click="deleteMany" Name="deleteManyBtn" Background="Red" Foreground="White" Cursor="Hand" BorderThickness="0"></Button>
+            <StackPanel Name="infoBox" Visibility="Collapsed">
+                <!--Group Info-->
+                <StackPanel Orientation="Horizontal" Name="groupInfo" Visibility="Collapsed">
+                    <Button Content="Supprimer" Click="deleteMany" Name="deleteManyBtn" Background="Red" Foreground="White" Cursor="Hand" BorderThickness="0"></Button>
+                </StackPanel>
+
+                <!--DataGrid-->
+                <DataGrid Background="Transparent" Name="ophtalmologuesDataGrid" HeadersVisibility="All" RowHeaderWidth="60" AutoGenerateColumns="False">
+                    <DataGrid.RowHeaderTemplate>
+                        <DataTemplate>
+                            <CheckBox Unchecked="unCheckCmd" Checked="checkCmd" />
+                        </DataTemplate>
+                    </DataGrid.RowHeaderTemplate>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Visibility="Hidden" Width="1*" Binding="{Binding id}"/>
+                        <DataGridTextColumn Header="Nom" Width="1*" Binding="{Binding nom}"/>
+                        <DataGridTextColumn Header="Prenom" Width="1*" Binding="{Binding prenom}"/>
+                        <DataGridTextColumn Header="Adresse" Width="1*" Binding="{Binding adresse}"/>
+                        <DataGridTextColumn Header="Telephone" Width="1*" Binding="{Binding telephone}"/>
+                        <DataGridTextColumn Header="Email" Width="1*" Binding="{Binding email}"/>
+
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button ToolTip="Voir" Style="{StaticResource OptionsButtonStyle}" Click="voirOphtalmologue">
+                                            <iconPacks:PackIconRemixIcon Kind="FolderUserLine" Style="{StaticResource OptionsButtonIconStyle}" />
+                                        </Button>
+                                        <Button ToolTip="Modifier" Style="{StaticResource OptionsButtonStyle}" Click="updateOphtalmologue">
+                                            <iconPacks:PackIconRemixIcon Kind="PencilLine" Style="{StaticResource OptionsButtonIconStyle}" />
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <StackPanel Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <hc:Pagination PageUpdated="pagination_PageUpdated" Name="pagination" MaxPageCount="10" PageIndex="1" IsJumpEnabled="False"/>
+                </StackPanel>
             </StackPanel>
-
-            <!--DataGrid-->
-            <DataGrid Background="Transparent" Visibility="Collapsed"  Name="ophtalmologuesDataGrid" HeadersVisibility="All" RowHeaderWidth="60" AutoGenerateColumns="False">
-                <DataGrid.RowHeaderTemplate>
-                    <DataTemplate>
-                        <CheckBox Unchecked="unCheckCmd" Checked="checkCmd" />
-                    </DataTemplate>
-                </DataGrid.RowHeaderTemplate>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Width="1*" Binding="{Binding id}"/>
-                    <DataGridTextColumn Header="Nom" Width="1*" Binding="{Binding nom}"/>
-                    <DataGridTextColumn Header="Prenom" Width="1*" Binding="{Binding prenom}"/>
-                    <DataGridTextColumn Header="Adresse" Width="1*" Binding="{Binding adresse}"/>
-                    <DataGridTextColumn Header="Telephone" Width="1*" Binding="{Binding telephone}"/>
-                    <DataGridTextColumn Header="Email" Width="1*" Binding="{Binding email}"/>
-
-                    <DataGridTemplateColumn>
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Button ToolTip="Voir" Style="{StaticResource OptionsButtonStyle}" Click="voirOphtalmologue">
-                                        <iconPacks:PackIconRemixIcon Kind="FolderUserLine" Style="{StaticResource OptionsButtonIconStyle}" />
-                                    </Button>
-                                    <Button ToolTip="Modifier" Style="{StaticResource OptionsButtonStyle}" Click="updateOphtalmologue">
-                                        <iconPacks:PackIconRemixIcon Kind="DeleteBinLine" Style="{StaticResource OptionsButtonIconStyle}" />
-                                    </Button>
-                                    <Button ToolTip="Supprimer" Style="{StaticResource OptionsButtonStyle}" Click="deleteOphtalmologue">
-                                        <iconPacks:PackIconRemixIcon Kind="DeleteBinLine" Style="{StaticResource OptionsButtonIconStyle}" />
-                                    </Button>
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-
-            <StackPanel Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <hc:Pagination PageUpdated="pagination_PageUpdated" Name="pagination" MaxPageCount="10" PageIndex="1" IsJumpEnabled="False"/>
-            </StackPanel>
+            
         </StackPanel>
     </Grid>
 </Page>

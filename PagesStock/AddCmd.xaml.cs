@@ -134,10 +134,10 @@ namespace MenuWithSubMenu.PagesStock
         }
 
 
-        private void editLigne(object sender, RoutedEventArgs e)
+        private void voirLigne(object sender, RoutedEventArgs e)
         {
-            AddLigneCmdFournisseur ligne = lignesCmdBox.SelectedItem as AddLigneCmdFournisseur;
-            MyContext.navigateTo(ligne);
+            lignecommande ligne = lignesCmdBox.SelectedItem as lignecommande;
+            MyContext.navigateTo(new AddLigneCmdFournisseur(this, this, ligne));
         }
 
         // save all the order
@@ -295,6 +295,45 @@ namespace MenuWithSubMenu.PagesStock
             {
                 transaction.Rollback();
                 System.Windows.MessageBox.Show("Erreur");
+            }
+        }
+
+        private void verifyLines(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                transaction = db.Database.BeginTransaction();
+
+                foreach (lignecommande ligne in checkedLignes)
+                {
+                    if (ligne.EtatCmd == "verified")
+                        continue;
+
+                    ligne.EtatCmd = "verified";
+                    db.SaveChanges();
+
+                    if (ligne.idArticle != null)
+                    {
+                        article article = db.articles.Where(a => a.idArticle == ligne.idArticle).SingleOrDefault();
+
+                        if (ligne.Qte_Commande <= article.QteDisponible)
+                        {
+                            article.QteDisponible -= ligne.Qte_Commande;
+                            db.SaveChanges();
+                        }
+                        else
+                        {
+                            MessageBox.Show("La quantité d'article " + article.idArticle + " n'est pas suffisante");
+                        }
+                    }
+                }
+
+                transaction.Commit();
+            }
+            catch (Exception)
+            {
+                transaction.Rollback();
+                MessageBox.Show("Erreur");
             }
         }
 

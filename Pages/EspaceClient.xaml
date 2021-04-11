@@ -56,19 +56,18 @@
             </Border>
 
             <!-- Loading -->
-            <Border Visibility="Collapsed"
+            <Border
+        Visibility="Collapsed"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:hc="https://handyorg.github.io/handycontrol"
         CornerRadius="10"
-            Panel.ZIndex="1000"
+        Panel.ZIndex="1000"
         Width="400"
         Height="247"
         Name="loadingBox">
-                <hc:SimplePanel>
-                    <TextBlock Style="{StaticResource TextBlockLargeBold}" >
-                        <iconPacks:PackIconRemixIcon Spin="True" SpinDuration="1" Kind="Loader4Line" Width="35" Height="35" Foreground="#55a8fd" />
-                    </TextBlock>
+                <hc:SimplePanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <iconPacks:PackIconRemixIcon Spin="True" SpinDuration="1" Kind="Loader4Line" Width="35" Height="35" Foreground="#55a8fd" />
                 </hc:SimplePanel>
             </Border>
 
@@ -96,7 +95,7 @@
             </StackPanel>
 
             <!--DataGrid-->
-            <DataGrid Background="Transparent" Visibility="Hidden"  Name="clientsDataGrid" HeadersVisibility="All" RowHeaderWidth="60" AutoGenerateColumns="False">
+            <DataGrid Background="Transparent" Visibility="Hidden" Name="clientsDataGrid" HeadersVisibility="All" RowHeaderWidth="60" AutoGenerateColumns="False">
                 <DataGrid.RowHeaderTemplate>
                     <DataTemplate>
                         <CheckBox Unchecked="unCheckCmd" Checked="checkCmd" Cursor="Hand" />
@@ -121,10 +120,7 @@
                                         <iconPacks:PackIconRemixIcon Kind="FolderUserLine" Style="{StaticResource OptionsButtonIconStyle}" />
                                     </Button>
                                     <Button ToolTip="Modifier les informations" Style="{StaticResource OptionsButtonStyle}" Click="updateClient">
-                                        <iconPacks:PackIconRemixIcon Kind="RecycleLine" Style="{StaticResource OptionsButtonIconStyle}" />
-                                    </Button>
-                                    <Button ToolTip="Supprimer" Style="{StaticResource OptionsButtonStyle}" Click="deleteClient">
-                                        <iconPacks:PackIconRemixIcon Kind="DeleteBinLine" Style="{StaticResource OptionsButtonIconStyle}" />
+                                        <iconPacks:PackIconRemixIcon Kind="PencilLine" Style="{StaticResource OptionsButtonIconStyle}" />
                                     </Button>
                                 </StackPanel>
                             </DataTemplate>

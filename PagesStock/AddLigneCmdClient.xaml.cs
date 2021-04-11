@@ -100,8 +100,10 @@ namespace MenuWithSubMenu.PagesStock
             references = new List<article>();
             this.ligne = ligne;
             this.isUpdate = true;
-
             fillComboBox();
+
+            // fill the information
+
         }
 
         // create constructor
@@ -240,15 +242,15 @@ namespace MenuWithSubMenu.PagesStock
 
         public void addTraitVerre(string niveau, string nom, int selectedIndex)
         {
-            StackPanel stackPanel = new StackPanel() { Orientation = Orientation.Horizontal };
+            StackPanel stackPanel = new StackPanel() { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 0, 0, 5) };
 
-            ComboBox newCombobox = new ComboBox() { Width = 200, IsEnabled = false };
+            ComboBox newCombobox = new ComboBox() { Width = 200, IsEnabled = false, Margin = new Thickness(0, 0, 10, 0) };
             newCombobox.ItemsSource = traitements;
             newCombobox.DisplayMemberPath = "Nom";
             newCombobox.SelectedValuePath = "idTraitement";
             newCombobox.SelectedIndex = selectedIndex;
 
-            TextBox newTextBox = new TextBox() { Width = 100, Text = niveau };
+            HandyControl.Controls.TextBox newTextBox = new HandyControl.Controls.TextBox() { Width = 100, Text = niveau, Margin = new Thickness(0, 0, 10, 0) };
             
             Button supprimerBtn = new Button() { Content = "Supprimer" };
             supprimerBtn.Click += supprimerTraitementVerre;

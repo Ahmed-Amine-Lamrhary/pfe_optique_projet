@@ -28,5 +28,8 @@ namespace MenuWithSubMenu.Model
         public virtual client client { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ligneentree> ligneentrees { get; set; }
+
+        // state (not saved in database)
+        public string etatCmd { get; set; }
     }
 }

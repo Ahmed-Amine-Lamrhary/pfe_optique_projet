@@ -44,29 +44,46 @@ namespace MenuWithSubMenu.PagesStock
             getCmdFourni(0);
         }
 
-        private async void getCmdFourni(int skip)
+        private async Task getCmdFourni(int skip)
         {
             loadingBox.Visibility = Visibility.Visible;
-            cmdFourniDataGrid.Visibility = Visibility.Collapsed;
+            infoBox.Visibility = Visibility.Collapsed;
             nothingBox.Visibility = Visibility.Collapsed;
 
             try
             {
                 if (startDate != null && endDate != null)
                 {
-                    listCmdFourni = await db.cmdfournisseurs.Where(c => c.DateEntree <= endDate && c.DateEntree >= startDate).ToListAsync();
+                    listCmdFourni = await Task.Run(() => db.cmdfournisseurs.Where(c => c.DateEntree <= endDate && c.DateEntree >= startDate).ToList());
                 }
                 else if (startDate == null && endDate != null)
-                    listCmdFourni = await db.cmdfournisseurs.Where(c => c.DateEntree <= endDate).ToListAsync();
+                    listCmdFourni = await Task.Run(() => db.cmdfournisseurs.Where(c => c.DateEntree <= endDate).ToList());
                 else if (startDate != null && endDate == null)
-                    listCmdFourni = await db.cmdfournisseurs.Where(c => c.DateEntree >= startDate).ToListAsync();
+                    listCmdFourni = await Task.Run(() => db.cmdfournisseurs.Where(c => c.DateEntree >= startDate).ToList());
                 else
-                    listCmdFourni = await db.cmdfournisseurs.ToListAsync();
+                    listCmdFourni = await Task.Run(() => db.cmdfournisseurs.ToList());
+
+                // get states of orders
+                foreach (cmdfournisseur cmd in listCmdFourni)
+                {
+                    List<lignecommande> lignes = await Task.Run(() => db.lignecommandes.Where(l => l.idCmdFournisseur == cmd.idCmdFournisseur).ToList());
+                    int lignesNonPayee = 0;
+                    foreach (lignecommande ligne in lignes)
+                    {
+                        if (ligne.EtatCmd == "En-Cours")
+                            lignesNonPayee++;
+                    }
+
+                    if (lignesNonPayee == 0)
+                        cmd.etatCmd = "Livrée";
+                    else
+                        cmd.etatCmd = "Non Livrée (" + lignesNonPayee + " lignes non livrée)";
+                }
 
                 count = (int)Math.Ceiling((decimal)listCmdFourni.Count / 10);
                 pagination.MaxPageCount = count;
                 cmdFourniDataGrid.ItemsSource = listCmdFourni.Skip(skip).Take(10);
-                cmdFourniDataGrid.Visibility = Visibility.Visible;
+                infoBox.Visibility = Visibility.Visible;
             }
             catch (Exception exp)
             {

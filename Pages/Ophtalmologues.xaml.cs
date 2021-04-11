@@ -36,21 +36,21 @@ namespace MenuWithSubMenu.Pages
             getOphtalmologues(0);
         }
 
-        private async void getOphtalmologues(int skip)
+        private async Task getOphtalmologues(int skip)
         {
             loadingBox.Visibility = Visibility.Visible;
-            ophtalmologuesDataGrid.Visibility = Visibility.Collapsed;
+            infoBox.Visibility = Visibility.Collapsed;
             nothingBox.Visibility = Visibility.Collapsed;
 
             try
             {
                 if (searchBar.Text != "")
                 {
-                    listOphta = await db.ophtalmologues.Where(c => c.nom.Contains(searchBar.Text) || c.prenom.Contains(searchBar.Text) || c.email.Contains(searchBar.Text)).ToListAsync();
+                    listOphta = await Task.Run(() => db.ophtalmologues.Where(c => c.nom.Contains(searchBar.Text) || c.prenom.Contains(searchBar.Text) || c.email.Contains(searchBar.Text)).ToList());
                 }
                 else
                 {
-                    listOphta = await db.ophtalmologues.ToListAsync();
+                    listOphta = await Task.Run(() => db.ophtalmologues.ToList());
                 }
 
                 if (listOphta.Count() == 0)
@@ -63,7 +63,7 @@ namespace MenuWithSubMenu.Pages
                 pagination.MaxPageCount = count;
                 ophtalmologuesDataGrid.ItemsSource = listOphta.Skip(skip).Take(10);
 
-                ophtalmologuesDataGrid.Visibility = Visibility.Visible;
+                infoBox.Visibility = Visibility.Visible;
             }
             catch (Exception exp)
             {
@@ -117,13 +117,7 @@ namespace MenuWithSubMenu.Pages
             UpdateOphta update = new UpdateOphta(db.ophtalmologues.Where(ophtalmologue => ophtalmologue.id == ophtaId).SingleOrDefault(), this);
             MyContext.navigateTo(update);
         }
-        private void deleteOphtalmologue(object sender, RoutedEventArgs e)
-        {
 
-            ophtalmologue ophtaRow = ophtalmologuesDataGrid.SelectedItem as ophtalmologue;
-            db.ophtalmologues.Remove(ophtaRow);
-            db.SaveChanges();
-        }
         private void addOphtalmologue(object sender, RoutedEventArgs e)
         {
             AddOphta add_ophta = new AddOphta();
