@@ -9,6 +9,7 @@
 
 namespace MenuWithSubMenu.Model
 {
+    using MenuWithSubMenu.PagesStock;
     using System;
     using System.Collections.Generic;
     
@@ -27,5 +28,9 @@ namespace MenuWithSubMenu.Model
         public virtual article article { get; set; }
         public virtual cmdclient cmdclient { get; set; }
         public virtual verre verre { get; set; }
+
+        // custom attribute
+        public AddLigneCmdClient addLigneCmdClient { get; set; }
+
     }
 }

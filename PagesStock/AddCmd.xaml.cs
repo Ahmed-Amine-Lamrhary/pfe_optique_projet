@@ -25,9 +25,7 @@ namespace MenuWithSubMenu.PagesStock
         dbEntities db;
         DbContextTransaction transaction;
         cmdfournisseur cmdfournisseur;
-        List<lignecommande> lignecommandes;
-
-        public BindableCollection<AddLigneCmdFournisseur> lignesCmd;
+        public List<lignecommande> lignecommandes;
 
         private List<lignecommande> checkedLignes = new List<lignecommande>();
 
@@ -37,7 +35,6 @@ namespace MenuWithSubMenu.PagesStock
             InitializeComponent();
 
             db = new dbEntities();
-            lignesCmd = new BindableCollection<AddLigneCmdFournisseur>();
             this.cmdfournisseur = cmdfournisseur;
 
             lignesCmdBox.Visibility = Visibility.Collapsed;
@@ -47,12 +44,7 @@ namespace MenuWithSubMenu.PagesStock
             try
             {
                 lignecommandes = db.lignecommandes.Where(l => l.idCmdFournisseur == cmdfournisseur.idCmdFournisseur).ToList();
-                foreach (lignecommande ligne in lignecommandes)
-                {
-                    lignesCmd.Add(new AddLigneCmdFournisseur(this, this, ligne));
-                }
                 lignesCmdBox.ItemsSource = lignecommandes;
-
                 lignesCmdBox.Visibility = Visibility.Visible;
             }
             catch (Exception ex)
@@ -85,9 +77,9 @@ namespace MenuWithSubMenu.PagesStock
             InitializeComponent();
 
             db = new dbEntities();
-            lignesCmd = new BindableCollection<AddLigneCmdFournisseur>();
+            lignecommandes = new List<lignecommande>();
 
-            lignesCmdBox.ItemsSource = lignesCmd;
+            lignesCmdBox.ItemsSource = lignecommandes;
 
             List<fournisseur> fournisseurs = db.fournisseurs.Distinct().ToList();
             selectFournisseur.ItemsSource = fournisseurs;
@@ -106,27 +98,48 @@ namespace MenuWithSubMenu.PagesStock
         }
 
         // add new ligne to the list
-        public void addNewLigneToList(AddLigneCmdFournisseur newLigne)
+        public void addNewLigneToList(lignecommande newLigne)
         {
-            lignesCmd.Add(newLigne);
-            lignesCmdBox.ItemsSource = lignesCmd;
+            lignecommandes.Add(newLigne);
+            lignesCmdBox.ItemsSource = new List<lignecommande>();
+            lignesCmdBox.ItemsSource = lignecommandes;
             nothingBox.Visibility = Visibility.Collapsed;
             lignesCmdBox.Visibility = Visibility.Visible;
         }
 
-        public void updateLigneInList(AddLigneCmdFournisseur ligne)
+        public void updateLigneInList(lignecommande ligne)
         {
-            AddLigneCmdFournisseur updatedLigne = lignesCmd.Where(l => l.Equals(ligne)).First();
-            updatedLigne = ligne;
-            lignesCmdBox.ItemsSource = lignesCmd;
+            int j = 0;
+            for (var i = 0; i < lignecommandes.Count; i++)
+            {
+                if (ReferenceEquals(lignecommandes[i].addLigneCmdFournisseur, ligne.addLigneCmdFournisseur))
+                {
+                    j = i;
+                    break;
+                }
+            }
+            lignecommandes[j] = ligne;
+            lignesCmdBox.ItemsSource = new List<lignecommande>();
+            lignesCmdBox.ItemsSource = lignecommandes;
         }
 
-        public void removeLigneFromList(AddLigneCmdFournisseur ligne)
+        public void removeLigneFromList(lignecommande ligne)
         {
-            lignesCmd.Remove(ligne);
-            lignesCmdBox.ItemsSource = lignesCmd;
+            int j = 0;
+            for (var i = 0; i < lignecommandes.Count; i++)
+            {
+                if (ReferenceEquals(lignecommandes[i].addLigneCmdFournisseur, ligne.addLigneCmdFournisseur))
+                {
+                    j = i;
+                    break;
+                }
+            }
+            lignecommandes.Remove(lignecommandes[j]);
 
-            if (lignesCmd.Count() == 0)
+            lignesCmdBox.ItemsSource = new List<lignecommande>();
+            lignesCmdBox.ItemsSource = lignecommandes;
+
+            if (lignecommandes.Count() == 0)
             {
                 nothingBox.Visibility = Visibility.Visible;
                 lignesCmdBox.Visibility = Visibility.Collapsed;
@@ -137,13 +150,38 @@ namespace MenuWithSubMenu.PagesStock
         private void voirLigne(object sender, RoutedEventArgs e)
         {
             lignecommande ligne = lignesCmdBox.SelectedItem as lignecommande;
-            MyContext.navigateTo(new AddLigneCmdFournisseur(this, this, ligne));
+
+            if (ligne.addLigneCmdFournisseur == null)
+            {
+                if (ligne.idLigneEntree == null)
+                {
+                    MyContext.navigateTo(new AddLigneCmdFournisseur(this, this, ligne));
+                }
+                else
+                {
+                    ligneentree ligneE = db.ligneentrees.Where(l => l.idLigne == ligne.idLigneEntree).SingleOrDefault();
+                    cmdclient cmdClient = db.cmdclients.Where(c => c.idCmdClient == ligneE.idCmdClient).SingleOrDefault();
+
+                    // get last visite
+                    visite lastClientVisite = db.visites.OrderByDescending(v => v.date).Where(v => v.client_cin == cmdClient.client_cin).FirstOrDefault();
+                    if (lastClientVisite == null)
+                    {
+                        MessageBox.Show("Client ne possède aucune visite");
+                        return;
+                    }
+
+                    MyContext.navigateTo(new AddLigneCmdClient(this, ligneE, lastClientVisite));
+                }
+            } else
+            {
+                MyContext.navigateTo(ligne.addLigneCmdFournisseur);
+            }
         }
 
         // save all the order
         public void saveCmd(object sender, RoutedEventArgs e)
         {
-            if (lignesCmd.Count == 0)
+            if (lignecommandes.Count == 0)
             {
                 MessageBox.Show("Cannot submit");
                 return;
@@ -179,9 +217,11 @@ namespace MenuWithSubMenu.PagesStock
                 }
 
                 string reference = null;
-                foreach (AddLigneCmdFournisseur ligne in lignesCmd)
+                foreach (lignecommande ligneC in lignecommandes)
                 {
-                    if (ligne.isUpdate) continue;
+                    AddLigneCmdFournisseur ligne = ligneC.addLigneCmdFournisseur;
+
+                    if (ligne == null) continue;
 
                     article article = null;
 

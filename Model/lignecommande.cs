@@ -9,6 +9,7 @@
 
 namespace MenuWithSubMenu.Model
 {
+    using MenuWithSubMenu.PagesStock;
     using System;
     using System.Collections.Generic;
     
@@ -30,5 +31,8 @@ namespace MenuWithSubMenu.Model
         public virtual article article { get; set; }
         public virtual cmdfournisseur cmdfournisseur { get; set; }
         public virtual visite visite { get; set; }
+
+        // custom attribute
+        public AddLigneCmdFournisseur addLigneCmdFournisseur { get; set; }
     }
 }

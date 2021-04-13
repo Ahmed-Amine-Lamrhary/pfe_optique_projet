@@ -309,6 +309,15 @@ namespace MenuWithSubMenu.PagesStock
             {
                 foreach (cmdfournisseur cmdfournisseur in checkedCmd)
                 {
+                    List<cmdclient> cmdCList = db.cmdclients.Where(c => c.idCmdFournisseur == cmdfournisseur.idCmdFournisseur).ToList();
+                    if (cmdCList != null && cmdCList.Count > 0)
+                    {
+                        foreach (cmdclient c in cmdCList)
+                        {
+                            c.idCmdFournisseur = null;
+                            db.SaveChanges();
+                        }
+                    }
                     db.cmdfournisseurs.Remove(cmdfournisseur);
                     db.SaveChanges();
                 }

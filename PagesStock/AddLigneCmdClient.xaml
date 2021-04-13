@@ -70,409 +70,423 @@
                     <iconPacks:PackIconRemixIcon Kind="ArrowLeftSLine" Width="14" Height="14" />
                 </Button>
 
-                <Button Content="Enregistrer la ligne" Margin="20 0 0 0" Click="saveLigne" Background="#55a8fd" Foreground="White" Height="35" Padding="15 0 15 0" Cursor="Hand" BorderThickness="0"/>
-                <Button Content="Annuler la ligne" Margin="20 0 0 0" Click="deleteLigne" Background="Red" Foreground="White" Height="35" Padding="15 0 15 0" Cursor="Hand" BorderThickness="0"/>
+                <StackPanel Name="updateBoxBtns" Orientation="Horizontal">
+                    <Button Content="Enregistrer la ligne" Margin="20 0 0 0" Click="saveLigne" Background="#55a8fd" Foreground="White" Height="35" Padding="15 0 15 0" Cursor="Hand" BorderThickness="0"/>
+                    <Button Content="Annuler la ligne" Margin="20 0 0 0" Click="deleteLigne" Background="Red" Foreground="White" Height="35" Padding="15 0 15 0" Cursor="Hand" BorderThickness="0"/>
+                </StackPanel>
             </StackPanel>
 
-            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Catégorie" />
-            <ComboBox Name="categorie" SelectionChanged="selectItem"/>
-            
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <StackPanel Margin="0 0 10 0" Grid.Column="0">
-                    <StackPanel>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="241*" />
-                                <ColumnDefinition Width="149*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
+            <StackPanel Name="mainStackPanel">
+                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Catégorie" />
+                <ComboBox Name="categorie" SelectionChanged="selectItem"/>
 
-                            <StackPanel Name="referenceBox">
-                                <TextBlock Text="Reference" />
-                                <ComboBox 
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Margin="0 0 10 0" Grid.Column="0">
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="241*" />
+                                    <ColumnDefinition Width="149*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <StackPanel Name="referenceBox">
+                                    <TextBlock Text="Reference" />
+                                    <ComboBox 
                                       Name="referenceText"
                                       SelectionChanged="selectReference" />
+                                </StackPanel>
+
+                            </Grid >
+                        </StackPanel>
+
+                        <TextBlock Style="{StaticResource LabelTextStyle}" Text="Quantité de commande" />
+                        <hc:TextBox Height="23" TextWrapping="Wrap" Name="qteText"/>
+
+                        <ContentControl Name="articleInfoBox" IsEnabled="False">
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Prix unitaire" />
+                                <hc:TextBox TextWrapping="Wrap" Name="prixText" />
+
+                                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Garantie" />
+                                <hc:TextBox TextWrapping="Wrap" Name="garantieText" />
+
+                                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Marque" />
+                                <hc:TextBox TextWrapping="Wrap" Name="marqueText" />
+
+                                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Description" />
+                                <hc:TextBox TextWrapping="Wrap" Name="descText" />
+
+                                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Modele" />
+                                <hc:TextBox TextWrapping="Wrap" Name="modelText"/>
+                            </StackPanel>
+                        </ContentControl>
+                    </StackPanel>
+                    <ContentControl Name="additionalInfoBox" IsEnabled="False" Grid.Column="1">
+                        <StackPanel>
+                            <!-- Verre Optique -->
+                            <StackPanel Visibility="Visible" Name="verrePanel">
+                                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Matière" />
+                                <ComboBox Text="Matière de verres" Name="matiereVerresText" SelectionChanged="matiereVerresText_SelectionChanged" />
+
+                                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Indice" />
+                                <ComboBox Text="Indice de verres" Name="indiceVerresText" />
+
+                                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Géométrie" />
+                                <ComboBox Text="Géométrie de verres" Name="geometrieVerresText" />
+
+                                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Teinte" />
+                                <ComboBox Name="teintText" />
+
+                                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Prix" />
+                                <hc:TextBox Name="verrePrix" />
+
+
+                                <!-- Add Traitement -->
+                                <StackPanel Name="allTraitBox" Margin="0 10 0 0">
+                                    <StackPanel Margin="0 0 0 10" Orientation="Horizontal" VerticalAlignment="Center">
+                                        <ToggleButton Margin="0 0 5 0" IsChecked="True" Name="traitementsCheckbox" Style="{StaticResource ToggleButtonSwitch}"/>
+                                        <TextBlock Text="Traitements" Margin="0 5 5 5" />
+                                    </StackPanel>
+
+                                    <StackPanel Visibility="{Binding IsChecked,ElementName=traitementsCheckbox,Converter={StaticResource Boolean2VisibilityConverter}}">
+                                        <StackPanel Name="traitementsBox"></StackPanel>
+
+                                        <StackPanel Name="addTraitBox" Orientation="Horizontal">
+                                            <ComboBox Margin="0 0 10 0" Width="250" Name="newTraitementNom" />
+                                            <hc:TextBox Margin="0 0 10 0" Width="100" Name="newTraitementNiveau"/>
+                                            <Button Content="Ajouter" Click="addTraitVerreButton" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <!-- Visions -->
+                                <StackPanel IsEnabled="False">
+                                    <!-- Vision Loins -->
+                                    <TextBlock Margin="0 20 0 25" Style="{StaticResource TitleStyle}" Text="Vision de loin" Name="visionLoins"/>
+                                    <StackPanel>
+                                        <!-- OD -->
+                                        <StackPanel Margin="0 0 0 15">
+                                            <TextBlock Margin="0" Style="{StaticResource LabelTextStyle}" Text="OD" />
+
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+
+                                                <!--SPHERE-->
+                                                <Border Style="{StaticResource BorderStyle}" Grid.Column="0">
+                                                    <StackPanel Orientation="Vertical">
+                                                        <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Sphère" />
+                                                        <Slider Name="od_sph_loin" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
+
+                                                        <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat=N2}" />
+
+                                                    </StackPanel>
+                                                </Border>
+
+                                                <!--CYLINDRE-->
+                                                <Border Style="{StaticResource BorderStyle}" Grid.Column="1">
+                                                    <StackPanel Background="White" Orientation="Vertical">
+                                                        <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Cylindre"/>
+                                                        <Slider Name="od_cyl_loin" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
+
+                                                        <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat=N2}" />
+
+                                                    </StackPanel>
+                                                </Border>
+                                                <!--AXE-->
+                                                <Border Style="{StaticResource BorderStyle}" Grid.Column="2">
+                                                    <StackPanel Orientation="Vertical">
+                                                        <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Axe"/>
+                                                        <Slider Name="od_axe_loin" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="180"  />
+
+                                                        <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat=N2}" />
+
+                                                    </StackPanel>
+                                                </Border>
+                                                <!--ADD-->
+                                                <Border Style="{StaticResource BorderStyle}" Grid.Column="3">
+                                                    <StackPanel Orientation="Vertical">
+                                                        <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Add"/>
+                                                        <Slider Name="od_add_loin" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
+
+                                                        <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat=N2}" />
+
+                                                    </StackPanel>
+                                                </Border>
+                                            </Grid>
+                                        </StackPanel>
+
+                                        <!-- OG -->
+                                        <StackPanel Margin="0 0 0 15">
+                                            <TextBlock Margin="0" Style="{StaticResource LabelTextStyle}" Text="OG" />
+
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+
+                                                <!--SPHERE-->
+                                                <Border Style="{StaticResource BorderStyle}" Grid.Column="0">
+                                                    <StackPanel Grid.Column="0" Orientation="Vertical">
+                                                        <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Sphère" />
+                                                        <Slider Name="og_sph_loin" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
+
+                                                        <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat=N2}" />
+
+                                                    </StackPanel>
+                                                </Border>
+                                                <!--CYLINDRE-->
+                                                <Border Style="{StaticResource BorderStyle}" Grid.Column="1">
+                                                    <StackPanel Grid.Column="1" Orientation="Vertical">
+                                                        <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Cylindre"/>
+                                                        <Slider Name="og_cyl_loin" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="-12" Maximum="12"  />
+
+                                                        <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat=N2}" />
+
+                                                    </StackPanel>
+                                                </Border>
+                                                <!--AXE-->
+                                                <Border Style="{StaticResource BorderStyle}" Grid.Column="2">
+                                                    <StackPanel Grid.Column="2" Orientation="Vertical">
+                                                        <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Axe"/>
+                                                        <Slider Name="og_axe_loin" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
+
+                                                        <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat=N2}" />
+
+                                                    </StackPanel>
+                                                </Border>
+                                                <!--ADD-->
+                                                <Border Style="{StaticResource BorderStyle}" Grid.Column="3">
+                                                    <StackPanel Grid.Column="3" Orientation="Vertical">
+                                                        <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Add"/>
+                                                        <Slider Name="og_add_loin" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
+
+                                                        <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat=N2}" />
+
+                                                    </StackPanel>
+                                                </Border>
+                                            </Grid>
+                                        </StackPanel>
+
+
+                                        <!--Ecart et Hauteur-->
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+
+                                            <!--Ecart-->
+                                            <Border Style="{StaticResource BorderStyle}" Grid.Column="0">
+                                                <StackPanel Orientation="Vertical">
+                                                    <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Ecart :" />
+                                                    <Slider Name="ecartLoinText" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
+
+                                                    <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat=N2}" />
+
+                                                </StackPanel>
+                                            </Border>
+                                            <!--Hauteur-->
+                                            <Border Style="{StaticResource BorderStyle}" Grid.Column="1">
+                                                <StackPanel Orientation="Vertical">
+                                                    <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Hauteur :"/>
+                                                    <Slider Name="hauteurLoinText" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
+
+                                                    <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat=N2}" />
+
+                                                </StackPanel>
+                                            </Border>
+                                        </Grid>
+                                    </StackPanel>
+
+                                    <!-- Vision Près -->
+                                    <TextBlock Margin="0 20 0 25" Style="{StaticResource TitleStyle}" Text="Vision de près" Name="visionPres"/>
+                                    <StackPanel>
+                                        <!-- OD -->
+                                        <StackPanel Margin="0 0 0 15">
+                                            <TextBlock Margin="0" Style="{StaticResource LabelTextStyle}" Text="OD" />
+
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+
+                                                <!--SPHERE-->
+                                                <Border Style="{StaticResource BorderStyle}" Grid.Column="0">
+                                                    <StackPanel Grid.Column="0" Orientation="Vertical">
+                                                        <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Sphère" />
+                                                        <Slider Name="od_sph_pres" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
+
+                                                        <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat=N2}" />
+
+                                                    </StackPanel>
+                                                </Border>
+                                                <!--CYLINDRE-->
+                                                <Border Style="{StaticResource BorderStyle}" Grid.Column="1">
+                                                    <StackPanel Grid.Column="1" Orientation="Vertical">
+                                                        <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Cylindre"/>
+                                                        <Slider Name="od_cyl_pres" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
+
+                                                        <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat=N2}" />
+
+                                                    </StackPanel>
+                                                </Border>
+                                                <!--AXE-->
+                                                <Border Style="{StaticResource BorderStyle}" Grid.Column="2">
+                                                    <StackPanel Grid.Column="2" Orientation="Vertical">
+                                                        <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Axe"/>
+                                                        <Slider Name="od_axe_pres" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
+
+                                                        <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat=N2}" />
+
+                                                    </StackPanel>
+                                                </Border>
+                                                <!--ADD-->
+                                                <Border Style="{StaticResource BorderStyle}" Grid.Column="3">
+                                                    <StackPanel Grid.Column="3" Orientation="Vertical">
+                                                        <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Add"/>
+                                                        <Slider Name="od_add_pres" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
+
+                                                        <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat=N2}" />
+
+                                                    </StackPanel>
+                                                </Border>
+                                            </Grid>
+                                        </StackPanel>
+
+                                        <!-- OG -->
+                                        <StackPanel Margin="0 0 0 15">
+                                            <TextBlock Margin="0" Style="{StaticResource LabelTextStyle}" Text="OG" />
+
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+
+                                                <!--SPHERE-->
+                                                <Border Style="{StaticResource BorderStyle}" Grid.Column="0">
+                                                    <StackPanel Grid.Column="0" Orientation="Vertical">
+                                                        <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Sphère" />
+                                                        <Slider Name="og_sph_pres" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
+
+                                                        <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat=N2}" />
+
+                                                    </StackPanel>
+                                                </Border>
+                                                <!--CYLINDRE-->
+                                                <Border Style="{StaticResource BorderStyle}" Grid.Column="1">
+                                                    <StackPanel Grid.Column="1" Orientation="Vertical">
+                                                        <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Cylindre"/>
+                                                        <Slider Name="og_cyl_pres" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
+
+                                                        <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat=N2}" />
+
+                                                    </StackPanel>
+                                                </Border>
+                                                <!--AXE-->
+                                                <Border Style="{StaticResource BorderStyle}" Grid.Column="2">
+                                                    <StackPanel Grid.Column="2" Orientation="Vertical">
+                                                        <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Axe"/>
+                                                        <Slider Name="og_axe_pres" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
+
+                                                        <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat=N2}" />
+
+                                                    </StackPanel>
+                                                </Border>
+                                                <!--ADD-->
+                                                <Border Style="{StaticResource BorderStyle}" Grid.Column="3">
+                                                    <StackPanel Grid.Column="3" Orientation="Vertical">
+                                                        <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Add"/>
+                                                        <Slider Name="og_add_pres" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
+
+                                                        <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat=N2}" />
+
+                                                    </StackPanel>
+                                                </Border>
+                                            </Grid>
+                                        </StackPanel>
+
+
+                                        <!--Ecart et Hauteur-->
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+
+                                            <!--Ecart-->
+                                            <Border Style="{StaticResource BorderStyle}" Grid.Column="0">
+                                                <StackPanel Grid.Column="0" Orientation="Vertical">
+                                                    <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Ecart :" />
+
+                                                    <Slider Name="ecartPresText" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
+
+                                                    <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat=N2}" />
+
+                                                </StackPanel>
+                                            </Border>
+
+                                            <!--Hauteur-->
+                                            <Border Style="{StaticResource BorderStyle}" Grid.Column="1">
+                                                <StackPanel Grid.Column="1" Orientation="Vertical">
+                                                    <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Hauteur :"/>
+
+                                                    <Slider Name="hauteurPresText" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
+
+                                                    <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat=N2}" />
+
+                                                </StackPanel>
+                                            </Border>
+                                        </Grid>
+                                    </StackPanel>
+                                </StackPanel>
                             </StackPanel>
 
-                        </Grid >
-                    </StackPanel>
+                            <!-- Cadre -->
+                            <StackPanel Visibility="Collapsed" Name="cadrePanel">
+                                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Diametre de Verres" />
+                                <hc:TextBox Name="diametreText" />
 
-                    <TextBlock Style="{StaticResource LabelTextStyle}" Text="Quantité de commande" />
-                    <hc:TextBox Height="23" TextWrapping="Wrap" Name="qteText"/>
+                                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Pont" />
+                                <hc:TextBox Name="pontText" />
 
-                    <ContentControl Name="articleInfoBox" IsEnabled="False">
-                        <StackPanel>
-                            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Prix unitaire" />
-                            <hc:TextBox TextWrapping="Wrap" Name="prixText" />
+                                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Longueur Branche" />
+                                <hc:TextBox Name="langeur_brance_text" />
 
-                            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Garantie" />
-                            <hc:TextBox TextWrapping="Wrap" Name="garantieText" />
+                                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Largeur" />
+                                <hc:TextBox Name="largeurText" />
 
-                            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Marque" />
-                            <hc:TextBox TextWrapping="Wrap" Name="marqueText" />
+                                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Hauteur Verre" />
+                                <hc:TextBox Name="hautteur_verre_text" />
 
-                            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Description" />
-                            <hc:TextBox TextWrapping="Wrap" Name="descText" />
-
-                            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Modele" />
-                            <hc:TextBox TextWrapping="Wrap" Name="modelText"/>
+                                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Couleur" />
+                                <hc:TextBox Name="couleurText" />
+                            </StackPanel>
                         </StackPanel>
                     </ContentControl>
-                </StackPanel>
-                <ContentControl Name="additionalInfoBox" IsEnabled="False" Grid.Column="1">
-                    <StackPanel>
-                        <!-- Verre Optique -->
-                        <StackPanel Visibility="Visible" Name="verrePanel">
-                            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Matière" />
-                            <ComboBox Text="Matière de verres" Name="matiereVerresText" SelectionChanged="matiereVerresText_SelectionChanged" />
 
-                            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Indice" />
-                            <ComboBox Text="Indice de verres" Name="indiceVerresText" />
-
-                            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Géométrie" />
-                            <ComboBox Text="Géométrie de verres" Name="geometrieVerresText" />
-
-                            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Teinte" />
-                            <ComboBox Name="teintText" />
-
-                            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Prix" />
-                            <hc:TextBox Name="verrePrix" />
-
-
-                            <!-- Add Traitement -->
-                            <StackPanel Margin="0 10 0 0">
-                                <StackPanel Margin="0 0 0 10" Orientation="Horizontal" VerticalAlignment="Center">
-                                    <ToggleButton IsChecked="True" Name="traitementsCheckbox" Style="{StaticResource ToggleButtonSwitch}"/>
-                                    <TextBlock Text="Traitements" Margin="5" />
-                                </StackPanel>
-
-                                <StackPanel Visibility="{Binding IsChecked,ElementName=traitementsCheckbox,Converter={StaticResource Boolean2VisibilityConverter}}">
-                                    <StackPanel Name="traitementsBox"></StackPanel>
-
-                                    <StackPanel Orientation="Horizontal">
-                                        <ComboBox Margin="0 0 10 0" Width="250" Name="newTraitementNom" />
-                                        <hc:TextBox Margin="0 0 10 0" Width="100" Name="newTraitementNiveau"/>
-                                        <Button Content="Ajouter" Click="addTraitVerreButton" />
-                                    </StackPanel>
-                                </StackPanel>
-                            </StackPanel>
-
-                            <!-- Visions -->
-                            <StackPanel IsEnabled="False">
-                                <!-- Vision Loins -->
-                                <TextBlock Margin="0 20 0 25" Style="{StaticResource TitleStyle}" Text="Vision de loin" Name="visionLoins"/>
-                                <StackPanel>
-                                    <!-- OD -->
-                                    <StackPanel Margin="0 0 0 15">
-                                        <TextBlock Margin="0" Style="{StaticResource LabelTextStyle}" Text="OD" />
-
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition></ColumnDefinition>
-                                                <ColumnDefinition></ColumnDefinition>
-                                                <ColumnDefinition></ColumnDefinition>
-                                                <ColumnDefinition></ColumnDefinition>
-                                            </Grid.ColumnDefinitions>
-
-                                            <!--SPHERE-->
-                                            <Border Style="{StaticResource BorderStyle}" Grid.Column="0">
-                                                <StackPanel Orientation="Vertical">
-                                                    <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Sphère" />
-                                                    <Slider Name="od_sph_loin" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
-
-                                                    <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat={}{0:#,#.00}}" />
-
-                                                </StackPanel>
-                                            </Border>
-
-                                            <!--CYLINDRE-->
-                                            <Border Style="{StaticResource BorderStyle}" Grid.Column="1">
-                                                <StackPanel Background="White" Orientation="Vertical">
-                                                    <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Cylindre"/>
-                                                    <Slider Name="od_cyl_loin" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
-
-                                                    <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat={}{0:#,#.00}}" />
-
-                                                </StackPanel>
-                                            </Border>
-                                            <!--AXE-->
-                                            <Border Style="{StaticResource BorderStyle}" Grid.Column="2">
-                                                <StackPanel Orientation="Vertical">
-                                                    <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Axe"/>
-                                                    <Slider Name="od_axe_loin" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="180"  />
-
-                                                    <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat={}{0:#,#.00}}" />
-
-                                                </StackPanel>
-                                            </Border>
-                                            <!--ADD-->
-                                            <Border Style="{StaticResource BorderStyle}" Grid.Column="3">
-                                                <StackPanel Orientation="Vertical">
-                                                    <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Add"/>
-                                                    <Slider Name="od_add_loin" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
-
-                                                    <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat={}{0:#,#.00}}" />
-
-                                                </StackPanel>
-                                            </Border>
-                                        </Grid>
-                                    </StackPanel>
-
-                                    <!-- OG -->
-                                    <StackPanel Margin="0 0 0 15">
-                                        <TextBlock Margin="0" Style="{StaticResource LabelTextStyle}" Text="OG" />
-
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition></ColumnDefinition>
-                                                <ColumnDefinition></ColumnDefinition>
-                                                <ColumnDefinition></ColumnDefinition>
-                                                <ColumnDefinition></ColumnDefinition>
-                                            </Grid.ColumnDefinitions>
-
-                                            <!--SPHERE-->
-                                            <Border Style="{StaticResource BorderStyle}" Grid.Column="0">
-                                                <StackPanel Grid.Column="0" Orientation="Vertical">
-                                                    <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Sphère" />
-                                                    <Slider Name="og_sph_loin" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
-
-                                                    <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat={}{0:#,#.00}}" />
-
-                                                </StackPanel>
-                                            </Border>
-                                            <!--CYLINDRE-->
-                                            <Border Style="{StaticResource BorderStyle}" Grid.Column="1">
-                                                <StackPanel Grid.Column="1" Orientation="Vertical">
-                                                    <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Cylindre"/>
-                                                    <Slider Name="og_cyl_loin" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="-12" Maximum="12"  />
-
-                                                    <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat={}{0:#,#.00}}" />
-
-                                                </StackPanel>
-                                            </Border>
-                                            <!--AXE-->
-                                            <Border Style="{StaticResource BorderStyle}" Grid.Column="2">
-                                                <StackPanel Grid.Column="2" Orientation="Vertical">
-                                                    <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Axe"/>
-                                                    <Slider Name="og_axe_loin" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
-
-                                                    <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat={}{0:#,#.00}}" />
-
-                                                </StackPanel>
-                                            </Border>
-                                            <!--ADD-->
-                                            <Border Style="{StaticResource BorderStyle}" Grid.Column="3">
-                                                <StackPanel Grid.Column="3" Orientation="Vertical">
-                                                    <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Add"/>
-                                                    <Slider Name="og_add_loin" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
-
-                                                    <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat={}{0:#,#.00}}" />
-
-                                                </StackPanel>
-                                            </Border>
-                                        </Grid>
-                                    </StackPanel>
-
-
-                                    <!--Ecart et Hauteur-->
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition></ColumnDefinition>
-                                            <ColumnDefinition></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
-
-                                        <!--Ecart-->
-                                        <Border Style="{StaticResource BorderStyle}" Grid.Column="0">
-                                            <StackPanel Orientation="Vertical">
-                                                <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Ecart :" />
-                                                <Slider Name="ecartLoinText" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
-
-                                                <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat={}{0:#,#.00}}" />
-
-                                            </StackPanel>
-                                        </Border>
-                                        <!--Hauteur-->
-                                        <Border Style="{StaticResource BorderStyle}" Grid.Column="1">
-                                            <StackPanel Orientation="Vertical">
-                                                <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Hauteur :"/>
-                                                <Slider Name="hauteurLoinText" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
-
-                                                <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat={}{0:#,#.00}}" />
-
-                                            </StackPanel>
-                                        </Border>
-                                    </Grid>
-                                </StackPanel>
-
-                                <!-- Vision Près -->
-                                <TextBlock Margin="0 20 0 25" Style="{StaticResource TitleStyle}" Text="Vision de près" Name="visionPres"/>
-                                <StackPanel>
-                                    <!-- OD -->
-                                    <StackPanel Margin="0 0 0 15">
-                                        <TextBlock Margin="0" Style="{StaticResource LabelTextStyle}" Text="OD" />
-
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition></ColumnDefinition>
-                                                <ColumnDefinition></ColumnDefinition>
-                                                <ColumnDefinition></ColumnDefinition>
-                                                <ColumnDefinition></ColumnDefinition>
-                                            </Grid.ColumnDefinitions>
-
-                                            <!--SPHERE-->
-                                            <Border Style="{StaticResource BorderStyle}" Grid.Column="0">
-                                                <StackPanel Grid.Column="0" Orientation="Vertical">
-                                                    <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Sphère" />
-                                                    <Slider Name="od_sph_pres" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
-
-                                                    <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat={}{0:#,#.00}}" />
-
-                                                </StackPanel>
-                                            </Border>
-                                            <!--CYLINDRE-->
-                                            <Border Style="{StaticResource BorderStyle}" Grid.Column="1">
-                                                <StackPanel Grid.Column="1" Orientation="Vertical">
-                                                    <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Cylindre"/>
-                                                    <Slider Name="od_cyl_pres" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
-
-                                                    <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat={}{0:#,#.00}}" />
-
-                                                </StackPanel>
-                                            </Border>
-                                            <!--AXE-->
-                                            <Border Style="{StaticResource BorderStyle}" Grid.Column="2">
-                                                <StackPanel Grid.Column="2" Orientation="Vertical">
-                                                    <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Axe"/>
-                                                    <Slider Name="od_axe_pres" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
-
-                                                    <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat={}{0:#,#.00}}" />
-
-                                                </StackPanel>
-                                            </Border>
-                                            <!--ADD-->
-                                            <Border Style="{StaticResource BorderStyle}" Grid.Column="3">
-                                                <StackPanel Grid.Column="3" Orientation="Vertical">
-                                                    <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Add"/>
-                                                    <Slider Name="od_add_pres" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
-
-                                                    <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat={}{0:#,#.00}}" />
-
-                                                </StackPanel>
-                                            </Border>
-                                        </Grid>
-                                    </StackPanel>
-
-                                    <!-- OG -->
-                                    <StackPanel Margin="0 0 0 15">
-                                        <TextBlock Margin="0" Style="{StaticResource LabelTextStyle}" Text="OG" />
-
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition></ColumnDefinition>
-                                                <ColumnDefinition></ColumnDefinition>
-                                                <ColumnDefinition></ColumnDefinition>
-                                                <ColumnDefinition></ColumnDefinition>
-                                            </Grid.ColumnDefinitions>
-
-                                            <!--SPHERE-->
-                                            <Border Style="{StaticResource BorderStyle}" Grid.Column="0">
-                                                <StackPanel Grid.Column="0" Orientation="Vertical">
-                                                    <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Sphère" />
-                                                    <Slider Name="og_sph_pres" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
-
-                                                    <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat={}{0:#,#.00}}" />
-
-                                                </StackPanel>
-                                            </Border>
-                                            <!--CYLINDRE-->
-                                            <Border Style="{StaticResource BorderStyle}" Grid.Column="1">
-                                                <StackPanel Grid.Column="1" Orientation="Vertical">
-                                                    <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Cylindre"/>
-                                                    <Slider Name="og_cyl_pres" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
-
-                                                    <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat={}{0:#,#.00}}" />
-
-                                                </StackPanel>
-                                            </Border>
-                                            <!--AXE-->
-                                            <Border Style="{StaticResource BorderStyle}" Grid.Column="2">
-                                                <StackPanel Grid.Column="2" Orientation="Vertical">
-                                                    <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Axe"/>
-                                                    <Slider Name="og_axe_pres" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
-
-                                                    <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat={}{0:#,#.00}}" />
-
-                                                </StackPanel>
-                                            </Border>
-                                            <!--ADD-->
-                                            <Border Style="{StaticResource BorderStyle}" Grid.Column="3">
-                                                <StackPanel Grid.Column="3" Orientation="Vertical">
-                                                    <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Add"/>
-                                                    <Slider Name="og_add_pres" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
-
-                                                    <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat={}{0:#,#.00}}" />
-
-                                                </StackPanel>
-                                            </Border>
-                                        </Grid>
-                                    </StackPanel>
-
-
-                                    <!--Ecart et Hauteur-->
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition></ColumnDefinition>
-                                            <ColumnDefinition></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
-
-                                        <!--Ecart-->
-                                        <Border Style="{StaticResource BorderStyle}" Grid.Column="0">
-                                            <StackPanel Grid.Column="0" Orientation="Vertical">
-                                                <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Ecart :" />
-
-                                                <Slider Name="ecartPresText" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
-
-                                                <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat={}{0:#,#.00}}" />
-
-                                            </StackPanel>
-                                        </Border>
-
-                                        <!--Hauteur-->
-                                        <Border Style="{StaticResource BorderStyle}" Grid.Column="1">
-                                            <StackPanel Grid.Column="1" Orientation="Vertical">
-                                                <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Hauteur :"/>
-
-                                                <Slider Name="hauteurPresText" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Bottom" hc:TipElement.StringFormat="#0.00"  Value="5" Minimum="0" Maximum="10"  />
-
-                                                <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat={}{0:#,#.00}}" />
-
-                                            </StackPanel>
-                                        </Border>
-                                    </Grid>
-                                </StackPanel>
-                            </StackPanel>
-                        </StackPanel>
-
-                        <!-- Cadre -->
-                        <StackPanel Visibility="Collapsed" Name="cadrePanel">
-                            <TextBlock Text="Infos Cadre :" />
-                            <TextBox Text="Diametre de Verres" Name="diametreText" />
-                            <TextBox Text="Pont" Name="pontText" />
-                            <TextBox Text="Longueur Branche" Name="langeur_brance_text" />
-                            <TextBox Text="Largeur" Name="largeurText" />
-                            <TextBox Text="Hauteur Verre" Name="hautteur_verre_text" />
-                            <TextBox Text="Couleur" Name="couleurText" />
-                        </StackPanel>
-                    </StackPanel>
-                </ContentControl>
-
-            </Grid>
+                </Grid>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Page>

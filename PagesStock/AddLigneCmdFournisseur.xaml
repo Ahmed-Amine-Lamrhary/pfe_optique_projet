@@ -58,76 +58,80 @@
                     <iconPacks:PackIconRemixIcon Kind="ArrowLeftSLine" Width="14" Height="14" />
                 </Button>
 
-                <Button Content="Enregistrer la ligne" Margin="20 0 0 0" Click="saveLigne" Background="#55a8fd" Foreground="White" Height="35" Padding="15 0 15 0" Cursor="Hand" BorderThickness="0"/>
-                <Button Content="Annuler la ligne" Margin="20 0 0 0" Click="deleteLigne" Background="Red" Foreground="White" Height="35" Padding="15 0 15 0" Cursor="Hand" BorderThickness="0"/>
+                <StackPanel Name="updateBoxBtns" Orientation="Horizontal">
+                    <Button Content="Enregistrer la ligne" Margin="20 0 0 0" Click="saveLigne" Background="#55a8fd" Foreground="White" Height="35" Padding="15 0 15 0" Cursor="Hand" BorderThickness="0"/>
+                    <Button Content="Annuler la ligne" Margin="20 0 0 0" Click="deleteLigne" Background="Red" Foreground="White" Height="35" Padding="15 0 15 0" Cursor="Hand" BorderThickness="0"/>
+                </StackPanel>
             </StackPanel>
 
-            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Catégorie" />
-            <ComboBox Name="categorie" SelectionChanged="selectItem"/>
-            
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <StackPanel Margin="0 0 10 0" Grid.Column="0">
+            <StackPanel Name="mainStackPanel">
+                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Catégorie" />
+                <ComboBox Name="categorie" SelectionChanged="selectItem"/>
 
-                    <StackPanel Name="referenceBox">
-                        <TextBlock Style="{StaticResource LabelTextStyle}" Text="Référence" />
-                        <StackPanel Orientation="Horizontal">
-                            <ComboBox Width="200" Margin="0 0 8 0" Text="Reference" Name="referenceText" SelectionChanged="selectReference" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Margin="0 0 10 0" Grid.Column="0">
+
+                        <StackPanel Name="referenceBox">
+                            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Référence" />
+                            <StackPanel Orientation="Horizontal">
+                                <ComboBox Width="200" Margin="0 0 8 0" Text="Reference" Name="referenceText" SelectionChanged="selectReference" />
+                            </StackPanel>
                         </StackPanel>
+
+                        <TextBlock Style="{StaticResource LabelTextStyle}" Text="Quantité de commande" />
+                        <hc:TextBox Name="qteText"/>
+
+                        <ContentControl Name="articleInfoBox" IsEnabled="False">
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Prix unitaire" />
+                                <hc:TextBox Name="prixText" />
+
+                                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Garantie" />
+                                <hc:TextBox Name="garantieText" />
+
+                                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Marque" />
+                                <hc:TextBox Name="marqueText" />
+
+                                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Description" />
+                                <hc:TextBox Name="descText" />
+
+                                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Modèle" />
+                                <hc:TextBox Name="modelText"/>
+                            </StackPanel>
+                        </ContentControl>
                     </StackPanel>
-                    
-                    <TextBlock Style="{StaticResource LabelTextStyle}" Text="Quantité de commande" />
-                    <hc:TextBox Name="qteText"/>
 
-                    <ContentControl Name="articleInfoBox" IsEnabled="False">
-                        <StackPanel>
-                            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Prix unitaire" />
-                            <hc:TextBox Name="prixText" />
+                    <ContentControl Margin="10 0 0 0" Name="additionalInfoBox" IsEnabled="False" Grid.Column="1">
+                        <!-- Cadre -->
+                        <StackPanel Name="cadrePanel">
+                            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Diametre de Verres" />
+                            <hc:TextBox Text="" Name="diametreText" />
 
-                            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Garantie" />
-                            <hc:TextBox Name="garantieText" />
+                            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Pont" />
+                            <hc:TextBox Text="" Name="pontText" />
 
-                            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Marque" />
-                            <hc:TextBox Name="marqueText" />
+                            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Longueur Branche" />
+                            <hc:TextBox Name="langeur_brance_text" />
 
-                            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Description" />
-                            <hc:TextBox Name="descText" />
+                            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Largeur" />
+                            <hc:TextBox Name="largeurText" />
 
-                            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Modèle" />
-                            <hc:TextBox Name="modelText"/>
+                            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Hauteur Verre" />
+                            <hc:TextBox Name="hautteur_verre_text" />
+
+                            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Largeur Verre" />
+                            <hc:TextBox Name="largeur_verre_text" />
+
+                            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Couleur" />
+                            <hc:TextBox Name="couleurText" />
                         </StackPanel>
                     </ContentControl>
-                </StackPanel>
-
-                <ContentControl Margin="10 0 0 0" Name="additionalInfoBox" IsEnabled="False" Grid.Column="1">
-                    <!-- Cadre -->
-                    <StackPanel Name="cadrePanel">
-                        <TextBlock Style="{StaticResource LabelTextStyle}" Text="Diametre de Verres" />
-                        <hc:TextBox Text="" Name="diametreText" />
-
-                        <TextBlock Style="{StaticResource LabelTextStyle}" Text="Pont" />
-                        <hc:TextBox Text="" Name="pontText" />
-
-                        <TextBlock Style="{StaticResource LabelTextStyle}" Text="Longueur Branche" />
-                        <hc:TextBox Name="langeur_brance_text" />
-
-                        <TextBlock Style="{StaticResource LabelTextStyle}" Text="Largeur" />
-                        <hc:TextBox Name="largeurText" />
-
-                        <TextBlock Style="{StaticResource LabelTextStyle}" Text="Hauteur Verre" />
-                        <hc:TextBox Name="hautteur_verre_text" />
-
-                        <TextBlock Style="{StaticResource LabelTextStyle}" Text="Largeur Verre" />
-                        <hc:TextBox Name="largeur_verre_text" />
-
-                        <TextBlock Style="{StaticResource LabelTextStyle}" Text="Couleur" />
-                        <hc:TextBox Name="couleurText" />
-                    </StackPanel>
-                </ContentControl>
-            </Grid>
+                </Grid>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Page>

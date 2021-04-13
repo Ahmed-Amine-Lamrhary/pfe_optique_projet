@@ -22,7 +22,6 @@ namespace MenuWithSubMenu.PagesStock
         dbEntities db;
         private Page prevPage;
         private AddCmd addCmdPage;
-        private List<traitement> traitements;
         private List<article> references;
         public lignecommande lignecommande;
         public bool isUpdate;
@@ -39,8 +38,48 @@ namespace MenuWithSubMenu.PagesStock
             this.lignecommande = lignecommande;
             fillComboBox();
 
-            // fill the information
+            updateBoxBtns.Visibility = Visibility.Collapsed;
+            mainStackPanel.IsEnabled = false;
 
+            /////// fill the information
+
+            // set quantité de commande
+            qteText.Text = lignecommande.Qte_Commande + "";
+
+            article article = db.articles.Where(a => a.idArticle == lignecommande.idArticle).SingleOrDefault();
+
+            // set categorie
+            categorie.SelectedValue = article.idCategorie;
+
+            // set reference
+            // referenceText.ItemsSource = new ObservableCollection<string>() { article.idArticle };
+            // referenceText.Items.Add(article.idArticle);
+            // referenceText.SelectedIndex = referenceText.Items.Count - 1;
+
+            // set prix unitaire
+            prixText.Text = article.PrixUnitaire + "";
+
+            // set garantie
+            garantieText.Text = article.Garantie;
+
+            // set marque
+            marqueText.Text = "";
+
+            // set description
+            descText.Text = article.Description;
+
+            // set modele
+            modelText.Text = "";
+
+            // set infos cadre
+            cadre cadre = db.cadres.Where(c => c.idArticle == article.idArticle).SingleOrDefault();
+
+            diametreText.Text = cadre.DiametreVerre + "";
+            pontText.Text = cadre.Pont + "";
+            langeur_brance_text.Text = cadre.LongeurBrache + "";
+            largeurText.Text = cadre.Largeur + "";
+            hautteur_verre_text.Text = cadre.HauteurVerre + "";
+            couleurText.Text = cadre.Couleur;
         }
 
 
@@ -138,24 +177,49 @@ namespace MenuWithSubMenu.PagesStock
         // abort ligne
         public void deleteLigne(object sender, RoutedEventArgs e)
         {
-            addCmdPage.removeLigneFromList(this);
+            this.lignecommande = new lignecommande()
+            {
+                Date_Commande = DateTime.Now,
+                Qte_Commande = int.Parse(qteText.Text),
+                Prix_Total = float.Parse(prixText.Text),
+                EtatCmd = "En-Cours",
+                addLigneCmdFournisseur = this
+            };
+
+            addCmdPage.removeLigneFromList(this.lignecommande);
             MyContext.navigateTo(prevPage);
         }
 
         // save ligne
         public void saveLigne(object sender, RoutedEventArgs e)
         {
-            if (!addCmdPage.lignesCmd.Contains(this))
-                addCmdPage.addNewLigneToList(this);
-            else
+            this.lignecommande = new lignecommande()
             {
-                addCmdPage.updateLigneInList(this);
+                Date_Commande = DateTime.Now,
+                Qte_Commande = int.Parse(qteText.Text),
+                Prix_Total = float.Parse(prixText.Text),
+                EtatCmd = "En-Cours",
+                addLigneCmdFournisseur = this
+            };
+
+            bool found = false;
+            if (addCmdPage.lignecommandes != null && addCmdPage.lignecommandes.Count > 0)
+            {
+                foreach (lignecommande l in addCmdPage.lignecommandes)
+                {
+                    if (l.addLigneCmdFournisseur == this.lignecommande.addLigneCmdFournisseur)
+                    {
+                        addCmdPage.updateLigneInList(this.lignecommande);
+                        found = true;
+                        break;
+                    }
+                }
             }
+            
+            if (!found)
+                addCmdPage.addNewLigneToList(this.lignecommande);
+
             MyContext.navigateTo(prevPage);
-        }
-        public List<traitement> get_traitements()
-        {
-            return traitements;
         }
 
         private bool referenceIsExiste(string reference)

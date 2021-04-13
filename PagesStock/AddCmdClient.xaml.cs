@@ -26,7 +26,7 @@ namespace MenuWithSubMenu.PagesStock
         DbContextTransaction transaction;
         cmdclient cmdClient;
 
-        public BindableCollection<AddLigneCmdClient> lignesCmd;
+        public List<ligneentree> ligneentreeList;
 
         private List<ligneentree> checkedLignes = new List<ligneentree>();
 
@@ -36,7 +36,6 @@ namespace MenuWithSubMenu.PagesStock
             InitializeComponent();
 
             db = new dbEntities();
-            lignesCmd = new BindableCollection<AddLigneCmdClient>();
             this.cmdClient = cmdClient;
 
             lignesCmdBox.Visibility = Visibility.Collapsed;
@@ -48,13 +47,8 @@ namespace MenuWithSubMenu.PagesStock
             try
             {
                 // get lignes
-                List<ligneentree> ligneentree = db.ligneentrees.Where(l => l.idCmdClient == cmdClient.idCmdClient).ToList();
-                foreach (ligneentree ligne in ligneentree)
-                {
-                    lignesCmd.Add(new AddLigneCmdClient(this, this, ligne));
-                }
-
-                lignesCmdBox.ItemsSource = ligneentree;
+                ligneentreeList = db.ligneentrees.Where(l => l.idCmdClient == cmdClient.idCmdClient).ToList();
+                lignesCmdBox.ItemsSource = ligneentreeList;
 
                 lignesCmdBox.Visibility = Visibility.Visible;
             } catch (Exception ex)
@@ -87,9 +81,10 @@ namespace MenuWithSubMenu.PagesStock
             InitializeComponent();
 
             db = new dbEntities();
-            lignesCmd = new BindableCollection<AddLigneCmdClient>();
 
-            lignesCmdBox.ItemsSource = lignesCmd;
+            ligneentreeList = new List<ligneentree>();
+
+            lignesCmdBox.ItemsSource = ligneentreeList;
 
             List<client> clients = db.clients.Distinct().ToList();
             selectClient.ItemsSource = clients;
@@ -117,38 +112,58 @@ namespace MenuWithSubMenu.PagesStock
         }
 
         // add new ligne to the list
-        public void addNewLigneToList(AddLigneCmdClient newLigne)
+        public void addNewLigneToList(ligneentree newLigne)
         {
-            lignesCmd.Add(newLigne);
-            lignesCmdBox.ItemsSource = lignesCmd;
+            ligneentreeList.Add(newLigne);
+            lignesCmdBox.ItemsSource = new List<ligneentree>();
+            lignesCmdBox.ItemsSource = ligneentreeList;
             nothingBox.Visibility = Visibility.Collapsed;
             lignesCmdBox.Visibility = Visibility.Visible;
         }
 
-        public void removeLigneFromList(AddLigneCmdClient ligne)
+        public void removeLigneFromList(ligneentree ligne)
         {
-            lignesCmd.Remove(ligne);
-            lignesCmdBox.ItemsSource = lignesCmd;
+            int j = 0;
+            for (var i = 0; i < ligneentreeList.Count; i++)
+            {
+                if (ReferenceEquals(ligneentreeList[i].addLigneCmdClient, ligne.addLigneCmdClient))
+                {
+                    j = i;
+                    break;
+                }
+            }
+            ligneentreeList.Remove(ligneentreeList[j]);
 
-            if (lignesCmd.Count() == 0)
+            lignesCmdBox.ItemsSource = new List<ligneentree>();
+            lignesCmdBox.ItemsSource = ligneentreeList;
+
+            if (ligneentreeList.Count() == 0)
             {
                 nothingBox.Visibility = Visibility.Visible;
                 lignesCmdBox.Visibility = Visibility.Collapsed;
             }
         }
 
-
-        public void updateLigneInList(AddLigneCmdClient ligne)
+        public void updateLigneInList(ligneentree ligne)
         {
-            AddLigneCmdClient updatedLigne = lignesCmd.Where(l => l.Equals(ligne)).First();
-            updatedLigne = ligne;
-            lignesCmdBox.ItemsSource = lignesCmd;
+            int j = 0;
+            for (var i = 0; i < ligneentreeList.Count; i++)
+            {
+                if (ReferenceEquals(ligneentreeList[i].addLigneCmdClient, ligne.addLigneCmdClient))
+                {
+                    j = i;
+                    break;
+                }
+            }
+            ligneentreeList[j] = ligne;
+            lignesCmdBox.ItemsSource = new List<ligneentree>();
+            lignesCmdBox.ItemsSource = ligneentreeList;
         }
 
         // save all the order
         public void saveCmd(object sender, RoutedEventArgs e)
         {
-            if (lignesCmd.Count == 0)
+            if (ligneentreeList.Count == 0)
             {
                 MessageBox.Show("Cannot submit");
                 return;
@@ -184,9 +199,10 @@ namespace MenuWithSubMenu.PagesStock
                     message = "Votre Commande a été bien modifié";
                 }
                
-                foreach (AddLigneCmdClient ligne in lignesCmd)
+                foreach (ligneentree ligneE in ligneentreeList)
                 {
-                    if (ligne.isUpdate) continue;
+                    AddLigneCmdClient ligne = ligneE.addLigneCmdClient;
+                    if (ligne == null) continue;
 
                     int categorie = (int)ligne.categorie.SelectedValue;
 
@@ -288,7 +304,22 @@ namespace MenuWithSubMenu.PagesStock
         private void voirLigne(object sender, RoutedEventArgs e)
         {
             ligneentree ligne = lignesCmdBox.SelectedItem as ligneentree;
-            MyContext.navigateTo(new AddLigneCmdClient(this, this, ligne));
+
+            if (ligne.addLigneCmdClient == null)
+            {
+                // get last visite
+                visite lastClientVisite = db.visites.OrderByDescending(v => v.date).Where(v => v.client_cin == (string)selectClient.SelectedValue).FirstOrDefault();
+                if (lastClientVisite == null)
+                {
+                    MessageBox.Show("Client ne possède aucune visite");
+                    return;
+                }
+
+                MyContext.navigateTo(new AddLigneCmdClient(this, ligne, lastClientVisite));
+            } else
+            {
+                MyContext.navigateTo(ligne.addLigneCmdClient);
+            }
         }
 
         private void checkCmd(object sender, RoutedEventArgs e)
@@ -326,6 +357,9 @@ namespace MenuWithSubMenu.PagesStock
             {
                 foreach (ligneentree ligneentree in checkedLignes)
                 {
+                    lignecommande ligneC = db.lignecommandes.Where(l => l.idLigneEntree == ligneentree.idLigne).SingleOrDefault();
+                    if (ligneC != null)
+                        db.lignecommandes.Remove(ligneC);
                     db.ligneentrees.Remove(ligneentree);
                     db.SaveChanges();
                 }

@@ -391,8 +391,36 @@ namespace MenuWithSubMenu.PagesStock
             {
                 foreach (cmdclient cmdclient in checkedCmd)
                 {
+                    List<ligneentree> lignesE =  db.ligneentrees.Where(l => l.idCmdClient == cmdclient.idCmdClient).ToList();
+
+                    foreach (ligneentree li in lignesE)
+                    {
+                        lignecommande ligneC = db.lignecommandes.Where(l => l.idLigneEntree == li.idLigne).SingleOrDefault();
+                        if (ligneC != null)
+                            db.lignecommandes.Remove(ligneC);
+                    }
+
                     db.cmdclients.Remove(cmdclient);
                     db.SaveChanges();
+
+                    // remove commande fournisseur
+                    List<lignecommande> lignesCF = db.lignecommandes.Where(l => l.idCmdFournisseur == cmdclient.idCmdFournisseur).ToList();
+                    if (lignesCF == null || lignesCF.Count == 0)
+                    {
+                        List<cmdclient> cmdCList = db.cmdclients.Where(c => c.idCmdFournisseur == cmdclient.idCmdFournisseur).ToList();
+                        if (cmdCList != null && cmdCList.Count > 0)
+                        {
+                            foreach (cmdclient c in cmdCList)
+                            {
+                                c.idCmdFournisseur = null;
+                                db.SaveChanges();
+                            }
+                        }
+
+                        db.cmdfournisseurs.Remove(db.cmdfournisseurs.Where(c => c.idCmdFournisseur == cmdclient.idCmdFournisseur).SingleOrDefault());
+                        db.SaveChanges();
+                    }
+
                 }
 
                 transaction.Commit();
