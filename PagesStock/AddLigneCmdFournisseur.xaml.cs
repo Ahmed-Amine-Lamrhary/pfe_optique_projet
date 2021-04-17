@@ -182,7 +182,7 @@ namespace MenuWithSubMenu.PagesStock
                 Date_Commande = DateTime.Now,
                 Qte_Commande = int.Parse(qteText.Text),
                 Prix_Total = float.Parse(prixText.Text),
-                EtatCmd = "En-Cours",
+                EtatCmd = "Non Livrée",
                 addLigneCmdFournisseur = this
             };
 
@@ -193,12 +193,18 @@ namespace MenuWithSubMenu.PagesStock
         // save ligne
         public void saveLigne(object sender, RoutedEventArgs e)
         {
+            if (validateForm() != "")
+            {
+                HandyControl.Controls.MessageBox.Show(validateForm());
+                return;
+            }
+
             this.lignecommande = new lignecommande()
             {
                 Date_Commande = DateTime.Now,
                 Qte_Commande = int.Parse(qteText.Text),
                 Prix_Total = float.Parse(prixText.Text),
-                EtatCmd = "En-Cours",
+                EtatCmd = "Non Livrée",
                 addLigneCmdFournisseur = this
             };
 
@@ -248,6 +254,22 @@ namespace MenuWithSubMenu.PagesStock
             referenceText.DisplayMemberPath = "idArticle";
             referenceText.SelectedValuePath = "idArticle";
             referenceText.SelectedIndex = 0;
+        }
+
+        //validation
+        private string validateForm()
+        {
+            if (referenceText.SelectedIndex == -1 || qteText.Text.Length == 0)
+                return "Veuillez remplir tous les champs";
+
+            int num = 0;
+            if (!int.TryParse(qteText.Text, out num))
+                return "Veuillez remplir un nombre dans le champs de la quantité";
+
+            if (num <= 0)
+                return "La quantité ne peut pas être nulle ou négative!";
+
+            return "";
         }
     }
 }

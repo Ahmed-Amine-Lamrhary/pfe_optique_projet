@@ -39,6 +39,7 @@ namespace MenuWithSubMenu.Model
         public virtual DbSet<ophtalmologue> ophtalmologues { get; set; }
         public virtual DbSet<ordonnance> ordonnances { get; set; }
         public virtual DbSet<reference> references { get; set; }
+        public virtual DbSet<setting> settings { get; set; }
         public virtual DbSet<traitement> traitements { get; set; }
         public virtual DbSet<verre> verres { get; set; }
         public virtual DbSet<vision> visions { get; set; }

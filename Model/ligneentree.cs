@@ -24,6 +24,7 @@ namespace MenuWithSubMenu.Model
         public Nullable<float> Prix_Total { get; set; }
         public string EtatCmd { get; set; }
         public Nullable<int> idVerre { get; set; }
+        public Nullable<int> idVisite { get; set; }
     
         public virtual article article { get; set; }
         public virtual cmdclient cmdclient { get; set; }
@@ -31,6 +32,5 @@ namespace MenuWithSubMenu.Model
 
         // custom attribute
         public AddLigneCmdClient addLigneCmdClient { get; set; }
-
     }
 }

@@ -29,13 +29,17 @@ namespace MenuWithSubMenu.PagesStock
 
         private List<lignecommande> checkedLignes = new List<lignecommande>();
 
+        private Page prevPage;
+
         // update constructor
-        public AddCmd(cmdfournisseur cmdfournisseur)
+        public AddCmd(cmdfournisseur cmdfournisseur, Page prevP)
         {
             InitializeComponent();
 
             db = new dbEntities();
             this.cmdfournisseur = cmdfournisseur;
+
+            prevPage = prevP;
 
             lignesCmdBox.Visibility = Visibility.Collapsed;
             nothingBox.Visibility = Visibility.Collapsed;
@@ -45,6 +49,14 @@ namespace MenuWithSubMenu.PagesStock
             {
                 lignecommandes = db.lignecommandes.Where(l => l.idCmdFournisseur == cmdfournisseur.idCmdFournisseur).ToList();
                 lignesCmdBox.ItemsSource = lignecommandes;
+                
+
+                if (lignecommandes.Count() == 0)
+                {
+                    nothingBox.Visibility = Visibility.Visible;
+                    return;
+                }
+
                 lignesCmdBox.Visibility = Visibility.Visible;
             }
             catch (Exception ex)
@@ -72,9 +84,11 @@ namespace MenuWithSubMenu.PagesStock
         }
 
         // create constructor
-        public AddCmd()
+        public AddCmd(Page prevP)
         {
             InitializeComponent();
+
+            prevPage = prevP;
 
             db = new dbEntities();
             lignecommandes = new List<lignecommande>();
@@ -160,17 +174,7 @@ namespace MenuWithSubMenu.PagesStock
                 else
                 {
                     ligneentree ligneE = db.ligneentrees.Where(l => l.idLigne == ligne.idLigneEntree).SingleOrDefault();
-                    cmdclient cmdClient = db.cmdclients.Where(c => c.idCmdClient == ligneE.idCmdClient).SingleOrDefault();
-
-                    // get last visite
-                    visite lastClientVisite = db.visites.OrderByDescending(v => v.date).Where(v => v.client_cin == cmdClient.client_cin).FirstOrDefault();
-                    if (lastClientVisite == null)
-                    {
-                        MessageBox.Show("Client ne possède aucune visite");
-                        return;
-                    }
-
-                    MyContext.navigateTo(new AddLigneCmdClient(this, ligneE, lastClientVisite));
+                    MyContext.navigateTo(new AddLigneCmdClient(this, ligneE));
                 }
             } else
             {
@@ -181,9 +185,9 @@ namespace MenuWithSubMenu.PagesStock
         // save all the order
         public void saveCmd(object sender, RoutedEventArgs e)
         {
-            if (lignecommandes.Count == 0)
+            if (validateForm() != "")
             {
-                MessageBox.Show("Cannot submit");
+                HandyControl.Controls.MessageBox.Show(validateForm());
                 return;
             }
 
@@ -237,19 +241,17 @@ namespace MenuWithSubMenu.PagesStock
                         Adresse_Commande = "",
                         Qte_Commande = int.Parse(ligne.qteText.Text),
                         Prix_Total = int.Parse(ligne.qteText.Text) * float.Parse(ligne.prixText.Text),
-                        EtatCmd = "En-Cours"
+                        EtatCmd = "Non Livrée"
                     });
                     db.SaveChanges();
                 }
 
                 transaction.Commit();
-                MessageBox.Show(message);
-                MyContext.navigateTo(new CmdsFournisseur());
+                HandyControl.Controls.MessageBox.Show(message);
+                MyContext.navigateTo(new CmdsFournisseur(this));
 
             } catch (DbEntityValidationException ex)
             {
-                /*Console.Write(ex.Message);
-                HandyControl.Controls.MessageBox.Show(ex.Message);*/
                 foreach (var eve in ex.EntityValidationErrors)
                 {
                     Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
@@ -261,6 +263,7 @@ namespace MenuWithSubMenu.PagesStock
                     }
                 }
                 transaction.Rollback();
+                HandyControl.Controls.MessageBox.Show("Erreur");
             }
         }
         
@@ -277,16 +280,12 @@ namespace MenuWithSubMenu.PagesStock
         public void deleteLigne(object sender, RoutedEventArgs e)
         {
             lignecommande ligne = lignesCmdBox.SelectedItem as lignecommande;
-            if (ligne.EtatCmd == "En-Cours")
+            if (ligne.EtatCmd == "Non Livrée")
             {
                 db.lignecommandes.Remove(ligne);
                 db.SaveChanges();
 
-                MyContext.navigateTo(new CmdsFournisseur());
-            }
-            else
-            {
-                MessageBox.Show("Ligne is completed");
+                MyContext.navigateTo(new CmdsFournisseur(this));
             }
         }
 
@@ -330,11 +329,33 @@ namespace MenuWithSubMenu.PagesStock
                 }
 
                 transaction.Commit();
+
+                groupInfo.Visibility = Visibility.Collapsed;
+
+                lignesCmdBox.Visibility = Visibility.Collapsed;
+                nothingBox.Visibility = Visibility.Collapsed;
+                loadingBox.Visibility = Visibility.Visible;
+
+                try
+                {
+                    lignecommandes = db.lignecommandes.Where(l => l.idCmdFournisseur == cmdfournisseur.idCmdFournisseur).ToList();
+                    lignesCmdBox.ItemsSource = lignecommandes;
+                    lignesCmdBox.Visibility = Visibility.Visible;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    nothingBox.Visibility = Visibility.Visible;
+                }
+                finally
+                {
+                    loadingBox.Visibility = Visibility.Collapsed;
+                }
             }
             catch (Exception)
             {
                 transaction.Rollback();
-                System.Windows.MessageBox.Show("Erreur");
+                HandyControl.Controls.MessageBox.Show("Erreur");
             }
         }
 
@@ -346,10 +367,10 @@ namespace MenuWithSubMenu.PagesStock
 
                 foreach (lignecommande ligne in checkedLignes)
                 {
-                    if (ligne.EtatCmd == "verified")
+                    if (ligne.EtatCmd == "Livrée")
                         continue;
 
-                    ligne.EtatCmd = "verified";
+                    ligne.EtatCmd = "Livrée";
                     db.SaveChanges();
 
                     if (ligne.idArticle != null)
@@ -363,19 +384,56 @@ namespace MenuWithSubMenu.PagesStock
                         }
                         else
                         {
-                            MessageBox.Show("La quantité d'article " + article.idArticle + " n'est pas suffisante");
+                            HandyControl.Controls.MessageBox.Show("La quantité d'article " + article.idArticle + " n'est pas suffisante");
                         }
                     }
                 }
 
                 transaction.Commit();
+
+                groupInfo.Visibility = Visibility.Collapsed;
+
+                lignesCmdBox.Visibility = Visibility.Collapsed;
+                nothingBox.Visibility = Visibility.Collapsed;
+                loadingBox.Visibility = Visibility.Visible;
+
+                try
+                {
+                    lignecommandes = db.lignecommandes.Where(l => l.idCmdFournisseur == cmdfournisseur.idCmdFournisseur).ToList();
+                    lignesCmdBox.ItemsSource = lignecommandes;
+                    lignesCmdBox.Visibility = Visibility.Visible;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    nothingBox.Visibility = Visibility.Visible;
+                }
+                finally
+                {
+                    loadingBox.Visibility = Visibility.Collapsed;
+                }
             }
             catch (Exception)
             {
                 transaction.Rollback();
-                MessageBox.Show("Erreur");
+                HandyControl.Controls.MessageBox.Show("Erreur");
             }
         }
 
+        //validation
+        private string validateForm()
+        {
+            if (lignecommandes.Count == 0)
+                return "Pas de lignes";
+            if (selectFournisseur.SelectedIndex == -1)
+                return "Veuillez remplir tous les champs";
+
+            return "";
+        }
+
+        private void ReturnBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MyContext.navigateTo(prevPage);
+        }
     }
 }

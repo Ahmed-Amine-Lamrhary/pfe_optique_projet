@@ -20,11 +20,26 @@ namespace MenuWithSubMenu.Pages
 
         private List<visite> checkedVisites = new List<visite>();
 
+        private Page prevPage;
+
         int count;
 
         public Visite()
         {
             InitializeComponent();
+
+            returnBtn.Visibility = Visibility.Collapsed;
+
+            db = new dbEntities();
+
+            getVisites(0);
+        }
+
+        public Visite(Page prevP)
+        {
+            InitializeComponent();
+
+            prevPage = prevP;
 
             db = new dbEntities();
 
@@ -49,6 +64,12 @@ namespace MenuWithSubMenu.Pages
                     listVisites = await Task.Run(() => db.visites.Where(v => v.date >= startDate).ToList());
                 else
                     listVisites = await Task.Run(() => db.visites.ToList());
+
+                if (listVisites.Count() == 0)
+                {
+                    nothingBox.Visibility = Visibility.Visible;
+                    return;
+                }
 
                 count = (int)Math.Ceiling((decimal)listVisites.Count / 10);
                 pagination.MaxPageCount = count;
@@ -133,6 +154,14 @@ namespace MenuWithSubMenu.Pages
             getVisites(0);
         }
 
+        private void deleteManualDate(object sender, RoutedEventArgs e)
+        {
+            lastDate.SelectedIndex = -1;
+            manuallyDate.Visibility = Visibility.Collapsed;
+            autoDate.IsEnabled = true;
+        }
+
+
         private void selectLastDate(object sender, SelectionChangedEventArgs e)
         {
             endDate = DateTime.Now;
@@ -155,6 +184,13 @@ namespace MenuWithSubMenu.Pages
                 case 3:
                     startDate = DateTime.Today.AddYears(-1);
                     break;
+                // manually
+                case 4:
+                    manuallyDate.Visibility = Visibility.Visible;
+                    autoDate.IsEnabled = false;
+                    return;
+                case -1:
+                    return;
             }
 
             filterByDateFunc();
@@ -168,7 +204,7 @@ namespace MenuWithSubMenu.Pages
                     getVisites(0);
                 else
                 {
-                    MessageBox.Show("start date must be less than end date");
+                    HandyControl.Controls.MessageBox.Show("La date de début doit être inférieure à la date de fin");
 
                     startDate = endDate = null;
                     filterStartDate.SelectedDate = filterEndDate.SelectedDate = null;
@@ -221,12 +257,20 @@ namespace MenuWithSubMenu.Pages
                 }
 
                 transaction.Commit();
+
+                groupInfo.Visibility = Visibility.Collapsed;
+                getVisites(0);
             }
             catch (Exception)
             {
                 transaction.Rollback();
-                MessageBox.Show("Erreur");
+                HandyControl.Controls.MessageBox.Show("Erreur");
             }
+        }
+
+        private void ReturnBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MyContext.navigateTo(prevPage);
         }
 
     }

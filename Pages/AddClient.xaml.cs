@@ -103,7 +103,9 @@ namespace MenuWithSubMenu.Pages
                     client_cin = cinText.Text,
                     date = DateTime.Now,
                     raison = raisonvisiteText.Text,
-                    ordonnance_id = newOrdonnance.id
+                    ordonnance_id = newOrdonnance.id,
+                    ecart = (float?)ecartText.Value,
+                    hauteur = (float?)hauteurText.Value
                 };
 
                 db.visites.Add(new_visite);
@@ -120,8 +122,6 @@ namespace MenuWithSubMenu.Pages
                     sph = (float?)og_sph_loin.Value,
                     gauche = true,
                     loin = true,
-                    ecart = (float?)ecartLoinText.Value,
-                    hauteur = (float?)hauteurLoinText.Value,
                     visite_id = new_visite.id
                 };
 
@@ -138,8 +138,6 @@ namespace MenuWithSubMenu.Pages
                     sph = (float?)od_sph_loin.Value,
                     gauche = false,
                     loin = true,
-                    ecart = (float?)ecartLoinText.Value,
-                    hauteur = (float?)hauteurLoinText.Value,
                     visite_id = new_visite.id
                 };
 
@@ -156,8 +154,6 @@ namespace MenuWithSubMenu.Pages
                     sph = (float?)od_sph_pres.Value,
                     gauche = false,
                     loin = false,
-                    ecart = (float?)ecartPresText.Value,
-                    hauteur = (float?)hauteurPresText.Value,
                     visite_id = new_visite.id
                 };
 
@@ -174,8 +170,6 @@ namespace MenuWithSubMenu.Pages
                     sph = (float?)og_sph_pres.Value,
                     gauche = true,
                     loin = false,
-                    ecart = (float?)ecartPresText.Value,
-                    hauteur = (float?)hauteurPresText.Value,
                     visite_id = new_visite.id
                 };
 
@@ -190,7 +184,7 @@ namespace MenuWithSubMenu.Pages
             catch (Exception exc)
             {
                 Console.Write(exc.Message);
-                HandyControl.Controls.MessageBox.Show(exc.Message);
+                HandyControl.Controls.MessageBox.Show("Erreur");
                 transaction.Rollback();
 
             }
@@ -321,8 +315,13 @@ namespace MenuWithSubMenu.Pages
                 adresseText.Text.Length != 0 &&
                 prenomText.Text.Length != 0 &&
                 telText.Text.Length != 0 &&
+                dateText.SelectedDate != null &&
+                raisonvisiteText.Text.Length != 0 &&
 
-                ophtalmologueText.Text.Length != 0 &&
+                ophtalmologueText.SelectedIndex != -1 &&
+                photoOrdonnance.Source != null &&
+                dateCreationOrdonnance.SelectedDate != null &&
+                dateExpirationOrdonnance.SelectedDate != null &&
                 visionLoins.Text.Length != 0 &&
                 visionPres.Text.Length != 0 &&
                 notesOphtalmologue.Text.Length != 0

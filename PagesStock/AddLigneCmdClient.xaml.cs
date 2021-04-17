@@ -29,15 +29,23 @@ namespace MenuWithSubMenu.PagesStock
         public ligneentree ligne;
         public bool isUpdate;
 
+        public visite selectedVisite;
+
         public List<vision> visions;
+
+        public string client_cin;
 
         // execute in both consturctors
         private void getVisions(visite visite)
         {
             visions = db.visions.Where(v => v.visite_id == visite.id).ToList();
 
+            // hauteur et ecart
+            ecartText.Value = (double)visite.ecart;
+            hauteurText.Value = (double)visite.hauteur;
+
             // show visions
-            foreach(vision v in visions)
+            foreach (vision v in visions)
             {
                 // pres
                 if (!v.loin)
@@ -58,11 +66,6 @@ namespace MenuWithSubMenu.PagesStock
                         og_add_pres.Value = (double)v.add;
                         og_cyl_pres.Value = (double)v.cyl;
                     }
-
-                    // hauteur et ecart
-                    ecartLoinText.Value = (double)v.ecart;
-                    hauteurLoinText.Value = (double)v.hauteur;
-
                 } else
                 {
                     // droite
@@ -81,16 +84,12 @@ namespace MenuWithSubMenu.PagesStock
                         og_add_loin.Value = (double)v.add;
                         og_cyl_loin.Value = (double)v.cyl;
                     }
-
-                    // hauteur et ecart
-                    ecartPresText.Value = (double)v.ecart;
-                    hauteurPresText.Value = (double)v.hauteur;
                 }
             }
         }
 
         // update constructor
-        public AddLigneCmdClient(Page prevP, ligneentree ligne, visite lastClientVisite)
+        public AddLigneCmdClient(Page prevP, ligneentree ligne)
         {
             InitializeComponent();
 
@@ -100,6 +99,12 @@ namespace MenuWithSubMenu.PagesStock
             this.ligne = ligne;
             this.isUpdate = true;
             fillComboBox();
+
+            visiteStack.Visibility = Visibility.Collapsed;
+            
+            visite visite = db.visites.Where(v => v.id == ligne.idVisite).SingleOrDefault();
+
+            selectedVisite = visite;
 
             updateBoxBtns.Visibility = Visibility.Collapsed;
             mainStackPanel.IsEnabled = false;
@@ -163,7 +168,7 @@ namespace MenuWithSubMenu.PagesStock
                 addTraitBox.Visibility = Visibility.Collapsed;
 
                 // set visions
-                getVisions(lastClientVisite);
+                getVisions(visite);
             } else
             {
                 article article = db.articles.Where(a => a.idArticle == ligne.idArticle).SingleOrDefault();
@@ -210,7 +215,7 @@ namespace MenuWithSubMenu.PagesStock
         }
 
         // create constructor
-        public AddLigneCmdClient(Page prevP, AddCmdClient addCmdP, visite lastClientVisite)
+        public AddLigneCmdClient(Page prevP, AddCmdClient addCmdP, visite lastClientVisite, string client_cin)
         {
             InitializeComponent();
 
@@ -219,6 +224,9 @@ namespace MenuWithSubMenu.PagesStock
             addCmdPage = addCmdP;
             references = new List<article>();
             isUpdate = false;
+
+            selectedVisite = lastClientVisite;
+            this.client_cin = client_cin;
 
             fillComboBox();
 
@@ -318,6 +326,12 @@ namespace MenuWithSubMenu.PagesStock
                 teintText.Items.Add("Spéciales");
                 teintText.Items.Add("Effet mode");
                 teintText.Items.Add("Variable");
+
+                // visites
+                List<visite> visites = db.visites.Where(v => v.client_cin == client_cin).ToList();
+                visiteList.ItemsSource = visites;
+                visiteList.DisplayMemberPath = "date";
+                visiteList.SelectedValuePath = "id";
             }
         }
 
@@ -341,11 +355,30 @@ namespace MenuWithSubMenu.PagesStock
 
         public void addTraitVerreButton(object sender, RoutedEventArgs e)
         {
-            addTraitVerre(newTraitementNiveau.Text, newTraitementNom.DisplayMemberPath, newTraitementNom.SelectedIndex);
+            addTraitVerre(newTraitementNiveau.Text, newTraitementNom.SelectedIndex);
         }
 
-        public void addTraitVerre(string niveau, string nom, int selectedIndex)
+        public void addTraitVerre(string niveau, int selectedIndex)
         {
+            // START VALIDATION
+            if (selectedIndex == -1 || niveau.Length == 0)
+            {
+                HandyControl.Controls.MessageBox.Show("Veuillez remplir tous les champs");
+                return;
+            }
+            int nv = 0;
+            if (!int.TryParse(niveau, out nv))
+            {
+                HandyControl.Controls.MessageBox.Show("Veuillez remplir un nombre dans les champs du niveau");
+                return;
+            }
+            if (nv <= 0)
+            {
+                HandyControl.Controls.MessageBox.Show("Le niveau du traitement ne peut pas être nulle ou négative!");
+                return;
+            }
+            // END VALIDATION
+
             StackPanel stackPanel = new StackPanel() { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 0, 0, 5) };
 
             ComboBox newCombobox = new ComboBox() { Width = 200, IsEnabled = false, Margin = new Thickness(0, 0, 10, 0) };
@@ -354,7 +387,7 @@ namespace MenuWithSubMenu.PagesStock
             newCombobox.SelectedValuePath = "idTraitement";
             newCombobox.SelectedIndex = selectedIndex;
 
-            HandyControl.Controls.TextBox newTextBox = new HandyControl.Controls.TextBox() { Width = 100, Text = niveau, Margin = new Thickness(0, 0, 10, 0) };
+            HandyControl.Controls.TextBox newTextBox = new HandyControl.Controls.TextBox() { Width = 100, Text = niveau, Margin = new Thickness(0, 0, 10, 0), IsEnabled = false };
             
             Button supprimerBtn = new Button() { Content = "Supprimer" };
             supprimerBtn.Click += supprimerTraitementVerre;
@@ -384,7 +417,7 @@ namespace MenuWithSubMenu.PagesStock
                 Date_Commande = DateTime.Now,
                 Qte_Commande = int.Parse(qteText.Text),
                 Prix_Total = (int)categorie.SelectedValue == 1 ? float.Parse(verrePrix.Text) : float.Parse(prixText.Text),
-                EtatCmd = "En-Cours",
+                EtatCmd = "Non payée",
                 addLigneCmdClient = this
             };
 
@@ -398,9 +431,15 @@ namespace MenuWithSubMenu.PagesStock
         // save ligne
         public void saveLigne(object sender, RoutedEventArgs e)
         {
+            if (validateForm() != "")
+            {
+                HandyControl.Controls.MessageBox.Show(validateForm());
+                return;
+            }
+
             if (selectedReference != null && selectedReference.QteDisponible < int.Parse(qteText.Text))
             {
-                MessageBox.Show("Quantité non disponible");
+                HandyControl.Controls.MessageBox.Show("Quantité non disponible");
                 return;
             }
 
@@ -409,7 +448,7 @@ namespace MenuWithSubMenu.PagesStock
                 Date_Commande = DateTime.Now,
                 Qte_Commande = int.Parse(qteText.Text),
                 Prix_Total = (int)categorie.SelectedValue == 1 ? float.Parse(verrePrix.Text) : float.Parse(prixText.Text),
-                EtatCmd = "En-Cours",
+                EtatCmd = "Non payée",
                 addLigneCmdClient = this
             };
 
@@ -463,5 +502,50 @@ namespace MenuWithSubMenu.PagesStock
             }
         }
 
+
+        //validation
+        private string validateForm()
+        {
+            int selectedIemValue = (int)categorie.SelectedValue;
+
+            if (selectedIemValue == 1)
+            {
+                // VERRES
+                if (matiereVerresText.SelectedIndex == -1 || indiceVerresText.SelectedIndex == -1 || geometrieVerresText.SelectedIndex == -1 ||
+                    teintText.SelectedIndex == -1 || verrePrix.Text.Length == 0)
+                    return "Veuillez remplir tous les champs";
+
+                float pr = 0;
+                if (!float.TryParse(verrePrix.Text, out pr))
+                    return "Veuillez remplir un nombre dans le champs du prix";
+
+                if (pr <= 0)
+                    return "Le prix ne peut pas être négative!";
+
+            } else
+            {
+                // LUNETTES
+                if (referenceText.SelectedIndex == -1 || qteText.Text.Length == 0)
+                    return "Veuillez remplir tous les champs";
+            }
+
+            // quantité
+            int num = 0;
+            if (!int.TryParse(qteText.Text, out num))
+                return "Veuillez remplir un nombre dans le champs de la quantité";
+
+            if (num <= 0)
+                return "La quantité ne peut pas être nulle ou négative!";
+
+            return "";
+        }
+
+        // select visite
+        private void selectVisite(object sender, SelectionChangedEventArgs e)
+        {
+            visite visite = db.visites.Where(v => v.id == (int)visiteList.SelectedValue).SingleOrDefault();
+            selectedVisite = visite;
+            getVisions(visite);
+        }
     }
 }

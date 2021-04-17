@@ -8,6 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AddCmdClient"
       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      xmlns:hc="https://handyorg.github.io/handycontrol"
       
       Background="White"
       >
@@ -45,7 +46,6 @@
         </Style>
     </Page.Resources>
 
-
     <Grid>
         <StackPanel>
             <!--Tools Bar-->
@@ -54,14 +54,37 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
-                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <Button HorizontalAlignment="Right" Grid.Column="2" Background="#55a8fd" Foreground="White" Height="35" Padding="15 0 15 0" Cursor="Hand" BorderThickness="0" Content="Enregistrer la commande" Click="saveCmd" />
+                    <Button Grid.Column="0" BorderThickness="0" Cursor="Hand" Click="ReturnBtn_Click" Name="returnBtn" HorizontalAlignment="Left">
+                        <iconPacks:PackIconRemixIcon Kind="ArrowLeftSLine" Width="14" Height="14" />
+                    </Button>
+                    <Button HorizontalAlignment="Right" Grid.Column="1" Background="#55a8fd" Foreground="White" Height="35" Padding="15 0 15 0" Cursor="Hand" BorderThickness="0" Content="Enregistrer la commande" Click="saveCmd" />
                 </Grid>
             </Border>
 
-            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Client" />
-            <ComboBox Margin="0 0 0 20" Name="selectClient" />
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
+                        <StackPanel Margin="0 0 10 0">
+                            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Client" />
+                            <ComboBox Margin="0 0 0 20" Name="selectClient" />
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Frais de service" />
+                            <hc:TextBox Name="fraisService" />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </StackPanel>
+            
+            
 
             <!-- Loading -->
             <Border Visibility="Collapsed"
@@ -107,7 +130,7 @@
             <DataGrid Background="Transparent" Visibility="Collapsed" Name="lignesCmdBox" HeadersVisibility="All" RowHeaderWidth="60" AutoGenerateColumns="False">
                 <DataGrid.RowHeaderTemplate>
                     <DataTemplate>
-                        <CheckBox Unchecked="unCheckCmd" Checked="checkCmd" Cursor="Hand" />
+                        <CheckBox Visibility="{Binding idArticle, Converter={StaticResource NullVisibilityConverter}}" Unchecked="unCheckCmd" Checked="checkCmd" Cursor="Hand" />
                     </DataTemplate>
                 </DataGrid.RowHeaderTemplate>
                 <DataGrid.Columns>

@@ -24,6 +24,7 @@ namespace MenuWithSubMenu.Model
         public System.DateTime DateCmd { get; set; }
         public string client_cin { get; set; }
         public Nullable<int> idCmdFournisseur { get; set; }
+        public Nullable<double> frais { get; set; }
     
         public virtual client client { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

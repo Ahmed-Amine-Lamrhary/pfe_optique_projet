@@ -98,6 +98,37 @@
                         <TextBlock Style="{StaticResource LabelTextStyle}" Text="Notes" />
                         <hc:TextBox Name="notesOphtalmologue"/>
 
+                        <!--Ecart et Hauteur-->
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <!--Ecart-->
+                                <Border Style="{StaticResource BorderStyle}" Grid.Column="0">
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Ecart :" />
+                                        <Slider Name="ecartText"  Value="{Binding RelativeSource={RelativeSource AncestorType=StackPanel}, Path=Children[2].Text}" Minimum="0" Maximum="10"  />
+
+                                        <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat=N2}" />
+
+                                    </StackPanel>
+                                </Border>
+                                <!--Hauteur-->
+                                <Border Style="{StaticResource BorderStyle}" Grid.Column="1">
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Hauteur :"/>
+                                        <Slider Name="hauteurText"  Value="{Binding RelativeSource={RelativeSource AncestorType=StackPanel}, Path=Children[2].Text}" Minimum="0" Maximum="10"  />
+
+                                        <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat=N2}" />
+
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </StackPanel>
+
                         <!-- Vision Loins -->
                         <TextBlock Margin="0 20 0 25" Style="{StaticResource TitleStyle}" Text="Vision de loin" Name="visionLoins"/>
                         <StackPanel>
@@ -207,36 +238,6 @@
                                     </Border>
                                 </Grid>
                             </StackPanel>
-
-
-                            <!--Ecart et Hauteur-->
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition></ColumnDefinition>
-                                    <ColumnDefinition></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-
-                                <!--Ecart-->
-                                <Border Style="{StaticResource BorderStyle}" Grid.Column="0">
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Ecart :" />
-                                        <Slider Name="ecartLoinText"  Value="{Binding RelativeSource={RelativeSource AncestorType=StackPanel}, Path=Children[2].Text}" Minimum="0" Maximum="10"  />
-
-                                        <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat={}{0:#,#.00}}" />
-
-                                    </StackPanel>
-                                </Border>
-                                <!--Hauteur-->
-                                <Border Style="{StaticResource BorderStyle}" Grid.Column="1">
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Hauteur :"/>
-                                        <Slider Name="hauteurLoinText"  Value="{Binding RelativeSource={RelativeSource AncestorType=StackPanel}, Path=Children[2].Text}" Minimum="0" Maximum="10"  />
-
-                                        <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat={}{0:#,#.00}}" />
-
-                                    </StackPanel>
-                                </Border>
-                            </Grid>
                         </StackPanel>
 
                         <!-- Vision Près -->
@@ -351,39 +352,6 @@
                                     </Border>
                                 </Grid>
                             </StackPanel>
-
-
-                            <!--Ecart et Hauteur-->
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition></ColumnDefinition>
-                                    <ColumnDefinition></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-
-                                <!--Ecart-->
-                                <Border Style="{StaticResource BorderStyle}" Grid.Column="0">
-                                    <StackPanel Grid.Column="0" Orientation="Vertical">
-                                        <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Ecart :" />
-
-                                        <Slider Name="ecartPresText"  Value="{Binding RelativeSource={RelativeSource AncestorType=StackPanel}, Path=Children[2].Text}" Minimum="0" Maximum="10"  />
-
-                                        <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat={}{0:#,#.00}}" />
-
-                                    </StackPanel>
-                                </Border>
-
-                                <!--Hauteur-->
-                                <Border Style="{StaticResource BorderStyle}" Grid.Column="1">
-                                    <StackPanel Grid.Column="1" Orientation="Vertical">
-                                        <TextBlock HorizontalAlignment="Center" Margin="5" Height="23" TextWrapping="Wrap" Text="Hauteur :"/>
-
-                                        <Slider Name="hauteurPresText"  Value="{Binding RelativeSource={RelativeSource AncestorType=StackPanel}, Path=Children[2].Text}" Minimum="0" Maximum="10"  />
-
-                                        <hc:TextBox Margin="0 10 0 0" Text="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},	Path=Children[1].Value, StringFormat={}{0:#,#.00}}" />
-
-                                    </StackPanel>
-                                </Border>
-                            </Grid>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>

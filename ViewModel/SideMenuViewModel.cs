@@ -65,6 +65,18 @@ namespace MenuWithSubMenu
                 };
             }
         }
+
+        public List<MenuItemsData> SettingsMenuList
+        {
+            get
+            {
+                return new List<MenuItemsData>
+                {
+                    // Acceuil
+                    new MenuItemsData(){ icon="Settings3Line", MenuText="Paramètres",file_name="Parametres",dir="PagesSettings", SubMenuList=null}
+                };
+            }
+        }
     }
 
     public class MenuItemsData

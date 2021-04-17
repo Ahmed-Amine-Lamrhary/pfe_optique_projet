@@ -28,6 +28,8 @@ namespace MenuWithSubMenu.Model
         public string client_cin { get; set; }
         public int ordonnance_id { get; set; }
         public Nullable<int> idVerre { get; set; }
+        public Nullable<float> ecart { get; set; }
+        public Nullable<float> hauteur { get; set; }
     
         public virtual client client { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

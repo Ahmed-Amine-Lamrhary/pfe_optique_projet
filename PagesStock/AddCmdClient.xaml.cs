@@ -30,13 +30,17 @@ namespace MenuWithSubMenu.PagesStock
 
         private List<ligneentree> checkedLignes = new List<ligneentree>();
 
+        private Page prevPage;
+
         // update constructor
-        public AddCmdClient(cmdclient cmdClient)
+        public AddCmdClient(cmdclient cmdClient, Page prevP)
         {
             InitializeComponent();
 
             db = new dbEntities();
             this.cmdClient = cmdClient;
+
+            prevPage = prevP;
 
             lignesCmdBox.Visibility = Visibility.Collapsed;
             nothingBox.Visibility = Visibility.Collapsed;
@@ -49,6 +53,12 @@ namespace MenuWithSubMenu.PagesStock
                 // get lignes
                 ligneentreeList = db.ligneentrees.Where(l => l.idCmdClient == cmdClient.idCmdClient).ToList();
                 lignesCmdBox.ItemsSource = ligneentreeList;
+
+                if (ligneentreeList.Count() == 0)
+                {
+                    nothingBox.Visibility = Visibility.Visible;
+                    return;
+                }
 
                 lignesCmdBox.Visibility = Visibility.Visible;
             } catch (Exception ex)
@@ -73,14 +83,18 @@ namespace MenuWithSubMenu.PagesStock
                     break;
                 }
             }
+
+            fraisService.Text = cmdClient.frais + "";
         }
         
         // create constructor
-        public AddCmdClient()
+        public AddCmdClient(Page prevP)
         {
             InitializeComponent();
 
             db = new dbEntities();
+
+            prevPage = prevP;
 
             ligneentreeList = new List<ligneentree>();
 
@@ -102,12 +116,9 @@ namespace MenuWithSubMenu.PagesStock
             visite lastClientVisite = db.visites.OrderByDescending(v => v.date).Where(v => v.client_cin == (string)selectClient.SelectedValue).FirstOrDefault();
 
             if (lastClientVisite == null)
-            {
-                MessageBox.Show("Client ne possède aucune visite");
                 return;
-            }
 
-            AddLigneCmdClient newLigne = new AddLigneCmdClient(this, this, lastClientVisite);
+            AddLigneCmdClient newLigne = new AddLigneCmdClient(this, this, lastClientVisite, (string)selectClient.SelectedValue);
             MyContext.navigateTo(newLigne);
         }
 
@@ -163,9 +174,9 @@ namespace MenuWithSubMenu.PagesStock
         // save all the order
         public void saveCmd(object sender, RoutedEventArgs e)
         {
-            if (ligneentreeList.Count == 0)
+            if (validateForm() != "")
             {
-                MessageBox.Show("Cannot submit");
+                HandyControl.Controls.MessageBox.Show(validateForm());
                 return;
             }
 
@@ -182,7 +193,8 @@ namespace MenuWithSubMenu.PagesStock
                     commande = new cmdclient()
                     {
                         client_cin = (string)selectClient.SelectedValue,
-                        DateCmd = DateTime.Now
+                        DateCmd = DateTime.Now,
+                        frais = double.Parse(fraisService.Text)
                     };
                     db.cmdclients.Add(commande);
                     db.SaveChanges();
@@ -256,8 +268,9 @@ namespace MenuWithSubMenu.PagesStock
                             Date_Commande = DateTime.Now,
                             Adresse_Commande = "",
                             Qte_Commande = int.Parse(ligne.qteText.Text),
-                            EtatCmd = "En-Cours",
+                            EtatCmd = "Non payée",
                             Prix_Total = int.Parse(ligne.qteText.Text) * float.Parse(ligne.verrePrix.Text),
+                            idVisite = ligne.selectedVisite.id
                         });
                         db.SaveChanges();
                     } else
@@ -270,18 +283,18 @@ namespace MenuWithSubMenu.PagesStock
                             Adresse_Commande = "",
                             Qte_Commande = int.Parse(ligne.qteText.Text),
                             Prix_Total = int.Parse(ligne.qteText.Text) * float.Parse(ligne.prixText.Text),
-                            EtatCmd = "En-Cours"
+                            EtatCmd = "Non payée"
                         });
                         db.SaveChanges();
                     }
                 }
                 transaction.Commit();
-                MessageBox.Show(message);
-                MyContext.navigateTo(new CmdsClients());
+                HandyControl.Controls.MessageBox.Show(message);
+                MyContext.navigateTo(new CmdsClients(this));
             }
             catch (DbEntityValidationException ex)
             {
-                HandyControl.Controls.MessageBox.Show(ex.Message);
+                HandyControl.Controls.MessageBox.Show("Erreur");
                 transaction.Rollback();
             }
         }
@@ -289,15 +302,12 @@ namespace MenuWithSubMenu.PagesStock
         public void deleteLigne(object sender, RoutedEventArgs e)
         {
             ligneentree ligne = lignesCmdBox.SelectedItem as ligneentree;
-            if (ligne.EtatCmd == "En-Cours")
+            if (ligne.EtatCmd == "Non payée")
             {
                 db.ligneentrees.Remove(ligne);
                 db.SaveChanges();
 
-                MyContext.navigateTo(new CmdsClients());
-            } else
-            {
-                MessageBox.Show("Ligne is completed");
+                MyContext.navigateTo(new CmdsClients(this));
             }
         }
 
@@ -310,12 +320,9 @@ namespace MenuWithSubMenu.PagesStock
                 // get last visite
                 visite lastClientVisite = db.visites.OrderByDescending(v => v.date).Where(v => v.client_cin == (string)selectClient.SelectedValue).FirstOrDefault();
                 if (lastClientVisite == null)
-                {
-                    MessageBox.Show("Client ne possède aucune visite");
                     return;
-                }
 
-                MyContext.navigateTo(new AddLigneCmdClient(this, ligne, lastClientVisite));
+                MyContext.navigateTo(new AddLigneCmdClient(this, ligne));
             } else
             {
                 MyContext.navigateTo(ligne.addLigneCmdClient);
@@ -365,11 +372,37 @@ namespace MenuWithSubMenu.PagesStock
                 }
 
                 transaction.Commit();
+
+                groupInfo.Visibility = Visibility.Collapsed;
+
+                lignesCmdBox.Visibility = Visibility.Collapsed;
+                nothingBox.Visibility = Visibility.Collapsed;
+                loadingBox.Visibility = Visibility.Visible;
+
+                addLigneBtn.Visibility = Visibility.Collapsed;
+
+                try
+                {
+                    // get lignes
+                    ligneentreeList = db.ligneentrees.Where(l => l.idCmdClient == cmdClient.idCmdClient).ToList();
+                    lignesCmdBox.ItemsSource = ligneentreeList;
+
+                    lignesCmdBox.Visibility = Visibility.Visible;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    nothingBox.Visibility = Visibility.Visible;
+                }
+                finally
+                {
+                    loadingBox.Visibility = Visibility.Collapsed;
+                }
             }
             catch (Exception)
             {
                 transaction.Rollback();
-                System.Windows.MessageBox.Show("Erreur");
+                HandyControl.Controls.MessageBox.Show("Erreur");
             }
         }
 
@@ -381,10 +414,10 @@ namespace MenuWithSubMenu.PagesStock
 
                 foreach (ligneentree ligne in checkedLignes)
                 {
-                    if (ligne.EtatCmd == "verified")
+                    if (ligne.EtatCmd == "Payée")
                         continue;
 
-                    ligne.EtatCmd = "verified";
+                    ligne.EtatCmd = "Payée";
                     db.SaveChanges();
 
                     if (ligne.idArticle != null)
@@ -398,18 +431,67 @@ namespace MenuWithSubMenu.PagesStock
                         }
                         else
                         {
-                            MessageBox.Show("La quantité d'article " + article.idArticle + " n'est pas suffisante");
+                            HandyControl.Controls.MessageBox.Show("La quantité d'article " + article.idArticle + " n'est pas suffisante");
                         }
                     }
                 }
 
                 transaction.Commit();
+
+                groupInfo.Visibility = Visibility.Collapsed;
+
+                lignesCmdBox.Visibility = Visibility.Collapsed;
+                nothingBox.Visibility = Visibility.Collapsed;
+                loadingBox.Visibility = Visibility.Visible;
+
+                addLigneBtn.Visibility = Visibility.Collapsed;
+
+                try
+                {
+                    // get lignes
+                    ligneentreeList = db.ligneentrees.Where(l => l.idCmdClient == cmdClient.idCmdClient).ToList();
+                    lignesCmdBox.ItemsSource = ligneentreeList;
+
+                    lignesCmdBox.Visibility = Visibility.Visible;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    nothingBox.Visibility = Visibility.Visible;
+                }
+                finally
+                {
+                    loadingBox.Visibility = Visibility.Collapsed;
+                }
             }
             catch (Exception)
             {
                 transaction.Rollback();
-                MessageBox.Show("Erreur");
+                HandyControl.Controls.MessageBox.Show("Erreur");
             }
+        }
+
+        //validation
+        private string validateForm()
+        {
+            if (ligneentreeList.Count == 0)
+                return "Pas de lignes";
+            if (selectClient.SelectedIndex == -1 || fraisService.Text.Length == 0)
+                return "Veuillez remplir tous les champs";
+
+            Double num = 0;
+            if (!Double.TryParse(fraisService.Text, out num))
+                return "Veuillez remplir un nombre dans le champs des frais";
+
+            if (num < 0)
+                return "La valeur des frais ne peut pas être négative!";
+
+            return "";
+        }
+
+        private void ReturnBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MyContext.navigateTo(prevPage);
         }
 
     }

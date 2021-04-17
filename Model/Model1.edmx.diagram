@@ -4,12 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f8646bf412df498f986c0ab697ef048a" Name="Diagram1">
+      <Diagram DiagramId="b03a6be39bb94594b293ace13e64bd2c" Name="Diagram1">
         <EntityTypeShape EntityType="optique_pfeModel.article" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="optique_pfeModel.cadre" Width="1.5" PointX="5.25" PointY="24.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="optique_pfeModel.cadre" Width="1.5" PointX="5.25" PointY="23.5" IsExpanded="true" />
         <EntityTypeShape EntityType="optique_pfeModel.categorie" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
         <EntityTypeShape EntityType="optique_pfeModel.client" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="optique_pfeModel.cmdclient" Width="1.5" PointX="3.75" PointY="20.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="optique_pfeModel.cmdclient" Width="1.5" PointX="3.75" PointY="19.75" IsExpanded="true" />
         <EntityTypeShape EntityType="optique_pfeModel.cmdfournisseur" Width="1.5" PointX="3" PointY="24" IsExpanded="true" />
         <EntityTypeShape EntityType="optique_pfeModel.fournisseur" Width="1.5" PointX="0.75" PointY="23.875" IsExpanded="true" />
         <EntityTypeShape EntityType="optique_pfeModel.lentille" Width="1.5" PointX="6" PointY="2.75" IsExpanded="true" />
@@ -18,12 +18,13 @@
         <EntityTypeShape EntityType="optique_pfeModel.ligneentree" Width="1.5" PointX="6" PointY="11.25" IsExpanded="true" />
         <EntityTypeShape EntityType="optique_pfeModel.ophtalmologue" Width="1.5" PointX="1.5" PointY="19.625" IsExpanded="true" />
         <EntityTypeShape EntityType="optique_pfeModel.ordonnance" Width="1.5" PointX="0.75" PointY="15.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="optique_pfeModel.reference" Width="1.5" PointX="5.25" PointY="28.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="optique_pfeModel.reference" Width="1.5" PointX="5.25" PointY="27.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="optique_pfeModel.setting" Width="1.5" PointX="8.75" PointY="3" IsExpanded="true" />
         <EntityTypeShape EntityType="optique_pfeModel.traitement" Width="1.5" PointX="0.75" PointY="27.125" IsExpanded="true" />
         <EntityTypeShape EntityType="optique_pfeModel.verre" Width="1.5" PointX="0.75" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="optique_pfeModel.vision" Width="1.5" PointX="8.25" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="optique_pfeModel.vision_detaille" Width="1.5" PointX="5.25" PointY="17.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="optique_pfeModel.visite" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="optique_pfeModel.vision" Width="1.5" PointX="8.25" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="optique_pfeModel.vision_detaille" Width="1.5" PointX="5.25" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="optique_pfeModel.visite" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
         <AssociationConnector Association="optique_pfeModel.article_fk_Article_Categorie1" ManuallyRouted="false" />
         <AssociationConnector Association="optique_pfeModel.cadre_fk_Cadre_Article1" ManuallyRouted="false" />
         <AssociationConnector Association="optique_pfeModel.FK_reference_article" ManuallyRouted="false" />

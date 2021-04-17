@@ -1,4 +1,5 @@
 ﻿using MenuWithSubMenu.Model;
+using MenuWithSubMenu.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -26,11 +27,23 @@ namespace MenuWithSubMenu.PagesStock
         List<article> listArticle;
         int count;
 
+        private Page prevPage;
+
         public ArticlesDispo()
         {
 
             InitializeComponent();
+            returnBtn.Visibility = Visibility.Collapsed;
+            db = new dbEntities();
+            searchBar.Text = "";
+            getArticles(0);
+        }
 
+        public ArticlesDispo(Page prevP)
+        {
+
+            InitializeComponent();
+            prevPage = prevP;
             db = new dbEntities();
             searchBar.Text = "";
             getArticles(0);
@@ -45,18 +58,23 @@ namespace MenuWithSubMenu.PagesStock
             try
             {
                 if (searchBar.Text != "")
-                {
                     listArticle = await Task.Run(() => db.articles.Where(c => c.idArticle.Contains(searchBar.Text)).ToList());
-                }
                 else
-                {
                     listArticle = await Task.Run(() => db.articles.ToList());
-                }
 
                 if (listArticle.Count() == 0)
                 {
                     nothingBox.Visibility = Visibility.Visible;
                     return;
+                }
+
+                // get types of articles
+                foreach (article article in listArticle)
+                {
+                    if (article.idCategorie == 2)
+                        article.typeArticle = "Lunette Solaire";
+                    else
+                        article.typeArticle = "Lunette Médicale";
                 }
 
                 count = (int)Math.Ceiling((decimal)listArticle.Count / 10);
@@ -115,6 +133,11 @@ namespace MenuWithSubMenu.PagesStock
         private void CancelFocus_Click(object sender, RoutedEventArgs e)
         {
             searchBar.Text = "";
+        }
+
+        private void ReturnBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MyContext.navigateTo(prevPage);
         }
     }
 }

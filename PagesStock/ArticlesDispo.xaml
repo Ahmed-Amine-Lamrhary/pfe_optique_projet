@@ -48,7 +48,12 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <hc:SearchBar Grid.Column="0" TextChanged="SearchBar_TextChanged" Name="searchBar" hc:InfoElement.Placeholder="Rechercher..."/>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <Button BorderThickness="0" Cursor="Hand" Click="ReturnBtn_Click" Name="returnBtn" HorizontalAlignment="Left">
+                            <iconPacks:PackIconRemixIcon Kind="ArrowLeftSLine" Width="14" Height="14" />
+                        </Button>
+                        <hc:SearchBar Margin="10 0 0 0" Width="200" TextChanged="SearchBar_TextChanged" Name="searchBar" hc:InfoElement.Placeholder="Rechercher..."/>
+                    </StackPanel>
                     <Button Margin="5 0 0 0" Cursor="Hand" BorderThickness="0" Background="Transparent" HorizontalAlignment="Left" Grid.Column="1" Name="cancelFocus" Click="CancelFocus_Click" Visibility="Collapsed">
                         <iconPacks:PackIconRemixIcon Kind="CloseLine" Style="{StaticResource SearchButtonIcon}" />
                     </Button>
@@ -96,7 +101,7 @@
                         <DataGridTextColumn Header="Article" Width="1*" Binding="{Binding idArticle}"/>
                         <DataGridTextColumn Header="Quantité disponible" Width="1*" Binding="{Binding QteDisponible}"/>
                         <DataGridTextColumn Header="Prix unitaire" Width="1*" Binding="{Binding PrixUnitaire}"/>
-                        <DataGridTextColumn Header="Description" Width="1*" Binding="{Binding Description}"/>
+                        <DataGridTextColumn Header="" Width="1*" Binding="{Binding typeArticle}"/>
                     </DataGrid.Columns>
                 </DataGrid>
 

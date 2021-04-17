@@ -1,4 +1,7 @@
-﻿using System;
+﻿using MenuWithSubMenu.PagesSettings;
+using MenuWithSubMenu.PagesStock;
+using MenuWithSubMenu.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +26,34 @@ namespace MenuWithSubMenu.Pages
         public Acceuil()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var page = null as Page;
+
+            switch(button.Name)
+            {
+                case "addClient":
+                    page = new AddClient(this);
+                    break;
+                case "addVisite":
+                    page = new Visite(this);
+                    break;
+                case "addCmdClient":
+                    page = new AddCmdClient(this);
+                    break;
+                case "addCmdFour":
+                    page = new AddCmd(this);
+                    break;
+                case "parametres":
+                    page = new Parametres(this);
+                    break;
+            }
+
+            if (page != null)
+                MyContext.navigateTo(page);
         }
     }
 }

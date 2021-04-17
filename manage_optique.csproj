@@ -231,6 +231,9 @@
     <Compile Include="Model\reference.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\setting.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\traitement.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -245,6 +248,9 @@
     </Compile>
     <Compile Include="Model\visite.cs">
       <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PagesSettings\Parametres.xaml.cs">
+      <DependentUpon>Parametres.xaml</DependentUpon>
     </Compile>
     <Compile Include="PagesStock\AddCmd.xaml.cs">
       <DependentUpon>AddCmd.xaml</DependentUpon>
@@ -314,7 +320,7 @@
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\MyContext.cs" />
-    <Compile Include="Utils\OpticInfo.cs" />
+    <Compile Include="Utils\NullVisibilityConverter.cs" />
     <Compile Include="Utils\VisualTreeHelpers.cs" />
     <Compile Include="ViewModel\CommandViewModel.cs" />
     <Compile Include="ViewModel\SideMenuViewModel.cs" />
@@ -341,6 +347,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="PagesSettings\Parametres.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PagesStock\AddCmd.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

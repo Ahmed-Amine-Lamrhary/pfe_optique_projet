@@ -25,11 +25,26 @@ namespace MenuWithSubMenu.PagesStock
 
         private List<fournisseur> checkedFour = new List<fournisseur>();
 
+        private Page prevPage;
+
         int count;
 
         public Fournisseurs()
         {
             InitializeComponent();
+
+            returnBtn.Visibility = Visibility.Collapsed;
+
+            db = new dbEntities();
+
+            getFournisseurs(0);
+        }
+
+        public Fournisseurs(Page prevP)
+        {
+            InitializeComponent();
+
+            prevPage = prevP;
 
             db = new dbEntities();
 
@@ -190,13 +205,20 @@ namespace MenuWithSubMenu.PagesStock
                 }
 
                 transaction.Commit();
+
+                groupInfo.Visibility = Visibility.Collapsed;
+                getFournisseurs(0);
             } catch (Exception)
             {
                 transaction.Rollback();
-                MessageBox.Show("Erreur");
+                HandyControl.Controls.MessageBox.Show("Erreur");
             }
         }
 
+        private void ReturnBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MyContext.navigateTo(prevPage);
+        }
 
     }
 }

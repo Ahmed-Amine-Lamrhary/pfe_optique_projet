@@ -77,7 +77,7 @@ namespace MenuWithSubMenu.Pages
             catch (Exception exc)
             {
                 Console.Write(exc.Message);
-                HandyControl.Controls.MessageBox.Show(exc.Message);
+                HandyControl.Controls.MessageBox.Show("Erreur");
 
             }
 

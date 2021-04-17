@@ -52,7 +52,7 @@ namespace MenuWithSubMenu.Pages
             catch (Exception exc)
             {
                 Console.Write(exc.Message);
-                HandyControl.Controls.MessageBox.Show(exc.Message);
+                HandyControl.Controls.MessageBox.Show("Erreur");
 
             }
 
@@ -74,7 +74,7 @@ namespace MenuWithSubMenu.Pages
 
         private void ReturnBtn_Click(object sender, RoutedEventArgs e)
         {
-            MyContext.navigateTo(new Ophtalmologues());
+            MyContext.navigateTo(new Ophtalmologues(this));
         }
     }
 }

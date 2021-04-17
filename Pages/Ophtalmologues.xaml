@@ -47,7 +47,14 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <hc:SearchBar Grid.Column="0" TextChanged="SearchBar_TextChanged" Name="searchBar" hc:InfoElement.Placeholder="Rechercher..."/>
+
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <Button BorderThickness="0" Cursor="Hand" Click="ReturnBtn_Click" Name="returnBtn" HorizontalAlignment="Left">
+                            <iconPacks:PackIconRemixIcon Kind="ArrowLeftSLine" Width="14" Height="14" />
+                        </Button>
+                        <hc:SearchBar Margin="10 0 0 0" Width="200" TextChanged="SearchBar_TextChanged" Name="searchBar" hc:InfoElement.Placeholder="Rechercher..."/>
+                    </StackPanel>
+                    
                     <Button Margin="5 0 0 0" Cursor="Hand" BorderThickness="0" Background="Transparent" HorizontalAlignment="Left" Grid.Column="1" Name="cancelFocus" Click="CancelFocus_Click" Visibility="Collapsed">
                         <iconPacks:PackIconRemixIcon Kind="CloseLine" Style="{StaticResource SearchButtonIcon}" />
                     </Button>

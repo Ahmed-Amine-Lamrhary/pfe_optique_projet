@@ -99,6 +99,10 @@ namespace MenuWithSubMenu.Pages
             og_cyl_pres.Value = (double)visionPresGauche.cyl;
             og_axe_pres.Value = (double)visionPresGauche.axe;
             og_add_pres.Value = (double)visionPresGauche.add;
+
+
+            ecartText.Value = (double)visite.ecart;
+            hauteurText.Value = (double)visite.hauteur;
         }
 
         private void showPhotoOrdonnance(object sender, RoutedEventArgs e)

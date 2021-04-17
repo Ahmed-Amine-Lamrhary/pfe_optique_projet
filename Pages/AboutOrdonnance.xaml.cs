@@ -71,6 +71,9 @@ namespace MenuWithSubMenu.Pages
             og_cyl_pres.Value = (double)visionPresGauche.cyl;
             og_axe_pres.Value = (double)visionPresGauche.axe;
             og_add_pres.Value = (double)visionPresGauche.add;
+
+            ecartText.Value = (double)ordVisite.ecart;
+            hauteurText.Value = (double)ordVisite.hauteur;
         }
         private void voirOphta(object sender, RoutedEventArgs e)
         {

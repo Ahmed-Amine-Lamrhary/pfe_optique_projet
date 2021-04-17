@@ -25,11 +25,25 @@ namespace MenuWithSubMenu.Pages
 
         private List<ophtalmologue> checkedOphta = new List<ophtalmologue>();
 
+        private Page prevPage;
+
         int count;
 
         public Ophtalmologues()
         {
             InitializeComponent();
+
+            db = new dbEntities();
+            returnBtn.Visibility = Visibility.Collapsed;
+
+            getOphtalmologues(0);
+        }
+
+        public Ophtalmologues(Page prevP)
+        {
+            InitializeComponent();
+
+            prevPage = prevP;
 
             db = new dbEntities();
 
@@ -184,13 +198,21 @@ namespace MenuWithSubMenu.Pages
                 }
 
                 transaction.Commit();
+
+                groupInfo.Visibility = Visibility.Collapsed;
+                getOphtalmologues(0);
             }
             catch (Exception)
             {
                 transaction.Rollback();
-                MessageBox.Show("Erreur");
+                HandyControl.Controls.MessageBox.Show("Erreur");
             }
         }
 
+
+        private void ReturnBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MyContext.navigateTo(prevPage);
+        }
     }
 }

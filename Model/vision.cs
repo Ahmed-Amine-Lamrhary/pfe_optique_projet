@@ -19,8 +19,6 @@ namespace MenuWithSubMenu.Model
         public Nullable<float> sph { get; set; }
         public Nullable<float> axe { get; set; }
         public Nullable<float> add { get; set; }
-        public Nullable<float> ecart { get; set; }
-        public Nullable<float> hauteur { get; set; }
         public System.DateTime date_modification { get; set; }
         public Nullable<int> lentille_idLentille { get; set; }
         public Nullable<int> verre_idVerre { get; set; }

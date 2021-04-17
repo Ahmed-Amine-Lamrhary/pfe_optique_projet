@@ -28,11 +28,30 @@ namespace MenuWithSubMenu.Pages
 
         private List<client> checkedClients = new List<client>();
 
+        private Page prevPage;
+
         public EspaceClient()
         {
 
             InitializeComponent();
-           
+
+            returnBtn.Visibility = Visibility.Collapsed;
+
+            db = new dbEntities();
+            listClient = new List<client>();
+            pagination.MaxPageCount = 0;
+            searchBar.Text = "";
+
+            getClients(0);
+        }
+
+        public EspaceClient(Page prevP)
+        {
+
+            InitializeComponent();
+
+            prevPage = prevP;
+
             db = new dbEntities();
             listClient = new List<client>();
             pagination.MaxPageCount = 0;
@@ -197,14 +216,22 @@ namespace MenuWithSubMenu.Pages
                 }
 
                 transaction.Commit();
+
+                groupInfo.Visibility = Visibility.Collapsed;
+                getClients(0);
             }
             catch (Exception)
             {
                 transaction.Rollback();
-                System.Windows.MessageBox.Show("Erreur");
+                HandyControl.Controls.MessageBox.Show("Erreur");
             }
         }
 
+
+        private void ReturnBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MyContext.navigateTo(prevPage);
+        }
 
     }
 }

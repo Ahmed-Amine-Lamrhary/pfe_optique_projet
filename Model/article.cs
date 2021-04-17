@@ -42,5 +42,8 @@ namespace MenuWithSubMenu.Model
         public virtual ICollection<lignecommande> lignecommandes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ligneentree> ligneentrees { get; set; }
+
+        // custom attributes
+        public string typeArticle { get; set; }
     }
 }

@@ -89,34 +89,45 @@
                 <!-- Filter by date -->
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0 0 0 20">
-                        <StackPanel>
-                            <TextBlock Text="De" Margin="0 0 0 5" />
-                            <DatePicker Margin="0 0 10 0" Width="120" Name="filterStartDate" />
+                        <!-- Select -->
+                        <StackPanel Orientation="Horizontal" Name="autoDate">
+                            <Button Margin="0 16 10 0" BorderThickness="0" Cursor="Hand" Click="ReturnBtn_Click" Name="returnBtn">
+                                <iconPacks:PackIconRemixIcon Kind="ArrowLeftSLine" Width="14" Height="14" />
+                            </Button>
+                            <StackPanel Margin="0 0 10 0">
+                                <TextBlock Text="Dernier" Margin="0 0 0 5" />
+                                <ComboBox Margin="0 0 0 0" Name="lastDate" Width="160" SelectionChanged="selectLastDate">
+                                    <ComboBoxItem Content="Dernier jour" TabIndex="0" />
+                                    <ComboBoxItem Content="La semaine dernière" TabIndex="1" />
+                                    <ComboBoxItem Content="Le mois dernier" TabIndex="2" />
+                                    <ComboBoxItem Content="L'année dernière" TabIndex="3" />
+                                    <ComboBoxItem Content="Choisir une date..." TabIndex="4" />
+                                </ComboBox>
+                            </StackPanel>
+                            <Button Margin="0 19 0 0" ToolTip="Reset" Click="resetFilter">
+                                <iconPacks:PackIconRemixIcon Kind="RestartLine" HorizontalAlignment="Center"  />
+                            </Button>
                         </StackPanel>
-                        <StackPanel>
-                            <TextBlock Text="A" Margin="0 0 0 5" />
-                            <DatePicker Margin="0 0 10 0" Width="120" Name="filterEndDate" />
+                        
+                        <!-- Manually -->
+                        <StackPanel Margin="10 0 0 0" Visibility="Collapsed" Name="manuallyDate" Orientation="Horizontal">
+                            <StackPanel>
+                                <TextBlock Text="De" Margin="0 0 0 5" />
+                                <DatePicker Margin="0 0 10 0" Width="120" Name="filterStartDate" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Text="A" Margin="0 0 0 5" />
+                                <DatePicker Margin="0 0 10 0" Width="120" Name="filterEndDate" />
+                            </StackPanel>
+
+                            <Button Margin="0 19 10 0" ToolTip="Filtrer" Click="filterByDate">
+                                <iconPacks:PackIconRemixIcon Kind="SearchLine" HorizontalAlignment="Center"  />
+                            </Button>
+                            <Button Margin="0 19 10 0" Click="deleteManualDate">
+                                <iconPacks:PackIconRemixIcon Kind="CloseCircleLine" HorizontalAlignment="Center"  />
+                            </Button>
                         </StackPanel>
-
-                        <Button Margin="0 19 10 0" ToolTip="Filtrer" Click="filterByDate">
-                            <iconPacks:PackIconRemixIcon Kind="SearchLine" HorizontalAlignment="Center"  />
-                        </Button>
-
-                        <Button Margin="0 19 10 0" ToolTip="Reset" Click="resetFilter">
-                            <iconPacks:PackIconRemixIcon Kind="RestartLine" HorizontalAlignment="Center"  />
-                        </Button>
-
-
-                        <StackPanel>
-                            <TextBlock Text="Dernier" Margin="0 0 0 5" />
-                            <ComboBox Margin="0 0 0 0" Name="lastDate" Width="150" SelectionChanged="selectLastDate">
-                                <ComboBoxItem Content="Dernier jour" TabIndex="0" />
-                                <ComboBoxItem Content="La semaine dernière" TabIndex="1" />
-                                <ComboBoxItem Content="Le mois dernier" TabIndex="2" />
-                                <ComboBoxItem Content="L'année dernière" TabIndex="3" />
-                            </ComboBox>
-                        </StackPanel>
-
+                        
                     </StackPanel>
                 </StackPanel>
 

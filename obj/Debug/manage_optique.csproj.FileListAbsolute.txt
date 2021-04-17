@@ -357,3 +357,5 @@ G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\SplashScreen.baml
 G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\BouncyCastle.Crypto.dll
 G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\itextsharp.dll
 G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\itextsharp.xml
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\PagesSettings\Parametres.g.cs
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\PagesSettings\Parametres.baml

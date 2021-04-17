@@ -1,0 +1,82 @@
+﻿<Page x:Class="MenuWithSubMenu.PagesSettings.Parametres"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MenuWithSubMenu.PagesSettings"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Parametres"
+      xmlns:hc="https://handyorg.github.io/handycontrol"
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"      
+      >
+
+    <Page.Resources>
+        <!-- Style of Textbox -->
+        <Style BasedOn="{StaticResource {x:Type TextBox}}"
+           TargetType="TextBox"
+           x:Key="TextBoxStyle">
+            <Setter Property="Margin" Value="0 0 0 10" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="#d6e0ea" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Padding" Value="5" />
+        </Style>
+
+        <!-- Style of Label -->
+        <Style BasedOn="{StaticResource {x:Type TextBlock}}"
+           TargetType="TextBlock"
+           x:Key="LabelTextStyle">
+            <Setter Property="Margin" Value="0 15 0 3" />
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+
+        <!-- Style of Title -->
+        <Style BasedOn="{StaticResource {x:Type TextBlock}}"
+           TargetType="TextBlock"
+           x:Key="TitleStyle">
+            <Setter Property="Margin" Value="0 0 0 15" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontWeight" Value="Regular" />
+            <Setter Property="Opacity" Value="0.4" />
+        </Style>
+
+        <!-- Style of Border -->
+        <Style TargetType="Border" x:Key="BorderStyle">
+            <Setter Property="Background" Value="White" />
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="Margin" Value="4" />
+            <Setter Property="Padding" Value="7" />
+        </Style>
+
+    </Page.Resources>
+
+
+    <Grid>
+        <StackPanel>
+
+            <StackPanel Margin="10px" Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                <Button Margin="0 0 20 0" BorderThickness="0" Cursor="Hand" Click="ReturnBtn_Click" Name="returnBtn" HorizontalAlignment="Left">
+                    <iconPacks:PackIconRemixIcon Kind="ArrowLeftSLine" Width="14" Height="14" />
+                </Button>
+
+                <Button Content="Enregistrer" Click="saveSettings" Background="#55a8fd" Foreground="White" Height="35" Padding="15 0 15 0" Cursor="Hand" BorderThickness="0"/>
+            </StackPanel>
+
+            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Nom" />
+            <hc:TextBox Name="nomText"/>
+
+            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Adresse" />
+            <hc:TextBox Name="adresseText" />
+
+            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Telephone" />
+            <hc:TextBox Name="telText" />
+
+            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Email" />
+            <hc:TextBox Name="emailText" />
+
+            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Mot de passe" />
+            <hc:TextBox Name="passwordText" />
+        </StackPanel>
+    </Grid>
+</Page>

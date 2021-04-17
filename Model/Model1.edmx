@@ -59,6 +59,7 @@
           <Property Name="DateCmd" Type="date" Nullable="false" />
           <Property Name="client_cin" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="idCmdFournisseur" Type="int" />
+          <Property Name="frais" Type="float" />
         </EntityType>
         <EntityType Name="cmdfournisseur">
           <Key>
@@ -128,6 +129,7 @@
           <Property Name="Prix_Total" Type="real" />
           <Property Name="EtatCmd" Type="nvarchar" MaxLength="45" />
           <Property Name="idVerre" Type="int" />
+          <Property Name="idVisite" Type="int" />
         </EntityType>
         <EntityType Name="ophtalmologue">
           <Key>
@@ -159,6 +161,17 @@
           <Property Name="id_reference" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_article" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
+        <EntityType Name="settings">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="nom" Type="nchar" MaxLength="50" />
+          <Property Name="adresse" Type="nchar" MaxLength="50" />
+          <Property Name="email" Type="nchar" MaxLength="20" />
+          <Property Name="telephone" Type="nchar" MaxLength="10" />
+          <Property Name="password" Type="nchar" MaxLength="50" />
+          <Property Name="id" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="traitement">
           <Key>
             <PropertyRef Name="idTraitement" />
@@ -185,8 +198,6 @@
           <Property Name="sph" Type="real" />
           <Property Name="axe" Type="real" />
           <Property Name="add" Type="real" />
-          <Property Name="ecart" Type="real" />
-          <Property Name="hauteur" Type="real" />
           <Property Name="date_modification" Type="date" Nullable="false" />
           <Property Name="lentille_idLentille" Type="int" />
           <Property Name="verre_idVerre" Type="int" />
@@ -213,6 +224,8 @@
           <Property Name="client_cin" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="ordonnance_id" Type="int" Nullable="false" />
           <Property Name="idVerre" Type="int" />
+          <Property Name="ecart" Type="real" />
+          <Property Name="hauteur" Type="real" />
         </EntityType>
         <Association Name="article$fk_Article_Categorie1">
           <End Role="categorie" Type="Self.categorie" Multiplicity="1">
@@ -523,6 +536,7 @@
           <EntitySet Name="ophtalmologue" EntityType="Self.ophtalmologue" Schema="optique_pfe" store:Type="Tables" />
           <EntitySet Name="ordonnance" EntityType="Self.ordonnance" Schema="optique_pfe" store:Type="Tables" />
           <EntitySet Name="reference" EntityType="Self.reference" Schema="optique_pfe" store:Type="Tables" />
+          <EntitySet Name="settings" EntityType="Self.settings" Schema="optique_pfe" store:Type="Tables" />
           <EntitySet Name="traitement" EntityType="Self.traitement" Schema="optique_pfe" store:Type="Tables" />
           <EntitySet Name="verre" EntityType="Self.verre" Schema="optique_pfe" store:Type="Tables" />
           <EntitySet Name="vision" EntityType="Self.vision" Schema="optique_pfe" store:Type="Tables" />
@@ -682,6 +696,7 @@
           <Property Name="DateCmd" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="client_cin" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="idCmdFournisseur" Type="Int32" />
+          <Property Name="frais" Type="Double" />
           <NavigationProperty Name="client" Relationship="Self.cmdclient_fk_cmdclient_client1" FromRole="cmdclient" ToRole="client" />
           <NavigationProperty Name="ligneentrees" Relationship="Self.ligneentree_fk_LigneEntree_CmdClient1" FromRole="cmdclient" ToRole="ligneentree" />
         </EntityType>
@@ -763,6 +778,7 @@
           <Property Name="Prix_Total" Type="Single" />
           <Property Name="EtatCmd" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
           <Property Name="idVerre" Type="Int32" />
+          <Property Name="idVisite" Type="Int32" />
           <NavigationProperty Name="article" Relationship="Self.ligneentree_fk_LigneEntree_Article1" FromRole="ligneentree" ToRole="article" />
           <NavigationProperty Name="cmdclient" Relationship="Self.ligneentree_fk_LigneEntree_CmdClient1" FromRole="ligneentree" ToRole="cmdclient" />
           <NavigationProperty Name="verre" Relationship="Self.FK_ligneentree_verre" FromRole="ligneentree" ToRole="verre" />
@@ -801,6 +817,17 @@
           <Property Name="id_article" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="article" Relationship="Self.FK_reference_article" FromRole="reference" ToRole="article" />
         </EntityType>
+        <EntityType Name="setting">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="nom" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="adresse" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="telephone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+        </EntityType>
         <EntityType Name="traitement">
           <Key>
             <PropertyRef Name="idTraitement" />
@@ -831,8 +858,6 @@
           <Property Name="sph" Type="Single" />
           <Property Name="axe" Type="Single" />
           <Property Name="add" Type="Single" />
-          <Property Name="ecart" Type="Single" />
-          <Property Name="hauteur" Type="Single" />
           <Property Name="date_modification" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="lentille_idLentille" Type="Int32" />
           <Property Name="verre_idVerre" Type="Int32" />
@@ -862,6 +887,8 @@
           <Property Name="client_cin" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ordonnance_id" Type="Int32" Nullable="false" />
           <Property Name="idVerre" Type="Int32" />
+          <Property Name="ecart" Type="Single" />
+          <Property Name="hauteur" Type="Single" />
           <NavigationProperty Name="client" Relationship="Self.visite_fk_visite_client" FromRole="visite" ToRole="client" />
           <NavigationProperty Name="lignecommandes" Relationship="Self.FK_lignecommande_visite" FromRole="visite" ToRole="lignecommande" />
           <NavigationProperty Name="ordonnance" Relationship="Self.visite_fk_visite_ordonnance1" FromRole="visite" ToRole="ordonnance" />
@@ -1178,6 +1205,7 @@
           <EntitySet Name="ophtalmologues" EntityType="Self.ophtalmologue" />
           <EntitySet Name="ordonnances" EntityType="Self.ordonnance" />
           <EntitySet Name="references" EntityType="Self.reference" />
+          <EntitySet Name="settings" EntityType="Self.setting" />
           <EntitySet Name="traitements" EntityType="Self.traitement" />
           <EntitySet Name="verres" EntityType="Self.verre" />
           <EntitySet Name="visions" EntityType="Self.vision" />
@@ -1331,6 +1359,7 @@
                 <ScalarProperty Name="DateCmd" ColumnName="DateCmd" />
                 <ScalarProperty Name="client_cin" ColumnName="client_cin" />
                 <ScalarProperty Name="idCmdFournisseur" ColumnName="idCmdFournisseur" />
+                <ScalarProperty Name="frais" ColumnName="frais" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1406,6 +1435,7 @@
                 <ScalarProperty Name="Prix_Total" ColumnName="Prix_Total" />
                 <ScalarProperty Name="EtatCmd" ColumnName="EtatCmd" />
                 <ScalarProperty Name="idVerre" ColumnName="idVerre" />
+                <ScalarProperty Name="idVisite" ColumnName="idVisite" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1442,6 +1472,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="settings">
+            <EntityTypeMapping TypeName="optique_pfeModel.setting">
+              <MappingFragment StoreEntitySet="settings">
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="adresse" ColumnName="adresse" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="telephone" ColumnName="telephone" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="traitements">
             <EntityTypeMapping TypeName="optique_pfeModel.traitement">
               <MappingFragment StoreEntitySet="traitement">
@@ -1469,8 +1511,6 @@
                 <ScalarProperty Name="sph" ColumnName="sph" />
                 <ScalarProperty Name="axe" ColumnName="axe" />
                 <ScalarProperty Name="add" ColumnName="add" />
-                <ScalarProperty Name="ecart" ColumnName="ecart" />
-                <ScalarProperty Name="hauteur" ColumnName="hauteur" />
                 <ScalarProperty Name="date_modification" ColumnName="date_modification" />
                 <ScalarProperty Name="lentille_idLentille" ColumnName="lentille_idLentille" />
                 <ScalarProperty Name="verre_idVerre" ColumnName="verre_idVerre" />
@@ -1499,6 +1539,8 @@
                 <ScalarProperty Name="client_cin" ColumnName="client_cin" />
                 <ScalarProperty Name="ordonnance_id" ColumnName="ordonnance_id" />
                 <ScalarProperty Name="idVerre" ColumnName="idVerre" />
+                <ScalarProperty Name="ecart" ColumnName="ecart" />
+                <ScalarProperty Name="hauteur" ColumnName="hauteur" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

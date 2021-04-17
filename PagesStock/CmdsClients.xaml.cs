@@ -28,6 +28,8 @@ namespace MenuWithSubMenu.PagesStock
         DateTime? startDate;
         DateTime? endDate;
 
+        private Page prevPage;
+
         int count;
 
         public CmdsClients()
@@ -37,6 +39,20 @@ namespace MenuWithSubMenu.PagesStock
             db = new dbEntities();
             listCmdClients = new List<cmdclient>();
             selectedListCmdClients = new List<cmdclient>();
+            returnBtn.Visibility = Visibility.Collapsed;
+
+            getCmdClients(0);
+        }
+
+
+        public CmdsClients(Page prevP)
+        {
+            InitializeComponent();
+
+            db = new dbEntities();
+            listCmdClients = new List<cmdclient>();
+            selectedListCmdClients = new List<cmdclient>();
+            prevPage = prevP;
 
             getCmdClients(0);
         }
@@ -58,14 +74,20 @@ namespace MenuWithSubMenu.PagesStock
                 else
                     listCmdClients = await Task.Run(() => db.cmdclients.ToList());
 
+                if (listCmdClients.Count() == 0)
+                {
+                    nothingBox.Visibility = Visibility.Visible;
+                    return;
+                }
+
                 // get states of orders
-                foreach(cmdclient cmd in listCmdClients)
+                foreach (cmdclient cmd in listCmdClients)
                 {
                     List<ligneentree> lignes = await Task.Run(() => db.ligneentrees.Where(l => l.idCmdClient == cmd.idCmdClient).ToList());
                     int lignesNonPayee = 0;
                     foreach(ligneentree ligne in lignes)
                     {
-                        if (ligne.EtatCmd == "En-Cours")
+                        if (ligne.EtatCmd == "Non payée")
                             lignesNonPayee++;
                     }
 
@@ -135,7 +157,7 @@ namespace MenuWithSubMenu.PagesStock
         private void updateCmd(object sender, RoutedEventArgs e)
         {
             cmdclient cmdRow = cmdClientsDataGrid.SelectedItem as cmdclient;
-            AddCmdClient update = new AddCmdClient(cmdRow);
+            AddCmdClient update = new AddCmdClient(cmdRow, this);
             MyContext.navigateTo(update);
         }
         
@@ -170,7 +192,7 @@ namespace MenuWithSubMenu.PagesStock
         
         private void addCmd(object sender, RoutedEventArgs e)
         {
-            AddCmdClient add_cmd_client = new AddCmdClient();
+            AddCmdClient add_cmd_client = new AddCmdClient(this);
             MyContext.navigateTo(add_cmd_client);
         }
 
@@ -221,7 +243,7 @@ namespace MenuWithSubMenu.PagesStock
                             Prix_Total = (float?)ligne.Prix_Total,
                             EtatCmd = ligne.EtatCmd,
                             idVerre = ligne.idVerre,
-                            idVisite = null,
+                            idVisite = ligne.idVisite,
                             idLigneEntree = ligne.idLigne
                         });
                         db.SaveChanges();
@@ -232,12 +254,11 @@ namespace MenuWithSubMenu.PagesStock
                     throw new Exception();
 
                 transaction.Commit();
-                MessageBox.Show("Commandes sont passées au fournisseur");
+                HandyControl.Controls.MessageBox.Show("Commandes sont bien passées au fournisseur");
             }
             catch (Exception ex)
             {
                 transaction.Rollback();
-                MessageBox.Show(ex.ToString());
             }
         }
 
@@ -281,10 +302,10 @@ namespace MenuWithSubMenu.PagesStock
 
                     foreach (ligneentree ligne in lignes)
                     {
-                        if (ligne.EtatCmd == "verified")
+                        if (ligne.EtatCmd == "Payée")
                             continue;
 
-                        ligne.EtatCmd = "verified";
+                        ligne.EtatCmd = "Payée";
                         db.SaveChanges();
 
                         if (ligne.idArticle != null)
@@ -297,18 +318,21 @@ namespace MenuWithSubMenu.PagesStock
                                 db.SaveChanges();
                             } else
                             {
-                                MessageBox.Show("La quantité d'article " + article.idArticle + " n'est pas suffisante");
+                                HandyControl.Controls.MessageBox.Show("La quantité d'article " + article.idArticle + " n'est pas suffisante");
                             }
                         }
                     }
                 }
 
                 transaction.Commit();
+
+                groupInfo.Visibility = Visibility.Collapsed;
+                getCmdClients(0);
             }
             catch (Exception)
             {
                 transaction.Rollback();
-                MessageBox.Show("Erreur");
+                HandyControl.Controls.MessageBox.Show("Erreur");
             }
         }
 
@@ -336,6 +360,13 @@ namespace MenuWithSubMenu.PagesStock
             getCmdClients(0);
         }
 
+        private void deleteManualDate(object sender, RoutedEventArgs e)
+        {
+            lastDate.SelectedIndex = -1;
+            manuallyDate.Visibility = Visibility.Collapsed;
+            autoDate.IsEnabled = true;
+        }
+
         private void selectLastDate(object sender, SelectionChangedEventArgs e)
         {
             endDate = DateTime.Now;
@@ -358,6 +389,13 @@ namespace MenuWithSubMenu.PagesStock
                 case 3:
                     startDate = DateTime.Today.AddYears(-1);
                     break;
+                // manually
+                case 4:
+                    manuallyDate.Visibility = Visibility.Visible;
+                    autoDate.IsEnabled = false;
+                    return;
+                case -1:
+                    return;
             }
 
             filterByDateFunc();
@@ -371,7 +409,7 @@ namespace MenuWithSubMenu.PagesStock
                     getCmdClients(0);
                 else
                 {
-                    MessageBox.Show("start date must be less than end date");
+                    HandyControl.Controls.MessageBox.Show("La date de début doit être inférieure à la date de fin");
 
                     startDate = endDate = null;
                     filterStartDate.SelectedDate = filterEndDate.SelectedDate = null;
@@ -424,11 +462,14 @@ namespace MenuWithSubMenu.PagesStock
                 }
 
                 transaction.Commit();
+
+                groupInfo.Visibility = Visibility.Collapsed;
+                getCmdClients(0);
             }
             catch (Exception)
             {
                 transaction.Rollback();
-                System.Windows.MessageBox.Show("Erreur");
+                HandyControl.Controls.MessageBox.Show("Erreur");
             }
         }
 
@@ -463,21 +504,31 @@ namespace MenuWithSubMenu.PagesStock
                 document.Open();
 
                 // print Header
-                PdfPTable headerTable = new PdfPTable(2) { WidthPercentage = 100f };
+                PdfPTable headerTable;
 
-                PdfPCell opticInfo = new PdfPCell()
+                
+
+                setting opticSettings = db.settings.FirstOrDefault();
+                if (opticSettings != null)
                 {
-                    Border = Rectangle.NO_BORDER
-                };
+                    headerTable = new PdfPTable(2) { WidthPercentage = 100f };
 
-                Image logo = Image.GetInstance(OpticInfo.logoUrl);
-                logo.ScalePercent(12f);
-                opticInfo.AddElement(logo);
-                opticInfo.AddElement(new Paragraph(OpticInfo.adresse, FontFactory.GetFont("Poppins", 9)));
-                opticInfo.AddElement(new Paragraph(OpticInfo.phone, FontFactory.GetFont("Poppins", 9)));
-                opticInfo.AddElement(new Paragraph(OpticInfo.email, FontFactory.GetFont("Poppins", 9)));
-                headerTable.AddCell(opticInfo);
+                    PdfPCell opticInfo = new PdfPCell()
+                    {
+                        Border = Rectangle.NO_BORDER
+                    };
 
+                    opticInfo.AddElement(new Paragraph(opticSettings.nom, FontFactory.GetFont("Poppins", 14)));
+                    opticInfo.AddElement(new Paragraph(opticSettings.adresse, FontFactory.GetFont("Poppins", 9)));
+                    opticInfo.AddElement(new Paragraph(opticSettings.telephone, FontFactory.GetFont("Poppins", 9)));
+                    opticInfo.AddElement(new Paragraph(opticSettings.email, FontFactory.GetFont("Poppins", 9)));
+                    headerTable.AddCell(opticInfo);
+                } else
+                {
+                    headerTable = new PdfPTable(1) { WidthPercentage = 100f };
+                }
+
+                
                 PdfPCell invoiceInfo = new PdfPCell() { Border = Rectangle.NO_BORDER };
                 invoiceInfo.AddElement(new Paragraph("FACTURE", FontFactory.GetFont("Poppins", 17, Font.BOLD)));
                 invoiceInfo.AddElement(new Paragraph("Date " + commande.DateCmd, FontFactory.GetFont("Poppins", 9)));
@@ -622,7 +673,8 @@ namespace MenuWithSubMenu.PagesStock
                     document.Add(verresTable);
                 }
 
-                int frais = 500;
+                double frais = commande.frais == null ? 0 : (double)commande.frais;
+
                 document.Add(new Chunk(new LineSeparator(1f, 100f, new BaseColor(232, 235, 238), Element.ALIGN_CENTER, 0)));
                 document.Add(new Paragraph("Frais: " + frais + " DHS", FontFactory.GetFont("Poppins", 12)));
                 document.Add(new Paragraph("Prix à payer: " + (totalPrice + frais) + " DHS", FontFactory.GetFont("Poppins", 12, Font.BOLD)));
@@ -633,8 +685,13 @@ namespace MenuWithSubMenu.PagesStock
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erreur: " + ex.Message);
+                HandyControl.Controls.MessageBox.Show("Erreur");
             }
+        }
+
+        private void ReturnBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MyContext.navigateTo(prevPage);
         }
     }
 }

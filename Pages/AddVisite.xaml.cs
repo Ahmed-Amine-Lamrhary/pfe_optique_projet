@@ -47,6 +47,12 @@ namespace MenuWithSubMenu.Pages
         }
         private void saveVisite(object sender, RoutedEventArgs e)
         {
+            if (!validateForm())
+            {
+                HandyControl.Controls.MessageBox.Show("Veuillez remplir tout les champs");
+                return;
+            }
+
             try
             {
                 transaction = db.Database.BeginTransaction();
@@ -75,6 +81,8 @@ namespace MenuWithSubMenu.Pages
                     raison = raisonVisite.Text,
                     client_cin = clientCin,
                     ordonnance_id = newOrdonnance.id,
+                    ecart = (float?)ecartText.Value,
+                    hauteur = (float?)hauteurText.Value,
                 };
                 db.visites.Add(newVisite);
                 db.SaveChanges();
@@ -89,8 +97,6 @@ namespace MenuWithSubMenu.Pages
                     sph = (float?)og_sph_loin.Value,
                     gauche = true,
                     loin = true,
-                    ecart = (float?)ecartLoinText.Value,
-                    hauteur = (float?)hauteurLoinText.Value,
                     visite_id = newVisite.id
                 };
 
@@ -107,8 +113,6 @@ namespace MenuWithSubMenu.Pages
                     sph = (float?)od_sph_loin.Value,
                     gauche = false,
                     loin = true,
-                    ecart = (float?)ecartLoinText.Value,
-                    hauteur = (float?)hauteurLoinText.Value,
                     visite_id = newVisite.id
 
                 };
@@ -126,8 +130,6 @@ namespace MenuWithSubMenu.Pages
                     sph = (float?)od_sph_pres.Value,
                     gauche = false,
                     loin = false,
-                    ecart = (float?)ecartPresText.Value,
-                    hauteur = (float?)hauteurPresText.Value,
                     visite_id = newVisite.id
 
                 };
@@ -145,8 +147,6 @@ namespace MenuWithSubMenu.Pages
                     sph = (float?)og_sph_pres.Value,
                     gauche = true,
                     loin = false,
-                    ecart = (float?)ecartPresText.Value,
-                    hauteur = (float?)hauteurPresText.Value,
                     visite_id = newVisite.id
 
                 };
@@ -159,7 +159,7 @@ namespace MenuWithSubMenu.Pages
             catch (Exception exc)
             {
                 Console.Write(exc.Message);
-                HandyControl.Controls.MessageBox.Show(exc.Message);
+                HandyControl.Controls.MessageBox.Show("Erreur");
                 transaction.Rollback();
             }
         }
@@ -186,6 +186,22 @@ namespace MenuWithSubMenu.Pages
                 photoOrdonnance.Source = new BitmapImage(new Uri(open.FileName));
                 currentPhoto = open;
             }
+        }
+
+        //validation
+        private Boolean validateForm()
+        {
+            if (raisonVisite.Text.Length != 0 &&
+                ophtalmologueText.SelectedIndex != -1 &&
+                photoOrdonnance.Source != null &&
+                dateCreationOrdonnance.SelectedDate != null &&
+                dateExpirationOrdonnance.SelectedDate != null &&
+                visionLoins.Text.Length != 0 &&
+                visionPres.Text.Length != 0 &&
+                notesOphtalmologue.Text.Length != 0
+                )
+                return true;
+            return false;
         }
     }
 }
