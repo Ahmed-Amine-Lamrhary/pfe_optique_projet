@@ -54,7 +54,7 @@
 
     <StackPanel Background="#e8ebee">
         <StackPanel HorizontalAlignment="Center" Margin="0 30 0 30">
-            <Image Width="80" 
+            <Image Width="100" 
                        Source="../Assets/images/logo.png"
                        RenderOptions.BitmapScalingMode="HighQuality"
                        />

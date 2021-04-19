@@ -241,7 +241,7 @@ namespace MenuWithSubMenu.PagesStock
                             Adresse_Commande = ligne.Adresse_Commande,
                             Qte_Commande = ligne.Qte_Commande,
                             Prix_Total = (float?)ligne.Prix_Total,
-                            EtatCmd = ligne.EtatCmd,
+                            EtatCmd = "Non Livrée",
                             idVerre = ligne.idVerre,
                             idVisite = ligne.idVisite,
                             idLigneEntree = ligne.idLigne
@@ -255,6 +255,8 @@ namespace MenuWithSubMenu.PagesStock
 
                 transaction.Commit();
                 HandyControl.Controls.MessageBox.Show("Commandes sont bien passées au fournisseur");
+
+                getCmdClients(0);
             }
             catch (Exception ex)
             {
@@ -327,7 +329,8 @@ namespace MenuWithSubMenu.PagesStock
                 transaction.Commit();
 
                 groupInfo.Visibility = Visibility.Collapsed;
-                getCmdClients(0);
+
+                MyContext.navigateTo(new CmdsClients());
             }
             catch (Exception)
             {

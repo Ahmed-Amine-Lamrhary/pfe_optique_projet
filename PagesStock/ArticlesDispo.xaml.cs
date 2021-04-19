@@ -49,7 +49,7 @@ namespace MenuWithSubMenu.PagesStock
             getArticles(0);
         }
 
-        private async Task getArticles(int skip)
+        private async void getArticles(int skip)
         {
             loadingBox.Visibility = Visibility.Visible;
             infoBox.Visibility = Visibility.Collapsed;
@@ -58,9 +58,9 @@ namespace MenuWithSubMenu.PagesStock
             try
             {
                 if (searchBar.Text != "")
-                    listArticle = await Task.Run(() => db.articles.Where(c => c.idArticle.Contains(searchBar.Text)).ToList());
+                    listArticle = await db.articles.Where(c => c.idArticle.Contains(searchBar.Text)).ToListAsync();
                 else
-                    listArticle = await Task.Run(() => db.articles.ToList());
+                    listArticle = await db.articles.ToListAsync();
 
                 if (listArticle.Count() == 0)
                 {

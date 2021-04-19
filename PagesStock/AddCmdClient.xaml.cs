@@ -463,6 +463,8 @@ namespace MenuWithSubMenu.PagesStock
                 {
                     loadingBox.Visibility = Visibility.Collapsed;
                 }
+
+                MyContext.navigateTo(new CmdsClients());
             }
             catch (Exception)
             {

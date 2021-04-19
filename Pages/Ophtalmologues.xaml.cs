@@ -50,7 +50,7 @@ namespace MenuWithSubMenu.Pages
             getOphtalmologues(0);
         }
 
-        private async Task getOphtalmologues(int skip)
+        private async void getOphtalmologues(int skip)
         {
             loadingBox.Visibility = Visibility.Visible;
             infoBox.Visibility = Visibility.Collapsed;
@@ -59,13 +59,9 @@ namespace MenuWithSubMenu.Pages
             try
             {
                 if (searchBar.Text != "")
-                {
-                    listOphta = await Task.Run(() => db.ophtalmologues.Where(c => c.nom.Contains(searchBar.Text) || c.prenom.Contains(searchBar.Text) || c.email.Contains(searchBar.Text)).ToList());
-                }
+                    listOphta = await db.ophtalmologues.Where(c => c.nom.Contains(searchBar.Text) || c.prenom.Contains(searchBar.Text) || c.email.Contains(searchBar.Text)).ToListAsync();
                 else
-                {
-                    listOphta = await Task.Run(() => db.ophtalmologues.ToList());
-                }
+                    listOphta = await db.ophtalmologues.ToListAsync();
 
                 if (listOphta.Count() == 0)
                 {

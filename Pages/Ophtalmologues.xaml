@@ -45,20 +45,19 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
-                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="0" Orientation="Horizontal">
                         <Button BorderThickness="0" Cursor="Hand" Click="ReturnBtn_Click" Name="returnBtn" HorizontalAlignment="Left">
                             <iconPacks:PackIconRemixIcon Kind="ArrowLeftSLine" Width="14" Height="14" />
                         </Button>
-                        <hc:SearchBar Margin="10 0 0 0" Width="200" TextChanged="SearchBar_TextChanged" Name="searchBar" hc:InfoElement.Placeholder="Rechercher..."/>
+                        <hc:SearchBar Margin="10 0 0 0" Width="250" TextChanged="SearchBar_TextChanged" Name="searchBar" hc:InfoElement.Placeholder="Rechercher..."/>
+                        <Button Visibility="Collapsed" Margin="5 0 0 0" Cursor="Hand" BorderThickness="0" Background="Transparent" HorizontalAlignment="Left" Grid.Column="1" Name="cancelFocus" Click="CancelFocus_Click">
+                            <iconPacks:PackIconRemixIcon Kind="CloseLine" Style="{StaticResource SearchButtonIcon}" />
+                        </Button>
                     </StackPanel>
                     
-                    <Button Margin="5 0 0 0" Cursor="Hand" BorderThickness="0" Background="Transparent" HorizontalAlignment="Left" Grid.Column="1" Name="cancelFocus" Click="CancelFocus_Click" Visibility="Collapsed">
-                        <iconPacks:PackIconRemixIcon Kind="CloseLine" Style="{StaticResource SearchButtonIcon}" />
-                    </Button>
-                    <Button HorizontalAlignment="Right" Grid.Column="2" Background="#55a8fd" Foreground="White" Height="35" Padding="15 0 15 0" Cursor="Hand" BorderThickness="0" Content="Nouveau ophtalmogiste" Click="addOphtalmologue" />
+                    <Button HorizontalAlignment="Right" Grid.Column="1" Background="#55a8fd" Foreground="White" Height="35" Padding="15 0 15 0" Cursor="Hand" BorderThickness="0" Content="Nouveau ophtalmogiste" Click="addOphtalmologue" />
                 </Grid>
             </Border>
 

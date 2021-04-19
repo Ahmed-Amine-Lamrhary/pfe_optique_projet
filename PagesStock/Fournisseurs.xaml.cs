@@ -51,7 +51,7 @@ namespace MenuWithSubMenu.PagesStock
             getFournisseurs(0);
         }
 
-        private async Task getFournisseurs(int skip)
+        private async void getFournisseurs(int skip)
         {
             loadingBox.Visibility = Visibility.Visible;
             infoBox.Visibility = Visibility.Collapsed;
@@ -60,13 +60,9 @@ namespace MenuWithSubMenu.PagesStock
             try
             {
                 if (searchBar.Text != "")
-                {
-                    listFournisseurs = await Task.Run(() => db.fournisseurs.Where(c => c.Nom.Contains(searchBar.Text) || c.Email.Contains(searchBar.Text)).ToList());
-                }
+                    listFournisseurs = await db.fournisseurs.Where(c => c.Nom.Contains(searchBar.Text) || c.Email.Contains(searchBar.Text)).ToListAsync();
                 else
-                {
-                    listFournisseurs = await Task.Run(() => db.fournisseurs.ToList());
-                }
+                    listFournisseurs = await db.fournisseurs.ToListAsync();
 
                 if (listFournisseurs.Count() == 0)
                 {

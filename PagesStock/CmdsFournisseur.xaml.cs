@@ -431,9 +431,9 @@ namespace MenuWithSubMenu.PagesStock
                 }
 
                 PdfPCell invoiceInfo = new PdfPCell() { Border = Rectangle.NO_BORDER };
-                invoiceInfo.AddElement(new Paragraph("Reçu", FontFactory.GetFont("Poppins", 17, Font.BOLD)));
+                invoiceInfo.AddElement(new Paragraph("Bon de commande", FontFactory.GetFont("Poppins", 17, Font.BOLD)));
                 invoiceInfo.AddElement(new Paragraph("Date " + commande.DateEntree, FontFactory.GetFont("Poppins", 9)));
-                invoiceInfo.AddElement(new Paragraph("reçu # " + commande.idCmdFournisseur, FontFactory.GetFont("Poppins", 9)));
+                invoiceInfo.AddElement(new Paragraph("BDC # " + commande.idCmdFournisseur, FontFactory.GetFont("Poppins", 9)));
                 headerTable.AddCell(invoiceInfo);
 
                 // fournisseur info
@@ -608,6 +608,9 @@ namespace MenuWithSubMenu.PagesStock
                     document.Add(verresHeading);
                     document.Add(verresTable);
                 }
+
+                // Signature
+                document.Add(new Paragraph("Signature:", FontFactory.GetFont("Poppins", 12)));
 
                 document.Close();
 

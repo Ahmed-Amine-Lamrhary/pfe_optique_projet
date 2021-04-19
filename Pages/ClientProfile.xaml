@@ -152,7 +152,7 @@
                             <!-- Medicaments -->
                             <StackPanel Margin="0 15 0 0" Name="panelMeds">
                                 <TextBlock Style="{StaticResource TitleStyle}" Text="Medicaments" />
-                                <ListBox Name="meds" Style="{DynamicResource ListBoxCustom}">
+                                <ListBox Name="meds" Style="{DynamicResource ListBoxBaseStyle}">
 
                                 </ListBox>
                             </StackPanel>
@@ -160,7 +160,7 @@
                             <!-- Maladies -->
                             <StackPanel Margin="0 15 0 0" Name="panelMaladies">
                                 <TextBlock Style="{StaticResource TitleStyle}" Text="Maladies" />
-                                <ListBox Name="maladies"  Style="{DynamicResource ListBoxCustom}">
+                                <ListBox Name="maladies" Style="{DynamicResource ListBoxBaseStyle}">
 
                                 </ListBox>
                             </StackPanel>

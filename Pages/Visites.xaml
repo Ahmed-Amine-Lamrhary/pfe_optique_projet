@@ -144,9 +144,9 @@
                         </DataTemplate>
                     </DataGrid.RowHeaderTemplate>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="1*" Binding="{Binding id}"/>
+                        <DataGridTextColumn Visibility="Hidden" Width="1*" Binding="{Binding id}"/>
                         <DataGridTextColumn Header="CIN de client" Width="1*" Binding="{Binding client_cin}"/>
-                        <DataGridTextColumn Header="Date de visite" Width="1*" Binding="{Binding date}"/>
+                        <DataGridTextColumn Header="Date de visite" Width="1*" Binding="{Binding date, Mode=TwoWay, StringFormat={}{0:dddd dd-MM-yyyy}, ConverterCulture=fr}"/>
 
                         <DataGridTemplateColumn>
                             <DataGridTemplateColumn.CellTemplate>

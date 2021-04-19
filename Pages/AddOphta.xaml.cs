@@ -48,6 +48,9 @@ namespace MenuWithSubMenu.Pages
                     inpe = inpeText.Text
                 });
                 db.SaveChanges();
+
+                HandyControl.Controls.MessageBox.Show("L'ophtalmologiste a été ajouté");
+                MyContext.navigateTo(new Ophtalmologues());
             }
             catch (Exception exc)
             {

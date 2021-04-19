@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MenuWithSubMenu" xmlns:customcontrol="clr-namespace:MenuWithSubMenu.CustomControl"
         WindowState="Maximized"
         mc:Ignorable="d"
-        Title="Optica"
+        Title="Opticcs"
         Background="#f7f7f7"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         >

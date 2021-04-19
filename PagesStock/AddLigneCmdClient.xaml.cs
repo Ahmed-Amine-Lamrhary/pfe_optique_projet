@@ -3,8 +3,10 @@ using MenuWithSubMenu.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -36,13 +38,13 @@ namespace MenuWithSubMenu.PagesStock
         public string client_cin;
 
         // execute in both consturctors
-        private void getVisions(visite visite)
+        private async Task getVisions()
         {
-            visions = db.visions.Where(v => v.visite_id == visite.id).ToList();
-
             // hauteur et ecart
-            ecartText.Value = (double)visite.ecart;
-            hauteurText.Value = (double)visite.hauteur;
+            ecartText.Value = (double)selectedVisite.ecart;
+            hauteurText.Value = (double)selectedVisite.hauteur;
+
+            visions = await Task.Run(() => db.visions.Where(v => v.visite_id == selectedVisite.id).ToList());
 
             // show visions
             foreach (vision v in visions)
@@ -152,6 +154,8 @@ namespace MenuWithSubMenu.PagesStock
                     allTraitBox.Visibility = Visibility.Collapsed;
                 else
                 {
+                    traitementsCheckbox.IsChecked = true;
+
                     foreach (ligne_traitement_verre l in traiVerres)
                     {
                         traitement traitement = db.traitements.Where(t => t.idTraitement == l.traitement_idTraitement).SingleOrDefault();
@@ -168,7 +172,7 @@ namespace MenuWithSubMenu.PagesStock
                 addTraitBox.Visibility = Visibility.Collapsed;
 
                 // set visions
-                getVisions(visite);
+                getVisions();
             } else
             {
                 article article = db.articles.Where(a => a.idArticle == ligne.idArticle).SingleOrDefault();
@@ -230,7 +234,7 @@ namespace MenuWithSubMenu.PagesStock
 
             fillComboBox();
 
-            getVisions(lastClientVisite);
+            getVisions();
         }
 
         public void selectItem(object sender, SelectionChangedEventArgs e)
@@ -545,7 +549,8 @@ namespace MenuWithSubMenu.PagesStock
         {
             visite visite = db.visites.Where(v => v.id == (int)visiteList.SelectedValue).SingleOrDefault();
             selectedVisite = visite;
-            getVisions(visite);
+
+            getVisions();
         }
     }
 }

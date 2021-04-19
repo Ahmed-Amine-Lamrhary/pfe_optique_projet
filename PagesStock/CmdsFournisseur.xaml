@@ -148,7 +148,7 @@
                     </DataGrid.RowHeaderTemplate>
                     <DataGrid.Columns>
                         <DataGridTextColumn Visibility="Collapsed" Width="1*" Binding="{Binding idCmdFournisseur}"/>
-                        <DataGridTextColumn Header="Date de commande" Width="1*" Binding="{Binding DateEntree}"/>
+                        <DataGridTextColumn Header="Date de commande" Width="1*" Binding="{Binding DateEntree, Mode=TwoWay, StringFormat={}{0:dddd dd-MM-yyyy}, ConverterCulture=fr}"/>
                         <DataGridTextColumn Header="Etat" Width="1*" Binding="{Binding etatCmd}"/>
 
                         <DataGridTemplateColumn>

@@ -57,7 +57,8 @@ namespace MenuWithSubMenu.PagesStock
 
                 db.SaveChanges();
 
-                MyContext.navigateTo(pagePrev);
+                HandyControl.Controls.MessageBox.Show("Les informations ont été enregistré");
+                MyContext.navigateTo(new Fournisseurs());
             }
             catch (Exception exc)
             {

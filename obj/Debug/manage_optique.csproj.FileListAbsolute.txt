@@ -359,3 +359,7 @@ G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\itextsharp.dll
 G:\Studies\S4\PFE\pfe_optique_projet\bin\Debug\itextsharp.xml
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\PagesSettings\Parametres.g.cs
 G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\PagesSettings\Parametres.baml
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Authentication.g.cs
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Authentication.baml
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Configuration.g.cs
+G:\Studies\S4\PFE\pfe_optique_projet\obj\Debug\Configuration.baml

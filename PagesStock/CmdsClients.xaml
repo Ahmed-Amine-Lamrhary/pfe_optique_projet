@@ -156,7 +156,7 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Visibility="Collapsed" Width="1*" Binding="{Binding idCmdClient}"/>
                         <DataGridTextColumn Header="CIN de client" Width="1*" Binding="{Binding client_cin}"/>
-                        <DataGridTextColumn Header="Date de commande" Width="1*" Binding="{Binding DateCmd}"/>
+                        <DataGridTextColumn Header="Date de commande" Width="1*" Binding="{Binding DateCmd, Mode=TwoWay, StringFormat={}{0:dddd dd-MM-yyyy}, ConverterCulture=fr}"/>
                         <DataGridTextColumn Header="Etat" Width="1*" Binding="{Binding etatCmd}"/>
 
                         <DataGridTemplateColumn>

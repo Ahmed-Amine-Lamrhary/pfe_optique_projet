@@ -9,11 +9,11 @@
           <Key>
             <PropertyRef Name="idArticle" />
           </Key>
-          <Property Name="idArticle" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="idArticle" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="idCategorie" Type="int" Nullable="false" />
           <Property Name="QteDisponible" Type="int" Nullable="false" />
           <Property Name="PrixUnitaire" Type="real" Nullable="false" />
-          <Property Name="Garantie" Type="nvarchar" MaxLength="9" />
+          <Property Name="Garantie" Type="nvarchar" MaxLength="255" />
           <Property Name="Description" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="cadre">
@@ -21,7 +21,7 @@
             <PropertyRef Name="idCadre" />
           </Key>
           <Property Name="idCadre" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="idArticle" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="idArticle" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="DiametreVerre" Type="real" Nullable="false" />
           <Property Name="Pont" Type="real" />
           <Property Name="LongeurBrache" Type="real" />
@@ -41,12 +41,12 @@
           <Key>
             <PropertyRef Name="cin" />
           </Key>
-          <Property Name="cin" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="prenom" Type="nvarchar" MaxLength="45" Nullable="false" />
-          <Property Name="nom" Type="nvarchar" MaxLength="45" Nullable="false" />
-          <Property Name="adresse" Type="nvarchar" MaxLength="45" />
-          <Property Name="email" Type="nvarchar" MaxLength="45" />
-          <Property Name="telephone" Type="nvarchar" MaxLength="45" />
+          <Property Name="cin" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="prenom" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="nom" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="adresse" Type="nvarchar" MaxLength="255" />
+          <Property Name="email" Type="nvarchar" MaxLength="255" />
+          <Property Name="telephone" Type="nvarchar" MaxLength="255" />
           <Property Name="dateNaissance" Type="date" Nullable="false" />
           <Property Name="medicaments" Type="nvarchar" MaxLength="255" />
           <Property Name="maladies" Type="nvarchar" MaxLength="255" />
@@ -57,7 +57,7 @@
           </Key>
           <Property Name="idCmdClient" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DateCmd" Type="date" Nullable="false" />
-          <Property Name="client_cin" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="client_cin" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="idCmdFournisseur" Type="int" />
           <Property Name="frais" Type="float" />
         </EntityType>
@@ -74,10 +74,10 @@
             <PropertyRef Name="idFournisseur" />
           </Key>
           <Property Name="idFournisseur" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nom" Type="nvarchar" MaxLength="45" Nullable="false" />
+          <Property Name="Nom" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="Adresse" Type="nvarchar" MaxLength="255" />
-          <Property Name="Email" Type="nvarchar" MaxLength="45" Nullable="false" />
-          <Property Name="Tel" Type="nvarchar" MaxLength="45" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Tel" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="lentille">
@@ -85,7 +85,7 @@
             <PropertyRef Name="idLentille" />
           </Key>
           <Property Name="idLentille" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="idArticle" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="idArticle" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="idLigneType" Type="int" Nullable="false" />
           <Property Name="Couleur" Type="nvarchar" MaxLength="45" />
           <Property Name="idtype_lentille" Type="int" Nullable="false" />
@@ -104,13 +104,13 @@
             <PropertyRef Name="idLigne" />
           </Key>
           <Property Name="idLigne" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="idArticle" Type="nvarchar" MaxLength="20" />
+          <Property Name="idArticle" Type="nvarchar" MaxLength="255" />
           <Property Name="idCmdFournisseur" Type="int" Nullable="false" />
           <Property Name="Date_Commande" Type="date" Nullable="false" />
-          <Property Name="Adresse_Commande" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Adresse_Commande" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="Qte_Commande" Type="int" Nullable="false" />
           <Property Name="Prix_Total" Type="real" />
-          <Property Name="EtatCmd" Type="nvarchar" MaxLength="45" />
+          <Property Name="EtatCmd" Type="nvarchar" MaxLength="255" />
           <Property Name="idVisite" Type="int" />
           <Property Name="idCmdClient" Type="int" />
           <Property Name="idVerre" Type="int" />
@@ -121,13 +121,13 @@
             <PropertyRef Name="idLigne" />
           </Key>
           <Property Name="idLigne" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="idArticle" Type="nvarchar" MaxLength="20" />
+          <Property Name="idArticle" Type="nvarchar" MaxLength="255" />
           <Property Name="idCmdClient" Type="int" Nullable="false" />
           <Property Name="Date_Commande" Type="date" Nullable="false" />
-          <Property Name="Adresse_Commande" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Adresse_Commande" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="Qte_Commande" Type="int" Nullable="false" />
           <Property Name="Prix_Total" Type="real" />
-          <Property Name="EtatCmd" Type="nvarchar" MaxLength="45" />
+          <Property Name="EtatCmd" Type="nvarchar" MaxLength="255" />
           <Property Name="idVerre" Type="int" />
           <Property Name="idVisite" Type="int" />
         </EntityType>
@@ -136,12 +136,12 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="nom" Type="nvarchar" MaxLength="45" Nullable="false" />
-          <Property Name="prenom" Type="nvarchar" MaxLength="45" Nullable="false" />
-          <Property Name="adresse" Type="nvarchar" MaxLength="45" Nullable="false" />
-          <Property Name="telephone" Type="nvarchar" MaxLength="45" Nullable="false" />
-          <Property Name="inpe" Type="nvarchar" MaxLength="9" Nullable="false" />
-          <Property Name="email" Type="nvarchar" MaxLength="45" Nullable="false" />
+          <Property Name="nom" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="prenom" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="adresse" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="telephone" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="inpe" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="ordonnance">
           <Key>
@@ -159,17 +159,17 @@
             <PropertyRef Name="id_reference" />
           </Key>
           <Property Name="id_reference" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="id_article" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="id_article" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="settings">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="nom" Type="nchar" MaxLength="50" />
-          <Property Name="adresse" Type="nchar" MaxLength="50" />
-          <Property Name="email" Type="nchar" MaxLength="20" />
-          <Property Name="telephone" Type="nchar" MaxLength="10" />
-          <Property Name="password" Type="nchar" MaxLength="50" />
+          <Property Name="nom" Type="nchar" MaxLength="255" />
+          <Property Name="adresse" Type="nchar" MaxLength="255" />
+          <Property Name="email" Type="nchar" MaxLength="255" />
+          <Property Name="telephone" Type="nchar" MaxLength="255" />
+          <Property Name="password" Type="nchar" MaxLength="255" />
           <Property Name="id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="traitement">
@@ -177,17 +177,17 @@
             <PropertyRef Name="idTraitement" />
           </Key>
           <Property Name="idTraitement" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nom" Type="nvarchar" MaxLength="45" />
+          <Property Name="Nom" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="verre">
           <Key>
             <PropertyRef Name="idVerre" />
           </Key>
           <Property Name="idVerre" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Teinte" Type="nvarchar" MaxLength="45" />
+          <Property Name="Teinte" Type="nvarchar" MaxLength="255" />
           <Property Name="indice" Type="float" />
-          <Property Name="matiere" Type="nvarchar" MaxLength="50" />
-          <Property Name="geometrie" Type="nvarchar" MaxLength="50" />
+          <Property Name="matiere" Type="nvarchar" MaxLength="255" />
+          <Property Name="geometrie" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="vision">
           <Key>
@@ -220,8 +220,8 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="date" Type="date" Nullable="false" />
-          <Property Name="raison" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="client_cin" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="raison" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="client_cin" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="ordonnance_id" Type="int" Nullable="false" />
           <Property Name="idVerre" Type="int" />
           <Property Name="ecart" Type="real" />
@@ -636,11 +636,11 @@
           <Key>
             <PropertyRef Name="idArticle" />
           </Key>
-          <Property Name="idArticle" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="idArticle" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="idCategorie" Type="Int32" Nullable="false" />
           <Property Name="QteDisponible" Type="Int32" Nullable="false" />
           <Property Name="PrixUnitaire" Type="Single" Nullable="false" />
-          <Property Name="Garantie" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="Garantie" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="categorie" Relationship="Self.article_fk_Article_Categorie1" FromRole="article" ToRole="categorie" />
           <NavigationProperty Name="cadres" Relationship="Self.cadre_fk_Cadre_Article1" FromRole="article" ToRole="cadre" />
@@ -654,7 +654,7 @@
             <PropertyRef Name="idCadre" />
           </Key>
           <Property Name="idCadre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idArticle" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="idArticle" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DiametreVerre" Type="Single" Nullable="false" />
           <Property Name="Pont" Type="Single" />
           <Property Name="LongeurBrache" Type="Single" />
@@ -676,12 +676,12 @@
           <Key>
             <PropertyRef Name="cin" />
           </Key>
-          <Property Name="cin" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="prenom" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="nom" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="adresse" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="email" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="telephone" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="cin" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="prenom" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="nom" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="adresse" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="telephone" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="dateNaissance" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="medicaments" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="maladies" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
@@ -694,7 +694,7 @@
           </Key>
           <Property Name="idCmdClient" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DateCmd" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="client_cin" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="client_cin" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="idCmdFournisseur" Type="Int32" />
           <Property Name="frais" Type="Double" />
           <NavigationProperty Name="client" Relationship="Self.cmdclient_fk_cmdclient_client1" FromRole="cmdclient" ToRole="client" />
@@ -715,10 +715,10 @@
             <PropertyRef Name="idFournisseur" />
           </Key>
           <Property Name="idFournisseur" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nom" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nom" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Adresse" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Tel" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Tel" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="cmdfournisseurs" Relationship="Self.cmdfournisseur_fk_CmdFournisseur_Fournisseur" FromRole="fournisseur" ToRole="cmdfournisseur" />
         </EntityType>
@@ -727,7 +727,7 @@
             <PropertyRef Name="idLentille" />
           </Key>
           <Property Name="idLentille" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idArticle" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="idArticle" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="idLigneType" Type="Int32" Nullable="false" />
           <Property Name="Couleur" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
           <Property Name="idtype_lentille" Type="Int32" Nullable="false" />
@@ -750,13 +750,13 @@
             <PropertyRef Name="idLigne" />
           </Key>
           <Property Name="idLigne" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idArticle" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="idArticle" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="idCmdFournisseur" Type="Int32" Nullable="false" />
           <Property Name="Date_Commande" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Adresse_Commande" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Adresse_Commande" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Qte_Commande" Type="Int32" Nullable="false" />
           <Property Name="Prix_Total" Type="Single" />
-          <Property Name="EtatCmd" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="EtatCmd" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="idVisite" Type="Int32" />
           <Property Name="idCmdClient" Type="Int32" />
           <Property Name="idVerre" Type="Int32" />
@@ -770,13 +770,13 @@
             <PropertyRef Name="idLigne" />
           </Key>
           <Property Name="idLigne" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idArticle" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="idArticle" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="idCmdClient" Type="Int32" Nullable="false" />
           <Property Name="Date_Commande" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Adresse_Commande" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Adresse_Commande" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Qte_Commande" Type="Int32" Nullable="false" />
           <Property Name="Prix_Total" Type="Single" />
-          <Property Name="EtatCmd" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="EtatCmd" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="idVerre" Type="Int32" />
           <Property Name="idVisite" Type="Int32" />
           <NavigationProperty Name="article" Relationship="Self.ligneentree_fk_LigneEntree_Article1" FromRole="ligneentree" ToRole="article" />
@@ -788,12 +788,12 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nom" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="prenom" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="adresse" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="telephone" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="inpe" Type="String" MaxLength="9" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="email" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="nom" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="prenom" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="adresse" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="telephone" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="inpe" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="ordonnances" Relationship="Self.ordonnance_fk_ordonnance_ophtalmologue1" FromRole="ophtalmologue" ToRole="ordonnance" />
         </EntityType>
         <EntityType Name="ordonnance">
@@ -814,18 +814,18 @@
             <PropertyRef Name="id_reference" />
           </Key>
           <Property Name="id_reference" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_article" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="id_article" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="article" Relationship="Self.FK_reference_article" FromRole="reference" ToRole="article" />
         </EntityType>
         <EntityType Name="setting">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="nom" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="adresse" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="email" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
-          <Property Name="telephone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="password" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="nom" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+          <Property Name="adresse" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+          <Property Name="telephone" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
           <Property Name="id" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="traitement">
@@ -833,7 +833,7 @@
             <PropertyRef Name="idTraitement" />
           </Key>
           <Property Name="idTraitement" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nom" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="Nom" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ligne_traitement_verre" Relationship="Self.ligne_traitement_verre_fk_ligne_traitement_verre_traitement1" FromRole="traitement" ToRole="ligne_traitement_verre" />
         </EntityType>
         <EntityType Name="verre">
@@ -841,10 +841,10 @@
             <PropertyRef Name="idVerre" />
           </Key>
           <Property Name="idVerre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Teinte" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="Teinte" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="indice" Type="Double" />
-          <Property Name="matiere" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="geometrie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="matiere" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="geometrie" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ligne_traitement_verre" Relationship="Self.ligne_traitement_verre_fk_ligne_traitement_verre_verre1" FromRole="verre" ToRole="ligne_traitement_verre" />
           <NavigationProperty Name="ligneentrees" Relationship="Self.FK_ligneentree_verre" FromRole="verre" ToRole="ligneentree" />
           <NavigationProperty Name="visites" Relationship="Self.FK_visite_verre" FromRole="verre" ToRole="visite" />
@@ -883,8 +883,8 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="raison" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="client_cin" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="raison" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="client_cin" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ordonnance_id" Type="Int32" Nullable="false" />
           <Property Name="idVerre" Type="Int32" />
           <Property Name="ecart" Type="Single" />

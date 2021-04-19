@@ -111,7 +111,7 @@
                 </DataGrid.RowHeaderTemplate>
                 <DataGrid.Columns>
                     <DataGridTextColumn Visibility="Collapsed" Width="1*" Binding="{Binding idLigne}"/>
-                    <DataGridTextColumn Header="Date" Width="1*" Binding="{Binding Date_Commande}"/>
+                    <DataGridTextColumn Header="Date" Width="1*" Binding="{Binding Date_Commande, Mode=TwoWay, StringFormat={}{0:dddd dd-MM-yyyy}, ConverterCulture=fr}"/>
                     <DataGridTextColumn Header="Quantité" Width="1*" Binding="{Binding Qte_Commande}"/>
                     <DataGridTextColumn Header="Prix total" Width="1*" Binding="{Binding Prix_Total}"/>
                     <DataGridTextColumn Header="Etat" Width="1*" Binding="{Binding EtatCmd}"/>

@@ -2,6 +2,7 @@
 using MenuWithSubMenu.Utils;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,14 +18,25 @@ using System.Windows.Shapes;
 
 namespace MenuWithSubMenu.PagesSettings
 {
-    /// <summary>
-    /// Interaction logic for Parametres.xaml
-    /// </summary>
     public partial class Parametres : Page
     {
         Page prevPage;
         dbEntities db;
         setting settings;
+
+        private async void getSettings()
+        {
+            settings = await db.settings.FirstOrDefaultAsync();
+
+            if (settings != null)
+            {
+                nomText.Text = settings.nom.Trim();
+                emailText.Text = settings.email.Trim();
+                telText.Text = settings.telephone.Trim();
+                adresseText.Text = settings.adresse.Trim();
+                passwordText.Password = settings.password.Trim();
+            }
+        }
 
         public Parametres()
         {
@@ -32,14 +44,7 @@ namespace MenuWithSubMenu.PagesSettings
             db = new dbEntities();
             returnBtn.Visibility = Visibility.Collapsed;
 
-            settings = db.settings.FirstOrDefault();
-            if (settings != null)
-            {
-                nomText.Text = settings.nom;
-                emailText.Text = settings.email;
-                telText.Text = settings.telephone;
-                adresseText.Text = settings.adresse;
-            }
+            getSettings();
         }
 
         public Parametres(Page prevP)
@@ -48,14 +53,7 @@ namespace MenuWithSubMenu.PagesSettings
             prevPage = prevP;
             db = new dbEntities();
 
-            settings = db.settings.FirstOrDefault();
-            if (settings != null)
-            {
-                nomText.Text = settings.nom;
-                emailText.Text = settings.email;
-                telText.Text = settings.telephone;
-                adresseText.Text = settings.adresse;
-            }
+            getSettings();
         }
 
         private void saveSettings(object sender, RoutedEventArgs e)
@@ -73,17 +71,19 @@ namespace MenuWithSubMenu.PagesSettings
                     db.settings.Add(new setting()
                     {
                         id = 1,
-                        nom = nomText.Text,
-                        email = emailText.Text,
-                        telephone = telText.Text,
-                        adresse = adresseText.Text
+                        nom = nomText.Text.Trim(),
+                        email = emailText.Text.Trim(),
+                        telephone = telText.Text.Trim(),
+                        adresse = adresseText.Text.Trim(),
+                        password = passwordText.Password.Trim()
                     });
                 } else
                 {
-                    settings.nom = nomText.Text;
-                    settings.email = emailText.Text;
-                    settings.telephone = telText.Text;
-                    settings.adresse = adresseText.Text;
+                    settings.nom = nomText.Text.Trim();
+                    settings.email = emailText.Text.Trim();
+                    settings.telephone = telText.Text.Trim();
+                    settings.adresse = adresseText.Text.Trim();
+                    settings.password = passwordText.Password.Trim();
                 }
 
                 db.SaveChanges();
@@ -99,7 +99,8 @@ namespace MenuWithSubMenu.PagesSettings
             if (nomText.Text.Length != 0 &&
                 emailText.Text.Length != 0 &&
                 adresseText.Text.Length != 0 &&
-                telText.Text.Length != 0
+                telText.Text.Length != 0 &&
+                passwordText.Password.Length != 0
                 )
                 return true;
             return false;

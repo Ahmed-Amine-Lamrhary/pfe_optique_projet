@@ -47,7 +47,6 @@ namespace MenuWithSubMenu.Pages
 
         public EspaceClient(Page prevP)
         {
-
             InitializeComponent();
 
             prevPage = prevP;
@@ -56,11 +55,11 @@ namespace MenuWithSubMenu.Pages
             listClient = new List<client>();
             pagination.MaxPageCount = 0;
             searchBar.Text = "";
-            
+
             getClients(0);
         }
 
-        private async Task getClients(int skip)
+        private async void getClients(int skip)
         {
             loadingBox.Visibility = Visibility.Visible;
             clientsDataGrid.Visibility = Visibility.Collapsed;
@@ -69,13 +68,9 @@ namespace MenuWithSubMenu.Pages
             try
             {
                 if (searchBar.Text != "")
-                {
-                    listClient = await Task.Run(() => db.clients.Where(c => c.nom.Contains(searchBar.Text) || c.prenom.Contains(searchBar.Text) || c.cin.Contains(searchBar.Text) || c.email.Contains(searchBar.Text)).ToList());
-                }
+                    listClient = await db.clients.Where(c => c.nom.Contains(searchBar.Text) || c.prenom.Contains(searchBar.Text) || c.cin.Contains(searchBar.Text) || c.email.Contains(searchBar.Text)).ToListAsync();
                 else
-                {
-                    listClient = await Task.Run(() => db.clients.ToList());
-                }
+                    listClient = await db.clients.ToListAsync();
 
                 if (listClient.Count() == 0)
                 {

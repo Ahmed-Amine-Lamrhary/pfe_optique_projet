@@ -49,6 +49,9 @@ namespace MenuWithSubMenu.PagesStock
                     Description = descText.Text
                 });
                 db.SaveChanges();
+
+                HandyControl.Controls.MessageBox.Show("Le fournisseur a été ajouté");
+                MyContext.navigateTo(new Fournisseurs());
             }
             catch (Exception exc)
             {

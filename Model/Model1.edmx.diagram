@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b03a6be39bb94594b293ace13e64bd2c" Name="Diagram1">
+      <Diagram DiagramId="7715f73249d44facb1eecd65f7ea74cd" Name="Diagram1">
         <EntityTypeShape EntityType="optique_pfeModel.article" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="optique_pfeModel.cadre" Width="1.5" PointX="5.25" PointY="23.5" IsExpanded="true" />
         <EntityTypeShape EntityType="optique_pfeModel.categorie" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />

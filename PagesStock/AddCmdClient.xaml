@@ -8,9 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AddCmdClient"
       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-      xmlns:hc="https://handyorg.github.io/handycontrol"
-      
-      Background="White"
+      xmlns:hc="https://handyorg.github.io/handycontrol"      
       >
 
     <Page.Resources>
@@ -135,7 +133,7 @@
                 </DataGrid.RowHeaderTemplate>
                 <DataGrid.Columns>
                     <DataGridTextColumn Visibility="Collapsed" Width="1*" Binding="{Binding idLigne}"/>
-                    <DataGridTextColumn Header="Date" Width="1*" Binding="{Binding Date_Commande}"/>
+                    <DataGridTextColumn Header="Date" Width="1*" Binding="{Binding Date_Commande, Mode=TwoWay, StringFormat={}{0:dddd dd-MM-yyyy}, ConverterCulture=fr}"/>
                     <DataGridTextColumn Header="Quantité" Width="1*" Binding="{Binding Qte_Commande}"/>
                     <DataGridTextColumn Header="Prix total" Width="1*" Binding="{Binding Prix_Total}"/>
                     <DataGridTextColumn Header="Etat" Width="1*" Binding="{Binding EtatCmd}"/>

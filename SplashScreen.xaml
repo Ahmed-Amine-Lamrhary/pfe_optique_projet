@@ -11,7 +11,7 @@
         Background="#e8ebee"
         >
     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-        <Image Width="160" 
+        <Image Width="200" 
                        Source="Assets/images/logo.png"
                        RenderOptions.BitmapScalingMode="HighQuality"
                        />

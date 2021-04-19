@@ -63,7 +63,7 @@
                 <Button Content="Enregistrer" Click="saveSettings" Background="#55a8fd" Foreground="White" Height="35" Padding="15 0 15 0" Cursor="Hand" BorderThickness="0"/>
             </StackPanel>
 
-            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Nom" />
+            <TextBlock Style="{StaticResource LabelTextStyle}" Text="Nom du cabinet" />
             <hc:TextBox Name="nomText"/>
 
             <TextBlock Style="{StaticResource LabelTextStyle}" Text="Adresse" />
@@ -76,7 +76,7 @@
             <hc:TextBox Name="emailText" />
 
             <TextBlock Style="{StaticResource LabelTextStyle}" Text="Mot de passe" />
-            <hc:TextBox Name="passwordText" />
+            <hc:PasswordBox Name="passwordText" ShowEyeButton="True" />
         </StackPanel>
     </Grid>
 </Page>

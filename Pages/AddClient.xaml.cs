@@ -4,6 +4,7 @@ using MenuWithSubMenu.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
@@ -179,7 +180,8 @@ namespace MenuWithSubMenu.Pages
 
                 transaction.Commit();
 
-                MyContext.navigateTo(prevPage);
+                HandyControl.Controls.MessageBox.Show("Le client a été ajouté");
+                MyContext.navigateTo(new EspaceClient());
             }
             catch (Exception exc)
             {
@@ -319,7 +321,6 @@ namespace MenuWithSubMenu.Pages
                 raisonvisiteText.Text.Length != 0 &&
 
                 ophtalmologueText.SelectedIndex != -1 &&
-                photoOrdonnance.Source != null &&
                 dateCreationOrdonnance.SelectedDate != null &&
                 dateExpirationOrdonnance.SelectedDate != null &&
                 visionLoins.Text.Length != 0 &&

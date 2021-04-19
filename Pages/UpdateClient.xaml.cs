@@ -38,6 +38,7 @@ namespace MenuWithSubMenu.Pages
             adresseText.Text = c.adresse;
             telText.Text = c.telephone;
             emailText.Text = c.email;
+            dateText.Text = c.dateNaissance + "";
         }
 
 
@@ -72,6 +73,9 @@ namespace MenuWithSubMenu.Pages
                         (window as MainWindow).MainWindowFrame.Navigate(new Uri(string.Format("{0}", "Pages/EspaceClient.xaml"), UriKind.RelativeOrAbsolute));
                     }
                 }
+
+                HandyControl.Controls.MessageBox.Show("Les informations ont été enregistré");
+                MyContext.navigateTo(new EspaceClient());
 
             }
             catch (Exception exc)

@@ -70,6 +70,8 @@ namespace MenuWithSubMenu.Pages
                     }
                 }
 
+                HandyControl.Controls.MessageBox.Show("Les informations ont été enregistré");
+                MyContext.navigateTo(new Ophtalmologues());
             }
             catch (Exception exc)
             {
