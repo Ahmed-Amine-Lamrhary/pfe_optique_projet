@@ -321,6 +321,7 @@ namespace MenuWithSubMenu.Pages
                 raisonvisiteText.Text.Length != 0 &&
 
                 ophtalmologueText.SelectedIndex != -1 &&
+                photoOrdonnance.Source != null &&
                 dateCreationOrdonnance.SelectedDate != null &&
                 dateExpirationOrdonnance.SelectedDate != null &&
                 visionLoins.Text.Length != 0 &&

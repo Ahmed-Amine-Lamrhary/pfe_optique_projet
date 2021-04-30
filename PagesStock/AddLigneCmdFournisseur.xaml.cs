@@ -145,16 +145,20 @@ namespace MenuWithSubMenu.PagesStock
         // abort ligne
         public void deleteLigne(object sender, RoutedEventArgs e)
         {
-            this.lignecommande = new lignecommande()
+            if (qteText.Text.Length > 0 && prixText.Text.Length > 0)
             {
-                Date_Commande = DateTime.Now,
-                Qte_Commande = int.Parse(qteText.Text),
-                Prix_Total = float.Parse(prixText.Text),
-                EtatCmd = "Non Livrée",
-                addLigneCmdFournisseur = this
-            };
+                this.lignecommande = new lignecommande()
+                {
+                    Date_Commande = DateTime.Now,
+                    Qte_Commande = int.Parse(qteText.Text),
+                    Prix_Total = float.Parse(prixText.Text),
+                    EtatCmd = "Non Livrée",
+                    addLigneCmdFournisseur = this
+                };
 
-            addCmdPage.removeLigneFromList(this.lignecommande);
+                addCmdPage.removeLigneFromList(this.lignecommande);
+            }
+            
             MyContext.navigateTo(prevPage);
         }
 

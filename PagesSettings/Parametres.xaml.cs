@@ -87,6 +87,7 @@ namespace MenuWithSubMenu.PagesSettings
                 }
 
                 db.SaveChanges();
+                HandyControl.Controls.MessageBox.Show("Les paramètres sont changés");
             } catch (Exception)
             {
                 HandyControl.Controls.MessageBox.Show("Erreur");

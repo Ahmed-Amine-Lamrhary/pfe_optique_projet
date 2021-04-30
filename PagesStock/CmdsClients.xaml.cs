@@ -223,8 +223,11 @@ namespace MenuWithSubMenu.PagesStock
                     if (cmd.idCmdFournisseur == null)
                         i++;
                     else
+                    {
+                        MessageBox.Show("La commande #" + cmd.idCmdClient + " est déja passée à un fournisseur");
                         continue;
-
+                    }
+                    
                     cmd.idCmdFournisseur = cmdF.idCmdFournisseur;
                     db.SaveChanges();
 
@@ -256,6 +259,7 @@ namespace MenuWithSubMenu.PagesStock
                 transaction.Commit();
                 HandyControl.Controls.MessageBox.Show("Commandes sont bien passées au fournisseur");
 
+                groupInfo.Visibility = Visibility.Collapsed;
                 getCmdClients(0);
             }
             catch (Exception ex)

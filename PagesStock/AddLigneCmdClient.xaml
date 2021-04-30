@@ -117,14 +117,18 @@
                                 <TextBlock Style="{StaticResource LabelTextStyle}" Text="Garantie" />
                                 <hc:TextBox TextWrapping="Wrap" Name="garantieText" />
 
+                                <!-- 
                                 <TextBlock Style="{StaticResource LabelTextStyle}" Text="Marque" />
                                 <hc:TextBox TextWrapping="Wrap" Name="marqueText" />
+                                -->
 
                                 <TextBlock Style="{StaticResource LabelTextStyle}" Text="Description" />
                                 <hc:TextBox TextWrapping="Wrap" Name="descText" />
 
+                                <!-- 
                                 <TextBlock Style="{StaticResource LabelTextStyle}" Text="Modele" />
                                 <hc:TextBox TextWrapping="Wrap" Name="modelText"/>
+                                -->
                             </StackPanel>
                         </ContentControl>
                     </StackPanel>

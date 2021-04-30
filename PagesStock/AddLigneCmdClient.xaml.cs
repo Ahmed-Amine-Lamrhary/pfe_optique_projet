@@ -198,13 +198,13 @@ namespace MenuWithSubMenu.PagesStock
                 garantieText.Text = article.Garantie;
 
                 // set marque
-                marqueText.Text = "";
+                // marqueText.Text = "";
 
                 // set description
                 descText.Text = article.Description;
 
                 // set modele
-                modelText.Text = "";
+                // modelText.Text = "";
 
                 // set infos cadre
                 cadre cadre = db.cadres.Where(c => c.idArticle == article.idArticle).SingleOrDefault();
@@ -322,6 +322,8 @@ namespace MenuWithSubMenu.PagesStock
 
                 // géométries
                 geometrieVerresText.Items.Add("Verres progressives");
+                geometrieVerresText.Items.Add("Verres Bifocaux");
+                geometrieVerresText.Items.Add("Verres Uni focaux");
 
                 // teinte
                 teintText.Items.Add("Blanc");
@@ -416,16 +418,20 @@ namespace MenuWithSubMenu.PagesStock
         // abort ligne
         public void deleteLigne(object sender, RoutedEventArgs e)
         {
-            this.ligne = new ligneentree()
+            if (qteText.Text.Length > 0 && (prixText.Text.Length > 0 || verrePrix.Text.Length > 0))
             {
-                Date_Commande = DateTime.Now,
-                Qte_Commande = int.Parse(qteText.Text),
-                Prix_Total = (int)categorie.SelectedValue == 1 ? float.Parse(verrePrix.Text) : float.Parse(prixText.Text),
-                EtatCmd = "Non payée",
-                addLigneCmdClient = this
-            };
+                this.ligne = new ligneentree()
+                {
+                    Date_Commande = DateTime.Now,
+                    Qte_Commande = int.Parse(qteText.Text),
+                    Prix_Total = (int)categorie.SelectedValue == 1 ? float.Parse(verrePrix.Text) : float.Parse(prixText.Text),
+                    EtatCmd = "Non payée",
+                    addLigneCmdClient = this
+                };
 
-            addCmdPage.removeLigneFromList(this.ligne);
+                addCmdPage.removeLigneFromList(this.ligne);
+            }
+            
             MyContext.navigateTo(prevPage);
         }
 
